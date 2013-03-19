@@ -4,6 +4,26 @@
 
 Sichtbarkeit angeben!
 
+!!Kommentare!!
+
+Kommentare werden über /** "enter" angelegt.
+Dabei werden entsprechend des Rückgabewertes, den Attributen und der Exceptions einträge angelegt.
+
+Bsp:
+
+	/**
+	 * Hier Beschreibung für die Funktion
+	 * 
+	 * @param zahl Hier Beschreibung für die Parameter
+	 * @return Hier Beschreibung für den Rückgabewert
+	 * @throws NullPointerException Hier Beschreibung für die Exception
+	 */
+	public String test(int zahl) throws NullPointerException
+	{
+		return "";
+	}
+
+
 Klassen
  - Immer großer Anfangsbuchstabe
  
