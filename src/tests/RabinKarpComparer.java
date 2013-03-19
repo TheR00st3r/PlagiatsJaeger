@@ -11,27 +11,27 @@ public class RabinKarpComparer
 {
 	/* Konfiguration */
 	/*
-	 * Basis-Wert: 10 für Zahlensuche verwenden (Anzahl Buchstaben des
+	 * Basis-Wert: 10 fÃ¼r Zahlensuche verwenden (Anzahl Buchstaben des
 	 * Alphabets)
 	 */
 	int					base				= 257;
-	/* initialer Modulo-Wert für die Hash-Funktion */
+	/* initialer Modulo-Wert fÃ¼r die Hash-Funktion */
 	int					q					= 1024;
 	/*
-	 * ab wievielen false matches soll q neu gewählt werden? 0 = Zufallsmodus
+	 * ab wievielen false matches soll q neu gewÃ¤hlt werden? 0 = Zufallsmodus
 	 * ausschalten
 	 */
 	int					fmThreshold			= 1000;
 	/*
 	 * Unter- und Obergrenze von q festlegen, z. b. 2^10 - 2^31 2^31 ist bereits
-	 * das Maximum für einen int
+	 * das Maximum fÃ¼r einen int
 	 */
 	int					minQ				= 10;
 	int					maxQ				= 31;
 
-	/* Anzahl der Suchdurchläufe */
-	int					runs				= 10;
-	/* Modus bestimmen; true für Textsuche, false für Zahlensuche */
+	/* Anzahl der SuchdurchlÃ¤ufe */
+	//int					runs				= 1;
+	/* Modus bestimmen; true fÃ¼r Textsuche, false fÃ¼r Zahlensuche */
 	boolean				textSearch			= true;
 	/* Konfiguration-Ende */
 
@@ -51,7 +51,7 @@ public class RabinKarpComparer
 	long				completeTimeDiff	= 0;
 	int					minQResult			= 0;
 	int					qDiff				= 0;
-	/* generische Liste mit allen Zeiten für jeden einzelnen Durchlauf */
+	/* generische Liste mit allen Zeiten fÃ¼r jeden einzelnen Durchlauf */
 	LinkedList<Long>	times				= new LinkedList<Long>();
 	/*
 	 * wenn bitweise Modulo gerechnet werden soll muss q-1 nicht jedes Mal neu
@@ -63,6 +63,11 @@ public class RabinKarpComparer
 	public RabinKarpComparer()
 	{
 		// TODO Auto-generated constructor stub
+		
+		 /* Minimum fÏŒr q berechnen, pow ist relativ rechenzeitintensiv */  
+		  minQResult = (int) Math.pow(2, minQ);  
+		  qDiff = maxQ - minQ + 1;
+
 	}
 
 	/*-----------------------------------------------------------------------------
@@ -86,7 +91,7 @@ public class RabinKarpComparer
 		}
 		else
 		{
-			/* für den Zahlensuchmodus wird natürlich eine Basis von 10 benötigt */
+			/* fÃ¼r den Zahlensuchmodus wird natÃ¼rlich eine Basis von 10 benÃ¶tigt */
 
 			/* Verschiebe-Faktor berechnen */
 			shiftFactor = 1;
@@ -100,7 +105,7 @@ public class RabinKarpComparer
 	}
 
 	/*-----------------------------------------------------------------------------
-	 *  Diese Modulo-Variante arbeitet bitweise mit dem &-Operator und benötigt daher
+	 *  Diese Modulo-Variante arbeitet bitweise mit dem &-Operator und benÃ¶tigt daher
 	 *  als q eine Zweierpotenz
 	 *-----------------------------------------------------------------------------*/
 	int bitModulo(int x)
@@ -114,7 +119,7 @@ public class RabinKarpComparer
 	int hash(int oldHashValue, int startPos, int patternLength)
 	{
 		/*
-		 * wenn die gesamte Stringlänge kleiner als die des Musters ist, kann
+		 * wenn die gesamte StringlÃ¤nge kleiner als die des Musters ist, kann
 		 * das Muster nicht vorkommen
 		 */
 		if (completeString.length() < patternLength) return 0;
@@ -125,14 +130,14 @@ public class RabinKarpComparer
 		int intValue2;
 		if (textSearch)
 		{
-			/* das erste Zeichen von links bestimmen, das wegfällt */
+			/* das erste Zeichen von links bestimmen, das wegfÃ¤llt */
 			intValue = (int) completeString.charAt(startPos - 1);
 			/* das hinzukommende Zeichen von rechts bestimmen */
 			intValue2 = (int) completeString.charAt(startPos + patternLength - 1);
 		}
 		else
 		{
-			/* das erste Zeichen von links bestimmen, das wegfällt */
+			/* das erste Zeichen von links bestimmen, das wegfÃ¤llt */
 			intValue = Integer.parseInt(completeString.substring(startPos - 1, startPos));
 			/* das hinzukommende Zeichen von rechts bestimmen */
 			intValue2 = Integer.parseInt(completeString.substring(startPos + patternLength - 1, startPos + patternLength));
@@ -161,28 +166,28 @@ public class RabinKarpComparer
 		completeString.setLength(0);
 		// completeString = loadFile(loadPath);
 
-		searchString = "est112";
-		for (int i = 0; i < 10000; i++)
+		searchString = "est123456";
+		for (int i = 0; i < 10000000; i++)
 		{
 			completeString.append("HalloTest" + i);
 		}
-		/* nimm die Vorher-Zeit für Gesamtdurchlauf */
+		/* nimm die Vorher-Zeit fÃ¼r Gesamtdurchlauf */
 		completeTimeBefore = System.currentTimeMillis();
 
 		/* Algorithmus starten */
 		searchPosition = rabinKarp();
 
-		/* nimm die Danach-Zeit für Gesamtdurchlauf und bestimme Differenz */
+		/* nimm die Danach-Zeit fÃ¼r Gesamtdurchlauf und bestimme Differenz */
 		completeTimeAfter = System.currentTimeMillis();
 		completeTimeDiff = completeTimeAfter - completeTimeBefore;
 
-		/* berechne den Median = Durchschnitt der errechneten Durchläufe */
+		/* berechne den Median = Durchschnitt der errechneten DurchlÃ¤ufe */
 		long median = calcMedian();
 
-		/* Ausgabe für Gesamtdurchlauf formatieren */
-		timeString = String.format("Gesamtzeit: %02d min, %02d sec, %03d milliseconds, Median über %d-Durchläufe: %02d min, %02d sec, %03d milliseconds \n", TimeUnit.MILLISECONDS.toMinutes(completeTimeDiff), TimeUnit.MILLISECONDS.toSeconds(completeTimeDiff) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(completeTimeDiff)), completeTimeDiff % 1000, runs, TimeUnit.MILLISECONDS.toMinutes(median), TimeUnit.MILLISECONDS.toSeconds(median) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(median)), median % 1000);
+		/* Ausgabe fÃ¼r Gesamtdurchlauf formatieren */
+		//timeString = String.format("Gesamtzeit: %02d min, %02d sec, %03d milliseconds, Median Ã¼ber %d-DurchlÃ¤ufe: %02d min, %02d sec, %03d milliseconds \n", TimeUnit.MILLISECONDS.toMinutes(completeTimeDiff), TimeUnit.MILLISECONDS.toSeconds(completeTimeDiff) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(completeTimeDiff)), completeTimeDiff % 1000, runs, TimeUnit.MILLISECONDS.toMinutes(median), TimeUnit.MILLISECONDS.toSeconds(median) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(median)), median % 1000);
 
-		/* letztes Suchfenster für Anzeige festlegen */
+		/* letztes Suchfenster fÃ¼r Anzeige festlegen */
 		for (int i : searchPosition)
 		{
 			// int i = searchPosition;
@@ -214,7 +219,7 @@ public class RabinKarpComparer
 				 */
 				searchedString = completeString.substring(i);
 			}
-			/* Zeilenumbrüche entfernen */
+			/* ZeilenumbrÃ¼che entfernen */
 			searchedString = searchedString.replace("\r\n", " ");
 			searchedString = searchedString.replace("\n", " ");
 			if (cutted) searchedString = searchedString + " [..]";
@@ -224,7 +229,7 @@ public class RabinKarpComparer
 		/* Konsolenausgaben */
 		/*
 		 * die sind deswegen hier drin weil sie in draw() immer wieder
-		 * aufgerufen werden würden
+		 * aufgerufen werden wÃ¼rden
 		 */
 		System.out.println("q-Wechsel: " + qChanges);
 		System.out.println(fm + " false matches nach letztem q-Wechsel\n");
@@ -236,7 +241,7 @@ public class RabinKarpComparer
 
 		/* bestimme maximale Zeitspanne zwischen Minimum und Maximum */
 		/*
-		 * muß nach Median-Funktion aufgerufen werden, da sortierte Collection
+		 * muÃŸ nach Median-Funktion aufgerufen werden, da sortierte Collection
 		 * erforderlich
 		 */
 		long maxTimeDiff = (times.get(times.size() - 1) - times.get(0));
@@ -248,7 +253,7 @@ public class RabinKarpComparer
 
 	/*-----------------------------------------------------------------------------
 	 *  eigentlicher Suchalgorithmus
-	 *  - zurückgegeben wird die Suchposition
+	 *  - zurÃ¼ckgegeben wird die Suchposition
 	 *    oder -1 wenn nicht gefunden
 	 *-----------------------------------------------------------------------------*/
 	ArrayList<Integer> rabinKarp()
@@ -267,10 +272,10 @@ public class RabinKarpComparer
 		// boolean found = false;
 		times.clear();
 
-		/* Algorithmus gemäß der Anzahl in der Variablen ´runs´ durchlaufen */
-		for (int counter = 1; counter <= runs; counter++)
-		{
-			/* n=Länge des gesamten Textes, m=Länge des Musters */
+		/* Algorithmus gemÃ¤ÃŸ der Anzahl in der Variablen Â´runsÂ´ durchlaufen */
+		//for (int counter = 1; counter <= runs; counter++)
+		//{
+			/* n=LÃ¤nge des gesamten Textes, m=LÃ¤nge des Musters */
 			n = completeString.length();
 			m = searchString.length();
 			n_m = n - m;
@@ -284,12 +289,12 @@ public class RabinKarpComparer
 			hsub = hashFirst(searchString, m);
 
 			/*
-			 * da die Zufallszahlenerzeugung für die rand. RK-Algorithmus
+			 * da die Zufallszahlenerzeugung fÃ¼r die rand. RK-Algorithmus
 			 * essentiell ist, messen wir die Instanziierung des Random-Objekts
-			 * natürlich jeweils mit
+			 * natÃ¼rlich jeweils mit
 			 */
 			Random randomNumbers = new Random();
-			/* Variablen für erneute Durchläufe zurücksetzen */
+			/* Variablen fÃ¼r erneute DurchlÃ¤ufe zurÃ¼cksetzen */
 			// result = -1;
 			result.clear();
 
@@ -306,17 +311,17 @@ public class RabinKarpComparer
 			{
 				/*
 				 * wenn Hashwert des Musters mit dem Hashwert des
-				 * Textausschnittes übereinstimmt...
+				 * Textausschnittes Ã¼bereinstimmt...
 				 */
 				if (hs == hsub)
 				{
-					/* ... und die Strings an der Stelle auch übereinstimmen ... */
+					/* ... und die Strings an der Stelle auch Ã¼bereinstimmen ... */
 					if (completeString.substring(i, i + m).equals(searchString))
 					{
-						/* Übereinstimmung gefunden */
+						/* Ãœbereinstimmung gefunden */
 						result.add(i);
 						// found = true;
-						break;
+						//break;
 					}
 					else
 					{
@@ -326,19 +331,19 @@ public class RabinKarpComparer
 							if (fm == fmThreshold)
 							{
 								/*
-								 * wähle q neu - eine Zweierpotenz zwischen
+								 * wÃ¤hle q neu - eine Zweierpotenz zwischen
 								 * 2^minQ bis 2^maxQ
 								 */
 								randomNumber = randomNumbers.nextInt(qDiff) + minQ;
 								/* Schiebeoperatoren sind schneller */
 								q = minQResult << (randomNumber - minQ);
 								reducedQ = q - 1;
-								/* false matches zurücksetzen */
+								/* false matches zurÃ¼cksetzen */
 								fm = 0;
 								qChanges++;
 
 								/*
-								 * mit neuem q muss Hash für Muster und
+								 * mit neuem q muss Hash fÃ¼r Muster und
 								 * Gesamtstring auch neu berechnet werden
 								 */
 								hsub = hashFirst(searchString, m);
@@ -348,9 +353,9 @@ public class RabinKarpComparer
 					}
 				}
 
-				/* Bereichsüberlaufsfehler abfangen */
+				/* BereichsÃ¼berlaufsfehler abfangen */
 				if ((i + m + 1) > n) break;
-				/* nächsten Hashwert bestimmen */
+				/* nÃ¤chsten Hashwert bestimmen */
 				hs = hash(hs, i + 1, m);
 			}
 
@@ -360,22 +365,22 @@ public class RabinKarpComparer
 			timeAfter = System.currentTimeMillis();
 			timeDiff = timeAfter - timeBefore;
 
-			/* Zeiten der Gesamttabelle hinzufügen */
+			/* Zeiten der Gesamttabelle hinzufÃ¼gen */
 			times.add(timeDiff);
-		}
+		//}
 
 		return result;
 	}
 
 	/*-----------------------------------------------------------------------------
-	 *  Berechnung des Medians, Erklärung siehe hier:
+	 *  Berechnung des Medians, ErklÃ¤rung siehe hier:
 	 *  http://www.mathe-lexikon.at/statistik/lagemasse/median.html 
 	 *-----------------------------------------------------------------------------*/
 	long calcMedian()
 	{
 		long result = 0;
 
-		/* um den Median zu berechnen muß die generische Liste sortiert sein */
+		/* um den Median zu berechnen muÃŸ die generische Liste sortiert sein */
 		Collections.sort(times);
 
 		/* testen, ob Anzahl ungerade... */
@@ -387,8 +392,8 @@ public class RabinKarpComparer
 		else
 		{
 			/*
-			 * für den Feld-Index wird natürlich eine gerade Zahl benötigt. Der
-			 * errechnete Wert soll natürlich nicht abgeschnitten, sondern
+			 * fÃ¼r den Feld-Index wird natÃ¼rlich eine gerade Zahl benÃ¶tigt. Der
+			 * errechnete Wert soll natÃ¼rlich nicht abgeschnitten, sondern
 			 * aufgerundet werden
 			 */
 			result = Math.round((times.get((times.size() / 2) - 1) + times.get(times.size() / 2)) / 2.0);
