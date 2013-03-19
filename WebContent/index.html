@@ -1,11 +1,19 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Test title</title>
 </head>
 <body>
-<h3> Meine WebApp-Startseite </h3>
-  <p> <a href="/PlagiatsSoftware/TestServlet">Zur Testseite</a> </p>
+	<h3>Meine WebApp-Startseite</h3>
+	<p>
+		<a href="/PlagiatsSoftware/TestServlet">Zur Testseite</a>
+	</p>
+
+	<form method="post" action="/PlagiatsSoftware/FileUpload" enctype="multipart/form-data">
+		<input type="file" name="file" />
+		<input name="upload" value="upload" type="submit" />
+	</form>
+
 </body>
 </html>
