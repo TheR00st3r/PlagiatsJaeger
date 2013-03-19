@@ -37,6 +37,7 @@ Attribute
 
 Methoden
  - Immer kleiner Anfangsbuchstabe(Ausnahme Konstruktor)
+ - Rückgabewerte werden immer "result" genannt
  
 Variablen
  - Immer kleiner Anfangsbuchstabe
