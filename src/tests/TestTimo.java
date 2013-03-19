@@ -7,7 +7,9 @@ import java.net.URLEncoder;
 
 import com.google.gson.Gson;
 
-public class TestTimo {
+
+public class TestTimo
+{
 
 	/**
 	 * @param args
@@ -65,30 +67,29 @@ public class TestTimo {
 	// }
 	// }
 
-	public static void main(String[] args) throws Exception {
-
-		for (int b = 0; b < 100; b++) {
-
+	public static void main(String[] args) throws Exception
+	{
+		for (int b = 0; b < 100; b++)
+		{
 			String google = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=";
-//			String google = "http://www.google.de/webhp?hl=de&tab=ww#hl=de&output=search&sclient=psy-ab&q=hallo&oq=hallo&gs_l=hp.3..0l4.2740.3232.0.3425.5.4.0.1.1.0.127.437.1j3.4.0...0.0...1c.1.6.psy-ab.fikDIeT-yWI&pbx=1&bav=on.2,or.r_qf.&bvm=bv.43828540,d.Yms&fp=a51863cef2c242f1&biw=1400&bih=784"
+			// String google =
+			// "http://www.google.de/webhp?hl=de&tab=ww#hl=de&output=search&sclient=psy-ab&q=hallo&oq=hallo&gs_l=hp.3..0l4.2740.3232.0.3425.5.4.0.1.1.0.127.437.1j3.4.0...0.0...1c.1.6.psy-ab.fikDIeT-yWI&pbx=1&bav=on.2,or.r_qf.&bvm=bv.43828540,d.Yms&fp=a51863cef2c242f1&biw=1400&bih=784"
 			String search = "heise" + b;
 			String charset = "UTF-8";
 			String start = "4";
 
 			URL url = new URL(google + URLEncoder.encode(search, charset));
 			Reader reader = new InputStreamReader(url.openStream(), charset);
-			GoogleResults results = new Gson().fromJson(reader,
-					GoogleResults.class);
+			GoogleResults results = new Gson().fromJson(reader, GoogleResults.class);
 
 			int counts = results.getResponseData().size();
 			System.out.println(counts);
 
-			for (int i = 0; i < counts; i++) {
-				System.out.println(results.getResponseData().getResults()
-						.get(i).toString());
+			for (int i = 0; i < counts; i++)
+			{
+				System.out.println(results.getResponseData().getResults().get(i).toString());
 			}
 		}
-
 
 		// System.out.println(results.getResponseData().getResults().toString());
 		// Show title and URL of 1st result.
