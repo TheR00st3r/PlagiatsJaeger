@@ -1,404 +1,252 @@
 package tests;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
+import java.util.HashMap;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 
 public class RabinKarpComparer
 {
-	/* Konfiguration */
-	/*
-	 * Basis-Wert: 10 für Zahlensuche verwenden (Anzahl Buchstaben des
-	 * Alphabets)
-	 */
-	int					base				= 257;
-	/* initialer Modulo-Wert für die Hash-Funktion */
-	int					q					= 1024;
-	/*
-	 * ab wievielen false matches soll q neu gewählt werden? 0 = Zufallsmodus
-	 * ausschalten
-	 */
-	int					fmThreshold			= 1000;
-	/*
-	 * Unter- und Obergrenze von q festlegen, z. b. 2^10 - 2^31 2^31 ist bereits
-	 * das Maximum für einen int
-	 */
-	int					minQ				= 10;
-	int					maxQ				= 31;
+	// Konfiguration
+	// Basis-Wert: 257 für Anzahl Buchstaben des Alphabets
+	private final int			BASE				= 257;
+	// initialer Modulo-Wert für die Hash-Funktion. Muss eine 2er Potenz sein
+	private int					q					= 1024;
 
-	/* Anzahl der Suchdurchläufe */
-	//int					runs				= 1;
-	/* Modus bestimmen; true für Textsuche, false für Zahlensuche */
-	boolean				textSearch			= true;
-	/* Konfiguration-Ende */
+	// ab wievielen false matches soll q neu gewählt werden? 0 = Zufallsmodus
+	// ausschalten
+	private final int			MAX_FALSEMATCHES	= 1000;
 
-	// systemeigenes Zeilenumbruchszeichen ermitteln
-	String				sep					= System.getProperty("line.separator");
-	boolean				locked				= false;
-	String				loadPath			= "";
-	StringBuilder		completeString		= new StringBuilder(0);
-	String				searchString		= "";
-	String				searchedString		= "";
-	boolean				fileSelected		= false;
-	int					shiftFactor			= 0;
-	ArrayList<Integer>	searchPosition		= new ArrayList<Integer>();
-	String				timeString			= "";
-	/* fm = false matches, Kollisionen */
-	int					fm					= 0;
-	long				completeTimeDiff	= 0;
-	int					minQResult			= 0;
-	int					qDiff				= 0;
-	/* generische Liste mit allen Zeiten für jeden einzelnen Durchlauf */
-	LinkedList<Long>	times				= new LinkedList<Long>();
-	/*
-	 * wenn bitweise Modulo gerechnet werden soll muss q-1 nicht jedes Mal neu
-	 * berechnet werden
-	 */
-	int					reducedQ			= q - 1;
-	int					qChanges			= 0;
+	// Unter- und Obergrenze von q festlegen, z. b. 2^10 - 2^31 2^31 ist bereits
+	// das Maximum für einen int
+	private final int			MIN_Q				= 10;
+	private final int			MAX_Q				= 31;
+
+	// Konfiguration-Ende
+
+	private StringBuilder		_completeString		= new StringBuilder(0);
+	private int					_shiftFactor		= 0;
+	private ArrayList<Integer>	_resultPositions	= new ArrayList<Integer>();
+
+	private int					_falseMatches		= 0;
+	private int					_minQResult			= 0;
+	private int					qDiff				= 0;
+	// wenn bitweise Modulo gerechnet werden soll muss q-1 nicht jedes Mal neu
+	// berechnet werden
+	private int					reducedQ			= q - 1;
 
 	public RabinKarpComparer()
 	{
-		// TODO Auto-generated constructor stub
-		
-		 /* Minimum fόr q berechnen, pow ist relativ rechenzeitintensiv */  
-		  minQResult = (int) Math.pow(2, minQ);  
-		  qDiff = maxQ - minQ + 1;
+		// Minimum fόr q berechnen, pow ist relativ rechenzeitintensiv
+		_minQResult = (int) Math.pow(2, MIN_Q);
+		qDiff = MAX_Q - MIN_Q + 1;
 
+		test();
 	}
 
-	/*-----------------------------------------------------------------------------
-	 *  initiale Hash-Funktion
-	 *-----------------------------------------------------------------------------*/
-
-	int hashFirst(String searchText, int patternLength)
+	private void test()
 	{
-		int result = 0;
-		if (textSearch)
+		String searchString = "est123456";
+		for (int i = 0; i < 10000000; i++)
 		{
-			int reducedBase = 1;
-			for (int i = (patternLength - 1); i >= 0; i--)
+			_completeString.append("HalloTest" + i);
+		}
+
+		// Algorithmus starten
+		for (String string : search(searchString, _completeString))
+		{
+			System.out.println(string);
+		}
+	}
+
+	public ArrayList<String> search(String searchString, StringBuilder completeString)
+	{
+		ArrayList<String> result = new ArrayList<String>();
+		_resultPositions = searchRabinKarb(searchString, _completeString);
+
+		String searchResult = "";
+		for (int i : _resultPositions)
+		{
+			boolean cutted = false;
+			if (i < 0)
 			{
-				if (i != (patternLength - 1)) reducedBase = bitModulo(reducedBase * base);
-
-				result += bitModulo(reducedBase * (int) searchText.charAt(i));
-				result = bitModulo(result);
+				// nichts gefunden
+				if (_completeString.length() > 100)
+				{
+					searchResult = _completeString.substring(0, 100);
+					cutted = true;
+				}
+				else
+				{
+					searchResult = _completeString.substring(0);
+				}
 			}
-			shiftFactor = reducedBase;
-		}
-		else
-		{
-			/* für den Zahlensuchmodus wird natürlich eine Basis von 10 benötigt */
+			else if ((_completeString.length() - i + 1) > 100)
+			{
+				// ab der gefundenen Position folgen noch mehr als 100 Zeichen
+				searchResult = _completeString.substring(i, i + 100);
+				cutted = true;
+			}
+			else
+			{
+				// ab der gefundenen Position folgen weniger oder genau 100
+				// Zeichen
+				searchResult = _completeString.substring(i);
+			}
+			// Zeilenumbrüche entfernen
+			searchResult = searchResult.replace("\r\n", " ");
+			searchResult = searchResult.replace("\n", " ");
+			if (cutted) searchResult = searchResult + " [..]";
 
-			/* Verschiebe-Faktor berechnen */
-			shiftFactor = 1;
-			for (int i = 1; i < patternLength; i++)
-				shiftFactor = bitModulo(shiftFactor * base);
-
-			/* Zahl ausschneiden */
-			result = Integer.parseInt(searchText.substring(0, patternLength));
+			result.add(searchResult);
 		}
-		return bitModulo(result);
+		return result;
 	}
 
-	/*-----------------------------------------------------------------------------
-	 *  Diese Modulo-Variante arbeitet bitweise mit dem &-Operator und benötigt daher
-	 *  als q eine Zweierpotenz
-	 *-----------------------------------------------------------------------------*/
-	int bitModulo(int x)
+	/**
+	 * Berechnung des 1. Hashwertes, von dem aus im Anschluss die neuen Hashes
+	 * weitergerollt werden. Siehe {@link #hash}
+	 * 
+	 * @param searchText
+	 * @param patternLength
+	 * @return
+	 */
+	private int hashFirst(String searchText, int patternLength)
 	{
-		return (x & reducedQ);
-	}
-
-	/*-----------------------------------------------------------------------------
-	 *  rollende Hash-Funktion
-	 *-----------------------------------------------------------------------------*/
-	int hash(int oldHashValue, int startPos, int patternLength)
-	{
-		/*
-		 * wenn die gesamte Stringlänge kleiner als die des Musters ist, kann
-		 * das Muster nicht vorkommen
-		 */
-		if (completeString.length() < patternLength) return 0;
-
 		int result = 0;
-
-		int intValue;
-		int intValue2;
-		if (textSearch)
+		int reducedBase = 1;
+		for (int i = (patternLength - 1); i >= 0; i--)
 		{
-			/* das erste Zeichen von links bestimmen, das wegfällt */
-			intValue = (int) completeString.charAt(startPos - 1);
-			/* das hinzukommende Zeichen von rechts bestimmen */
-			intValue2 = (int) completeString.charAt(startPos + patternLength - 1);
-		}
-		else
-		{
-			/* das erste Zeichen von links bestimmen, das wegfällt */
-			intValue = Integer.parseInt(completeString.substring(startPos - 1, startPos));
-			/* das hinzukommende Zeichen von rechts bestimmen */
-			intValue2 = Integer.parseInt(completeString.substring(startPos + patternLength - 1, startPos + patternLength));
-		}
+			if (i != (patternLength - 1)) reducedBase = bitModulo(reducedBase * BASE);
 
-		// System.out.println(oldHashValue + "-" + intValue + "-" + shiftFactor
-		// + "-" +
-		// base + "-" + intValue2);
-		result = ((oldHashValue - (intValue * shiftFactor)) * base) + intValue2;
+			result += bitModulo(reducedBase * (int) searchText.charAt(i));
+			result = bitModulo(result);
+		}
+		_shiftFactor = reducedBase;
 		result = bitModulo(result);
 
 		return result;
 	}
 
-	/*-----------------------------------------------------------------------------
-	 *  allgemeine Vorarbeiten
-	 *-----------------------------------------------------------------------------*/
-	void praeProcessing()
+	/**
+	 * Bitweise Moduloberechnung. Daher wird für q eine 2er Potenz benötigt
+	 * 
+	 * @param x
+	 * @return
+	 */
+	private int bitModulo(int x)
 	{
-		// if (loadPath == "" || searchString == "") return;
-
-		long completeTimeBefore = 0;
-		long completeTimeAfter = 0;
-
-		/* Datei laden */
-		completeString.setLength(0);
-		// completeString = loadFile(loadPath);
-
-		searchString = "est123456";
-		for (int i = 0; i < 10000000; i++)
-		{
-			completeString.append("HalloTest" + i);
-		}
-		/* nimm die Vorher-Zeit für Gesamtdurchlauf */
-		completeTimeBefore = System.currentTimeMillis();
-
-		/* Algorithmus starten */
-		searchPosition = rabinKarp();
-
-		/* nimm die Danach-Zeit für Gesamtdurchlauf und bestimme Differenz */
-		completeTimeAfter = System.currentTimeMillis();
-		completeTimeDiff = completeTimeAfter - completeTimeBefore;
-
-		/* berechne den Median = Durchschnitt der errechneten Durchläufe */
-		long median = calcMedian();
-
-		/* Ausgabe für Gesamtdurchlauf formatieren */
-		//timeString = String.format("Gesamtzeit: %02d min, %02d sec, %03d milliseconds, Median über %d-Durchläufe: %02d min, %02d sec, %03d milliseconds \n", TimeUnit.MILLISECONDS.toMinutes(completeTimeDiff), TimeUnit.MILLISECONDS.toSeconds(completeTimeDiff) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(completeTimeDiff)), completeTimeDiff % 1000, runs, TimeUnit.MILLISECONDS.toMinutes(median), TimeUnit.MILLISECONDS.toSeconds(median) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(median)), median % 1000);
-
-		/* letztes Suchfenster für Anzeige festlegen */
-		for (int i : searchPosition)
-		{
-			// int i = searchPosition;
-			boolean cutted = false;
-			if (i < 0)
-			{
-				/* nicht gefunden */
-				if (completeString.length() > 100)
-				{
-					searchedString = completeString.substring(0, 100);
-					cutted = true;
-				}
-				else
-				{
-					searchedString = completeString.substring(0);
-				}
-			}
-			else if ((completeString.length() - i + 1) > 100)
-			{
-				/* ab der gefundenen Position folgen noch mehr als 100 Zeichen */
-				searchedString = completeString.substring(i, i + 100);
-				cutted = true;
-			}
-			else
-			{
-				/*
-				 * ab der gefundenen Position folgen weniger oder genau 100
-				 * Zeichen
-				 */
-				searchedString = completeString.substring(i);
-			}
-			/* Zeilenumbrüche entfernen */
-			searchedString = searchedString.replace("\r\n", " ");
-			searchedString = searchedString.replace("\n", " ");
-			if (cutted) searchedString = searchedString + " [..]";
-			
-			System.out.println(searchedString);
-		}
-		/* Konsolenausgaben */
-		/*
-		 * die sind deswegen hier drin weil sie in draw() immer wieder
-		 * aufgerufen werden würden
-		 */
-		System.out.println("q-Wechsel: " + qChanges);
-		System.out.println(fm + " false matches nach letztem q-Wechsel\n");
-		System.out.println("\nAlle Zeiten:\n");
-		for (long timeX : times)
-		{
-			System.out.println(String.format("%02d min, %02d sec, %03d milliseconds", TimeUnit.MILLISECONDS.toMinutes(timeX), TimeUnit.MILLISECONDS.toSeconds(timeX) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeX)), timeX % 1000));
-		}
-
-		/* bestimme maximale Zeitspanne zwischen Minimum und Maximum */
-		/*
-		 * muß nach Median-Funktion aufgerufen werden, da sortierte Collection
-		 * erforderlich
-		 */
-		long maxTimeDiff = (times.get(times.size() - 1) - times.get(0));
-		System.out.println(String.format("Maximale Differenz: %02d min, %02d sec, %03d milliseconds", TimeUnit.MILLISECONDS.toMinutes(maxTimeDiff), TimeUnit.MILLISECONDS.toSeconds(maxTimeDiff) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(maxTimeDiff)), maxTimeDiff % 1000));
-
-		/* aktuelles q ausgeben */
-		System.out.println("aktuelles q: " + q);
+		return (x & reducedQ);
 	}
 
-	/*-----------------------------------------------------------------------------
-	 *  eigentlicher Suchalgorithmus
-	 *  - zurückgegeben wird die Suchposition
-	 *    oder -1 wenn nicht gefunden
-	 *-----------------------------------------------------------------------------*/
-	ArrayList<Integer> rabinKarp()
+	/**
+	 * Rollende HashFunktion
+	 * 
+	 * @param oldHashValue
+	 * @param startPos
+	 * @param patternLength
+	 * @return
+	 */
+	private int hash(int oldHashValue, int startPos, int patternLength)
 	{
-		ArrayList<Integer> result = new ArrayList<Integer>();
-		long timeBefore = 0;
-		long timeAfter = 0;
-		long timeDiff = 0;
-		int randomNumber = 0;
-		int hs = 0;
-		int hsub = 0;
-		int n = 0;
-		int m = 0;
-		int n_m = 0;
-		qChanges = 0;
-		// boolean found = false;
-		times.clear();
 
-		/* Algorithmus gemäß der Anzahl in der Variablen ´runs´ durchlaufen */
-		//for (int counter = 1; counter <= runs; counter++)
-		//{
-			/* n=Länge des gesamten Textes, m=Länge des Musters */
-			n = completeString.length();
-			m = searchString.length();
-			n_m = n - m;
+		int result = 0;
+		// wenn die gesamte Stringlänge kleiner als die des Musters ist, kann
+		// das Muster nicht vorkommen
+		if (_completeString.length() >= patternLength)
+		{
+			int intValue;
+			int intValue2;
 
-			/* nimm Zeit vorher */
-			timeBefore = System.currentTimeMillis();
+			// das erste Zeichen von links bestimmen, das wegfällt
+			intValue = (int) _completeString.charAt(startPos - 1);
+			// das hinzukommende Zeichen von rechts bestimmen
+			intValue2 = (int) _completeString.charAt(startPos + patternLength - 1);
 
-			/* hs=hash-Wert der ersten Zeichen des gesamten Textes */
-			hs = hashFirst(completeString.substring(0, m), m);
-			/* hsub=hash-Wert des Musters */
-			hsub = hashFirst(searchString, m);
-
-			/*
-			 * da die Zufallszahlenerzeugung für die rand. RK-Algorithmus
-			 * essentiell ist, messen wir die Instanziierung des Random-Objekts
-			 * natürlich jeweils mit
-			 */
-			Random randomNumbers = new Random();
-			/* Variablen für erneute Durchläufe zurücksetzen */
-			// result = -1;
-			result.clear();
-
-			/*
-			 * in fm werden die Anzahl "False Matches" gespeichert, also die
-			 * Kollisionen
-			 */
-			fm = 0;
-			// found = false;
-			int i = 0;
-
-			/* solange Text noch nicht komplett durchlaufen... */
-			for (i = 0; i <= n_m; i++)
-			{
-				/*
-				 * wenn Hashwert des Musters mit dem Hashwert des
-				 * Textausschnittes übereinstimmt...
-				 */
-				if (hs == hsub)
-				{
-					/* ... und die Strings an der Stelle auch übereinstimmen ... */
-					if (completeString.substring(i, i + m).equals(searchString))
-					{
-						/* Übereinstimmung gefunden */
-						result.add(i);
-						// found = true;
-						//break;
-					}
-					else
-					{
-						fm += 1;
-						if (fmThreshold != 0)
-						{
-							if (fm == fmThreshold)
-							{
-								/*
-								 * wähle q neu - eine Zweierpotenz zwischen
-								 * 2^minQ bis 2^maxQ
-								 */
-								randomNumber = randomNumbers.nextInt(qDiff) + minQ;
-								/* Schiebeoperatoren sind schneller */
-								q = minQResult << (randomNumber - minQ);
-								reducedQ = q - 1;
-								/* false matches zurücksetzen */
-								fm = 0;
-								qChanges++;
-
-								/*
-								 * mit neuem q muss Hash für Muster und
-								 * Gesamtstring auch neu berechnet werden
-								 */
-								hsub = hashFirst(searchString, m);
-								hs = hashFirst(completeString.substring(i, i + m), m);
-							}
-						}
-					}
-				}
-
-				/* Bereichsüberlaufsfehler abfangen */
-				if ((i + m + 1) > n) break;
-				/* nächsten Hashwert bestimmen */
-				hs = hash(hs, i + 1, m);
-			}
-
-			// if (found) result = i;
-
-			/* nimm Zeit danach und bestimme Differenz */
-			timeAfter = System.currentTimeMillis();
-			timeDiff = timeAfter - timeBefore;
-
-			/* Zeiten der Gesamttabelle hinzufügen */
-			times.add(timeDiff);
-		//}
-
+			result = ((oldHashValue - (intValue * _shiftFactor)) * BASE) + intValue2;
+			result = bitModulo(result);
+		}
 		return result;
 	}
 
-	/*-----------------------------------------------------------------------------
-	 *  Berechnung des Medians, Erklärung siehe hier:
-	 *  http://www.mathe-lexikon.at/statistik/lagemasse/median.html 
-	 *-----------------------------------------------------------------------------*/
-	long calcMedian()
+	/**
+	 * Suchfunktion nach RabinKarp
+	 * 
+	 * @param searchString
+	 *            Text nach dem gesucht werden soll
+	 * @param completeString
+	 *            Text als StringBuilder der durchsucht werden soll
+	 * @return Liefter eine liste der Positionen(int) der Treffer zurück
+	 */
+	private ArrayList<Integer> searchRabinKarb(String searchString, StringBuilder completeString)
 	{
-		long result = 0;
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		int intRandomNumber = 0;
+		int intHashStringPart = 0;
+		int intHashSearch = 0;
+		// Länge des gesamten Textes
+		int intLengthComplete = completeString.length();
+		// Länge des Suchtextes
+		int intLengthSearchString = searchString.length();
+		int intLengthDifference = intLengthComplete - intLengthSearchString;
 
-		/* um den Median zu berechnen muß die generische Liste sortiert sein */
-		Collections.sort(times);
+		// hash-Wert der ersten Zeichen des gesamten Textes
+		intHashStringPart = hashFirst(completeString.substring(0, intLengthSearchString), intLengthSearchString);
+		// Wert des Musters
+		intHashSearch = hashFirst(searchString, intLengthSearchString);
 
-		/* testen, ob Anzahl ungerade... */
-		if (times.size() % 2 != 0)
+		// da die Zufallszahlenerzeugung für die rand. RK-Algorithmus essentiell
+		// ist, messen wir die Instanziierung des Random-Objekts natürlich
+		// jeweils mit
+		Random randomNumbers = new Random();
+
+		// in falseMatches werden die Anzahl "False Matches" gespeichert, also
+		// die Kollisionen
+		_falseMatches = 0;
+
+		// solange Text noch nicht komplett durchlaufen
+		for (int i = 0; i <= intLengthDifference; i++)
 		{
-			/* (da /2 und nicht /2.0 ist es eine Integer-Division) */
-			result = times.get((times.size() / 2));
-		}
-		else
-		{
-			/*
-			 * für den Feld-Index wird natürlich eine gerade Zahl benötigt. Der
-			 * errechnete Wert soll natürlich nicht abgeschnitten, sondern
-			 * aufgerundet werden
-			 */
-			result = Math.round((times.get((times.size() / 2) - 1) + times.get(times.size() / 2)) / 2.0);
-		}
+			// wenn Hashwert des Musters mit dem Hashwert des Textausschnittes
+			// übereinstimmt...
+			if (intHashStringPart == intHashSearch)
+			{
+				// und die Strings an der Stelle auch übereinstimmen
+				if (completeString.substring(i, i + intLengthSearchString).equals(searchString))
+				{
+					// Übereinstimmung gefunden
+					result.add(i);
+				}
+				else
+				{
+					_falseMatches++;
+					if (MAX_FALSEMATCHES != 0)
+					{
+						if (_falseMatches == MAX_FALSEMATCHES)
+						{
+							// wähle q neu - eine Zweierpotenz zwischen 2^minQ
+							// bis 2^maxQ
+							intRandomNumber = randomNumbers.nextInt(qDiff) + MIN_Q;
+							// Schiebeoperatoren sind schneller
+							q = _minQResult << (intRandomNumber - MIN_Q);
+							reducedQ = q - 1;
+							// false matches zurücksetzen
+							_falseMatches = 0;
 
+							// mit neuem q muss Hash für Muster und Gesamtstring
+							// auch neu berechnet werden
+							intHashSearch = hashFirst(searchString, intLengthSearchString);
+							intHashStringPart = hashFirst(completeString.substring(i, i + intLengthSearchString), intLengthSearchString);
+						}
+					}
+				}
+			}
+
+			// Bereichsüberlaufsfehler abfangen
+			if ((i + intLengthSearchString + 1) > intLengthComplete) break;
+			// nächsten Hashwert bestimmen
+			intHashStringPart = hash(intHashStringPart, i + 1, intLengthSearchString);
+		}
 		return result;
 	}
 }
