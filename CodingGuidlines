@@ -1,0 +1,23 @@
+---------------------
+|  Codingguidlines  |
+---------------------
+
+Sichtbarkeit angeben!
+
+Klassen
+ - Immer großer Anfangsbuchstabe
+ 
+Attribute
+ - Keine public Attribute! (Ausnahme Konstanten)
+ - Private:
+ 	- fangen immer mit _ an (bsp.: _mTestAttribut)
+ - Konstanten:
+ 	- Alles groß (bsp.: private final String TESTKONSTANTE)
+ 	- Zusammengehörige Konstanten auch zusammengehörig benennen(bsp.: Datenbank: private final String DB_NAME; private final String DB_TABLE_TABELLENNAME)
+
+Methoden
+ - Immer kleiner Anfangsbuchstabe(Ausnahme Konstruktor)
+ 
+Variablen
+ - Immer kleiner Anfangsbuchstabe
+ - beginnen mit Datentyp (bsp.: String -> strTestVariable; int -> intTestVariable)
