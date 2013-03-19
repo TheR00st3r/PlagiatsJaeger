@@ -23,6 +23,10 @@ public class GoogleResults {
 		public List<Result> getResults() {
 			return results;
 		}
+		
+		public int size() {
+			return results.size();
+		}
 
 		public void setResults(List<Result> results) {
 			this.results = results;

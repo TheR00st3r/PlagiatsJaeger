@@ -66,22 +66,33 @@ public class Test {
 
 	public static void main(String[] args) throws Exception {
 		String google = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=";
-		String search = "test";
+		String search = "asdfdsaf";
 		String charset = "UTF-8";
+		String start = "4";
 
 		URL url = new URL(google + URLEncoder.encode(search, charset));
 		Reader reader = new InputStreamReader(url.openStream(), charset);
 		GoogleResults results = new Gson()
 				.fromJson(reader, GoogleResults.class);
 		
+		int counts = results.getResponseData().size();
+		System.out.println(counts);
+		
+		for (int i = 0; i < counts; i++) {
+			System.out.println(results.getResponseData().getResults().get(i)
+					.toString());
+		}
+		
 //		System.out.println(results.getResponseData().getResults().toString());
 		// Show title and URL of 1st result.
-		System.out.println(results.getResponseData().getResults().get(0)
-				.toString());
-		System.out.println(results.getResponseData().getResults().get(1)
-				.toString());
-		System.out.println(results.getResponseData().getResults().get(2)
-				.toString());
+//		System.out.println(results.getResponseData().getResults().get(0)
+//				.toString());
+//		System.out.println(results.getResponseData().getResults().get(1)
+//				.toString());
+//		System.out.println(results.getResponseData().getResults().get(2)
+//				.toString());
+//		System.out.println(results.getResponseData().getResults().get(3)
+//				.toString());
 
 	}
 
