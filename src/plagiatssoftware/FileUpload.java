@@ -1,7 +1,12 @@
 package plagiatssoftware;
 
-import java.io.*;
-import java.sql.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,25 +14,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.fileupload.FileItemIterator;
-import org.apache.commons.fileupload.FileItemStream;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FilenameUtils;
+
 
 @WebServlet("/FileUpload")
-public class FileUpload extends HttpServlet {
+public class FileUpload extends HttpServlet
+{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 	/**
 	 * 
 	 */
-	private File homeDir;
+	private File				homeDir;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public FileUpload() {
+	public FileUpload()
+	{
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -36,90 +47,73 @@ public class FileUpload extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
 		// doGet(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter pw = response.getWriter();
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
 
-		String filedest;
+		out.println("Hello<br/>");
 
-		try {
-			if (ServletFileUpload.isMultipartContent(request)) {
-
-				// UploadHander erstellen
-				ServletFileUpload upload = new ServletFileUpload();
-
-				// Die Post-Variablen einlesen
-				FileItemIterator iter = upload.getItemIterator(request);
-
-				// Die Variablen durchgehen
-				while (iter.hasNext()) {
-
-					iter.next();
-
-					FileItemStream item = iter.next();
-
-//					Class.forName(JDBCDRIVER).newInstance();
-//					Connection con = DriverManager.getConnection(CONNECTSTRING,
-//							USERNAMEDB, PASSWORDDB);
-
-//					homeDir = new File("");
-//					filedest = homeDir + System.getProperty("file.separator")
-//							+ new File(item.getName()).getName();
-//
-//					if (!homeDir.exists()) {
-//						homeDir.mkdir();
-//					}
-					InputStream fi = item.openStream();
-					BufferedInputStream is = new BufferedInputStream(fi);
-//					BufferedOutputStream os = new BufferedOutputStream(
-//							new FileOutputStream(filedest));
-//					byte[] buff = new byte[8192];
-//					int len;
-//					while (0 < (len = is.read(buff))) {
-//						os.write(buff, 0, len);
-//					}
-//					is.close();
-//					os.flush();
-//					os.close();
-
-//					PreparedStatement pstmt = con
-//							.prepareStatement("INSERT INTO anhang (complaintID, anhang ) values (?,?)");
-					// db
-					// inhalt
-					// schreiben
-//					FileInputStream fin = new FileInputStream(filedest);
-//					File file = new File(filedest);
-//					int leng = (int) file.length();
-//					pw.println("filedest2" + filedest);
-
-//					pstmt.setInt(1, 1);
-//					pstmt.setBinaryStream(2, fin, leng);
-//					pstmt.executeUpdate();
-					// fin.close();
-//					pstmt = con.prepareStatement("commit");
-//					pstmt.executeQuery();
-//					con.close();
-					pw.println("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-					pw.print("<result>");
-					pw.print("<success>true</success>");
-					pw.print("</result>");
-
-				}
-			}
-		} catch (Exception e) {
-
-			pw.println("Fehler" + e.getMessage() + e.toString());
-
+		boolean isMultipartContent = ServletFileUpload.isMultipartContent(request);
+		if (!isMultipartContent)
+		{
+			out.println("You are not trying to upload<br/>");
+			return;
 		}
+		out.println("You are trying to upload<br/>");
 
+		FileItemFactory factory = new DiskFileItemFactory();
+		ServletFileUpload upload = new ServletFileUpload(factory);
+		try
+		{
+			List<FileItem> fields = upload.parseRequest(request);
+			out.println("Number of fields: " + fields.size() + "<br/><br/>");
+			Iterator<FileItem> it = fields.iterator();
+			if (!it.hasNext())
+			{
+				out.println("No fields found");
+				return;
+			}
+			out.println("<table border=\"1\">");
+			while (it.hasNext())
+			{
+				out.println("<tr>");
+				FileItem fileItem = it.next();
+				boolean isFormField = fileItem.isFormField();
+				if (isFormField)
+				{
+					out.println("<td>regular form field</td><td>FIELD NAME: " + fileItem.getFieldName() + "<br/>STRING: " + fileItem.getString());
+					out.println("</td>");
+				}
+				else
+				{
+
+					out.println("<td>file form field</td><td>FIELD NAME: " + fileItem.getFieldName() + "<br/>STRING: " + fileItem.getString() + "<br/>NAME: " + fileItem.getName() + "<br/>CONTENT TYPE: " + fileItem.getContentType() + "<br/>SIZE (BYTES): " + fileItem.getSize() + "<br/>TO STRING: " + fileItem.toString());
+					out.println("</td>");
+
+					String fileName = fileItem.getName();
+					if (fileName != null)
+					{
+						fileName = FilenameUtils.getName(fileName);
+						String workingDir = System.getProperty("user.dir");
+						System.out.println("Current working directory : " + workingDir);
+						OutputStream outputStream = new FileOutputStream(workingDir + "\\" + fileName);
+						outputStream.write(fileItem.get());
+						outputStream.close();
+					}
+				}
+				out.println("</tr>");
+			}
+			out.println("</table>");
+		}
+		catch (FileUploadException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }
