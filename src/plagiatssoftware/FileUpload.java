@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.filechooser.FileSystemView;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
@@ -29,10 +30,6 @@ public class FileUpload extends HttpServlet
 	 * 
 	 */
 	private static final long	serialVersionUID	= 1L;
-	/**
-	 * 
-	 */
-	private File				homeDir;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -40,7 +37,6 @@ public class FileUpload extends HttpServlet
 	public FileUpload()
 	{
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -57,59 +53,39 @@ public class FileUpload extends HttpServlet
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 
-		out.println("Hello<br/>");
-
 		boolean isMultipartContent = ServletFileUpload.isMultipartContent(request);
 		if (!isMultipartContent)
 		{
-			out.println("You are not trying to upload<br/>");
 			return;
 		}
-		out.println("You are trying to upload<br/>");
 
 		FileItemFactory factory = new DiskFileItemFactory();
 		ServletFileUpload upload = new ServletFileUpload(factory);
 		try
 		{
 			List<FileItem> fields = upload.parseRequest(request);
-			out.println("Number of fields: " + fields.size() + "<br/><br/>");
 			Iterator<FileItem> it = fields.iterator();
-			if (!it.hasNext())
-			{
-				out.println("No fields found");
-				return;
-			}
-			out.println("<table border=\"1\">");
 			while (it.hasNext())
 			{
-				out.println("<tr>");
 				FileItem fileItem = it.next();
-				boolean isFormField = fileItem.isFormField();
-				if (isFormField)
+				if (!fileItem.isFormField())
 				{
-					out.println("<td>regular form field</td><td>FIELD NAME: " + fileItem.getFieldName() + "<br/>STRING: " + fileItem.getString());
-					out.println("</td>");
-				}
-				else
-				{
-
-					out.println("<td>file form field</td><td>FIELD NAME: " + fileItem.getFieldName() + "<br/>STRING: " + fileItem.getString() + "<br/>NAME: " + fileItem.getName() + "<br/>CONTENT TYPE: " + fileItem.getContentType() + "<br/>SIZE (BYTES): " + fileItem.getSize() + "<br/>TO STRING: " + fileItem.toString());
-					out.println("</td>");
-
 					String fileName = fileItem.getName();
 					if (fileName != null)
 					{
 						fileName = FilenameUtils.getName(fileName);
-						String workingDir = System.getProperty("user.dir");
-						System.out.println("Current working directory : " + workingDir);
-						OutputStream outputStream = new FileOutputStream(workingDir + "\\" + fileName);
+						String filePath = FileSystemView.getFileSystemView().getHomeDirectory() + "\\uploadedFiles\\";
+						out.println("File uploaded to : " + filePath + fileName + "<br/>");
+						
+						File file = new File(filePath);
+						file.mkdirs();
+						
+						OutputStream outputStream = new FileOutputStream(new File(filePath + fileName));
 						outputStream.write(fileItem.get());
 						outputStream.close();
 					}
 				}
-				out.println("</tr>");
 			}
-			out.println("</table>");
 		}
 		catch (FileUploadException e)
 		{
