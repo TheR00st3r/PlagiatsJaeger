@@ -9,31 +9,36 @@ public class RabinKarpComparer
 {
 	// Konfiguration
 	// Basis-Wert: 257 fÃ¼r Anzahl Buchstaben des Alphabets
-	private final int			BASE				= 257;
+	private final int	                   BASE	            = 257;
 	// initialer Modulo-Wert fÃ¼r die Hash-Funktion. Muss eine 2er Potenz sein
-	private int					q					= 1024;
+	private int	                           q	            = 1024;
 
 	// ab wievielen false matches soll q neu gewÃ¤hlt werden? 0 = Zufallsmodus
 	// ausschalten
-	private final int			MAX_FALSEMATCHES	= 1000;
+	private final int	                   MAX_FALSEMATCHES	= 1000;
 
 	// Unter- und Obergrenze von q festlegen, z. b. 2^10 - 2^31 2^31 ist bereits
 	// das Maximum fÃ¼r einen int
-	private final int			MIN_Q				= 10;
-	private final int			MAX_Q				= 31;
+	private final int	                   MIN_Q	        = 10;
+	private final int	                   MAX_Q	        = 31;
 
 	// Konfiguration-Ende
 
-	private StringBuilder		_completeString		= new StringBuilder(0);
-	private int					_shiftFactor		= 0;
-	private ArrayList<Integer>	_resultPositions	= new ArrayList<Integer>();
+	private StringBuilder	               _completeString	= new StringBuilder(0);
+	private int	                           _shiftFactor	    = 0;
+	private ArrayList<Integer>	           _resultPositions	= new ArrayList<Integer>();
 
-	private int					_falseMatches		= 0;
-	private int					_minQResult			= 0;
-	private int					qDiff				= 0;
+	private int	                           _falseMatches	= 0;
+	private int	                           _minQResult	    = 0;
+	private int	                           qDiff	        = 0;
 	// wenn bitweise Modulo gerechnet werden soll muss q-1 nicht jedes Mal neu
 	// berechnet werden
-	private int					reducedQ			= q - 1;
+	private int	                           reducedQ	        = q - 1;
+
+	private int	                           _SingleSearchThreadCounter;
+
+	// Listener
+	private OnSingleSearchFinishedListener	_OnSearchFinishedListener;
 
 	public RabinKarpComparer()
 	{
@@ -46,19 +51,137 @@ public class RabinKarpComparer
 
 	private void test()
 	{
-		String searchString = "est123456";
+		ArrayList<String> searchStrings = new ArrayList<String>();
+		for (int i = 0; i < 50; i++)
+		{
+			searchStrings.add("est123456");
+		}
 		for (int i = 0; i < 10000000; i++)
 		{
 			_completeString.append("HalloTest" + i);
 		}
-
-		// Algorithmus starten
-		for (String string : search(searchString, _completeString))
+		long start1 = System.currentTimeMillis();
+		// search(searchStrings, _completeString);
+		long end1 = System.currentTimeMillis();
+		System.out.println("Ohne Threads: " + (end1 - start1) + "ms");
+		final long start2 = System.currentTimeMillis();
+		searchAsync(searchStrings, _completeString, new OnSearchFinishedListener()
 		{
-			System.out.println(string);
+			@Override
+			public void onSearchFinished(ArrayList<String> searchStrings, ArrayList<ArrayList<String>> searchResults)
+			{
+				long end2 = System.currentTimeMillis();
+				System.out.println("Mit Threads: " + (end2 - start2) + "ms");
+			}
+		});
+	}
+
+	/**
+	 * Durchsucht den completeString nach Vorkommnissen der searchStrings in jeweils einem eigenen Task. Wenn die Suche
+	 * abgeschlossen ist wird das Ergebniss durch den {@link OnSearchFinishedListener} zurückgeliefert.
+	 * 
+	 * @param searchStrings
+	 * @param completeString
+	 * @param listener
+	 */
+	public void searchAsync(final ArrayList<String> searchStrings, StringBuilder completeString, final OnSearchFinishedListener listener)
+	{
+		final ArrayList<ArrayList<String>> searchResults = new ArrayList<ArrayList<String>>();
+		// _SingleSearchThreadCounter = searchStrings.size();
+		for (String searchString : searchStrings)
+		{
+			searchAsync(searchString, completeString, new OnSingleSearchFinishedListener()
+			{
+				@Override
+				public void onSearchFinished(String searchString, ArrayList<String> searchResult)
+				{
+					editCounter(-1);
+					searchResults.add(searchResult);
+					if (_SingleSearchThreadCounter <= 0)
+					{
+						listener.onSearchFinished(searchStrings, searchResults);
+					}
+				}
+			});
 		}
 	}
 
+	/**
+	 * Managed den Zugriff auf den {@link _SingleSearchCounter}, damit immer nur 1 Thread gleichzeitig zugriff bekommt.
+	 */
+	private synchronized void editCounter(int delta)
+	{
+		_SingleSearchThreadCounter += delta;
+		System.out.println(_SingleSearchThreadCounter);
+	}
+
+	/**
+	 * Durchsucht den completeString nach Vorkommnissen des searchString in einem extra Task. Wenn die Suche
+	 * abgeschlossen ist wird das Ergebniss durch den {@link OnSingleSearchFinishedListener} zurückgeliefert.
+	 * 
+	 * @param searchString
+	 * @param completeString
+	 * @param listener
+	 */
+	public void searchAsync(final String searchString, final StringBuilder completeString, final OnSingleSearchFinishedListener listener)
+	{
+		new Thread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				editCounter(1);
+				ArrayList<String> searchResult = search(searchString, completeString);
+				listener.onSearchFinished(searchString, searchResult);
+			}
+		}).start();
+	}
+
+	/**
+	 * Sucht nach allen Vorkommnissen der searchStrings in completeString.
+	 * 
+	 * @param searchStrings
+	 * @param completeString
+	 * @return eine ArrayListe von Ergebnsslisten
+	 */
+	public ArrayList<ArrayList<String>> search(ArrayList<String> searchStrings, StringBuilder completeString)
+	{
+		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+		for (String searchString : searchStrings)
+		{
+			result.add(search(searchString, completeString));
+		}
+		return result;
+	}
+
+	/**
+	 * Wird ausgelöst, sobald die Suche beendet ist
+	 * 
+	 * @author Andreas
+	 */
+	public interface OnSingleSearchFinishedListener
+	{
+		abstract void onSearchFinished(String searchString, ArrayList<String> searchResult);
+	}
+
+	/**
+	 * Wird ausgelöst wenn alle Suchen fertig sind.
+	 * 
+	 * @author Andreas
+	 * 
+	 */
+	public interface OnSearchFinishedListener
+	{
+		abstract void onSearchFinished(ArrayList<String> searchStrings, ArrayList<ArrayList<String>> searchResults);
+	}
+
+	/**
+	 * Durchsucht den String im StringBuilder nach vorkommnissen des searchStrings.
+	 * 
+	 * @param searchString
+	 * @param completeString
+	 * @return Eine ArrayList mit Treffern inkl. der nächsten 100 Zeichen
+	 */
 	public ArrayList<String> search(String searchString, StringBuilder completeString)
 	{
 		ArrayList<String> result = new ArrayList<String>();
@@ -104,8 +227,7 @@ public class RabinKarpComparer
 	}
 
 	/**
-	 * Berechnung des 1. Hashwertes, von dem aus im Anschluss die neuen Hashes
-	 * weitergerollt werden. Siehe {@link #hash}
+	 * Berechnung des 1. Hashwertes, von dem aus im Anschluss die neuen Hashes weitergerollt werden. Siehe {@link #hash}
 	 * 
 	 * @param searchText
 	 * @param patternLength
