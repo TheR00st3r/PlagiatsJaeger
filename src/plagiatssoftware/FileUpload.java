@@ -1,10 +1,12 @@
 package plagiatssoftware;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -53,43 +55,99 @@ public class FileUpload extends HttpServlet
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 
-		boolean isMultipartContent = ServletFileUpload.isMultipartContent(request);
-		if (!isMultipartContent)
+		for (String text : uploadFiles(request, FileSystemView.getFileSystemView().getHomeDirectory() + "\\uploadedFiles\\"))
 		{
-			return;
+			out.println(text + "<br/>");
 		}
+	}
 
-		FileItemFactory factory = new DiskFileItemFactory();
-		ServletFileUpload upload = new ServletFileUpload(factory);
-		try
+	/**
+	 * Alle FileUploads im HttpServletRequest werden unter dem angegebenen
+	 * Dateipfad gespeichert
+	 * 
+	 * @param request
+	 *            {@link HttpServletRequest} mit FileUploads
+	 * @param filePath
+	 *            Verzeichnis in dem die Dateien gespeichert werden sollen
+	 * @return List mit allen Dateipfaden
+	 */
+	private ArrayList<String> uploadFiles(HttpServletRequest request, String filePath)
+	{
+		ArrayList<String> result = new ArrayList<String>();
+		if (ServletFileUpload.isMultipartContent(request))
 		{
-			List<FileItem> fields = upload.parseRequest(request);
-			Iterator<FileItem> it = fields.iterator();
-			while (it.hasNext())
+
+			FileItemFactory fileItemFactory = new DiskFileItemFactory();
+			ServletFileUpload servletFileUpload = new ServletFileUpload(fileItemFactory);
+			try
 			{
-				FileItem fileItem = it.next();
-				if (!fileItem.isFormField())
+				List<FileItem> listFields = servletFileUpload.parseRequest(request);
+				Iterator<FileItem> iteratorFields = listFields.iterator();
+				while (iteratorFields.hasNext())
 				{
-					String fileName = fileItem.getName();
-					if (fileName != null)
+					String strSavePath = uploadFileItem(iteratorFields.next(), filePath);
+					if (strSavePath != "")
 					{
-						fileName = FilenameUtils.getName(fileName);
-						String filePath = FileSystemView.getFileSystemView().getHomeDirectory() + "\\uploadedFiles\\";
-						out.println("File uploaded to : " + filePath + fileName + "<br/>");
-						
-						File file = new File(filePath);
-						file.mkdirs();
-						
-						OutputStream outputStream = new FileOutputStream(new File(filePath + fileName));
-						outputStream.write(fileItem.get());
-						outputStream.close();
+						result.add(uploadFileItem(iteratorFields.next(), filePath));
 					}
 				}
 			}
+			catch (FileUploadException e)
+			{
+				e.printStackTrace();
+			}
 		}
-		catch (FileUploadException e)
+		return result;
+	}
+
+	/**
+	 * Läd ein {@link Fileitem} auf den Server und speichert es unter dem
+	 * angegebenen Pfad
+	 * 
+	 * @param fileItem
+	 *            enthält die Dateien für den upload
+	 * @param filePath
+	 *            Speicherpfad für die Daten
+	 * @return Vollständiger Dateipfad zur gespeicherten Datei
+	 */
+	private String uploadFileItem(FileItem fileItem, String filePath)
+	{
+		String result = "";
+		if (!fileItem.isFormField())
 		{
-			e.printStackTrace();
+			String strFileName = fileItem.getName();
+			if (strFileName != null)
+			{
+				strFileName = FilenameUtils.getName(strFileName);
+
+				// Falls das angegebene Verzeichnis nicht vorhanden ist, wird es
+				// neu angelegt
+				File file = new File(filePath);
+				file.mkdirs();
+
+				OutputStream outputStream;
+				try
+				{
+					outputStream = new FileOutputStream(new File(filePath + strFileName));
+					outputStream.write(fileItem.get());
+					outputStream.flush();
+					outputStream.close();
+				}
+				catch (FileNotFoundException e)
+				{
+					e.printStackTrace();
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+				finally
+				{
+					result = filePath + strFileName;
+				}
+
+			}
 		}
+		return result;
 	}
 }
