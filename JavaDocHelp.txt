@@ -1,0 +1,90 @@
+[] = Optional
+() = Pflicht
+
+Haupt-Tags
+
+@author  (name-text)
+	Kann auch mehrfach aufgeführt werden.
+
+@deprecated  (deprecated-text)
+	Wenn eine Methode/Klasse durch eine Neue ersetzt wird, wird die Alte als "deprecated" vermerkt und bekommt einen Verweis ({@link}) auf die neue Methode/Klasse.
+
+@exception  (class-name)  (description)
+	Beschreibung für Exceptions die die Methode wirft.
+	
+@param  (parameter-name) description
+	Fügt die Beschreibung eines Parameters ein.	
+	
+@return  (description)
+	Fügt die Beschreibung zum Rückgabewert ein.
+	
+@see  (reference)
+	Fügt einen Verweis("See also") ein. Falls es weiter aehnliche Seiten/Funktionen... gibt.
+	Typische Verwendung für @see package.class#member
+		Verweis auf Member der eigenen Klasse
+		@see  #field
+		@see  #method(Type, Type,...)
+		@see  #method(Type argname, Type argname,...)
+		@see  #constructor(Type, Type,...)
+		@see  #constructor(Type argname, Type argname,...)
+		
+		Verweos auf anderes Element im eigenen Package
+		@see  Class#field
+		@see  Class#method(Type, Type,...)
+		@see  Class#method(Type argname, Type argname,...)
+		@see  Class#constructor(Type, Type,...)
+		@see  Class#constructor(Type argname, Type argname,...)
+		@see  Class.NestedClass
+		@see  Class
+		
+		Verweis auf Element in anderem Package
+		@see  package.Class#field
+		@see  package.Class#method(Type, Type,...)
+		@see  package.Class#method(Type argname, Type argname,...)
+		@see  package.Class#constructor(Type, Type,...)
+		@see  package.Class#constructor(Type argname, Type argname,...)
+		@see  package.Class.NestedClass
+		@see  package.Class
+		@see  package
+	
+@since  (since-text)
+	Gibt an ab wann das Element vorhanden ist.
+
+@version  (version-text)
+	Gibt eine Version des Elements an.
+	
+Tags innerhalb des Textes
+
+{@code  (text)}
+	Wenn Code dargestellt werden soll und eventuelle HTML-Tags ignoriert werden sollen kann dieser Tag verwendet werden.
+	
+{@docRoot}
+	Wird verwendet um auf weitere Dokumente zu verweisen.
+	Beispiel:
+		/**
+   		 * See the <a href="{@docRoot}/copyright.html">Copyright</a>.
+   		 */
+
+{@inheritDoc} 
+	Fügt die Beschreibung der nächst höhren Klasse/Interface ein.
+
+
+{@link  (package.class#member)  [label]}
+	Erstellt einen Link auf das Package/die Klasse/Methode. Angezeigt wird entweder der Name des Elemetnts auf das verwiesen wird oder der unter label angegebene Text. 
+	Es muss nicht immer das Package und die Klasse angegeben werden. Je nach verweis können diese auch weggelassen werden. Siehe Beispiel.
+	Beispiel:
+		 Methode: {@link #getComponentAt(int, int) getComponentAt}
+
+{@linkplain  (package.class#member)  [label]}
+	Identisch zu @link, nur der Text wird nicht als Code dargestellt.
+	
+{@literal  (text)}
+	Zeigt den Text normal an, ohne HTML-Tags zu interpretieren.
+	
+{@value  (package.class#field)}
+	Gibt den Wert der Konstanten an.
+
+
+
+Vollständige Referenz: http://docs.oracle.com/javase/1.5.0/docs/tooldocs/windows/javadoc.html#javadoctags (strg+klick im Eclipse)
+
