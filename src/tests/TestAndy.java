@@ -2,7 +2,9 @@ package tests;
 
 import java.util.ArrayList;
 
-import tests.RabinKarpComparer.OnSearchFinishedListener;
+import plagiatssoftware.RabinKarpComparer;
+import plagiatssoftware.RabinKarpComparer.OnSearchFinishedListener;
+
 
 
 public class TestAndy

@@ -1,4 +1,4 @@
-package tests;
+package plagiatssoftware;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -6,26 +6,21 @@ import java.util.Random;
 
 public class RabinKarpComparer
 {
-	// Konfiguration
-
 	// Basis-Wert: 257 für Anzahl Buchstaben des Alphabets
 	private final int			BASE				= 257;
 	// initialer Modulo-Wert für die Hash-Funktion. Muss eine 2er Potenz sein
 	private int					q					= 1024;
-	// wenn bitweise Modulo gerechnet werden soll muss q-1 nicht jedes Mal neu
-	// berechnet werden
+	// damit q-1 nicht bei jeder Moduloberechnung erneut berechnet werden muss
 	private int					reducedQ			= q - 1;
 
 	// ab wievielen false matches soll q neu gewählt werden? 0 = Zufallsmodus
 	// ausschalten
 	private final int			MAX_FALSEMATCHES	= 1000;
 
-	// Unter- und Obergrenze von q festlegen, z. b. 2^10 - 2^31 2^31 ist bereits
-	// das Maximum für einen int
+	// Min und Max von q festlegen, z. b. 2^10 - 2^31 Integer: Max 2^31
 	private final int			MIN_Q				= 10;
 	private final int			MAX_Q				= 31;
 
-	// Konfiguration-Ende
 	private int					_shiftFactor;
 	private ArrayList<Integer>	_resultPositions	= new ArrayList<Integer>();
 
@@ -35,9 +30,15 @@ public class RabinKarpComparer
 
 	private int					_SingleSearchThreadCounter;
 
+	/**
+	 * Beinhaltet Funktionen zum Durchsuchen von Strings mithilfe des
+	 * RabinKarpAlgorithmus.
+	 * 
+	 * @author Andreas Hahn
+	 */
 	public RabinKarpComparer()
 	{
-		// Minimum fόr q berechnen, pow ist relativ rechenzeitintensiv
+		// Minimum fuer q berechnen, pow ist relativ rechenzeitintensiv
 		_minQResult = (int) Math.pow(2, MIN_Q);
 		_qDiff = MAX_Q - MIN_Q + 1;
 	}
