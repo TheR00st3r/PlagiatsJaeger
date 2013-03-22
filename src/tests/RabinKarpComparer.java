@@ -7,74 +7,45 @@ import java.util.Random;
 public class RabinKarpComparer
 {
 	// Konfiguration
+
 	// Basis-Wert: 257 für Anzahl Buchstaben des Alphabets
-	private final int	                   BASE	            = 257;
+	private final int			BASE				= 257;
 	// initialer Modulo-Wert für die Hash-Funktion. Muss eine 2er Potenz sein
-	private int	                           q	            = 1024;
+	private int					q					= 1024;
+	// wenn bitweise Modulo gerechnet werden soll muss q-1 nicht jedes Mal neu
+	// berechnet werden
+	private int					reducedQ			= q - 1;
 
 	// ab wievielen false matches soll q neu gewählt werden? 0 = Zufallsmodus
 	// ausschalten
-	private final int	                   MAX_FALSEMATCHES	= 1000;
+	private final int			MAX_FALSEMATCHES	= 1000;
 
 	// Unter- und Obergrenze von q festlegen, z. b. 2^10 - 2^31 2^31 ist bereits
 	// das Maximum für einen int
-	private final int	                   MIN_Q	        = 10;
-	private final int	                   MAX_Q	        = 31;
+	private final int			MIN_Q				= 10;
+	private final int			MAX_Q				= 31;
 
 	// Konfiguration-Ende
+	private int					_shiftFactor;
+	private ArrayList<Integer>	_resultPositions	= new ArrayList<Integer>();
 
-	private StringBuilder	               _completeString	= new StringBuilder(0);
-	private int	                           _shiftFactor	    = 0;
-	private ArrayList<Integer>	           _resultPositions	= new ArrayList<Integer>();
+	private int					_falseMatches;
+	private int					_minQResult;
+	private int					_qDiff;
 
-	private int	                           _falseMatches	= 0;
-	private int	                           _minQResult	    = 0;
-	private int	                           qDiff	        = 0;
-	// wenn bitweise Modulo gerechnet werden soll muss q-1 nicht jedes Mal neu
-	// berechnet werden
-	private int	                           reducedQ	        = q - 1;
-
-	private int	                           _SingleSearchThreadCounter;
+	private int					_SingleSearchThreadCounter;
 
 	public RabinKarpComparer()
 	{
 		// Minimum fόr q berechnen, pow ist relativ rechenzeitintensiv
 		_minQResult = (int) Math.pow(2, MIN_Q);
-		qDiff = MAX_Q - MIN_Q + 1;
-
-		test();
-	}
-
-	private void test()
-	{
-		ArrayList<String> searchStrings = new ArrayList<String>();
-		for (int i = 0; i < 100; i++)
-		{
-			searchStrings.add("est123456");
-		}
-		for (int i = 0; i < 10000000; i++)
-		{
-			_completeString.append("HalloTest" + i);
-		}
-		long start1 = System.currentTimeMillis();
-		search(searchStrings, _completeString);
-		long end1 = System.currentTimeMillis();
-		System.out.println("Ohne Threads: " + (end1 - start1) + "ms");
-		final long start2 = System.currentTimeMillis();
-		searchAsync(searchStrings, _completeString, new OnSearchFinishedListener()
-		{
-			@Override
-			public void onSearchFinished(ArrayList<String> searchStrings, ArrayList<ArrayList<String>> searchResults)
-			{
-				long end2 = System.currentTimeMillis();
-				System.out.println("Mit Threads: " + (end2 - start2) + "ms");
-			}
-		});
+		_qDiff = MAX_Q - MIN_Q + 1;
 	}
 
 	/**
-	 * Durchsucht den completeString nach Vorkommnissen der searchStrings in jeweils einem eigenen Task. Wenn die Suche
-	 * abgeschlossen ist wird das Ergebniss durch den {@link OnSearchFinishedListener} zur�ckgeliefert.
+	 * Durchsucht den completeString nach Vorkommnissen der searchStrings in
+	 * jeweils einem eigenen Task. Wenn die Suche abgeschlossen ist wird das
+	 * Ergebniss durch den {@link OnSearchFinishedListener} zur�ckgeliefert.
 	 * 
 	 * @param searchStrings
 	 * @param completeString
@@ -102,7 +73,8 @@ public class RabinKarpComparer
 	}
 
 	/**
-	 * Managed den Zugriff auf den {@link _SingleSearchCounter}, damit immer nur 1 Thread gleichzeitig zugriff bekommt.
+	 * Managed den Zugriff auf den {@link _SingleSearchCounter}, damit immer nur
+	 * 1 Thread gleichzeitig zugriff bekommt.
 	 */
 	private synchronized void editCounter(int delta)
 	{
@@ -110,8 +82,9 @@ public class RabinKarpComparer
 	}
 
 	/**
-	 * Durchsucht den completeString nach Vorkommnissen des searchString in einem extra Task. Wenn die Suche
-	 * abgeschlossen ist wird das Ergebniss durch den {@link OnSingleSearchFinishedListener} zur�ckgeliefert.
+	 * Durchsucht den completeString nach Vorkommnissen des searchString in
+	 * einem extra Task. Wenn die Suche abgeschlossen ist wird das Ergebniss
+	 * durch den {@link OnSingleSearchFinishedListener} zur�ckgeliefert.
 	 * 
 	 * @param searchString
 	 * @param completeString
@@ -162,7 +135,6 @@ public class RabinKarpComparer
 	 * Wird ausgel�st wenn alle Suchen fertig sind.
 	 * 
 	 * @author Andreas
-	 * 
 	 */
 	public interface OnSearchFinishedListener
 	{
@@ -170,7 +142,8 @@ public class RabinKarpComparer
 	}
 
 	/**
-	 * Durchsucht den String im StringBuilder nach vorkommnissen des searchStrings.
+	 * Durchsucht den String im StringBuilder nach vorkommnissen des
+	 * searchStrings.
 	 * 
 	 * @param searchString
 	 * @param completeString
@@ -179,7 +152,7 @@ public class RabinKarpComparer
 	public ArrayList<String> search(String searchString, StringBuilder completeString)
 	{
 		ArrayList<String> result = new ArrayList<String>();
-		_resultPositions = searchRabinKarb(searchString, _completeString);
+		_resultPositions = searchRabinKarb(searchString, completeString);
 
 		String searchResult = "";
 		for (int i : _resultPositions)
@@ -188,27 +161,27 @@ public class RabinKarpComparer
 			if (i < 0)
 			{
 				// nichts gefunden
-				if (_completeString.length() > 100)
+				if (completeString.length() > 100)
 				{
-					searchResult = _completeString.substring(0, 100);
+					searchResult = completeString.substring(0, 100);
 					cutted = true;
 				}
 				else
 				{
-					searchResult = _completeString.substring(0);
+					searchResult = completeString.substring(0);
 				}
 			}
-			else if ((_completeString.length() - i + 1) > 100)
+			else if ((completeString.length() - i + 1) > 100)
 			{
 				// ab der gefundenen Position folgen noch mehr als 100 Zeichen
-				searchResult = _completeString.substring(i, i + 100);
+				searchResult = completeString.substring(i, i + 100);
 				cutted = true;
 			}
 			else
 			{
 				// ab der gefundenen Position folgen weniger oder genau 100
 				// Zeichen
-				searchResult = _completeString.substring(i);
+				searchResult = completeString.substring(i);
 			}
 			// Zeilenumbrüche entfernen
 			searchResult = searchResult.replace("\r\n", " ");
@@ -221,7 +194,8 @@ public class RabinKarpComparer
 	}
 
 	/**
-	 * Berechnung des 1. Hashwertes, von dem aus im Anschluss die neuen Hashes weitergerollt werden. Siehe {@link #hash}
+	 * Berechnung des 1. Hashwertes, von dem aus im Anschluss die neuen Hashes
+	 * weitergerollt werden. Siehe {@link #hash}
 	 * 
 	 * @param searchText
 	 * @param patternLength
@@ -263,21 +237,21 @@ public class RabinKarpComparer
 	 * @param patternLength
 	 * @return
 	 */
-	private int hash(int oldHashValue, int startPos, int patternLength)
+	private int hash(int oldHashValue, int startPos, int patternLength, StringBuilder completeString)
 	{
 
 		int result = 0;
 		// wenn die gesamte Stringlänge kleiner als die des Musters ist, kann
 		// das Muster nicht vorkommen
-		if (_completeString.length() >= patternLength)
+		if (completeString.length() >= patternLength)
 		{
 			int intValue;
 			int intValue2;
 
 			// das erste Zeichen von links bestimmen, das wegfällt
-			intValue = (int) _completeString.charAt(startPos - 1);
+			intValue = (int) completeString.charAt(startPos - 1);
 			// das hinzukommende Zeichen von rechts bestimmen
-			intValue2 = (int) _completeString.charAt(startPos + patternLength - 1);
+			intValue2 = (int) completeString.charAt(startPos + patternLength - 1);
 
 			result = ((oldHashValue - (intValue * _shiftFactor)) * BASE) + intValue2;
 			result = bitModulo(result);
@@ -342,7 +316,7 @@ public class RabinKarpComparer
 						{
 							// wähle q neu - eine Zweierpotenz zwischen 2^minQ
 							// bis 2^maxQ
-							intRandomNumber = randomNumbers.nextInt(qDiff) + MIN_Q;
+							intRandomNumber = randomNumbers.nextInt(_qDiff) + MIN_Q;
 							// Schiebeoperatoren sind schneller
 							q = _minQResult << (intRandomNumber - MIN_Q);
 							reducedQ = q - 1;
@@ -361,7 +335,7 @@ public class RabinKarpComparer
 			// Bereichsüberlaufsfehler abfangen
 			if ((i + intLengthSearchString + 1) > intLengthComplete) break;
 			// nächsten Hashwert bestimmen
-			intHashStringPart = hash(intHashStringPart, i + 1, intLengthSearchString);
+			intHashStringPart = hash(intHashStringPart, i + 1, intLengthSearchString, completeString);
 		}
 		return result;
 	}
