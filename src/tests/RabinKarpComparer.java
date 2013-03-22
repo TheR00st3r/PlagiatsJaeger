@@ -1,7 +1,6 @@
 package tests;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 
@@ -37,9 +36,6 @@ public class RabinKarpComparer
 
 	private int	                           _SingleSearchThreadCounter;
 
-	// Listener
-	private OnSingleSearchFinishedListener	_OnSearchFinishedListener;
-
 	public RabinKarpComparer()
 	{
 		// Minimum fÏŒr q berechnen, pow ist relativ rechenzeitintensiv
@@ -52,7 +48,7 @@ public class RabinKarpComparer
 	private void test()
 	{
 		ArrayList<String> searchStrings = new ArrayList<String>();
-		for (int i = 0; i < 50; i++)
+		for (int i = 0; i < 100; i++)
 		{
 			searchStrings.add("est123456");
 		}
@@ -61,7 +57,7 @@ public class RabinKarpComparer
 			_completeString.append("HalloTest" + i);
 		}
 		long start1 = System.currentTimeMillis();
-		// search(searchStrings, _completeString);
+		search(searchStrings, _completeString);
 		long end1 = System.currentTimeMillis();
 		System.out.println("Ohne Threads: " + (end1 - start1) + "ms");
 		final long start2 = System.currentTimeMillis();
@@ -78,7 +74,7 @@ public class RabinKarpComparer
 
 	/**
 	 * Durchsucht den completeString nach Vorkommnissen der searchStrings in jeweils einem eigenen Task. Wenn die Suche
-	 * abgeschlossen ist wird das Ergebniss durch den {@link OnSearchFinishedListener} zurückgeliefert.
+	 * abgeschlossen ist wird das Ergebniss durch den {@link OnSearchFinishedListener} zurï¿½ckgeliefert.
 	 * 
 	 * @param searchStrings
 	 * @param completeString
@@ -87,7 +83,6 @@ public class RabinKarpComparer
 	public void searchAsync(final ArrayList<String> searchStrings, StringBuilder completeString, final OnSearchFinishedListener listener)
 	{
 		final ArrayList<ArrayList<String>> searchResults = new ArrayList<ArrayList<String>>();
-		// _SingleSearchThreadCounter = searchStrings.size();
 		for (String searchString : searchStrings)
 		{
 			searchAsync(searchString, completeString, new OnSingleSearchFinishedListener()
@@ -112,12 +107,11 @@ public class RabinKarpComparer
 	private synchronized void editCounter(int delta)
 	{
 		_SingleSearchThreadCounter += delta;
-		System.out.println(_SingleSearchThreadCounter);
 	}
 
 	/**
 	 * Durchsucht den completeString nach Vorkommnissen des searchString in einem extra Task. Wenn die Suche
-	 * abgeschlossen ist wird das Ergebniss durch den {@link OnSingleSearchFinishedListener} zurückgeliefert.
+	 * abgeschlossen ist wird das Ergebniss durch den {@link OnSingleSearchFinishedListener} zurï¿½ckgeliefert.
 	 * 
 	 * @param searchString
 	 * @param completeString
@@ -155,7 +149,7 @@ public class RabinKarpComparer
 	}
 
 	/**
-	 * Wird ausgelöst, sobald die Suche beendet ist
+	 * Wird ausgelï¿½st, sobald die Suche beendet ist
 	 * 
 	 * @author Andreas
 	 */
@@ -165,7 +159,7 @@ public class RabinKarpComparer
 	}
 
 	/**
-	 * Wird ausgelöst wenn alle Suchen fertig sind.
+	 * Wird ausgelï¿½st wenn alle Suchen fertig sind.
 	 * 
 	 * @author Andreas
 	 * 
@@ -180,7 +174,7 @@ public class RabinKarpComparer
 	 * 
 	 * @param searchString
 	 * @param completeString
-	 * @return Eine ArrayList mit Treffern inkl. der nächsten 100 Zeichen
+	 * @return Eine ArrayList mit Treffern inkl. der nï¿½chsten 100 Zeichen
 	 */
 	public ArrayList<String> search(String searchString, StringBuilder completeString)
 	{
