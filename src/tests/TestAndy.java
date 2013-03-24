@@ -13,8 +13,10 @@ public class TestAndy
 	
 	public static void main(String[] args)
 	{
-		_RabinCarpComparer = new RabinKarpComparer();
-		test();
+		WordProcessing wp = new WordProcessing();
+		
+		//_RabinCarpComparer = new RabinKarpComparer();
+		//test();
 	}
 
 	private static void test()
