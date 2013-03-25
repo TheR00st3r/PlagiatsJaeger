@@ -8,8 +8,10 @@ public class TestMichi
 	 * @param args
 	 */
 	public static void main(String[] args)throws Exception {
-	    MYSQLDataBaseHelper testHelper = new MYSQLDataBaseHelper();
+	    //Gibt Name von Benutzer 1 aus
+		MYSQLDataBaseHelper testHelper = new MYSQLDataBaseHelper();
 	    testHelper.connect();
+	    
 	  }
 	
 
