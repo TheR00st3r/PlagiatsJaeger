@@ -33,14 +33,15 @@ public class TestAndy
 
 	public static void testDDG()
 	{
-		String google = "http://api.duckduckgo.com/?format=xml&q=";
-		String search = "heise";
+		String google = "http://blekko.com/ws/?q=";
+		String args = "+/json";
+		String search = "heise will viel";
 		String charset = "UTF-8";
 
 		URL url;
 		try
 		{
-			url = new URL(google + URLEncoder.encode(search, charset));
+			url = new URL(google + URLEncoder.encode(search, charset) + args);
 			InputStreamReader reader = new InputStreamReader(url.openStream(), charset);
 
 			BufferedReader bufferedReader = new BufferedReader(reader);
