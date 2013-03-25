@@ -2,6 +2,7 @@ package plagiatssoftware;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -70,7 +71,7 @@ public class MYSQLDataBaseHelper
 	{
 		// Open the file that is the first
 		// command line parameter
-		String strFilepath = System.getProperty("user.home") + "\\password.txt";
+		String strFilepath = System.getProperty("user.home") + File.separator + "password.txt";
 		FileInputStream fstream = new FileInputStream(strFilepath);
 		// Get the object of DataInputStream
 		DataInputStream in = new DataInputStream(fstream);
