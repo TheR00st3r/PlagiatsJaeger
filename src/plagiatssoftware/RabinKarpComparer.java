@@ -272,12 +272,121 @@ public class RabinKarpComparer
 	private ArrayList<Integer> searchRabinKarb(String searchString, StringBuilder completeString)
 	{
 		ArrayList<Integer> result = new ArrayList<Integer>();
+		// Laenge des gesamten Textes
+		int intLengthComplete = completeString.length();
+		// Laenge des Suchtextes
+		int intLengthSearchString = searchString.length();
+		int intLengthDifference = intLengthComplete - intLengthSearchString;
+
+		// solange Text noch nicht komplett durchlaufen
+		for (int i = 0; i <= intLengthDifference; i++)
+		{
+			i = searchRabinKarb(searchString, completeString, i);
+			if (i == 0)
+			{
+				break;
+			}
+			result.add(i);
+		}
+		return result;
+	}
+
+	public ArrayList<SearchResult> search(String[] searchText, StringBuilder completeString)
+	{
+		ArrayList<SearchResult> result = new ArrayList<SearchResult>();
+
+		int minNumWords = 5;
+
+		for (int passedWords = 0; passedWords < searchText.length; passedWords++)
+		{
+			String searchString = "";
+			for (int numWords = 0; (numWords < minNumWords) && (passedWords < searchText.length - minNumWords); numWords++)
+			{
+				searchString += " " + searchText[passedWords + numWords];
+			}
+
+			int i = 0;
+
+			SearchResult searchResult = new SearchResult(0, searchString, "", "HIER LINK EINTRAGEN!", passedWords);
+			while ((i = searchRabinKarb(searchString, completeString, i)) != 0)
+			{
+				searchResult.setplagiatsText(resultWithOverhead(completeString, i, searchString.length()));
+				searchResult.setorginalText(searchString);
+				if(passedWords + minNumWords >= searchText.length)
+				{
+					break;
+				}
+				searchString += " " + searchText[passedWords + minNumWords];
+				passedWords++;
+				i=0;
+			}
+			result.add(searchResult);
+		}
+		return result;
+	}
+
+	private String resultWithOverhead(StringBuilder completeString, int position, int searchLength)
+	{
+		String result = completeString.toString();
+		int overheadAfter = 0;
+		int overheadBefore = 0;
+
+		int start = position;
+		int after = position;
+
+		
+		boolean cuttedAfter = false;
+		boolean cuttedBefore = false;
+		if ((completeString.length() - (position + searchLength)) > overheadAfter)
+		{
+			after += overheadAfter;
+			cuttedAfter = true;
+		}
+		if (position > overheadBefore)
+		{
+			after += overheadBefore;
+			cuttedBefore = true;
+		}
+
+		result = result.substring(start, after);
+
+		// Zeilenumbrueche entfernen
+		result = result.replace("\r\n", " ");
+		result = result.replace("\n", " ");
+
+		if (cuttedAfter)
+		{
+			result += " [..]";
+		}
+		if (cuttedBefore)
+		{
+			result = "[..]" + result;
+		}
+
+		return result;
+	}
+
+	/**
+	 * Liefert die Position des ersten Vorkommens ab eine bestimmten Position.
+	 * 
+	 * @param searchString
+	 *            String nach dem gesucht werden soll.
+	 * @param completeString
+	 *            StringBuilder der durchsucht werden soll.
+	 * @param startPosition
+	 *            Position ab der gesucht werden soll.
+	 * @return Position des ersten Vorkommens
+	 */
+	private int searchRabinKarb(String searchString, StringBuilder completeString, int startPosition)
+	{
+		int result = 0;
+
 		int intRandomNumber = 0;
 		int intHashStringPart = 0;
 		int intHashSearch = 0;
-		// Länge des gesamten Textes
+		// Laenge des gesamten Textes
 		int intLengthComplete = completeString.length();
-		// Länge des Suchtextes
+		// Laenge des Suchtextes
 		int intLengthSearchString = searchString.length();
 		int intLengthDifference = intLengthComplete - intLengthSearchString;
 
@@ -286,8 +395,9 @@ public class RabinKarpComparer
 		// Wert des Musters
 		intHashSearch = hashFirst(searchString, intLengthSearchString);
 
-		// da die Zufallszahlenerzeugung für die rand. RK-Algorithmus essentiell
-		// ist, messen wir die Instanziierung des Random-Objekts natürlich
+		// da die Zufallszahlenerzeugung fuer die rand. RK-Algorithmus
+		// essentiell
+		// ist, messen wir die Instanziierung des Random-Objekts natuerlich
 		// jeweils mit
 		Random randomNumbers = new Random();
 
@@ -296,17 +406,18 @@ public class RabinKarpComparer
 		_falseMatches = 0;
 
 		// solange Text noch nicht komplett durchlaufen
-		for (int i = 0; i <= intLengthDifference; i++)
+		for (int i = startPosition; i <= intLengthDifference; i++)
 		{
 			// wenn Hashwert des Musters mit dem Hashwert des Textausschnittes
-			// übereinstimmt...
+			// uebereinstimmt...
 			if (intHashStringPart == intHashSearch)
 			{
-				// und die Strings an der Stelle auch übereinstimmen
+				// und die Strings an der Stelle auch uebereinstimmen
 				if (completeString.substring(i, i + intLengthSearchString).equals(searchString))
 				{
-					// Übereinstimmung gefunden
-					result.add(i);
+					// Ue�bereinstimmung gefunden
+					result = i;
+					break;
 				}
 				else
 				{
@@ -315,7 +426,7 @@ public class RabinKarpComparer
 					{
 						if (_falseMatches == MAX_FALSEMATCHES)
 						{
-							// wähle q neu - eine Zweierpotenz zwischen 2^minQ
+							// waehle q neu - eine Zweierpotenz zwischen 2^minQ
 							// bis 2^maxQ
 							intRandomNumber = randomNumbers.nextInt(_qDiff) + MIN_Q;
 							// Schiebeoperatoren sind schneller
@@ -324,7 +435,8 @@ public class RabinKarpComparer
 							// false matches zurücksetzen
 							_falseMatches = 0;
 
-							// mit neuem q muss Hash für Muster und Gesamtstring
+							// mit neuem q muss Hash für Muster und
+							// Gesamtstring
 							// auch neu berechnet werden
 							intHashSearch = hashFirst(searchString, intLengthSearchString);
 							intHashStringPart = hashFirst(completeString.substring(i, i + intLengthSearchString), intLengthSearchString);
@@ -338,6 +450,8 @@ public class RabinKarpComparer
 			// nächsten Hashwert bestimmen
 			intHashStringPart = hash(intHashStringPart, i + 1, intLengthSearchString, completeString);
 		}
+
 		return result;
 	}
+
 }
