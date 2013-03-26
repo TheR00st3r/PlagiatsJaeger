@@ -10,7 +10,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.servlet.annotation.WebServlet;
 
@@ -20,18 +23,16 @@ public class MYSQLDataBaseHelper
 {
 	private Connection			_connection			= null;
 	private Statement			_statement			= null;
-	private PreparedStatement	_preparedStatement	= null;
-	private ResultSet			_resultSet			= null;
-
 	/**
-	 * Stellt Verbindung zum MySQL Server und der Datenbank her, im Moment wird
-	 * eine Abfrage der User Vornamen ausgeführt und ausgegeben
+	 * Stellt Verbindung zum MySQL Server und der Datenbank her.
 	 * 
 	 * @throws Exception
 	 *             Falls SQL Connect fehlschlägt
 	 */
 	public void connect() throws Exception
 	{
+		_connection = null;
+		_statement = null;
 		// Lädt den MySQL Treiber
 		Class.forName("com.mysql.jdbc.Driver");
 		// Verbindung mit DB herstellen
@@ -39,14 +40,6 @@ public class MYSQLDataBaseHelper
 		_connection = DriverManager.getConnection("jdbc:mysql://192.168.4.28/plagiatsjaeger?" + "user=root&password=" + strPassword);
 		// Statements erlauben SQL Abfragen
 		_statement = _connection.createStatement();
-		// Abfragenergebnis in ResultSet speichern
-		_resultSet = _statement.executeQuery("select * from plagiatsjaeger.user");
-		// Für jeden User auf Konsole ausgeben
-		while (_resultSet.next())
-		{
-			String strUser = _resultSet.getString(2);
-			System.out.println("Name: " + strUser);
-		}
 	}
 
 	/**
@@ -82,4 +75,24 @@ public class MYSQLDataBaseHelper
 		return strPassword;
 
 	}
+	/**
+	 * Schreibt ein oder mehrere SearchResults in die Tabelle der Datenbank
+	 * 
+	 * @param alArrayList Zu schreibende SearchResultObjekte
+	 * @throws Exception Falls SQL Befehl fehlschlägt
+	 */
+	public void insertSearchResultIntoTable (ArrayList<SearchResult> alArrayList) throws Exception
+	{
+		this.connect();
+		String strStatement = "";
+		for(SearchResult result : alArrayList)
+		{
+			strStatement = "INSERT INTO result VALUES(DEFAULT, '"+ result.getorginalText() +"' , '" + result.getlink() + "' , '" + result.getplagiatsText() + "' , '" + result.getsearchID() +"' )";
+			_statement.executeUpdate(strStatement);
+		}
+			
+		this.disconnect();		
+		
+	}
+	
 }
