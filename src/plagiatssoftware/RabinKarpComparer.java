@@ -6,14 +6,14 @@ import java.util.Random;
 
 public class RabinKarpComparer
 {
-	// Basis-Wert: 257 für Anzahl Buchstaben des Alphabets
+	// Basis-Wert: 257 fuer Anzahl Buchstaben des Alphabets
 	private final int			BASE				= 257;
-	// initialer Modulo-Wert für die Hash-Funktion. Muss eine 2er Potenz sein
+	// initialer Modulo-Wert fuer die Hash-Funktion. Muss eine 2er Potenz sein
 	private int					q					= 1024;
 	// damit q-1 nicht bei jeder Moduloberechnung erneut berechnet werden muss
 	private int					reducedQ			= q - 1;
 
-	// ab wievielen false matches soll q neu gewählt werden? 0 = Zufallsmodus
+	// ab wievielen false matches soll q neu gewaehlt werden? 0 = Zufallsmodus
 	// ausschalten
 	private final int			MAX_FALSEMATCHES	= 1000;
 
@@ -46,7 +46,7 @@ public class RabinKarpComparer
 	/**
 	 * Durchsucht den completeString nach Vorkommnissen der searchStrings in
 	 * jeweils einem eigenen Task. Wenn die Suche abgeschlossen ist wird das
-	 * Ergebniss durch den {@link OnSearchFinishedListener} zur�ckgeliefert.
+	 * Ergebniss durch den {@link OnSearchFinishedListener} zurueckgeliefert.
 	 * 
 	 * @param searchStrings
 	 * @param completeString
@@ -85,7 +85,7 @@ public class RabinKarpComparer
 	/**
 	 * Durchsucht den completeString nach Vorkommnissen des searchString in
 	 * einem extra Task. Wenn die Suche abgeschlossen ist wird das Ergebniss
-	 * durch den {@link OnSingleSearchFinishedListener} zur�ckgeliefert.
+	 * durch den {@link OnSingleSearchFinishedListener} zurueckgeliefert.
 	 * 
 	 * @param searchString
 	 * @param completeString
@@ -123,7 +123,7 @@ public class RabinKarpComparer
 	}
 
 	/**
-	 * Wird ausgel�st, sobald die Suche beendet ist
+	 * Wird ausgeloest, sobald die Suche beendet ist
 	 * 
 	 * @author Andreas
 	 */
@@ -133,7 +133,7 @@ public class RabinKarpComparer
 	}
 
 	/**
-	 * Wird ausgel�st wenn alle Suchen fertig sind.
+	 * Wird ausgeloest wenn alle Suchen fertig sind.
 	 * 
 	 * @author Andreas
 	 */
@@ -148,7 +148,7 @@ public class RabinKarpComparer
 	 * 
 	 * @param searchString
 	 * @param completeString
-	 * @return Eine ArrayList mit Treffern inkl. der n�chsten 100 Zeichen
+	 * @return Eine ArrayList mit Treffern inkl. der naechsten 100 Zeichen
 	 */
 	public ArrayList<String> search(String searchString, StringBuilder completeString)
 	{
@@ -184,7 +184,7 @@ public class RabinKarpComparer
 				// Zeichen
 				searchResult = completeString.substring(i);
 			}
-			// Zeilenumbrüche entfernen
+			// Zeilenumbrueche entfernen
 			searchResult = searchResult.replace("\r\n", " ");
 			searchResult = searchResult.replace("\n", " ");
 			if (cutted) searchResult = searchResult + " [..]";
@@ -220,7 +220,7 @@ public class RabinKarpComparer
 	}
 
 	/**
-	 * Bitweise Moduloberechnung. Daher wird für q eine 2er Potenz benötigt
+	 * Bitweise Moduloberechnung. Daher wird fuer q eine 2er Potenz benoetigt
 	 * 
 	 * @param x
 	 * @return
@@ -242,14 +242,14 @@ public class RabinKarpComparer
 	{
 
 		int result = 0;
-		// wenn die gesamte Stringlänge kleiner als die des Musters ist, kann
+		// wenn die gesamte Stringlaenge kleiner als die des Musters ist, kann
 		// das Muster nicht vorkommen
 		if (completeString.length() >= patternLength)
 		{
 			int intValue;
 			int intValue2;
 
-			// das erste Zeichen von links bestimmen, das wegfällt
+			// das erste Zeichen von links bestimmen, das wegfaellt
 			intValue = (int) completeString.charAt(startPos - 1);
 			// das hinzukommende Zeichen von rechts bestimmen
 			intValue2 = (int) completeString.charAt(startPos + patternLength - 1);
@@ -267,7 +267,7 @@ public class RabinKarpComparer
 	 *            Text nach dem gesucht werden soll
 	 * @param completeString
 	 *            Text als StringBuilder der durchsucht werden soll
-	 * @return Liefter eine liste der Positionen(int) der Treffer zurück
+	 * @return Liefter eine liste der Positionen(int) der Treffer zurueck
 	 */
 	private ArrayList<Integer> searchRabinKarb(String searchString, StringBuilder completeString)
 	{
@@ -291,6 +291,17 @@ public class RabinKarpComparer
 		return result;
 	}
 
+	/**
+	 * Die Funktion liefert alle SearchResults f�r die W�rter im
+	 * searchText-Array.
+	 * 
+	 * @param searchText
+	 *            Array mit allen zusammenh�ngenden Texte/W�rter die gefunden
+	 *            werden sollen.
+	 * @param completeString
+	 *            Text der Durchsucht werden soll
+	 * @return ArrayList mit den SearchResults
+	 */
 	public ArrayList<SearchResult> search(String[] searchText, StringBuilder completeString)
 	{
 		ArrayList<SearchResult> result = new ArrayList<SearchResult>();
@@ -306,35 +317,50 @@ public class RabinKarpComparer
 			}
 
 			int i = 0;
-
-			SearchResult searchResult = new SearchResult(0, searchString, "", "HIER LINK EINTRAGEN!", passedWords);
-			while ((i = searchRabinKarb(searchString, completeString, i)) != 0)
+			if (!searchString.equals(""))
 			{
-				searchResult.setplagiatsText(resultWithOverhead(completeString, i, searchString.length()));
-				searchResult.setorginalText(searchString);
-				if(passedWords + minNumWords >= searchText.length)
+				SearchResult searchResult = new SearchResult(0, searchString, "", "HIER LINK EINTRAGEN!", passedWords);
+				while ((i = searchRabinKarb(searchString, completeString, i)) != 0)
 				{
-					break;
+					searchResult.setplagiatsText(resultWithOverhead(completeString, i, searchString.length(), 0, 0));
+					searchResult.setorginalText(searchString);
+					if (passedWords + minNumWords >= searchText.length)
+					{
+						break;
+					}
+
+					searchString += " " + searchText[passedWords + minNumWords];
+					passedWords++;
 				}
-				searchString += " " + searchText[passedWords + minNumWords];
-				passedWords++;
-				i=0;
+				result.add(searchResult);
 			}
-			result.add(searchResult);
 		}
 		return result;
 	}
 
-	private String resultWithOverhead(StringBuilder completeString, int position, int searchLength)
+	/**
+	 * Schneidet einen Text aus dem gesamten String mit angegebenem Overhead
+	 * aus.
+	 * 
+	 * @param completeString
+	 *            Kompletter String
+	 * @param position
+	 *            Startposition
+	 * @param searchLength
+	 *            Laenge des String der ausgeschnitten werden soll
+	 * @param overheadBefore
+	 *            Zeichen die vor dem String stehen bleiben sollen
+	 * @param overheadAfter
+	 *            Zeichen die nach dem String stehen bleiben sollen
+	 * @return Ausgeschnittener String mit angegebenem Overhead
+	 */
+	private String resultWithOverhead(StringBuilder completeString, int position, int searchLength, int overheadBefore, int overheadAfter)
 	{
 		String result = completeString.toString();
-		int overheadAfter = 0;
-		int overheadBefore = 0;
 
 		int start = position;
-		int after = position;
+		int after = position + searchLength;
 
-		
 		boolean cuttedAfter = false;
 		boolean cuttedBefore = false;
 		if ((completeString.length() - (position + searchLength)) > overheadAfter)
@@ -344,7 +370,7 @@ public class RabinKarpComparer
 		}
 		if (position > overheadBefore)
 		{
-			after += overheadBefore;
+			start -= overheadBefore;
 			cuttedBefore = true;
 		}
 
@@ -354,13 +380,13 @@ public class RabinKarpComparer
 		result = result.replace("\r\n", " ");
 		result = result.replace("\n", " ");
 
-		if (cuttedAfter)
-		{
-			result += " [..]";
-		}
 		if (cuttedBefore)
 		{
 			result = "[..]" + result;
+		}
+		if (cuttedAfter)
+		{
+			result += "[..]";
 		}
 
 		return result;
@@ -382,8 +408,6 @@ public class RabinKarpComparer
 		int result = 0;
 
 		int intRandomNumber = 0;
-		int intHashStringPart = 0;
-		int intHashSearch = 0;
 		// Laenge des gesamten Textes
 		int intLengthComplete = completeString.length();
 		// Laenge des Suchtextes
@@ -391,9 +415,9 @@ public class RabinKarpComparer
 		int intLengthDifference = intLengthComplete - intLengthSearchString;
 
 		// hash-Wert der ersten Zeichen des gesamten Textes
-		intHashStringPart = hashFirst(completeString.substring(0, intLengthSearchString), intLengthSearchString);
+		int intHashStringPart = hashFirst(completeString.substring(startPosition, startPosition + intLengthSearchString), intLengthSearchString);
 		// Wert des Musters
-		intHashSearch = hashFirst(searchString, intLengthSearchString);
+		int intHashSearch = hashFirst(searchString, intLengthSearchString);
 
 		// da die Zufallszahlenerzeugung fuer die rand. RK-Algorithmus
 		// essentiell
@@ -432,10 +456,10 @@ public class RabinKarpComparer
 							// Schiebeoperatoren sind schneller
 							q = _minQResult << (intRandomNumber - MIN_Q);
 							reducedQ = q - 1;
-							// false matches zurücksetzen
+							// false matches zuruecksetzen
 							_falseMatches = 0;
 
-							// mit neuem q muss Hash für Muster und
+							// mit neuem q muss Hash fuer Muster und
 							// Gesamtstring
 							// auch neu berechnet werden
 							intHashSearch = hashFirst(searchString, intLengthSearchString);
@@ -445,9 +469,9 @@ public class RabinKarpComparer
 				}
 			}
 
-			// Bereichsüberlaufsfehler abfangen
+			// Bereichsueberlaufsfehler abfangen
 			if ((i + intLengthSearchString + 1) > intLengthComplete) break;
-			// nächsten Hashwert bestimmen
+			// naechsten Hashwert bestimmen
 			intHashStringPart = hash(intHashStringPart, i + 1, intLengthSearchString, completeString);
 		}
 
