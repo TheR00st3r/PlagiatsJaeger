@@ -1,0 +1,12 @@
+# AuthType Basic
+# AuthName "developer" 
+# AuthUserFile /kunden/homepages/7/d19775257/htdocs/helptech/.htusers
+# require user timo
+
+#### Regeln zum Umschreiben der URL ####
+
+Options -MultiViews +FollowSymLinks
+RewriteEngine On
+RewriteBase /app/website/public/
+RewriteBase /webseiten/plagiatsjaeger-app/website/public/
+RewriteRule ^([0-9a-zA-Z_/-]+)$ index.php?url=$1 [QSA]
