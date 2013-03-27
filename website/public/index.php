@@ -23,51 +23,57 @@ if (isset($_POST['lSubmit'])) {
 	$smarty -> assign('message', $loginResult);
 }
 
-if (LoginAccess::check()) {
+if ($page == 'public') {
+	require_once '../classes/Folder.php';
+	$folder = Folder::getFolderFromHash($_GET['id']);
+	$bodyTpl = '<h1>öffentlicher Upload</h1>Hash=' . $_GET['id'] . ', FolderID=' . $folder['fID'] . ', FolderName=' . $folder['fName'];
+} else if (LoginAccess::check()) {
 
 	$smarty -> assign('userinfo', LoginAccess::userInfo());
-	
-	require_once '../classes/Folder.php';
 
 	switch ($url[0]) {
+		case '' :
 		case 'folder' :
-			
-			if(isset($_GET['delete']) and isset($_GET['fID'])) {
+			require_once '../classes/Document.php';
+			require_once '../classes/Folder.php';
+
+			if (isset($_POST['fAddSubmit'])) {
+				Folder::addFolder($_POST['fAddName'], $folder['fID'], LoginAccess::userID());
+			}
+
+			if (isset($_GET['delete']) and isset($_GET['fID'])) {
 				Folder::deleteFolder($_GET['fID']);
 			}
-			
+
+			if (isset($_GET['link']) and isset($_GET['fID'])) {
+				Folder::addFolderLink($_GET['fID']);
+			}
+
 			$folderUrl = deleteItem($url, 0);
 			$folderLink = implode('/', $folderUrl);
 			$allFolders = Folder::getFolder();
-			
-			// print_array($allFolders);
-			
 			$folder = $allFolders[$folderLink];
-			
 			$smarty -> assign('folder', $folder);
 			
-			// print_array($folder);
-			require_once '../classes/Document.php';
-			$smarty -> assign('documents', Document::getDocumentsFromFolderID($folder['fID']));
-			
-			//print_array(Document::getDocumentsFromFolderID($folder['fID']));
-			
-
-		case '' :
-			
-			if (isset($_POST['fAddSubmit'])) {
-				Folder::addFolder($_POST['fAddName'], $_POST['fAddParent'], LoginAccess::userID());
+			if (isset($_POST['dAddSubmit'])) {
+				require_once '../classes/Upload.php';
+				//$uID, $fID, $dAuthor, $file
+				Upload::fileUpload(LoginAccess::userID(), $folder['fID'], 'defAutor', $_FILES['dAddFile']);
 			}
-			
+
+			$smarty -> assign('documents', Document::getDocumentsFromFolderID($folder['fID']));
 			$smarty -> assign('folders', Folder::getFolderArray($folder['fID']));
-			
 			$smarty -> assign('folderNav', Folder::getFolderArray());
-			$smarty -> assign('fParents', Folder::getFolderParents());
 			$bodyTpl = $smarty -> fetch('pages/fileManager.tpl');
 			break;
 
+		case 'admin' :
+			if(LoginAccess::check(500)) {
+				$bodyTpl = $smarty -> fetch('pages/admin.tpl');
+				break;
+			}
 		default :
-			$bodyTpl = '<h1>404</h1>';
+			$bodyTpl = '<h2>404</h2>';
 			break;
 	}
 } else {

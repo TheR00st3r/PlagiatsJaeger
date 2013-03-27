@@ -118,6 +118,29 @@ class Folder {
 		$db = new db();
 		return $db -> deleteWithWhereArray('folder', array('fID' => $fID));
 	}
+	
+	public static function addFolderLink($fID) {
+		$hash = md5(uniqid());
+		$db = new db();
+		if($db -> update('folder', array('fHashLink' => $hash), array('fID' => $fID))) {
+			return $hash;
+		}
+		return false;
+	}
+	
+	public static function getFolderFromHash($hash) {
+		$db = new db();
+		$db -> read("
+				SELECT
+					f.fID, f.fName
+				FROM
+					folder AS f
+				WHERE
+					f.fHashLink = '$hash'
+				ORDER BY
+					f.fName ASC");
+		return $db -> lines();
+	}
 
 }
 ?>

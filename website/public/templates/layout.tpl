@@ -29,11 +29,8 @@
 			</div>
 			<div id="nav" id="nav">
 				<ul>
-					{foreach from=$nav key=key item=item}
-					<li>
-						<a href="{$lang}/{$item.alias}" {if $item.id == $navComplete[$url[0]]['id']}class="active"{/if}>{$item.name}</a>
-					</li>
-					{/foreach}
+					<li><a href="{$root}folder">Folder</a></li>
+					<li><a href="{$root}admin">Admin</a></li>
 				</ul>
 			</div>
 
