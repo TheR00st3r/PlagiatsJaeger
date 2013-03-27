@@ -63,23 +63,23 @@ class MySmarty extends Smarty {
 		// //$this -> IsSMTP();
 		// $this -> IsSendmail(); //1und1 only!!!
 		// // Specify main and backup server
-		// $this -> Host = 'smtp.1und1.de';
+		// $this -> Host = '';
 		// // Enable SMTP authentication
 		// $this -> SMTPAuth = true;
 		// // SMTP username
-		// $this -> Username = 'auftrag@helptech.de';
+		// $this -> Username = '';
 		// // SMTP password
-		// $this -> Password = 'Xob7RmZs9IPx';
+		// $this -> Password = '';
 		// // Enable encryption, 'ssl' also accepted
 		// $this -> SMTPSecure = 'tls';
 // 
 		// // Set email format to HTML
 		// $this -> IsHTML(true);
 // 
-		// $this -> From = 'auftrag@helptech.de';
-		// $this -> FromName = 'HelpTech.de';
-		// $this -> AddReplyTo('auftrag@helptech.de', 'Help Tech');
-		// $this -> AddBCC('debug@kleiner-als.de');
+		// $this -> From = '';
+		// $this -> FromName = '';
+		// $this -> AddReplyTo('', '');
+		// $this -> AddBCC('');
 	// }
 // 
 // }
