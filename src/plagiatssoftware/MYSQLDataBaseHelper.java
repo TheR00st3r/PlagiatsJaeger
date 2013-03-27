@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Connection;
@@ -25,11 +26,9 @@ public class MYSQLDataBaseHelper
 	private Statement			_statement			= null;
 	/**
 	 * Stellt Verbindung zum MySQL Server und der Datenbank her.
-	 * 
-	 * @throws Exception
-	 *             Falls SQL Connect fehlschlägt
+	 * @throws Exception Falls SQL Connect fehlschlägt {@link SQLException} {@link ClassNotFoundException} {@link FileNotFoundException}
 	 */
-	public void connect() throws Exception
+	public void connect() throws Exception 
 	{
 		_connection = null;
 		_statement = null;
@@ -79,7 +78,7 @@ public class MYSQLDataBaseHelper
 	 * Schreibt ein oder mehrere SearchResults in die Tabelle der Datenbank
 	 * 
 	 * @param alArrayList Zu schreibende SearchResultObjekte
-	 * @throws Exception Falls SQL Befehl fehlschlägt
+	 * @throws Exception Falls SQL Befehl fehlschlägt {@link SQLException}
 	 */
 	public void insertSearchResultIntoTable (ArrayList<SearchResult> alArrayList) throws Exception
 	{
@@ -89,10 +88,22 @@ public class MYSQLDataBaseHelper
 		{
 			strStatement = "INSERT INTO result VALUES(DEFAULT, '"+ result.getorginalText() +"' , '" + result.getlink() + "' , '" + result.getplagiatsText() + "' , '" + result.getsearchID() +"' )";
 			_statement.executeUpdate(strStatement);
-		}
-			
+		}	
 		this.disconnect();		
-		
+	}
+	/**
+	 * Fuehrt einen SQL Abfrage aus
+	 * 
+	 * @param strStatement SQL Befehl
+	 * @return Gibt ein ResultSet zurueck
+	 * @throws Exception Falls SQL Befehl fehlschlaegt {@link SQLException}
+	 */
+	public ResultSet startQuery (String strStatement) throws Exception 
+	{
+		this.connect();
+		ResultSet rstResultSet = _statement.executeQuery(strStatement); 
+		this.disconnect();
+		return rstResultSet;
 	}
 	
 }
