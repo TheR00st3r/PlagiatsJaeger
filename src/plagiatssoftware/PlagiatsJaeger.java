@@ -102,7 +102,7 @@ public class PlagiatsJaeger
 		}
 		System.out.println("FERTIG!");
 	}
-
+	
 	/**
 	 * Die Funktion baut die Suchergebnisse über alle URLs zusammen.
 	 * 
@@ -111,6 +111,19 @@ public class PlagiatsJaeger
 	 * @return
 	 */
 	private ArrayList<SearchResult> checkAllSites(String textToCheck, ArrayList<String> urls)
+	{
+		return checkAllSites(textToCheck,urls,0);
+	}
+	
+
+	/**
+	 * Die Funktion baut die Suchergebnisse über alle URLs zusammen.
+	 * 
+	 * @param urls
+	 * @param wordsToCheck
+	 * @return
+	 */
+	private ArrayList<SearchResult> checkAllSites(String textToCheck, ArrayList<String> urls, int startReihenfolge)
 	{
 		ArrayList<SearchResult> result = new ArrayList<SearchResult>();
 		if (urls != null && urls.size() > 0)
@@ -124,7 +137,7 @@ public class PlagiatsJaeger
 				_wordProcessing = new WordProcessing();
 			}
 			String[] wordsToCheck = _wordProcessing.splitToWords(Jsoup.parse(textToCheck).text());
-			result = _rabinKarpComparer.search(wordsToCheck, loadURL(urls.get(0)));
+			result = _rabinKarpComparer.search(wordsToCheck, new StringBuilder( Jsoup.parse(loadURL(urls.get(0))).text()), startReihenfolge);
 			// Solange noch URLs in der Liste stehen wird die Funktion rekursiv
 			// aufgerufen
 			if (urls.size() > 1)
@@ -133,15 +146,18 @@ public class PlagiatsJaeger
 				System.out.println("URL: " + urls.get(0));
 
 				urls.remove(0);
-				StringBuilder sbNewSearchString = new StringBuilder();
+				//StringBuilder sbNewSearchString = new StringBuilder();
+				ArrayList<SearchResult> resultTmp = new ArrayList<SearchResult>();
 				for (SearchResult searchResult : result)
 				{
 					if (searchResult.getplagiatsText().length() <= 0)
 					{
-						sbNewSearchString.append(searchResult.getorginalText()).append(" ");
+						//sbNewSearchString.append(searchResult.getorginalText()).append(" ");
+						
+						resultTmp.addAll(checkAllSites(searchResult.getorginalText(), urls, searchResult.getreihenfolge()));
 					}
 				}
-				result.addAll(checkAllSites(sbNewSearchString.toString(), urls));
+				result.addAll(resultTmp);
 			}
 		}
 		else
@@ -202,7 +218,7 @@ public class PlagiatsJaeger
 		return result;
 	}
 
-	private StringBuilder loadURL(String strURL)
+	private String loadURL(String strURL)
 	{
 		StringBuilder result = new StringBuilder();
 
@@ -234,7 +250,7 @@ public class PlagiatsJaeger
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return result;
+		return result.toString();
 	}
 
 }
