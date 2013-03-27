@@ -25,12 +25,12 @@ public class BlekkoSearch
 	private static final String	URL_ARG_SEARCH	= "q=";
 
 	private static final String	CHARSET			= "UTF-8";
-	
-	private ArrayList<String> _searchResults = new ArrayList<String>();
+
+	private ArrayList<String>	_searchResults	= new ArrayList<String>();
 
 	public BlekkoSearch()
 	{
-		
+
 	}
 
 	/**
@@ -43,14 +43,13 @@ public class BlekkoSearch
 	{
 		ArrayList<String> result = null;
 
-		textToSearch = textToSearch.replaceAll("[ \t\n\f\r]", "+");
-
-		URL url;
 		try
 		{
-			url = new URL(URL +  URL_ARG_SEARCH + URLEncoder.encode(textToSearch, CHARSET) + URL_ARG_JSON);
+			textToSearch = URLEncoder.encode(textToSearch, CHARSET).replaceAll("[ \t\n\f\r]", "+");
+
+			URL url = new URL(URL + URL_ARG_SEARCH + textToSearch + URL_ARG_JSON);
 			InputStreamReader reader = new InputStreamReader(url.openStream(), CHARSET);
-			
+
 			BufferedReader bufferedReader = new BufferedReader(reader);
 
 			StringBuilder stringBuilder = new StringBuilder();
@@ -77,30 +76,28 @@ public class BlekkoSearch
 
 		return result;
 	}
-	
-	
 
 	/**
-	 * Holt URLs aus json 
+	 * Holt URLs aus json
 	 * 
 	 * @param strSearchLink
 	 * @return Gibt Liste der URLs zurueck
-	 */	
+	 */
 	private ArrayList<String> getUrlFromJson(String strSearchLink)
-	{	
+	{
 		ArrayList<String> alUrlList = new ArrayList<String>();
-		//Matchpattern
+		// Matchpattern
 		Pattern patPattern = Pattern.compile("\"url\"\\s*?:\\s*?\"([^\"]+?)\"");
 		Matcher matMatcher;
-		 
-		//Und schlieﬂlich in der for schleife//
+
+		// Und schlieﬂlich in der for schleife//
 		matMatcher = patPattern.matcher(strSearchLink);
-		
-		while(matMatcher.find())
+
+		while (matMatcher.find())
 		{
-			if( _searchResults.contains(matMatcher.group(1)))
+			if (_searchResults.contains(matMatcher.group(1)))
 			{
-				
+
 			}
 			else
 			{
@@ -108,9 +105,7 @@ public class BlekkoSearch
 			}
 		}
 		_searchResults.addAll(alUrlList);
-		return alUrlList; 
+		return alUrlList;
 	}
-	
-	
 
 }
