@@ -22,13 +22,17 @@ import javax.servlet.annotation.WebServlet;
 @WebServlet("/MYSQLDataBaseHelper")
 public class MYSQLDataBaseHelper
 {
-	private Connection			_connection			= null;
-	private Statement			_statement			= null;
+	private Connection	_connection	= null;
+	private Statement	_statement	= null;
+
 	/**
 	 * Stellt Verbindung zum MySQL Server und der Datenbank her.
-	 * @throws Exception Falls SQL Connect fehlschlägt {@link SQLException} {@link ClassNotFoundException} {@link FileNotFoundException}
+	 * 
+	 * @throws Exception
+	 *             Falls SQL Connect fehlschlägt {@link SQLException}
+	 *             {@link ClassNotFoundException} {@link FileNotFoundException}
 	 */
-	public void connect() throws Exception 
+	public void connect() throws Exception
 	{
 		_connection = null;
 		_statement = null;
@@ -74,36 +78,42 @@ public class MYSQLDataBaseHelper
 		return strPassword;
 
 	}
+
 	/**
 	 * Schreibt ein oder mehrere SearchResults in die Tabelle der Datenbank
 	 * 
-	 * @param alArrayList Zu schreibende SearchResultObjekte
-	 * @throws Exception Falls SQL Befehl fehlschlägt {@link SQLException}
+	 * @param alArrayList
+	 *            Zu schreibende SearchResultObjekte
+	 * @throws Exception
+	 *             Falls SQL Befehl fehlschlägt {@link SQLException}
 	 */
-	public void insertSearchResultIntoTable (ArrayList<SearchResult> alArrayList) throws Exception
+	public void insertSearchResultIntoTable(ArrayList<SearchResult> alArrayList) throws Exception
 	{
 		this.connect();
 		String strStatement = "";
-		for(SearchResult result : alArrayList)
+		for (SearchResult result : alArrayList)
 		{
-			strStatement = "INSERT INTO result VALUES(DEFAULT, '"+ result.getorginalText() +"' , '" + result.getlink() + "' , '" + result.getplagiatsText() + "' , '" + result.getsearchID() +"' )";
+			strStatement = "INSERT INTO result VALUES(DEFAULT, '" + result.getorginalText() + "' , '" + result.getlink() + "' , '" + result.getplagiatsText() + "' , '" + result.getsearchID() + "' )";
 			_statement.executeUpdate(strStatement);
-		}	
-		this.disconnect();		
+		}
+		this.disconnect();
 	}
+
 	/**
 	 * Fuehrt einen SQL Abfrage aus
 	 * 
-	 * @param strStatement SQL Befehl
+	 * @param strStatement
+	 *            SQL Befehl
 	 * @return Gibt ein ResultSet zurueck
-	 * @throws Exception Falls SQL Befehl fehlschlaegt {@link SQLException}
+	 * @throws Exception
+	 *             Falls SQL Befehl fehlschlaegt {@link SQLException}
 	 */
-	public ResultSet startQuery (String strStatement) throws Exception 
+	public ResultSet startQuery(String strStatement) throws Exception
 	{
 		this.connect();
-		ResultSet rstResultSet = _statement.executeQuery(strStatement); 
+		ResultSet rstResultSet = _statement.executeQuery(strStatement);
 		this.disconnect();
 		return rstResultSet;
 	}
-	
+
 }

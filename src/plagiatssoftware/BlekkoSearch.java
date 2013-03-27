@@ -8,6 +8,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 public class BlekkoSearch
 {
 	private static final String	URL				= "http://blekko.com/ws/?";
-	private static final String	URL_ARG_JSON	= "+/json";
+	private static final String	URL_ARG_JSON	= "+%2Fjson";
 	private static final String	URL_ARG_SEARCH	= "q=";
 
 	private static final String	CHARSET			= "UTF-8";
@@ -43,9 +45,9 @@ public class BlekkoSearch
 		URL url;
 		try
 		{
-			url = new URL(URL + URL_ARG_JSON + URL_ARG_SEARCH + URLEncoder.encode(textToSearch, CHARSET));
+			url = new URL(URL +  URL_ARG_SEARCH + URLEncoder.encode(textToSearch, CHARSET) + URL_ARG_JSON);
 			InputStreamReader reader = new InputStreamReader(url.openStream(), CHARSET);
-
+			
 			BufferedReader bufferedReader = new BufferedReader(reader);
 
 			StringBuilder stringBuilder = new StringBuilder();
@@ -55,8 +57,8 @@ public class BlekkoSearch
 				stringBuilder.append(line);
 				line = bufferedReader.readLine();
 			}
-			//TODO: JSON String Parsen
-			System.out.println(stringBuilder.toString());
+			this.getUrlFromJson(stringBuilder.toString());
+			//System.out.println(stringBuilder.toString());
 
 		}
 		catch (MalformedURLException e)
@@ -73,6 +75,31 @@ public class BlekkoSearch
 		}
 
 		return result;
+	}
+	
+	
+
+	/**
+	 * Holt URLs aus json 
+	 * 
+	 * @param strSearchLink
+	 * @return Gibt Liste der URLs zurueck
+	 */
+	private ArrayList<String> getUrlFromJson(String strSearchLink)
+	{	
+		ArrayList<String> alUrlList = new ArrayList<String>();
+		//Matchpattern
+		Pattern patPattern = Pattern.compile("\"url\"\\s*?:\\s*?\"([^\"]+?)\"");
+		Matcher matMatcher;
+		 
+		//Und schlieﬂlich in der for schleife//
+		matMatcher = patPattern.matcher(strSearchLink);
+		
+		while(matMatcher.find())
+		{
+			alUrlList.add(matMatcher.group(1));
+		}
+		return alUrlList; 
 	}
 
 }
