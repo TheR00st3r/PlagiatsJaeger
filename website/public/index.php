@@ -40,13 +40,13 @@ if (LoginAccess::check()) {
 			$folderLink = implode('/', $folderUrl);
 			$allFolders = Folder::getFolder();
 			
+			// print_array($allFolders);
+			
 			$folder = $allFolders[$folderLink];
 			
 			$smarty -> assign('folder', $folder);
 			
-			$smarty -> assign('folders', Folder::getFolderArray($folder['fID']));
-			
-			//print_array($folder);
+			// print_array($folder);
 			require_once '../classes/Document.php';
 			$smarty -> assign('documents', Document::getDocumentsFromFolderID($folder['fID']));
 			
@@ -54,9 +54,13 @@ if (LoginAccess::check()) {
 			
 
 		case '' :
+			
 			if (isset($_POST['fAddSubmit'])) {
 				Folder::addFolder($_POST['fAddName'], $_POST['fAddParent'], LoginAccess::userID());
 			}
+			
+			$smarty -> assign('folders', Folder::getFolderArray($folder['fID']));
+			
 			$smarty -> assign('folderNav', Folder::getFolderArray());
 			$smarty -> assign('fParents', Folder::getFolderParents());
 			$bodyTpl = $smarty -> fetch('pages/fileManager.tpl');

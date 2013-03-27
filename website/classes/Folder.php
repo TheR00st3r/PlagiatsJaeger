@@ -3,6 +3,10 @@ class Folder {
 
 	public static function getFolderArray($fParentID = 1, $depth = 999, $level = 0, $root = '') {
 
+		if (!isset($fParentID) or $fParentID == '') {
+			$fParentID = 1;
+		}
+
 		$uID = LoginAccess::userID();
 
 		if ($level > $depth)
@@ -29,7 +33,7 @@ class Folder {
 			$folder[$row['fID']]['root'] = $root;
 			$folder[$row['fID']]['alias'] = $alias;
 			$folder[$row['fID']]['path'] = $root . $alias;
-			$folder[$row['fID']]['fParentID'] = $parent_id;
+			$folder[$row['fID']]['fParentID'] = $fParentID;
 			$folder[$row['fID']]['fID'] = $row['fID'];
 			$folder[$row['fID']]['fName'] = $row['fName'];
 			$folder[$row['fID']]['fHashLink'] = $row['fHashLink'];
@@ -68,14 +72,16 @@ class Folder {
 			$folder[$root . $alias]['root'] = $root;
 			$folder[$root . $alias]['alias'] = $alias;
 			$folder[$root . $alias]['path'] = $root . $alias;
-			$folder[$root . $alias]['fParentID'] = $parent_id;
+			$folder[$root . $alias]['fParentID'] = $fParentID;
 			$folder[$root . $alias]['fID'] = $row['fID'];
 			$folder[$root . $alias]['fName'] = $row['fName'];
 			$folder[$root . $alias]['fHashLink'] = $row['fHashLink'];
 
-			$back = self::getFolder($row['fID'], $depth, $level + 1, $root . $alias . '/');
-			if (count($back) > 0) {
-				$folder = array_merge($folder, $back);
+			if ($row['fID'] > 1) {
+				$back = self::getFolder($row['fID'], $depth, $level + 1, $root . $alias . '/');
+				if (count($back) > 0) {
+					$folder = array_merge($folder, $back);
+				}
 			}
 		}
 		return $folder;
@@ -91,11 +97,11 @@ class Folder {
 	}
 
 	public static function addFolder($fName, $fParentID, $uID) {
-		
-		if(!isset($fParentID) or $fParentID == '') {
+
+		if (!isset($fParentID) or $fParentID == '') {
 			$fParentID = 1;
 		}
-		
+
 		if (Validator::validate(VAL_STRING, $fName, true) and Validator::validate(VAL_INTEGER, $fParentID, true) and Validator::validate(VAL_INTEGER, $uID, true)) {
 			$db = new db();
 			if ($db -> insert('folder', array('fName' => $fName, 'fParentID' => $fParentID))) {
