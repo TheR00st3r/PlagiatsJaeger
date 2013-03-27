@@ -304,14 +304,31 @@ public class RabinKarpComparer
 	 */
 	public ArrayList<SearchResult> search(String[] searchText, StringBuilder completeString)
 	{
+		return search(searchText, completeString, 0);
+	}
+
+	/**
+	 * Die Funktion liefert alle SearchResults für die Wörter im
+	 * searchText-Array.
+	 * 
+	 * @param searchText
+	 *            Array mit allen zusammenhängenden Texte/Wörter die gefunden
+	 *            werden sollen.
+	 * @param completeString
+	 *            Text der Durchsucht werden soll
+	 * @return ArrayList mit den SearchResults
+	 */
+	public ArrayList<SearchResult> search(String[] searchText, StringBuilder completeString, int startReihefolge)
+	{
 		ArrayList<SearchResult> result = new ArrayList<SearchResult>();
 
 		int minNumWords = 5;
-
+		boolean boolTextFound = false;
 		for (int passedWords = 0; passedWords < searchText.length; passedWords++)
 		{
 			String searchString = "";
-			for (int numWords = 0; (numWords < minNumWords) && (passedWords < searchText.length - minNumWords); numWords++)
+			int numWords;
+			for (numWords = 0; (numWords < minNumWords) && (passedWords < searchText.length - minNumWords); numWords++)
 			{
 				searchString += " " + searchText[passedWords + numWords];
 			}
@@ -319,9 +336,14 @@ public class RabinKarpComparer
 			int i = 0;
 			if (!searchString.equals(""))
 			{
-				SearchResult searchResult = new SearchResult(0, searchString, "", "HIER LINK EINTRAGEN!", passedWords);
+				SearchResult searchResult = new SearchResult(0, searchString, "", "HIER LINK EINTRAGEN!", passedWords + startReihefolge);
 				while ((i = searchRabinKarb(searchString, completeString, i)) != 0)
 				{
+					if (!boolTextFound)
+					{
+						passedWords += numWords;
+						boolTextFound = true;
+					}
 					searchResult.setplagiatsText(resultWithOverhead(completeString, i, searchString.length(), 0, 0));
 					searchResult.setorginalText(searchString);
 					if (passedWords + minNumWords >= searchText.length)
