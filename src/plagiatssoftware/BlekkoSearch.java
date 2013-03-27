@@ -25,9 +25,12 @@ public class BlekkoSearch
 	private static final String	URL_ARG_SEARCH	= "q=";
 
 	private static final String	CHARSET			= "UTF-8";
+	
+	private ArrayList<String> _searchResults = new ArrayList<String>();
 
 	public BlekkoSearch()
 	{
+		
 	}
 
 	/**
@@ -84,7 +87,7 @@ public class BlekkoSearch
 	 * 
 	 * @param strSearchLink
 	 * @return Gibt Liste der URLs zurueck
-	 */
+	 */	
 	private ArrayList<String> getUrlFromJson(String strSearchLink)
 	{	
 		ArrayList<String> alUrlList = new ArrayList<String>();
@@ -97,9 +100,19 @@ public class BlekkoSearch
 		
 		while(matMatcher.find())
 		{
-			alUrlList.add(matMatcher.group(1));
+			if( _searchResults.contains(matMatcher.group(1)))
+			{
+				
+			}
+			else
+			{
+				alUrlList.add(matMatcher.group(1));
+			}
 		}
+		_searchResults.addAll(alUrlList);
 		return alUrlList; 
 	}
+	
+	
 
 }
