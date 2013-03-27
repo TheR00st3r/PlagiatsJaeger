@@ -1,0 +1,240 @@
+package plagiatssoftware;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+
+import org.jsoup.Jsoup;
+
+import tests.WordProcessing;
+
+
+/**
+ * Die Klasse managed die komplette Plagiatssuche. Sie bietet eine Funktion zum
+ * starten der Suche. Daraufhin werden die benötigten Daten geladen, die
+ * Internetrecherche gestartet und die gefundenen Seiten verglichen.
+ * 
+ * @author Andreas
+ */
+public class PlagiatsJaeger
+{
+
+	private static final int	NUM_WORDS_FOR_BLEKKO	= 6;
+
+	private RabinKarpComparer	_rabinKarpComparer;
+	private WordProcessing		_wordProcessing;
+	private BlekkoSearch		_blekkoSearch;
+	private MYSQLDataBaseHelper	_mySQLDataBaseHelper;
+
+	public PlagiatsJaeger()
+	{
+
+	}
+
+	public void start(String fileToCheck)
+	{
+		if (_rabinKarpComparer == null)
+		{
+			_rabinKarpComparer = new RabinKarpComparer();
+		}
+		if (_wordProcessing == null)
+		{
+			_wordProcessing = new WordProcessing();
+		}
+		if (_blekkoSearch == null)
+		{
+			_blekkoSearch = new BlekkoSearch();
+		}
+		if (_mySQLDataBaseHelper == null)
+		{
+			_mySQLDataBaseHelper = new MYSQLDataBaseHelper();
+		}
+
+		System.out.println("Klassen initialisiert");
+
+		String textToCheck = loadFileToString(fileToCheck);
+
+		System.out.println("Datei geladen");
+
+		ArrayList<String> alVerbsAndNouns = _wordProcessing.getVerbsAndNouns(textToCheck);
+
+		System.out.println("Verben und Nomen geladen");
+
+		ArrayList<String> alURLs = new ArrayList<String>();
+		for (int i = 0; i < alVerbsAndNouns.size() - NUM_WORDS_FOR_BLEKKO; i++)
+		{
+			String strSearch = "";
+			for (int j = 0; j < NUM_WORDS_FOR_BLEKKO; j++)
+			{
+				if (strSearch.length() > 0)
+				{
+					strSearch += " ";
+				}
+				strSearch += alVerbsAndNouns.get(i + j);
+			}
+
+			System.out.println("Aktueller SearchString: " + strSearch);
+
+			alURLs.addAll(_blekkoSearch.search(strSearch));
+		}
+
+		ArrayList<SearchResult> searchResults = checkAllSites(textToCheck, alURLs);
+
+		for (SearchResult searchResult : searchResults)
+		{
+			System.out.println(searchResult.getreihenfolge() + " " + searchResult.getorginalText() + "    " + searchResult.getplagiatsText());
+		}
+		try
+		{
+			//_mySQLDataBaseHelper.insertSearchResultIntoTable(searchResults);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		System.out.println("FERTIG!");
+	}
+
+	/**
+	 * Die Funktion baut die Suchergebnisse über alle URLs zusammen.
+	 * 
+	 * @param urls
+	 * @param wordsToCheck
+	 * @return
+	 */
+	private ArrayList<SearchResult> checkAllSites(String textToCheck, ArrayList<String> urls)
+	{
+		ArrayList<SearchResult> result = new ArrayList<SearchResult>();
+		if (urls != null && urls.size() > 0)
+		{
+			if (_rabinKarpComparer == null)
+			{
+				_rabinKarpComparer = new RabinKarpComparer();
+			}
+			if (_wordProcessing == null)
+			{
+				_wordProcessing = new WordProcessing();
+			}
+			String[] wordsToCheck = _wordProcessing.splitToWords(Jsoup.parse(textToCheck).text());
+			result = _rabinKarpComparer.search(wordsToCheck, loadURL(urls.get(0)));
+			// Solange noch URLs in der Liste stehen wird die Funktion rekursiv
+			// aufgerufen
+			if (urls.size() > 1)
+			{
+
+				System.out.println("URL: " + urls.get(0));
+
+				urls.remove(0);
+				StringBuilder sbNewSearchString = new StringBuilder();
+				for (SearchResult searchResult : result)
+				{
+					if (searchResult.getplagiatsText().length() <= 0)
+					{
+						sbNewSearchString.append(searchResult.getorginalText()).append(" ");
+					}
+				}
+				result.addAll(checkAllSites(sbNewSearchString.toString(), urls));
+			}
+		}
+		else
+		{
+			System.out.println("Keine URLS zum durchsuchen");
+		}
+		return result;
+	}
+
+	/**
+	 * Läd eine Datei in einen String
+	 * 
+	 * @param fileName
+	 *            Datei die geladen werden soll
+	 * @return Inhalt der Datei als String
+	 * @throws IOException
+	 */
+	private String loadFileToString(String fileName)
+	{
+		String result = "";
+		File file = new File(fileName);
+		StringBuffer stringBuffer = new StringBuffer();
+		BufferedReader bufferedReader = null;
+
+		try
+		{
+			bufferedReader = new BufferedReader(new FileReader(file));
+			String strLine = null;
+
+			while ((strLine = bufferedReader.readLine()) != null)
+			{
+				stringBuffer.append(strLine).append(System.getProperty("line.separator"));
+			}
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if (bufferedReader != null)
+				{
+					bufferedReader.close();
+				}
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+			result = stringBuffer.toString();
+		}
+		return result;
+	}
+
+	private StringBuilder loadURL(String strURL)
+	{
+		StringBuilder result = new StringBuilder();
+
+		try
+		{
+			URL url = new URL(strURL);
+			InputStreamReader reader = new InputStreamReader(url.openStream(), "UTF-8");
+
+			BufferedReader bufferedReader = new BufferedReader(reader);
+
+			String line = bufferedReader.readLine();
+			while (line != null)
+			{
+				result.append(line);
+				line = bufferedReader.readLine();
+			}
+
+		}
+		catch (MalformedURLException e)
+		{
+			e.printStackTrace();
+		}
+		catch (UnsupportedEncodingException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+}
