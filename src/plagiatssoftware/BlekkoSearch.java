@@ -38,7 +38,7 @@ public class BlekkoSearch
 	 */
 	public ArrayList<String> search(String textToSearch)
 	{
-		ArrayList<String> result = new ArrayList<String>();
+		ArrayList<String> result = null;
 
 		textToSearch = textToSearch.replaceAll("[ \t\n\f\r]", "+");
 
@@ -57,9 +57,7 @@ public class BlekkoSearch
 				stringBuilder.append(line);
 				line = bufferedReader.readLine();
 			}
-			this.getUrlFromJson(stringBuilder.toString());
-			//System.out.println(stringBuilder.toString());
-
+			result = getUrlFromJson(stringBuilder.toString());
 		}
 		catch (MalformedURLException e)
 		{
