@@ -291,6 +291,17 @@ public class RabinKarpComparer
 		return result;
 	}
 
+	/**
+	 * Die Funktion liefert alle SearchResults für die Wörter im
+	 * searchText-Array.
+	 * 
+	 * @param searchText
+	 *            Array mit allen zusammenhängenden Texte/Wörter die gefunden
+	 *            werden sollen.
+	 * @param completeString
+	 *            Text der Durchsucht werden soll
+	 * @return ArrayList mit den SearchResults
+	 */
 	public ArrayList<SearchResult> search(String[] searchText, StringBuilder completeString)
 	{
 		ArrayList<SearchResult> result = new ArrayList<SearchResult>();
@@ -306,35 +317,50 @@ public class RabinKarpComparer
 			}
 
 			int i = 0;
-
-			SearchResult searchResult = new SearchResult(0, searchString, "", "HIER LINK EINTRAGEN!", passedWords);
-			while ((i = searchRabinKarb(searchString, completeString, i)) != 0)
+			if (!searchString.equals(""))
 			{
-				searchResult.setplagiatsText(resultWithOverhead(completeString, i, searchString.length()));
-				searchResult.setorginalText(searchString);
-				if(passedWords + minNumWords >= searchText.length)
+				SearchResult searchResult = new SearchResult(0, searchString, "", "HIER LINK EINTRAGEN!", passedWords);
+				while ((i = searchRabinKarb(searchString, completeString, i)) != 0)
 				{
-					break;
+					searchResult.setplagiatsText(resultWithOverhead(completeString, i, searchString.length(), 0, 0));
+					searchResult.setorginalText(searchString);
+					if (passedWords + minNumWords >= searchText.length)
+					{
+						break;
+					}
+
+					searchString += " " + searchText[passedWords + minNumWords];
+					passedWords++;
 				}
-				searchString += " " + searchText[passedWords + minNumWords];
-				passedWords++;
-				i=0;
+				result.add(searchResult);
 			}
-			result.add(searchResult);
 		}
 		return result;
 	}
 
-	private String resultWithOverhead(StringBuilder completeString, int position, int searchLength)
+	/**
+	 * Schneidet einen Text aus dem gesamten String mit angegebenem Overhead
+	 * aus.
+	 * 
+	 * @param completeString
+	 *            Kompletter String
+	 * @param position
+	 *            Startposition
+	 * @param searchLength
+	 *            Laenge des String der ausgeschnitten werden soll
+	 * @param overheadBefore
+	 *            Zeichen die vor dem String stehen bleiben sollen
+	 * @param overheadAfter
+	 *            Zeichen die nach dem String stehen bleiben sollen
+	 * @return Ausgeschnittener String mit angegebenem Overhead
+	 */
+	private String resultWithOverhead(StringBuilder completeString, int position, int searchLength, int overheadBefore, int overheadAfter)
 	{
 		String result = completeString.toString();
-		int overheadAfter = 0;
-		int overheadBefore = 0;
 
 		int start = position;
-		int after = position;
+		int after = position + searchLength;
 
-		
 		boolean cuttedAfter = false;
 		boolean cuttedBefore = false;
 		if ((completeString.length() - (position + searchLength)) > overheadAfter)
@@ -344,7 +370,7 @@ public class RabinKarpComparer
 		}
 		if (position > overheadBefore)
 		{
-			after += overheadBefore;
+			start -= overheadBefore;
 			cuttedBefore = true;
 		}
 
@@ -354,13 +380,13 @@ public class RabinKarpComparer
 		result = result.replace("\r\n", " ");
 		result = result.replace("\n", " ");
 
-		if (cuttedAfter)
-		{
-			result += " [..]";
-		}
 		if (cuttedBefore)
 		{
 			result = "[..]" + result;
+		}
+		if (cuttedAfter)
+		{
+			result += "[..]";
 		}
 
 		return result;
@@ -382,8 +408,6 @@ public class RabinKarpComparer
 		int result = 0;
 
 		int intRandomNumber = 0;
-		int intHashStringPart = 0;
-		int intHashSearch = 0;
 		// Laenge des gesamten Textes
 		int intLengthComplete = completeString.length();
 		// Laenge des Suchtextes
@@ -391,9 +415,9 @@ public class RabinKarpComparer
 		int intLengthDifference = intLengthComplete - intLengthSearchString;
 
 		// hash-Wert der ersten Zeichen des gesamten Textes
-		intHashStringPart = hashFirst(completeString.substring(0, intLengthSearchString), intLengthSearchString);
+		int intHashStringPart = hashFirst(completeString.substring(startPosition, startPosition + intLengthSearchString), intLengthSearchString);
 		// Wert des Musters
-		intHashSearch = hashFirst(searchString, intLengthSearchString);
+		int intHashSearch = hashFirst(searchString, intLengthSearchString);
 
 		// da die Zufallszahlenerzeugung fuer die rand. RK-Algorithmus
 		// essentiell
