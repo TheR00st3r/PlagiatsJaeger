@@ -1,7 +1,7 @@
 <?php
 class Folder {
 
-	public static function getFolderArray($fParentID = 1, $depth = 999, $level = 0, $root = '') {
+	public static function getFolderArray($fParentID = 1, $depth = 999, $level = 0, $path = '', $pathName ='') {
 
 		if (!isset($fParentID) or $fParentID == '') {
 			$fParentID = 1;
@@ -30,24 +30,27 @@ class Folder {
 
 			$alias = Helper::urlString($row['fName']);
 
-			$folder[$row['fID']]['root'] = $root;
+			$folder[$row['fID']]['root'] = $path;
 			$folder[$row['fID']]['alias'] = $alias;
-			$folder[$row['fID']]['path'] = $root . $alias;
+			$folder[$row['fID']]['path'] = $path . $alias;
+			$folder[$row['fID']]['pathName'] = $pathName . $row['fName'];
 			$folder[$row['fID']]['fParentID'] = $fParentID;
 			$folder[$row['fID']]['fID'] = $row['fID'];
 			$folder[$row['fID']]['fName'] = $row['fName'];
 			$folder[$row['fID']]['fHashLink'] = $row['fHashLink'];
 
-			$back = self::getFolderArray($row['fID'], $depth, $level + 1, $root . $alias . '/');
+			$back = self::getFolderArray($row['fID'], $depth, $level + 1, $path . $alias . '/', $pathName . $row['fName'] . ' / ');
 			if (count($back) > 0) {
 				$folder[$row['fID']]['sub'] = $back;
 			}
+			
+			//print_array($back);
 
 		}
 		return $folder;
 	}
 
-	public static function getFolder($fParentID = 1, $depth = 999, $level = 0, $root = '') {
+	public static function getFolder($fParentID = 1, $depth = 999, $level = 0, $path = '', $pathName ='') {
 
 		$uID = LoginAccess::userId();
 
@@ -69,16 +72,17 @@ class Folder {
 
 			$alias = Helper::urlString($row['fName']);
 
-			$folder[$root . $alias]['root'] = $root;
-			$folder[$root . $alias]['alias'] = $alias;
-			$folder[$root . $alias]['path'] = $root . $alias;
-			$folder[$root . $alias]['fParentID'] = $fParentID;
-			$folder[$root . $alias]['fID'] = $row['fID'];
-			$folder[$root . $alias]['fName'] = $row['fName'];
-			$folder[$root . $alias]['fHashLink'] = $row['fHashLink'];
+			$folder[$path . $alias]['root'] = $path;
+			$folder[$path . $alias]['alias'] = $alias;
+			$folder[$path . $alias]['path'] = $path . $alias;
+			$folder[$path . $alias]['pathName'] = $pathName . $row['fName'];
+			$folder[$path . $alias]['fParentID'] = $fParentID;
+			$folder[$path . $alias]['fID'] = $row['fID'];
+			$folder[$path . $alias]['fName'] = $row['fName'];
+			$folder[$path . $alias]['fHashLink'] = $row['fHashLink'];
 
 			if ($row['fID'] > 1) {
-				$back = self::getFolder($row['fID'], $depth, $level + 1, $root . $alias . '/');
+				$back = self::getFolder($row['fID'], $depth, $level + 1, $path . $alias . '/', $pathName . $row['fName'] . ' / ');
 				if (count($back) > 0) {
 					$folder = array_merge($folder, $back);
 				}

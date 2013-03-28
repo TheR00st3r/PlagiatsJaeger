@@ -4,11 +4,13 @@ class Upload {
 
 	public static function fileUpload($uID, $fID, $dAuthor, $file) {
 
-		$db = new db();
-		if ($db -> insert('document', array('dOriginalName' => $file["name"], 'dAuthor' => $dAuthor, 'uID' => $uID, 'fID' => $fID))) {
-			$lastID = $db -> lastInsertId();
-			if (self::saveFile($lastID, $file, '.txt')) {
-				return true;
+		if (Validator::validate(VAL_INTEGER, $uID, true) and Validator::validate(VAL_INTEGER, $fID, true)) {
+			$db = new db();
+			if ($db -> insert('document', array('dOriginalName' => $file["name"], 'dAuthor' => $dAuthor, 'uID' => $uID, 'fID' => $fID))) {
+				$lastID = $db -> lastInsertId();
+				if (self::saveFile($lastID, $file, '.txt')) {
+					return true;
+				}
 			}
 		}
 		return false;

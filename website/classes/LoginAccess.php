@@ -57,5 +57,9 @@ class LoginAccess {
 		return $_SESSION[self::suffix . '_id'];
 	}
 
+	public static function userLevel() {
+		return $_SESSION[self::suffix . '_level'];
+	}
+
 }
 ?>
