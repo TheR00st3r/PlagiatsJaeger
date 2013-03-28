@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.jsoup.Jsoup;
+
 
 /**
  * Enth‰lt Funktionen zum Suchen in der Suchmaschine <a
@@ -87,7 +89,7 @@ public class BlekkoSearch
 	{
 		ArrayList<String> alUrlList = new ArrayList<String>();
 		// Matchpattern
-		Pattern patPattern = Pattern.compile("\"url\"\\s*?:\\s*?\"([^\"]+?)\"");
+		Pattern patPattern = Pattern.compile("\"displayUrl\"\\s*?:\\s*?\"([^\"]+?)\"");
 		Matcher matMatcher;
 
 		// Und schlieﬂlich in der for schleife//
@@ -101,7 +103,12 @@ public class BlekkoSearch
 			}
 			else
 			{
-				alUrlList.add(matMatcher.group(1));
+				String strLink = Jsoup.parse(matMatcher.group(1)).text();
+				strLink = strLink.replaceAll("www.", "");
+				strLink = strLink.replaceAll("http://", "");
+				strLink = "http://"+strLink;
+				System.out.println(strLink);
+				alUrlList.add(strLink);
 			}
 		}
 		_searchResults.addAll(alUrlList);
