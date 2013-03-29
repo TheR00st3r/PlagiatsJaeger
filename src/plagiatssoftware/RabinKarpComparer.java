@@ -7,28 +7,25 @@ import java.util.Random;
 public class RabinKarpComparer
 {
 	// Basis-Wert: 257 fuer Anzahl Buchstaben des Alphabets
-	private final int	       BASE	             = 257;
+	private final int	BASE	         = 257;
 	// initialer Modulo-Wert fuer die Hash-Funktion. Muss eine 2er Potenz sein
-	private int	               q	             = 1024;
+	private int	      q	                 = 1024;
 	// damit q-1 nicht bei jeder Moduloberechnung erneut berechnet werden muss
-	private int	               reducedQ	         = q - 1;
+	private int	      reducedQ	         = q - 1;
 
 	// ab wievielen false matches soll q neu gewaehlt werden? 0 = Zufallsmodus
 	// ausschalten
-	private final int	       MAX_FALSEMATCHES	 = 1000;
+	private final int	MAX_FALSEMATCHES	= 1000;
 
 	// Min und Max von q festlegen, z. b. 2^10 - 2^31 Integer: Max 2^31
-	private final int	       MIN_Q	         = 10;
-	private final int	       MAX_Q	         = 31;
+	private final int	MIN_Q	         = 10;
+	private final int	MAX_Q	         = 31;
 
-	private int	               _shiftFactor;
-	private ArrayList<Integer>	_resultPositions	= new ArrayList<Integer>();
+	private int	      _shiftFactor;
 
-	private int	               _falseMatches;
-	private int	               _minQResult;
-	private int	               _qDiff;
-
-	private int	               _SingleSearchThreadCounter;
+	private int	      _falseMatches;
+	private int	      _minQResult;
+	private int	      _qDiff;
 
 	/**
 	 * Beinhaltet Funktionen zum Durchsuchen von Strings mithilfe des RabinKarpAlgorithmus.
@@ -43,92 +40,6 @@ public class RabinKarpComparer
 	}
 
 	/**
-	 * Durchsucht den completeString nach Vorkommnissen der searchStrings in jeweils einem eigenen Task. Wenn die Suche
-	 * abgeschlossen ist wird das Ergebniss durch den {@link OnSearchFinishedListener} zurueckgeliefert.
-	 * 
-	 * @param searchStrings
-	 * @param completeString
-	 * @param listener
-	 */
-	public void searchAsync(final ArrayList<String> searchStrings, StringBuilder completeString, final OnSearchFinishedListener listener)
-	{
-		final ArrayList<ArrayList<String>> searchResults = new ArrayList<ArrayList<String>>();
-		for (String searchString : searchStrings)
-		{
-			searchAsync(searchString, completeString, new OnSingleSearchFinishedListener()
-			{
-				@Override
-				public void onSearchFinished(String searchString, ArrayList<String> searchResult)
-				{
-					editCounter(-1);
-					searchResults.add(searchResult);
-					if (_SingleSearchThreadCounter <= 0)
-					{
-						listener.onSearchFinished(searchStrings, searchResults);
-					}
-				}
-			});
-		}
-	}
-
-	/**
-	 * Managed den Zugriff auf den {@link _SingleSearchCounter}, damit immer nur 1 Thread gleichzeitig zugriff bekommt.
-	 */
-	private synchronized void editCounter(int delta)
-	{
-		_SingleSearchThreadCounter += delta;
-	}
-
-	/**
-	 * Durchsucht den completeString nach Vorkommnissen des searchString in einem extra Task. Wenn die Suche
-	 * abgeschlossen ist wird das Ergebniss durch den {@link OnSingleSearchFinishedListener} zurueckgeliefert.
-	 * 
-	 * @param searchString
-	 * @param completeString
-	 * @param listener
-	 */
-	public void searchAsync(final String searchString, final StringBuilder completeString, final OnSingleSearchFinishedListener listener)
-	{
-		new Thread(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				editCounter(1);
-				ArrayList<String> searchResult = search(searchString, completeString);
-				listener.onSearchFinished(searchString, searchResult);
-			}
-		}).start();
-	}
-
-	/**
-	 * Sucht nach allen Vorkommnissen der searchStrings in completeString.
-	 * 
-	 * @param searchStrings
-	 * @param completeString
-	 * @return eine ArrayListe von Ergebnsslisten
-	 */
-	public ArrayList<ArrayList<String>> search(ArrayList<String> searchStrings, StringBuilder completeString)
-	{
-		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
-		for (String searchString : searchStrings)
-		{
-			result.add(search(searchString, completeString));
-		}
-		return result;
-	}
-
-	/**
-	 * Wird ausgeloest, sobald die Suche beendet ist
-	 * 
-	 * @author Andreas
-	 */
-	public interface OnSingleSearchFinishedListener
-	{
-		abstract void onSearchFinished(String searchString, ArrayList<String> searchResult);
-	}
-
-	/**
 	 * Wird ausgeloest wenn alle Suchen fertig sind.
 	 * 
 	 * @author Andreas
@@ -136,153 +47,6 @@ public class RabinKarpComparer
 	public interface OnSearchFinishedListener
 	{
 		abstract void onSearchFinished(ArrayList<String> searchStrings, ArrayList<ArrayList<String>> searchResults);
-	}
-
-	/**
-	 * Durchsucht den String im StringBuilder nach vorkommnissen des searchStrings.
-	 * 
-	 * @param searchString
-	 * @param completeString
-	 * @return Eine ArrayList mit Treffern inkl. der naechsten 100 Zeichen
-	 */
-	public ArrayList<String> search(String searchString, StringBuilder completeString)
-	{
-		ArrayList<String> result = new ArrayList<String>();
-		_resultPositions = searchRabinKarb(searchString, completeString);
-
-		String searchResult = "";
-		for (int i : _resultPositions)
-		{
-			boolean cutted = false;
-			if (i < 0)
-			{
-				// nichts gefunden
-				if (completeString.length() > 100)
-				{
-					searchResult = completeString.substring(0, 100);
-					cutted = true;
-				}
-				else
-				{
-					searchResult = completeString.substring(0);
-				}
-			}
-			else if ((completeString.length() - i + 1) > 100)
-			{
-				// ab der gefundenen Position folgen noch mehr als 100 Zeichen
-				searchResult = completeString.substring(i, i + 100);
-				cutted = true;
-			}
-			else
-			{
-				// ab der gefundenen Position folgen weniger oder genau 100
-				// Zeichen
-				searchResult = completeString.substring(i);
-			}
-			// Zeilenumbrueche entfernen
-			searchResult = searchResult.replace("\r\n", " ");
-			searchResult = searchResult.replace("\n", " ");
-			if (cutted) searchResult = searchResult + " [..]";
-
-			result.add(searchResult);
-		}
-		return result;
-	}
-
-	/**
-	 * Berechnung des 1. Hashwertes, von dem aus im Anschluss die neuen Hashes weitergerollt werden. Siehe {@link #hash}
-	 * 
-	 * @param searchText
-	 * @param patternLength
-	 * @return
-	 */
-	private int hashFirst(String searchText, int patternLength)
-	{
-		int result = 0;
-		int reducedBase = 1;
-		for (int i = (patternLength - 1); i >= 0; i--)
-		{
-			if (i != (patternLength - 1)) reducedBase = bitModulo(reducedBase * BASE);
-
-			result += bitModulo(reducedBase * (int) searchText.charAt(i));
-			result = bitModulo(result);
-		}
-		_shiftFactor = reducedBase;
-		result = bitModulo(result);
-
-		return result;
-	}
-
-	/**
-	 * Bitweise Moduloberechnung. Daher wird fuer q eine 2er Potenz benoetigt
-	 * 
-	 * @param x
-	 * @return
-	 */
-	private int bitModulo(int x)
-	{
-		return (x & reducedQ);
-	}
-
-	/**
-	 * Rollende HashFunktion
-	 * 
-	 * @param oldHashValue
-	 * @param startPos
-	 * @param patternLength
-	 * @return
-	 */
-	private int hash(int oldHashValue, int startPos, int patternLength, StringBuilder completeString)
-	{
-
-		int result = 0;
-		// wenn die gesamte Stringlaenge kleiner als die des Musters ist, kann
-		// das Muster nicht vorkommen
-		if (completeString.length() >= patternLength)
-		{
-			int intValue;
-			int intValue2;
-
-			// das erste Zeichen von links bestimmen, das wegfaellt
-			intValue = (int) completeString.charAt(startPos - 1);
-			// das hinzukommende Zeichen von rechts bestimmen
-			intValue2 = (int) completeString.charAt(startPos + patternLength - 1);
-
-			result = ((oldHashValue - (intValue * _shiftFactor)) * BASE) + intValue2;
-			result = bitModulo(result);
-		}
-		return result;
-	}
-
-	/**
-	 * Suchfunktion nach RabinKarp
-	 * 
-	 * @param searchString
-	 *            Text nach dem gesucht werden soll
-	 * @param completeString
-	 *            Text als StringBuilder der durchsucht werden soll
-	 * @return Liefter eine liste der Positionen(int) der Treffer zurueck
-	 */
-	private ArrayList<Integer> searchRabinKarb(String searchString, StringBuilder completeString)
-	{
-		ArrayList<Integer> result = new ArrayList<Integer>();
-		// Laenge des gesamten Textes
-		int intLengthComplete = completeString.length();
-		// Laenge des Suchtextes
-		int intLengthSearchString = searchString.length();
-		int intLengthDifference = intLengthComplete - intLengthSearchString;
-
-		// solange Text noch nicht komplett durchlaufen
-		for (int i = 0; i <= intLengthDifference; i++)
-		{
-			i = searchRabinKarb(searchString, completeString, i);
-			if (i == 0)
-			{
-				break;
-			}
-			result.add(i);
-		}
-		return result;
 	}
 
 	/**
@@ -436,12 +200,11 @@ public class RabinKarpComparer
 		{
 			result += "[..]";
 		}
-
 		return result;
 	}
 
 	/**
-	 * Liefert die Position des ersten Vorkommens ab eine bestimmten Position.
+	 * Liefert die Position des ersten Vorkommens ab einer bestimmten Position.
 	 * 
 	 * @param searchString
 	 *            String nach dem gesucht werden soll.
@@ -517,7 +280,6 @@ public class RabinKarpComparer
 						}
 					}
 				}
-
 				// Bereichsueberlaufsfehler abfangen
 				if ((i + intLengthSearchString + 1) > intLengthComplete) break;
 				// naechsten Hashwert bestimmen
@@ -526,5 +288,70 @@ public class RabinKarpComparer
 		}
 		return result;
 	}
+
+	/**
+	 * Berechnung des 1. Hashwertes, von dem aus im Anschluss die neuen Hashes weitergerollt werden. Siehe {@link #hash}
+	 * 
+	 * @param searchText
+	 * @param patternLength
+	 * @return
+	 */
+	private int hashFirst(String searchText, int patternLength)
+	{
+		int result = 0;
+		int reducedBase = 1;
+		for (int i = (patternLength - 1); i >= 0; i--)
+		{
+			if (i != (patternLength - 1)) reducedBase = bitModulo(reducedBase * BASE);
+
+			result += bitModulo(reducedBase * (int) searchText.charAt(i));
+			result = bitModulo(result);
+		}
+		_shiftFactor = reducedBase;
+		result = bitModulo(result);
+
+		return result;
+	}
+
+	/**
+	 * Bitweise Moduloberechnung. Daher wird fuer q eine 2er Potenz benoetigt
+	 * 
+	 * @param x
+	 * @return
+	 */
+	private int bitModulo(int x)
+	{
+		return (x & reducedQ);
+	}
+
+	/**
+	 * Rollende HashFunktion
+	 * 
+	 * @param oldHashValue
+	 * @param startPos
+	 * @param patternLength
+	 * @return
+	 */
+	private int hash(int oldHashValue, int startPos, int patternLength, StringBuilder completeString)
+	{
+		int result = 0;
+		// wenn die gesamte Stringlaenge kleiner als die des Musters ist, kann
+		// das Muster nicht vorkommen
+		if (completeString.length() >= patternLength)
+		{
+			int intValue;
+			int intValue2;
+
+			// das erste Zeichen von links bestimmen, das wegfaellt
+			intValue = (int) completeString.charAt(startPos - 1);
+			// das hinzukommende Zeichen von rechts bestimmen
+			intValue2 = (int) completeString.charAt(startPos + patternLength - 1);
+
+			result = ((oldHashValue - (intValue * _shiftFactor)) * BASE) + intValue2;
+			result = bitModulo(result);
+		}
+		return result;
+	}
+
 
 }
