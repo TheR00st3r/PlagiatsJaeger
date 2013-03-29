@@ -92,29 +92,58 @@ public class BlekkoSearch
 		//Altes JSON
 		Pattern patPattern = Pattern.compile("\"url\"\\s*?:\\s*?\"([^\"]+?)\"");
 		//Neues JSON
-		//Pattern patPattern = Pattern.compile("\"displayUrl\"\\s*?:\\s*?\"([^\"]+?)\"");
+		Pattern patPatternNew = Pattern.compile("\"displayUrl\"\\s*?:\\s*?\"([^\"]+?)\"");
 		
 		Matcher matMatcher;
 
 		// Und schlieﬂlich in der for schleife//
 		matMatcher = patPattern.matcher(strSearchLink);
-
-		while (matMatcher.find())
+		
+		if(matMatcher.find())
 		{
-			String strLink = Jsoup.parse(matMatcher.group(1)).text();
-			strLink = strLink.replaceAll("www.", "");
-			strLink = strLink.replaceAll("http://", "");
-			strLink = "http://"+strLink;
-			System.out.println(strLink);
+			//Falls matcher nicht leer ist
+			matMatcher.reset();
 			
-			if (_searchResults.contains(matMatcher.group(1)))
+			while (matMatcher.find())
 			{
+				String strLink = Jsoup.parse(matMatcher.group(1)).text();
+				strLink = strLink.replaceAll("www.", "");
+				strLink = strLink.replaceAll("http://", "");
+				strLink = "http://"+strLink;
+				System.out.println(strLink);
+				//Falls Link bereits in _serchResults vorhanden nicht nochmal schicken
+				if (_searchResults.contains(matMatcher.group(1)))
+				{
 
+				}
+				else
+				{
+					alUrlList.add(strLink);
+				}
 			}
-			else
+		}
+		else
+		{
+			matMatcher = patPatternNew.matcher(strSearchLink);
+			matMatcher.reset();
+			while (matMatcher.find())
 			{
-				alUrlList.add(strLink);
+				String strLink = Jsoup.parse(matMatcher.group(1)).text();
+				strLink = strLink.replaceAll("www.", "");
+				strLink = strLink.replaceAll("http://", "");
+				strLink = "http://"+strLink;
+				System.out.println(strLink);
+				//Falls Link bereits in _serchResults vorhanden nicht nochmal schicken
+				if (_searchResults.contains(matMatcher.group(1)))
+				{
+
+				}
+				else
+				{
+					alUrlList.add(strLink);
+				}
 			}
+			
 		}
 		_searchResults.addAll(alUrlList);
 		return alUrlList;
