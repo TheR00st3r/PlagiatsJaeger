@@ -93,6 +93,7 @@ public class RabinKarpComparer
 					break;
 				}
 			}
+			searchString = searchString.trim();
 			int i = 0;
 			if (!searchString.equals(""))
 			{
