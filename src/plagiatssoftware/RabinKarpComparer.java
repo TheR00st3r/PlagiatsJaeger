@@ -7,32 +7,31 @@ import java.util.Random;
 public class RabinKarpComparer
 {
 	// Basis-Wert: 257 fuer Anzahl Buchstaben des Alphabets
-	private final int			BASE				= 257;
+	private final int	       BASE	             = 257;
 	// initialer Modulo-Wert fuer die Hash-Funktion. Muss eine 2er Potenz sein
-	private int					q					= 1024;
+	private int	               q	             = 1024;
 	// damit q-1 nicht bei jeder Moduloberechnung erneut berechnet werden muss
-	private int					reducedQ			= q - 1;
+	private int	               reducedQ	         = q - 1;
 
 	// ab wievielen false matches soll q neu gewaehlt werden? 0 = Zufallsmodus
 	// ausschalten
-	private final int			MAX_FALSEMATCHES	= 1000;
+	private final int	       MAX_FALSEMATCHES	 = 1000;
 
 	// Min und Max von q festlegen, z. b. 2^10 - 2^31 Integer: Max 2^31
-	private final int			MIN_Q				= 10;
-	private final int			MAX_Q				= 31;
+	private final int	       MIN_Q	         = 10;
+	private final int	       MAX_Q	         = 31;
 
-	private int					_shiftFactor;
+	private int	               _shiftFactor;
 	private ArrayList<Integer>	_resultPositions	= new ArrayList<Integer>();
 
-	private int					_falseMatches;
-	private int					_minQResult;
-	private int					_qDiff;
+	private int	               _falseMatches;
+	private int	               _minQResult;
+	private int	               _qDiff;
 
-	private int					_SingleSearchThreadCounter;
+	private int	               _SingleSearchThreadCounter;
 
 	/**
-	 * Beinhaltet Funktionen zum Durchsuchen von Strings mithilfe des
-	 * RabinKarpAlgorithmus.
+	 * Beinhaltet Funktionen zum Durchsuchen von Strings mithilfe des RabinKarpAlgorithmus.
 	 * 
 	 * @author Andreas Hahn
 	 */
@@ -44,9 +43,8 @@ public class RabinKarpComparer
 	}
 
 	/**
-	 * Durchsucht den completeString nach Vorkommnissen der searchStrings in
-	 * jeweils einem eigenen Task. Wenn die Suche abgeschlossen ist wird das
-	 * Ergebniss durch den {@link OnSearchFinishedListener} zurueckgeliefert.
+	 * Durchsucht den completeString nach Vorkommnissen der searchStrings in jeweils einem eigenen Task. Wenn die Suche
+	 * abgeschlossen ist wird das Ergebniss durch den {@link OnSearchFinishedListener} zurueckgeliefert.
 	 * 
 	 * @param searchStrings
 	 * @param completeString
@@ -74,8 +72,7 @@ public class RabinKarpComparer
 	}
 
 	/**
-	 * Managed den Zugriff auf den {@link _SingleSearchCounter}, damit immer nur
-	 * 1 Thread gleichzeitig zugriff bekommt.
+	 * Managed den Zugriff auf den {@link _SingleSearchCounter}, damit immer nur 1 Thread gleichzeitig zugriff bekommt.
 	 */
 	private synchronized void editCounter(int delta)
 	{
@@ -83,9 +80,8 @@ public class RabinKarpComparer
 	}
 
 	/**
-	 * Durchsucht den completeString nach Vorkommnissen des searchString in
-	 * einem extra Task. Wenn die Suche abgeschlossen ist wird das Ergebniss
-	 * durch den {@link OnSingleSearchFinishedListener} zurueckgeliefert.
+	 * Durchsucht den completeString nach Vorkommnissen des searchString in einem extra Task. Wenn die Suche
+	 * abgeschlossen ist wird das Ergebniss durch den {@link OnSingleSearchFinishedListener} zurueckgeliefert.
 	 * 
 	 * @param searchString
 	 * @param completeString
@@ -143,8 +139,7 @@ public class RabinKarpComparer
 	}
 
 	/**
-	 * Durchsucht den String im StringBuilder nach vorkommnissen des
-	 * searchStrings.
+	 * Durchsucht den String im StringBuilder nach vorkommnissen des searchStrings.
 	 * 
 	 * @param searchString
 	 * @param completeString
@@ -195,8 +190,7 @@ public class RabinKarpComparer
 	}
 
 	/**
-	 * Berechnung des 1. Hashwertes, von dem aus im Anschluss die neuen Hashes
-	 * weitergerollt werden. Siehe {@link #hash}
+	 * Berechnung des 1. Hashwertes, von dem aus im Anschluss die neuen Hashes weitergerollt werden. Siehe {@link #hash}
 	 * 
 	 * @param searchText
 	 * @param patternLength
@@ -292,77 +286,109 @@ public class RabinKarpComparer
 	}
 
 	/**
-	 * Die Funktion liefert alle SearchResults für die Wörter im
-	 * searchText-Array.
+	 * Die Funktion liefert alle SearchResults für die Wörter im searchText-Array.
 	 * 
 	 * @param searchText
-	 *            Array mit allen zusammenhängenden Texte/Wörter die gefunden
-	 *            werden sollen.
+	 *            Array mit allen zusammenhängenden Texte/Wörter die gefunden werden sollen.
 	 * @param completeString
 	 *            Text der Durchsucht werden soll
 	 * @return ArrayList mit den SearchResults
 	 */
-	public ArrayList<SearchResult> search(String[] searchText, StringBuilder completeString)
+	public ArrayList<SearchResult> search(String[] searchText, StringBuilder completeString, String url)
 	{
-		return search(searchText, completeString, 0);
+		return search(searchText, completeString, url, 0);
 	}
 
 	/**
-	 * Die Funktion liefert alle SearchResults für die Wörter im
-	 * searchText-Array.
+	 * Die Funktion liefert alle SearchResults für die Wörter im searchText-Array.
 	 * 
 	 * @param searchText
-	 *            Array mit allen zusammenhängenden Texte/Wörter die gefunden
-	 *            werden sollen.
+	 *            Array mit allen zusammenhängenden Texte/Wörter die gefunden werden sollen.
 	 * @param completeString
 	 *            Text der Durchsucht werden soll
 	 * @return ArrayList mit den SearchResults
 	 */
-	public ArrayList<SearchResult> search(String[] searchText, StringBuilder completeString, int startReihefolge)
+	public ArrayList<SearchResult> search(String[] searchText, StringBuilder completeString, String url, int startReihefolge)
 	{
 		ArrayList<SearchResult> result = new ArrayList<SearchResult>();
 
 		int minNumWords = 5;
-		boolean boolTextFound = false;
+		SearchResult lastNegativSearchResult = null;
 		for (int passedWords = 0; passedWords < searchText.length; passedWords++)
 		{
 			String searchString = "";
 			int numWords;
-			for (numWords = 0; (numWords < minNumWords) && (passedWords < searchText.length - minNumWords); numWords++)
+			for (numWords = 0; (numWords < minNumWords); numWords++)
 			{
-				searchString += " " + searchText[passedWords + numWords];
+				if (passedWords + numWords < searchText.length)
+				{
+					searchString += " " + searchText[passedWords + numWords];
+				}
+				else
+				{
+					break;
+				}
 			}
-
 			int i = 0;
 			if (!searchString.equals(""))
 			{
-				SearchResult searchResult = new SearchResult(0, searchString, "", "HIER LINK EINTRAGEN!", passedWords + startReihefolge);
+				SearchResult searchResult = new SearchResult(0, searchString, "", url, passedWords + startReihefolge);
 				while ((i = searchRabinKarb(searchString, completeString, i)) != 0)
 				{
-					if (!boolTextFound)
-					{
-						passedWords += numWords;
-						boolTextFound = true;
-					}
 					searchResult.setplagiatsText(resultWithOverhead(completeString, i, searchString.length(), 0, 0));
 					searchResult.setorginalText(searchString);
 					if (passedWords + minNumWords >= searchText.length)
 					{
 						break;
 					}
-
-					searchString += " " + searchText[passedWords + minNumWords];
-					passedWords++;
+					else
+					{
+						searchString += " " + searchText[passedWords + minNumWords];
+						passedWords++;
+					}
 				}
-				result.add(searchResult);
+				if (searchResult.getplagiatsText().length() == 0)
+				{
+					if (lastNegativSearchResult == null)
+					{
+						// Legt ein neues Searchresult mit dem ersten nicht gefunden Wort an.
+						String firstString = "";
+						if (passedWords > 0)
+						{
+							firstString += searchText[passedWords - 1] + " ";
+						}
+						firstString += searchText[passedWords];
+						lastNegativSearchResult = new SearchResult(0, firstString, "", "", passedWords + startReihefolge);
+					}
+					else
+					{
+						// Baut das Searchresult mit nicht gefundenen Woertern zusammen. ([passedWords - numWords - 1] =
+						// 1. Wort im Suchstring)
+						lastNegativSearchResult.setorginalText(lastNegativSearchResult.getorginalText() + " " + searchText[passedWords]);
+					}
+				}
+				else
+				{
+					passedWords += (minNumWords - 1);
+					if (lastNegativSearchResult != null)
+					{
+						result.add(lastNegativSearchResult);
+						lastNegativSearchResult = null;
+					}
+					result.add(searchResult);
+				}
 			}
+		}
+		if (lastNegativSearchResult != null)
+		{
+			result.add(lastNegativSearchResult);
+			lastNegativSearchResult = null;
 		}
 		return result;
 	}
 
 	/**
-	 * Schneidet einen Text aus dem gesamten String mit angegebenem Overhead
-	 * aus.
+	 * Schneidet einen Text aus dem gesamten String mit angegebenem Overhead aus.
 	 * 
 	 * @param completeString
 	 *            Kompletter String
