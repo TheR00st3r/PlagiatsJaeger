@@ -25,7 +25,7 @@ import tests.WordProcessing;
 public class PlagiatsJaeger
 {
 
-	private static final int	NUM_WORDS_FOR_BLEKKO	= 6;
+	private static final int	NUM_WORDS_FOR_BLEKKO	= 10;
 
 	private RabinKarpComparer	_rabinKarpComparer;
 	private WordProcessing	    _wordProcessing;
@@ -67,7 +67,7 @@ public class PlagiatsJaeger
 		System.out.println("Verben und Nomen geladen");
 
 		ArrayList<String> alURLs = new ArrayList<String>();
-		for (int i = 0; i < alVerbsAndNouns.size() - NUM_WORDS_FOR_BLEKKO; i++)
+		for (int i = 0; i < alVerbsAndNouns.size() - NUM_WORDS_FOR_BLEKKO; i+=NUM_WORDS_FOR_BLEKKO)
 		{
 			String strSearch = "";
 			for (int j = 0; j < NUM_WORDS_FOR_BLEKKO; j++)
