@@ -12,8 +12,8 @@ public class SearchResult
 	public SearchResult(int searchID, String orginalText, String plagiatsText, String link, int reihenfolge)
 	{
 		_searchID = searchID;
-		_orginalText = orginalText;
-		_plagiatsText = plagiatsText;
+		_orginalText = orginalText.trim();
+		_plagiatsText = plagiatsText.trim();
 		_link = link;
 		_reihenfolge = reihenfolge;
 
@@ -36,7 +36,7 @@ public class SearchResult
 
 	public void setorginalText(String _orginalText)
 	{
-		this._orginalText = _orginalText;
+		this._orginalText = _orginalText.trim();
 	}
 
 	public String getplagiatsText()
@@ -46,7 +46,7 @@ public class SearchResult
 
 	public void setplagiatsText(String _plagiatsText)
 	{
-		this._plagiatsText = _plagiatsText;
+		this._plagiatsText = _plagiatsText.trim();
 	}
 
 	public String getlink()
