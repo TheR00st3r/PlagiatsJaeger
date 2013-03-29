@@ -15,18 +15,21 @@ import org.jsoup.Jsoup;
 
 
 /**
- * Enth‰lt Funktionen zum Suchen in der Suchmaschine <a
- * href="http://blekko.com">Blekko</a>
+ * Enth‰lt Funktionen zum Suchen in der Suchmaschine <a href="http://blekko.com">Blekko</a>
  * 
  * @author Andreas
  */
 public class BlekkoSearch
 {
-	private static final String	URL				= "http://blekko.com/ws/?";
+	private static final String	URL	           = "http://blekko.com/ws/?";
 	private static final String	URL_ARG_JSON	= "+%2Fjson";
 	private static final String	URL_ARG_SEARCH	= "q=";
 
-	private static final String	CHARSET			= "UTF-8";
+	private static final String	CHARSET	       = "UTF-8";
+
+	// Mit aktuellen URL Einstellungen werden 10 Links geliefert. MAX_URLS gibts an wieviele davon verwendet werden
+	// sollen.
+	private static final int	MAX_URLS	   = 5;
 
 	private ArrayList<String>	_searchResults	= new ArrayList<String>();
 
@@ -89,36 +92,31 @@ public class BlekkoSearch
 	{
 		ArrayList<String> alUrlList = new ArrayList<String>();
 		// Matchpattern
-		//Altes JSON
+		// Altes JSON
 		Pattern patPattern = Pattern.compile("\"url\"\\s*?:\\s*?\"([^\"]+?)\"");
-		//Neues JSON
+		// Neues JSON
 		Pattern patPatternNew = Pattern.compile("\"displayUrl\"\\s*?:\\s*?\"([^\"]+?)\"");
-		
+
 		Matcher matMatcher;
 
 		// Und schlieﬂlich in der for schleife//
 		matMatcher = patPattern.matcher(strSearchLink);
-		
-		if(matMatcher.find())
-		{
-			//Falls matcher nicht leer ist
-			matMatcher.reset();
-			
-			while (matMatcher.find())
-			{
-				String strLink = Jsoup.parse(matMatcher.group(1)).text();
-				strLink = strLink.replaceAll("www.", "");
-				strLink = strLink.replaceAll("http://", "");
-				strLink = "http://"+strLink;
-				System.out.println(strLink);
-				//Falls Link bereits in _serchResults vorhanden nicht nochmal schicken
-				if (_searchResults.contains(strLink))
-				{
 
-				}
-				else
+		if (matMatcher.find())
+		{
+			// Falls matcher nicht leer ist
+			matMatcher.reset();
+
+			int numURL = 0;
+			while (numURL < MAX_URLS && matMatcher.find())
+			{
+				numURL++;
+				String strLink = cleanURL(Jsoup.parse(matMatcher.group(1)).text());
+				// Falls Link bereits in _serchResults vorhanden nicht nochmal schicken
+				if (!_searchResults.contains(strLink))
 				{
 					alUrlList.add(strLink);
+					System.out.println(strLink);
 				}
 			}
 		}
@@ -126,27 +124,31 @@ public class BlekkoSearch
 		{
 			matMatcher = patPatternNew.matcher(strSearchLink);
 			matMatcher.reset();
-			while (matMatcher.find())
+			int numURL = 0;
+			while (numURL < MAX_URLS && matMatcher.find())
 			{
-				String strLink = Jsoup.parse(matMatcher.group(1)).text();
-				strLink = strLink.replaceAll("www.", "");
-				strLink = strLink.replaceAll("http://", "");
-				strLink = "http://"+strLink;
-				System.out.println(strLink);
-				//Falls Link bereits in _serchResults vorhanden nicht nochmal schicken
-				if (_searchResults.contains(strLink))
-				{
-
-				}
-				else
+				numURL++;
+				String strLink = cleanURL(Jsoup.parse(matMatcher.group(1)).text());
+				// Falls Link bereits in _serchResults vorhanden nicht nochmal schicken
+				if (!_searchResults.contains(strLink))
 				{
 					alUrlList.add(strLink);
+					System.out.println(strLink);
 				}
 			}
-			
+
 		}
 		_searchResults.addAll(alUrlList);
 		return alUrlList;
+	}
+
+	private String cleanURL(String dirtyURL)
+	{
+		String result = "";
+		dirtyURL = dirtyURL.replaceAll("www.", "");
+		dirtyURL = dirtyURL.replaceAll("http://", "");
+		result = "http://" + dirtyURL;
+		return result;
 	}
 
 }
