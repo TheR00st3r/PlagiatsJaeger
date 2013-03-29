@@ -78,7 +78,7 @@
 
 		<div id="newShortTestForm" style="display: none">
 			<form method="post" action="{$root}{$page}" enctype="multipart/form-data">
-				<h2>File Upload</h2>
+				<h2>Text Upload</h2>
 				<label for="dAddShortText">Fügen Sie Ihren zu prüfenden Text ein:</label>
 				<textarea name="dAddShortText" id="dAddShortText"></textarea>
 				<br />
@@ -102,23 +102,26 @@
 			<th>Autor</th>
 			<th colspan="2">Optionen</th>
 		</tr>
+		{$color = ''}
 		{foreach from=$folders item=item}
-		<tr>
+		<tr class="{$color}">
 			<td class="image"><img src="{$root}images/folder-closed.gif" alt="" /></td>
-			<td>{$item.fName}</td>
-			<td>&nbsp;</td>
-			<td class="smal"> {if $item.fHashLink != ''} <a target="_blank" href="{$root}public?id={$item.fHashLink}">[Link]</a> {else} <a href="{$root}{$page}?link&amp;fID={$item.fID}">[hash]</a> {/if} </td>
-			<td class="smal"><a href="{$root}{$page}?delete&amp;fID={$item.fID}">[delete]</a></td>
+			<td class="borderright"><div class="jeditable" id="fName_{$item.fID}">{$item.fName}</div></td>
+			<td class="borderright">&nbsp;</td>
+			<td class="smal"> {if $item.fHashLink != ''} <a target="_blank" href="{$root}public?id={$item.fHashLink}">[Link]</a> {else} <a href="{$root}{$page}?action=hash&amp;fID={$item.fID}">[hash]</a> {/if} </td>
+			<td class="smal"><a href="{$root}{$page}?action=deleteFolder&amp;fID={$item.fID}">[delete]</a></td>
 		</tr>
+		{if $color == ''}{$color = 'bgcolor'}{else}{$color = ''}{/if}
 		{/foreach}
 		{foreach from=$documents item=item}
-		<tr>
+		<tr class="{$color}">
 			<td class="image"><img src="{$root}images/file.gif" alt="" /></td>
-			<td>{$item.dOriginalName}</td>
-			<td>{$item.dAuthor}</td>
+			<td class="borderright">{$item.dOriginalName}</td>
+			<td class="borderright">{$item.dAuthor}</td>
 			<td class="smal">[prüfen]</td>
 			<td class="smal">[delete]</td>
 		</tr>
+		{if $color == ''}{$color = 'bgcolor'}{else}{$color = ''}{/if}
 		{/foreach}
 	</table>
 

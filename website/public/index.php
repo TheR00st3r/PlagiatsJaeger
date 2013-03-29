@@ -28,7 +28,7 @@ if ($page == 'public') {
 	$folder = Folder::getFolderFromHash($_GET['id']);
 	$bodyTpl = '<h1>öffentlicher Upload</h1>Hash=' . $_GET['id'] . ', FolderID=' . $folder['fID'] . ', FolderName=' . $folder['fName'];
 } else if (LoginAccess::check()) {
-	
+
 	$smarty -> assign('isLogin', true);
 	$smarty -> assign('userLevel', LoginAccess::userLevel());
 
@@ -39,30 +39,33 @@ if ($page == 'public') {
 		case 'folder' :
 			require_once '../classes/Document.php';
 			require_once '../classes/Folder.php';
-
-			if (isset($_POST['fAddSubmit'])) {
-				Folder::addFolder($_POST['fAddName'], $folder['fID'], LoginAccess::userID());
-			}
-
-			if (isset($_GET['delete']) and isset($_GET['fID'])) {
-				Folder::deleteFolder($_GET['fID']);
-			}
-
-			if (isset($_GET['link']) and isset($_GET['fID'])) {
-				Folder::addFolderLink($_GET['fID']);
-			}
+			require_once '../classes/Upload.php';
 
 			$folderUrl = deleteItem($url, 0);
 			$folderLink = implode('/', $folderUrl);
 			$allFolders = Folder::getFolder();
 			$folder = $allFolders[$folderLink];
-			$smarty -> assign('allFolders', $allFolders);
 			$smarty -> assign('folder', $folder);
-			
-			if (isset($_POST['dAddSubmit'])) {
-				require_once '../classes/Upload.php';
-				//$uID, $fID, $dAuthor, $file
+
+			if (Validator::validate(VAL_INTEGER, $_GET['fID'], true)) {
+				switch ($_GET['action']) {
+					case 'deleteFolder' :
+						Folder::deleteFolder($_GET['fID']);
+						break;
+					case 'hash' :
+						Folder::addFolderLink($_GET['fID']);
+						break;
+					default :
+						break;
+				}
+			}
+
+			if (isset($_POST['fAddSubmit'])) {
+				Folder::addFolder($_POST['fAddName'], $folder['fID'], LoginAccess::userID());
+			} else if (isset($_POST['dAddSubmit'])) {
 				Upload::fileUpload(LoginAccess::userID(), $folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile']);
+			} else if (isset($_POST['dAddShortSubmit'])) {
+				Upload::shortTextUpload(LoginAccess::userID(), $folder['fID'], $_POST['dAddAutor'], $_POST['dAddShortText']);
 			}
 
 			$smarty -> assign('documents', Document::getDocumentsFromFolderID($folder['fID']));
@@ -72,13 +75,16 @@ if ($page == 'public') {
 			break;
 
 		case 'admin' :
-			if(LoginAccess::check(500)) {
+			if (LoginAccess::check(500)) {
+				require_once '../classes/User.php';
+				if (isset($_POST['uAddSubmit'])) {
+					User::newUser($_POST['uName'], $_POST['uLastname'], $_POST['uEMailAdress'], $_POST['uPassword'], $_POST['uPermissonLevel']);
+				}
+
+				$smarty -> assign('user', User::getAllUser());
 				$bodyTpl = $smarty -> fetch('admin.tpl');
 				break;
 			}
-		case 'schnelltest' :
-				$bodyTpl = $smarty -> fetch('schnelltest.tpl');
-				break;
 		default :
 			$bodyTpl = '<h2>404</h2>';
 			break;

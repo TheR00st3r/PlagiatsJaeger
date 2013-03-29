@@ -145,6 +145,11 @@ class Folder {
 					f.fName ASC");
 		return $db -> lines();
 	}
+	
+	public static function editFolderName($fID, $fName) {
+		$db = new db();
+		return $db -> update('folder', array('fName' => $fName), array('fID' => $fID));
+	}
 
 }
 ?>
