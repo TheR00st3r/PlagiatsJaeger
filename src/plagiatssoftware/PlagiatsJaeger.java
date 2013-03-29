@@ -9,7 +9,6 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import org.jsoup.Jsoup;
@@ -18,9 +17,8 @@ import tests.WordProcessing;
 
 
 /**
- * Die Klasse managed die komplette Plagiatssuche. Sie bietet eine Funktion zum
- * starten der Suche. Daraufhin werden die benötigten Daten geladen, die
- * Internetrecherche gestartet und die gefundenen Seiten verglichen.
+ * Die Klasse managed die komplette Plagiatssuche. Sie bietet eine Funktion zum starten der Suche. Daraufhin werden die
+ * benötigten Daten geladen, die Internetrecherche gestartet und die gefundenen Seiten verglichen.
  * 
  * @author Andreas
  */
@@ -30,8 +28,8 @@ public class PlagiatsJaeger
 	private static final int	NUM_WORDS_FOR_BLEKKO	= 6;
 
 	private RabinKarpComparer	_rabinKarpComparer;
-	private WordProcessing		_wordProcessing;
-	private BlekkoSearch		_blekkoSearch;
+	private WordProcessing	    _wordProcessing;
+	private BlekkoSearch	    _blekkoSearch;
 	private MYSQLDataBaseHelper	_mySQLDataBaseHelper;
 
 	public PlagiatsJaeger()
@@ -90,11 +88,11 @@ public class PlagiatsJaeger
 
 		for (SearchResult searchResult : searchResults)
 		{
-			System.out.println(searchResult.getreihenfolge() + " " + searchResult.getorginalText() + "    " + searchResult.getplagiatsText());
+			System.out.println(searchResult.getreihenfolge() + " " + searchResult.getorginalText() + "    " + searchResult.getplagiatsText() + "    " + searchResult.getlink());
 		}
 		try
 		{
-			//_mySQLDataBaseHelper.insertSearchResultIntoTable(searchResults);
+			_mySQLDataBaseHelper.insertSearchResultIntoTable(searchResults);
 		}
 		catch (Exception e)
 		{
@@ -102,7 +100,7 @@ public class PlagiatsJaeger
 		}
 		System.out.println("FERTIG!");
 	}
-	
+
 	/**
 	 * Die Funktion baut die Suchergebnisse über alle URLs zusammen.
 	 * 
@@ -112,9 +110,8 @@ public class PlagiatsJaeger
 	 */
 	private ArrayList<SearchResult> checkAllSites(String textToCheck, ArrayList<String> urls)
 	{
-		return checkAllSites(textToCheck,urls,0);
+		return checkAllSites(textToCheck, urls, 0);
 	}
-	
 
 	/**
 	 * Die Funktion baut die Suchergebnisse über alle URLs zusammen.
@@ -137,7 +134,7 @@ public class PlagiatsJaeger
 				_wordProcessing = new WordProcessing();
 			}
 			String[] wordsToCheck = _wordProcessing.splitToWords(Jsoup.parse(textToCheck).text());
-			result = _rabinKarpComparer.search(wordsToCheck, new StringBuilder( Jsoup.parse(loadURL(urls.get(0))).text()), startReihenfolge);
+			result = _rabinKarpComparer.search(wordsToCheck, new StringBuilder(Jsoup.parse(loadURL(urls.get(0))).text()), urls.get(0), startReihenfolge);
 			// Solange noch URLs in der Liste stehen wird die Funktion rekursiv
 			// aufgerufen
 			if (urls.size() > 1)
@@ -146,15 +143,13 @@ public class PlagiatsJaeger
 				System.out.println("URL: " + urls.get(0));
 
 				urls.remove(0);
-				//StringBuilder sbNewSearchString = new StringBuilder();
 				ArrayList<SearchResult> resultTmp = new ArrayList<SearchResult>();
-				for (SearchResult searchResult : result)
+				for (int i = 0; i < result.size(); i++)
 				{
-					if (searchResult.getplagiatsText().length() <= 0)
+					if (result.get(i).getplagiatsText().length() <= 0)
 					{
-						//sbNewSearchString.append(searchResult.getorginalText()).append(" ");
-						
-						resultTmp.addAll(checkAllSites(searchResult.getorginalText(), urls, searchResult.getreihenfolge()));
+						resultTmp.addAll(checkAllSites(result.get(i).getorginalText(), urls, result.get(i).getreihenfolge()));
+						result.remove(i);
 					}
 				}
 				result.addAll(resultTmp);
