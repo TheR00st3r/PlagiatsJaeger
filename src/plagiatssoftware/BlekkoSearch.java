@@ -89,7 +89,11 @@ public class BlekkoSearch
 	{
 		ArrayList<String> alUrlList = new ArrayList<String>();
 		// Matchpattern
-		Pattern patPattern = Pattern.compile("\"displayUrl\"\\s*?:\\s*?\"([^\"]+?)\"");
+		//Altes JSON
+		Pattern patPattern = Pattern.compile("\"url\"\\s*?:\\s*?\"([^\"]+?)\"");
+		//Neues JSON
+		//Pattern patPattern = Pattern.compile("\"displayUrl\"\\s*?:\\s*?\"([^\"]+?)\"");
+		
 		Matcher matMatcher;
 
 		// Und schlieﬂlich in der for schleife//
@@ -97,17 +101,18 @@ public class BlekkoSearch
 
 		while (matMatcher.find())
 		{
+			String strLink = Jsoup.parse(matMatcher.group(1)).text();
+			strLink = strLink.replaceAll("www.", "");
+			strLink = strLink.replaceAll("http://", "");
+			strLink = "http://"+strLink;
+			System.out.println(strLink);
+			
 			if (_searchResults.contains(matMatcher.group(1)))
 			{
 
 			}
 			else
 			{
-				String strLink = Jsoup.parse(matMatcher.group(1)).text();
-				strLink = strLink.replaceAll("www.", "");
-				strLink = strLink.replaceAll("http://", "");
-				strLink = "http://"+strLink;
-				System.out.println(strLink);
 				alUrlList.add(strLink);
 			}
 		}
