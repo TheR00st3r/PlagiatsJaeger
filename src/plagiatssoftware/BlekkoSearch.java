@@ -112,7 +112,7 @@ public class BlekkoSearch
 				strLink = "http://"+strLink;
 				System.out.println(strLink);
 				//Falls Link bereits in _serchResults vorhanden nicht nochmal schicken
-				if (_searchResults.contains(matMatcher.group(1)))
+				if (_searchResults.contains(strLink))
 				{
 
 				}
@@ -134,7 +134,7 @@ public class BlekkoSearch
 				strLink = "http://"+strLink;
 				System.out.println(strLink);
 				//Falls Link bereits in _serchResults vorhanden nicht nochmal schicken
-				if (_searchResults.contains(matMatcher.group(1)))
+				if (_searchResults.contains(strLink))
 				{
 
 				}
