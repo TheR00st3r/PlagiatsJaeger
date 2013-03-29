@@ -461,68 +461,69 @@ public class RabinKarpComparer
 		// Laenge des Suchtextes
 		int intLengthSearchString = searchString.length();
 		int intLengthDifference = intLengthComplete - intLengthSearchString;
-
-		// hash-Wert der ersten Zeichen des gesamten Textes
-		int intHashStringPart = hashFirst(completeString.substring(startPosition, startPosition + intLengthSearchString), intLengthSearchString);
-		// Wert des Musters
-		int intHashSearch = hashFirst(searchString, intLengthSearchString);
-
-		// da die Zufallszahlenerzeugung fuer die rand. RK-Algorithmus
-		// essentiell
-		// ist, messen wir die Instanziierung des Random-Objekts natuerlich
-		// jeweils mit
-		Random randomNumbers = new Random();
-
-		// in falseMatches werden die Anzahl "False Matches" gespeichert, also
-		// die Kollisionen
-		_falseMatches = 0;
-
-		// solange Text noch nicht komplett durchlaufen
-		for (int i = startPosition; i <= intLengthDifference; i++)
+		if (intLengthComplete >= startPosition + intLengthSearchString)
 		{
-			// wenn Hashwert des Musters mit dem Hashwert des Textausschnittes
-			// uebereinstimmt...
-			if (intHashStringPart == intHashSearch)
-			{
-				// und die Strings an der Stelle auch uebereinstimmen
-				if (completeString.substring(i, i + intLengthSearchString).equals(searchString))
-				{
-					// Ueœbereinstimmung gefunden
-					result = i;
-					break;
-				}
-				else
-				{
-					_falseMatches++;
-					if (MAX_FALSEMATCHES != 0)
-					{
-						if (_falseMatches == MAX_FALSEMATCHES)
-						{
-							// waehle q neu - eine Zweierpotenz zwischen 2^minQ
-							// bis 2^maxQ
-							intRandomNumber = randomNumbers.nextInt(_qDiff) + MIN_Q;
-							// Schiebeoperatoren sind schneller
-							q = _minQResult << (intRandomNumber - MIN_Q);
-							reducedQ = q - 1;
-							// false matches zuruecksetzen
-							_falseMatches = 0;
+			// hash-Wert der ersten Zeichen des gesamten Textes
+			int intHashStringPart = hashFirst(completeString.substring(startPosition, startPosition + intLengthSearchString), intLengthSearchString);
+			// Wert des Musters
+			int intHashSearch = hashFirst(searchString, intLengthSearchString);
 
-							// mit neuem q muss Hash fuer Muster und
-							// Gesamtstring
-							// auch neu berechnet werden
-							intHashSearch = hashFirst(searchString, intLengthSearchString);
-							intHashStringPart = hashFirst(completeString.substring(i, i + intLengthSearchString), intLengthSearchString);
+			// da die Zufallszahlenerzeugung fuer die rand. RK-Algorithmus
+			// essentiell
+			// ist, messen wir die Instanziierung des Random-Objekts natuerlich
+			// jeweils mit
+			Random randomNumbers = new Random();
+
+			// in falseMatches werden die Anzahl "False Matches" gespeichert, also
+			// die Kollisionen
+			_falseMatches = 0;
+
+			// solange Text noch nicht komplett durchlaufen
+			for (int i = startPosition; i <= intLengthDifference; i++)
+			{
+				// wenn Hashwert des Musters mit dem Hashwert des Textausschnittes
+				// uebereinstimmt...
+				if (intHashStringPart == intHashSearch)
+				{
+					// und die Strings an der Stelle auch uebereinstimmen
+					if (completeString.substring(i, i + intLengthSearchString).equals(searchString))
+					{
+						// Ueœbereinstimmung gefunden
+						result = i;
+						break;
+					}
+					else
+					{
+						_falseMatches++;
+						if (MAX_FALSEMATCHES != 0)
+						{
+							if (_falseMatches == MAX_FALSEMATCHES)
+							{
+								// waehle q neu - eine Zweierpotenz zwischen 2^minQ
+								// bis 2^maxQ
+								intRandomNumber = randomNumbers.nextInt(_qDiff) + MIN_Q;
+								// Schiebeoperatoren sind schneller
+								q = _minQResult << (intRandomNumber - MIN_Q);
+								reducedQ = q - 1;
+								// false matches zuruecksetzen
+								_falseMatches = 0;
+
+								// mit neuem q muss Hash fuer Muster und
+								// Gesamtstring
+								// auch neu berechnet werden
+								intHashSearch = hashFirst(searchString, intLengthSearchString);
+								intHashStringPart = hashFirst(completeString.substring(i, i + intLengthSearchString), intLengthSearchString);
+							}
 						}
 					}
 				}
+
+				// Bereichsueberlaufsfehler abfangen
+				if ((i + intLengthSearchString + 1) > intLengthComplete) break;
+				// naechsten Hashwert bestimmen
+				intHashStringPart = hash(intHashStringPart, i + 1, intLengthSearchString, completeString);
 			}
-
-			// Bereichsueberlaufsfehler abfangen
-			if ((i + intLengthSearchString + 1) > intLengthComplete) break;
-			// naechsten Hashwert bestimmen
-			intHashStringPart = hash(intHashStringPart, i + 1, intLengthSearchString, completeString);
 		}
-
 		return result;
 	}
 
