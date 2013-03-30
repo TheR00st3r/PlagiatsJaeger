@@ -8,11 +8,6 @@
 Options -MultiViews +FollowSymLinks
 RewriteEngine On
 RewriteBase /
-<<<<<<< HEAD
 RewriteBase /webseiten/plagiatsjaeger-app/htdocs/
 RewriteCond %{REQUEST_URI} !^/(application|phpMyAdmin)(/.*)?
-=======
-RewriteCond %{REQUEST_URI} !^/(application|phpMyAdmin)(/.*)?
-RewriteBase /webseiten/plagiatsjaeger-app/website/public/
->>>>>>> branch 'frontend' of https://github.com/4ipalino/PlagiatsJaeger.git
 RewriteRule ^([0-9a-zA-Z_/-]+)$ index.php?url=$1 [QSA]
