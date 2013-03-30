@@ -123,7 +123,7 @@
 			
 				{foreach from=$item.reports item=report}
 				<li>
-					<a href="report.php?rID={$report.rID}" class="pictureManager fancybox.iframe">{$report.rDate}</a>
+					<a href="report.php?rID={$report.rID}" class="pictureManager fancybox.iframe">{$report.rDate}</a> rID={$report.rID}
 					<!-- <a href="{$root}report?rID={$report.rID}">{$report.rDate} -->
 				</li>
 				{/foreach}
