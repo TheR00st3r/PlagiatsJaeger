@@ -34,9 +34,11 @@ public class TestServlet extends HttpServlet
 	{
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
+		
 		out.println("<html>");
-		out.println("<h3> Hallo, mein erstes Servlet meldet sich </h3>");
-		out.println("<a href='/PlagiatsSoftware/'>zur&uuml;ck</a>");
+		//out.println("<h3> Hallo, mein erstes Servlet meldet sich </h3>");
+		//out.println("<a href='/PlagiatsSoftware/'>zur&uuml;ck</a>");
+		out.println("<h3>" + request.getParameter("rID") + "</h3>");
 		out.println("</html>");
 		out.close();
 		// TODO Auto-generated method stub
