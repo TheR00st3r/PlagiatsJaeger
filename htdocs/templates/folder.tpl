@@ -106,7 +106,10 @@
 		{foreach from=$folders item=item}
 		<tr class="{$color}">
 			<td class="image"><img src="{$root}images/folder-closed.gif" alt="" /></td>
-			<td class="borderright"><div class="jeditable" id="fName_{$item.fID}">{$item.fName}</div></td>
+			<td class="borderright">
+			<div class="jeditable" id="fName_{$item.fID}">
+				{$item.fName}
+			</div></td>
 			<td class="borderright">&nbsp;</td>
 			<td class="smal"> {if $item.fHashLink != ''} <a target="_blank" href="{$root}public?id={$item.fHashLink}">[Link]</a> {else} <a href="{$root}{$page}?action=hash&amp;fID={$item.fID}">[hash]</a> {/if} </td>
 			<td class="smal"><a href="{$root}{$page}?action=deleteFolder&amp;fID={$item.fID}">[delete]</a></td>
@@ -116,9 +119,14 @@
 		{foreach from=$documents item=item}
 		<tr class="{$color}">
 			<td class="image"><img src="{$root}images/file.gif" alt="" /></td>
-			<td class="borderright">{$item.dOriginalName}{$item.dID}</td>
+			<td class="borderright"> {$item.dOriginalName}{$item.dID}
+			
+				{foreach from=$item.reports item=report}
+				<li><a href="{$root}report?rID={$report.rID}">{$report.rDate}</li>
+				{/foreach}
+			</td>
 			<td class="borderright">{$item.dAuthor}</td>
-			<td class="smal">[prüfen]</td>
+			<td class="smal"><a href="{$root}{$page}?action=check&amp;dID={$item.dID}">[prüfen]</a></td>
 			<td class="smal">[delete]</td>
 		</tr>
 		{if $color == ''}{$color = 'bgcolor'}{else}{$color = ''}{/if}

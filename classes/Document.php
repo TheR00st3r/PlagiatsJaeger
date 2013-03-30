@@ -14,7 +14,16 @@ class Document {
 				ORDER BY
 					d.dOriginalName ASC");
 
-		return $db -> linesAsArray();
+		$docs = array();
+
+		require_once '../classes/Report.php';
+
+		while ($row = $db -> lines()) {
+			$row['reports'] = Report::getReportsFromDocumentID($row['dID']);
+			$docs[] = $row;
+		}
+
+		return $docs;
 	}
 
 }

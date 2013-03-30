@@ -40,6 +40,7 @@ if ($page == 'public') {
 			require_once '../classes/Document.php';
 			require_once '../classes/Folder.php';
 			require_once '../classes/Upload.php';
+			require_once '../classes/Report.php';
 
 			$folderUrl = deleteItem($url, 0);
 			$folderLink = implode('/', $folderUrl);
@@ -59,6 +60,19 @@ if ($page == 'public') {
 						break;
 				}
 			}
+			
+			if (Validator::validate(VAL_INTEGER, $_GET['dID'], true)) {
+				switch ($_GET['action']) {
+					case 'deleteDoc' :
+						//Document::deleteDocument($_GET['dID']);
+						break;
+					case 'check' :
+						Report::createReport($_GET['dID']);
+						break;
+					default :
+						break;
+				}
+			}
 
 			if (isset($_POST['fAddSubmit'])) {
 				Folder::addFolder($_POST['fAddName'], $folder['fID'], LoginAccess::userID());
@@ -71,7 +85,14 @@ if ($page == 'public') {
 			$smarty -> assign('documents', Document::getDocumentsFromFolderID($folder['fID']));
 			$smarty -> assign('folders', Folder::getFolderArray($folder['fID']));
 			$smarty -> assign('folderNav', Folder::getFolderArray());
-			$bodyTpl = $smarty -> fetch('fileManager.tpl');
+			$bodyTpl = $smarty -> fetch('folder.tpl');
+			break;
+		
+		case 'report' :
+			require_once '../classes/Result.php';
+			// print_array(Result::getResultsFromReportID($_GET['rID']));
+			$smarty -> assign('results', Result::getResultsFromReportID($_GET['rID']));
+			$bodyTpl = $smarty -> fetch('report.tpl');
 			break;
 
 		case 'admin' :
