@@ -7,14 +7,14 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
 	$logData['database'] = 'plagiatsjaeger';
 	$logData['debug'] = true;
 
-	$root = 'http://localhost:8888/webseiten/plagiatsjaeger-app/website/public/';
+	$root = 'http://localhost:8888/webseiten/plagiatsjaeger-app/htdocs/';
 
 } else {
-	require_once '../../../database.php';
+	require_once '../../database.php';
 	
 	$logData['debug'] = true;
 	
-	$root = 'http://192.168.4.28/app/website/public/';
+	$root = 'http://192.168.4.28/';
 }
 
 //DEBUG
