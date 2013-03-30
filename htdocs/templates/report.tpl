@@ -1,3 +1,4 @@
+{if $results|count > 0}
 <div class="report">
 	<table>
 		{$color = ''}
@@ -11,3 +12,6 @@
 		{/foreach}
 	</table>
 </div>
+{else}
+Es sind (noch) keine Ergebnisse vorhanden.
+{/if}

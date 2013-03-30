@@ -26,7 +26,7 @@ if (isset($_POST['lSubmit'])) {
 if ($page == 'public') {
 	require_once '../classes/Folder.php';
 	$folder = Folder::getFolderFromHash($_GET['id']);
-	$bodyTpl = '<h1>öffentlicher Upload</h1>Hash=' . $_GET['id'] . ', FolderID=' . $folder['fID'] . ', FolderName=' . $folder['fName'];
+	$contentTpl = '<h1>öffentlicher Upload</h1>Hash=' . $_GET['id'] . ', FolderID=' . $folder['fID'] . ', FolderName=' . $folder['fName'];
 } else if (LoginAccess::check()) {
 
 	$smarty -> assign('isLogin', true);
@@ -85,14 +85,14 @@ if ($page == 'public') {
 			$smarty -> assign('documents', Document::getDocumentsFromFolderID($folder['fID']));
 			$smarty -> assign('folders', Folder::getFolderArray($folder['fID']));
 			$smarty -> assign('folderNav', Folder::getFolderArray());
-			$bodyTpl = $smarty -> fetch('folder.tpl');
+			$contentTpl = $smarty -> fetch('folder.tpl');
 			break;
 		
 		case 'report' :
 			require_once '../classes/Result.php';
 			// print_array(Result::getResultsFromReportID($_GET['rID']));
 			$smarty -> assign('results', Result::getResultsFromReportID($_GET['rID']));
-			$bodyTpl = $smarty -> fetch('report.tpl');
+			$contentTpl = $smarty -> fetch('report.tpl');
 			break;
 
 		case 'admin' :
@@ -103,18 +103,19 @@ if ($page == 'public') {
 				}
 
 				$smarty -> assign('user', User::getAllUser());
-				$bodyTpl = $smarty -> fetch('admin.tpl');
+				$contentTpl = $smarty -> fetch('admin.tpl');
 				break;
 			}
 		default :
-			$bodyTpl = '<h2>404</h2>';
+			$contentTpl = '<h2>404</h2>';
 			break;
 	}
 } else {
-	$bodyTpl = $smarty -> fetch('login.tpl');
+	$contentTpl = $smarty -> fetch('login.tpl');
 }
-
+$smarty -> assign('content', $contentTpl);
+$bodyTpl = $smarty -> fetch('layout.tpl');
 $smarty -> assign('body', $bodyTpl);
 
-$smarty -> display('layout.tpl');
+$smarty -> display('_maske.tpl');
 ?>

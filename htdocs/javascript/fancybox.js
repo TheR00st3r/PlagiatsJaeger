@@ -14,4 +14,8 @@ $(document).ready(function() {
 			$('.uploadforms').hide();
 		}
 	});
-}); 
+
+	$('.pictureManager').fancybox({
+		autoSize : false,
+	});
+});

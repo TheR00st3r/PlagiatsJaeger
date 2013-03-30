@@ -1,7 +1,9 @@
 # Can ignore specific files
 .DS_Store
+.project
 
 # Use wildcards as well
 
 # Can also ignore all directories and files in a directory.
-website/public/templates_c/* 
+htdocs/templates_c/*
+uploads/* 

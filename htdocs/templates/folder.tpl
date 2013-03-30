@@ -122,7 +122,10 @@
 			<td class="borderright"> {$item.dOriginalName}{$item.dID}
 			
 				{foreach from=$item.reports item=report}
-				<li><a href="{$root}report?rID={$report.rID}">{$report.rDate}</li>
+				<li>
+					<a href="report.php?rID={$report.rID}" class="pictureManager fancybox.iframe">{$report.rDate}</a>
+					<!-- <a href="{$root}report?rID={$report.rID}">{$report.rDate} -->
+				</li>
 				{/foreach}
 			</td>
 			<td class="borderright">{$item.dAuthor}</td>
