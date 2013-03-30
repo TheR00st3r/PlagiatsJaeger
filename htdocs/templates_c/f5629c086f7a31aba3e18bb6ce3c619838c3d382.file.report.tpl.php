@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.12, created on 2013-03-30 11:08:44
+<?php /* Smarty version Smarty-3.1.12, created on 2013-03-30 11:36:02
          compiled from "templates/report.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:15826133505156b4c869a068-68980608%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'f5629c086f7a31aba3e18bb6ce3c619838c3d382' => 
     array (
       0 => 'templates/report.tpl',
-      1 => 1364638124,
+      1 => 1364639760,
       2 => 'file',
     ),
   ),
@@ -26,7 +26,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_5156b4c86d80f9_15674666')) {function content_5156b4c86d80f9_15674666($_smarty_tpl) {?><div class="report">
+<?php if ($_valid && !is_callable('content_5156b4c86d80f9_15674666')) {function content_5156b4c86d80f9_15674666($_smarty_tpl) {?><?php if (count($_smarty_tpl->tpl_vars['results']->value)>0){?>
+<div class="report">
 	<table>
 		<?php $_smarty_tpl->tpl_vars['color'] = new Smarty_variable('', null, 0);?>
 		<?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
@@ -49,4 +50,8 @@ thirdparty/icons/152_new_window.png" alt="<?php echo $_smarty_tpl->tpl_vars['ite
 		<?php if ($_smarty_tpl->tpl_vars['color']->value==''){?><?php $_smarty_tpl->tpl_vars['color'] = new Smarty_variable('bgcolor', null, 0);?><?php }else{ ?><?php $_smarty_tpl->tpl_vars['color'] = new Smarty_variable('', null, 0);?><?php }?>
 		<?php } ?>
 	</table>
-</div><?php }} ?>
+</div>
+<?php }else{ ?>
+Es sind (noch) keine Ergebnisse vorhanden.
+<?php }?>
+<?php }} ?>
