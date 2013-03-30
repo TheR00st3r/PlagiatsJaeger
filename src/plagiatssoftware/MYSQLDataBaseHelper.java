@@ -93,7 +93,7 @@ public class MYSQLDataBaseHelper
 		String strStatement = "";
 		for (SearchResult result : alArrayList)
 		{
-			strStatement = "INSERT INTO result VALUES(DEFAULT, '" + result.getorginalText() + "' , '" + result.getlink() + "' , '" + result.getplagiatsText() + "' , '" + result.getsearchID() + "' )";
+			strStatement = "INSERT INTO result VALUES(DEFAULT, '" + result.getreihenfolge() + "','" + result.getorginalText() + "' , '" + result.getlink() + "' , '" + result.getplagiatsText() + "' , '" + result.getsearchID() + "' )";
 			_statement.executeUpdate(strStatement);
 		}
 		this.disconnect();
