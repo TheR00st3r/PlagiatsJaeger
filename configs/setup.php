@@ -5,8 +5,8 @@ ini_set("display_errors", 1);
 error_reporting(1);
 
 // Smarty Library Dateien laden
-require_once '../../smarty/libs/Smarty.class.php';
-require_once '../../libs/validator.php';
+require_once '../smarty/libs/Smarty.class.php';
+require_once '../libs/validator.php';
 // require_once '../../libs/phpMail/class.phpmailer.php';
 
 // require_once '../../libs/bbcode/src/stringparser_bbcode.class.php';
@@ -23,8 +23,8 @@ require_once 'config.php';
 require_once '../classes/DB.php';
 require_once '../classes/LoginAccess.php';
 // require_once 'classes/search.php';
-require_once '../../libs/helper.php';
-require_once '../../libs/arrayHelper.php';
+require_once '../libs/helper.php';
+require_once '../libs/arrayHelper.php';
 // require_once 'classes/navigation.php';
 // require_once 'functions/_all.php';
 // require_once("../libs/validformbuilder_v.1.0.1/libraries/ValidForm/class.validform.php");

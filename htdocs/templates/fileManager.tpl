@@ -116,7 +116,7 @@
 		{foreach from=$documents item=item}
 		<tr class="{$color}">
 			<td class="image"><img src="{$root}images/file.gif" alt="" /></td>
-			<td class="borderright">{$item.dOriginalName}</td>
+			<td class="borderright">{$item.dOriginalName}{$item.dID}</td>
 			<td class="borderright">{$item.dAuthor}</td>
 			<td class="smal">[prüfen]</td>
 			<td class="smal">[delete]</td>
