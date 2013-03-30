@@ -9,13 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 /**
  * Servlet implementation class TestServlet
  */
 @WebServlet("/TestServlet")
 public class TestServlet extends HttpServlet
 {
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -34,12 +35,12 @@ public class TestServlet extends HttpServlet
 	{
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		
-		out.println("<html>");
-		//out.println("<h3> Hallo, mein erstes Servlet meldet sich </h3>");
-		//out.println("<a href='/PlagiatsSoftware/'>zur&uuml;ck</a>");
-		out.println("<h3>" + request.getParameter("rID") + "</h3>");
-		out.println("</html>");
+
+		// out.println("<html>");
+		// out.println("<h3> Hallo, mein erstes Servlet meldet sich </h3>");
+		// out.println("<a href='/PlagiatsSoftware/'>zur&uuml;ck</a>");
+		out.print(request.getParameter("rID"));
+		// out.println("</html>");
 		out.close();
 		// TODO Auto-generated method stub
 	}

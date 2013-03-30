@@ -69,7 +69,7 @@ public class TestTimo
 
 	public static void main(String[] args) throws Exception
 	{
-		for (int b = 0; b < 100; b++)
+		for (int b = 0; b < 20; b++)
 		{
 			String google = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=";
 			// String google =
