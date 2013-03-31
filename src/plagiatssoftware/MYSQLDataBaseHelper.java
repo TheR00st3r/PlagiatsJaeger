@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -102,21 +103,36 @@ public class MYSQLDataBaseHelper
 	/**
 	 * Liefert die DokumentId zu einem Report.
 	 * 
-	 * @param rID ReportId
+	 * @param rID
+	 *            ReportId
 	 * @return DokumentId
-	 * @throws Exception 
 	 */
-	public int getDocumentID(int rID) throws Exception
+	public int getDocumentID(int rID)
 	{
 		int result = 0;
-		this.connect();
+
 		String strStatement = "SELECT dID FROM report WHERE rID = " + rID;
-		ResultSet rstResultSet = _statement.executeQuery(strStatement);
-		if(rstResultSet.next())
+		ResultSet rstResultSet;
+		try
 		{
-			result = rstResultSet.getInt("dID");
+			connect();
+			rstResultSet = _statement.executeQuery(strStatement);
+			if (rstResultSet.next())
+			{
+				result = rstResultSet.getInt("dID");
+			}
+			this.disconnect();
 		}
-		this.disconnect();
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return result;
 	}
 

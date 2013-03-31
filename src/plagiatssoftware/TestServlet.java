@@ -34,29 +34,20 @@ public class TestServlet extends HttpServlet
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		
-		
+
 		response.setContentType("text/html");
 
 		int rID = Integer.parseInt(request.getParameter("rID"));
-		
-		PrintWriter out = response.getWriter();
-		
-		out.print(System.getProperty("user.home") + File.separator + "password.txt");
-		out.println("Suche startet...");
-		out.print("ReportID: " + rID);
-		try
-		{
-			new PlagiatsJaeger().start(rID);
-		}
-		catch (Exception e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
-		out.println("Suche beendet.");
+		final PrintWriter out = response.getWriter();
+
+		out.print("start");
 		
+		new PlagiatsJaeger().start(rID);
+	
+
+		out.print("ende");
+		out.print("true");
 		out.close();
 	}
 
