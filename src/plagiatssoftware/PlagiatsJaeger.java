@@ -18,7 +18,7 @@ import tests.WordProcessing;
 
 /**
  * Die Klasse managed die komplette Plagiatssuche. Sie bietet eine Funktion zum starten der Suche. Daraufhin werden die
- * benötigten Daten geladen, die Internetrecherche gestartet und die gefundenen Seiten verglichen.
+ * benï¿½tigten Daten geladen, die Internetrecherche gestartet und die gefundenen Seiten verglichen.
  * 
  * @author Andreas
  */
@@ -58,7 +58,7 @@ public class PlagiatsJaeger
 
 		System.out.println("Klassen initialisiert");
 
-		String textToCheck = loadFileToString(ROOT_FILES + rID + ".txt");
+		String textToCheck = loadFileToString(ROOT_FILES + _mySQLDataBaseHelper.getDocumentID(rID) + ".txt");
 		System.out.println("Datei geladen");
 
 		ArrayList<String> alVerbsAndNouns = _wordProcessing.getVerbsAndNouns(textToCheck);
@@ -100,7 +100,7 @@ public class PlagiatsJaeger
 	}
 
 	/**
-	 * Die Funktion baut die Suchergebnisse über alle URLs zusammen.
+	 * Die Funktion baut die Suchergebnisse ï¿½ber alle URLs zusammen.
 	 * 
 	 * @param urls
 	 * @param wordsToCheck
@@ -112,7 +112,7 @@ public class PlagiatsJaeger
 	}
 
 	/**
-	 * Die Funktion baut die Suchergebnisse über alle URLs zusammen.
+	 * Die Funktion baut die Suchergebnisse ï¿½ber alle URLs zusammen.
 	 * 
 	 * @param urls
 	 * @param wordsToCheck
@@ -161,7 +161,7 @@ public class PlagiatsJaeger
 	}
 
 	/**
-	 * Läd eine Datei in einen String
+	 * Lï¿½d eine Datei in einen String
 	 * 
 	 * @param fileName
 	 *            Datei die geladen werden soll

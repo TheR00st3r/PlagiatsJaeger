@@ -29,14 +29,14 @@ public class MYSQLDataBaseHelper
 	 * Stellt Verbindung zum MySQL Server und der Datenbank her.
 	 * 
 	 * @throws Exception
-	 *             Falls SQL Connect fehlschlägt {@link SQLException}
-	 *             {@link ClassNotFoundException} {@link FileNotFoundException}
+	 *             Falls SQL Connect fehlschlï¿½gt {@link SQLException} {@link ClassNotFoundException}
+	 *             {@link FileNotFoundException}
 	 */
 	public void connect() throws Exception
 	{
 		_connection = null;
 		_statement = null;
-		// Lädt den MySQL Treiber
+		// Lï¿½dt den MySQL Treiber
 		Class.forName("com.mysql.jdbc.Driver");
 		// Verbindung mit DB herstellen
 		String strPassword = this.readPassword();
@@ -85,7 +85,7 @@ public class MYSQLDataBaseHelper
 	 * @param alArrayList
 	 *            Zu schreibende SearchResultObjekte
 	 * @throws Exception
-	 *             Falls SQL Befehl fehlschlägt {@link SQLException}
+	 *             Falls SQL Befehl fehlschlï¿½gt {@link SQLException}
 	 */
 	public void insertSearchResultIntoTable(ArrayList<SearchResult> alArrayList) throws Exception
 	{
@@ -97,6 +97,19 @@ public class MYSQLDataBaseHelper
 			_statement.executeUpdate(strStatement);
 		}
 		this.disconnect();
+	}
+
+	/**
+	 * Liefert die DokumentId zu einem Report.
+	 * 
+	 * @param rID ReportId
+	 * @return DokumentId
+	 */
+	public int getDocumentID(int rID)
+	{
+		int result = 0;
+
+		return result;
 	}
 
 	/**
