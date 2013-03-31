@@ -26,6 +26,8 @@ public class PlagiatsJaeger
 {
 
 	private static final int	NUM_WORDS_FOR_BLEKKO	= 10;
+	//TODO: Filepath eintragen
+	private static final String	ROOT_FILES	         = "\\";
 
 	private RabinKarpComparer	_rabinKarpComparer;
 	private WordProcessing	    _wordProcessing;
@@ -37,7 +39,7 @@ public class PlagiatsJaeger
 
 	}
 
-	public void start(String fileToCheck)
+	public void start(int rID)
 	{
 		if (_rabinKarpComparer == null)
 		{
@@ -58,7 +60,7 @@ public class PlagiatsJaeger
 
 		System.out.println("Klassen initialisiert");
 
-		String textToCheck = loadFileToString(fileToCheck);
+		String textToCheck = loadFileToString(ROOT_FILES + rID + ".txt");
 
 		System.out.println("Datei geladen");
 
@@ -67,7 +69,7 @@ public class PlagiatsJaeger
 		System.out.println("Verben und Nomen geladen");
 
 		ArrayList<String> alURLs = new ArrayList<String>();
-		for (int i = 0; i < alVerbsAndNouns.size() - NUM_WORDS_FOR_BLEKKO; i+=NUM_WORDS_FOR_BLEKKO)
+		for (int i = 0; i < alVerbsAndNouns.size() - NUM_WORDS_FOR_BLEKKO; i += NUM_WORDS_FOR_BLEKKO)
 		{
 			String strSearch = "";
 			for (int j = 0; j < NUM_WORDS_FOR_BLEKKO; j++)
