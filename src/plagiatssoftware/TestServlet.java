@@ -1,8 +1,5 @@
 package plagiatssoftware;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -14,7 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * Servlet implementation class TestServlet
+ * Testservlet fuer die Designstudie. Baut die Kommunikation zwischen Weboberflaeche und Backend auf.
+ * 
+ * @author Andreas
+ * 
  */
 @WebServlet("/TestServlet")
 public class TestServlet extends HttpServlet
@@ -30,38 +30,36 @@ public class TestServlet extends HttpServlet
 	}
 
 	/**
+	 * Startet eine neue Ueberpruefung und schreibt "true" zurueck.
+	 * 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	protected void doGet(final HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-
 		response.setContentType("text/html");
-
-		final int rID = Integer.parseInt(request.getParameter("rID"));
-
-		final PrintWriter out = response.getWriter();
 
 		new Thread(new Runnable()
 		{
-			
 			@Override
 			public void run()
 			{
-				new PlagiatsJaeger().start(rID);				
+				int rID = Integer.parseInt(request.getParameter("rID"));
+				new PlagiatsJaeger().start(rID);
 			}
 		}).start();
-		
-	
+
+		PrintWriter out = response.getWriter();
 		out.print("true");
 		out.close();
 	}
 
 	/**
+	 * Leer
+	 * 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		// TODO Auto-generated method stub
 	}
 
 }

@@ -1,17 +1,32 @@
 package plagiatssoftware;
 
+/**
+ * Datentyp fuer ein Suchergebnis
+ * 
+ * @author Andreas
+ * 
+ */
 public class SearchResult
 {
 
-	private int		_searchID;
+	private int	   _reportID;
 	private String	_orginalText;
 	private String	_plagiatsText;
 	private String	_link;
-	private int		_reihenfolge;
+	private int	   _reihenfolge;
 
-	public SearchResult(int searchID, String orginalText, String plagiatsText, String link, int reihenfolge)
+	/**
+	 * Legt ein neues Suchergebnis an
+	 * 
+	 * @param reportID
+	 * @param orginalText
+	 * @param plagiatsText
+	 * @param link
+	 * @param reihenfolge
+	 */
+	public SearchResult(int reportID, String orginalText, String plagiatsText, String link, int reihenfolge)
 	{
-		_searchID = searchID;
+		_reportID = reportID;
 		_orginalText = orginalText.trim();
 		_plagiatsText = plagiatsText.trim();
 		_link = link;
@@ -21,12 +36,12 @@ public class SearchResult
 
 	public int getsearchID()
 	{
-		return _searchID;
+		return _reportID;
 	}
 
 	public void setsearchID(int _searchID)
 	{
-		this._searchID = _searchID;
+		this._reportID = _searchID;
 	}
 
 	public String getorginalText()

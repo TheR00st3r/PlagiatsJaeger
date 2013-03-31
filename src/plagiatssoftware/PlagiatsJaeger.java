@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -14,12 +13,11 @@ import java.util.ArrayList;
 
 import org.jsoup.Jsoup;
 
-import tests.WordProcessing;
 
 
 /**
  * Die Klasse managed die komplette Plagiatssuche. Sie bietet eine Funktion zum starten der Suche. Daraufhin werden die
- * ben�tigten Daten geladen, die Internetrecherche gestartet und die gefundenen Seiten verglichen.
+ * benoetigten Daten geladen, die Internetrecherche gestartet und die gefundenen Seiten verglichen.
  * 
  * @author Andreas
  */
@@ -33,11 +31,17 @@ public class PlagiatsJaeger
 	private BlekkoSearch	    _blekkoSearch;
 	private MYSQLDataBaseHelper	_mySQLDataBaseHelper;
 
+	/**
+	 * Legt ein neues Objekt der Klasse an und startet die Initialisierung.
+	 */
 	public PlagiatsJaeger()
 	{
 		init();
 	}
 
+	/**
+	 * Initialisiert die benötigten Objekten
+	 */
 	private void init()
 	{
 		if (_rabinKarpComparer == null)
@@ -59,6 +63,7 @@ public class PlagiatsJaeger
 	}
 
 	/**
+	 * Startet eine überprüfung zu der gegebenen ReportID
 	 * 
 	 * @param rID
 	 */
@@ -67,6 +72,12 @@ public class PlagiatsJaeger
 		start(ROOT_FILES + _mySQLDataBaseHelper.getDocumentID(rID) + ".txt", rID);
 	}
 
+	/**
+	 * Startet eine Ueberpruefung der Datei an dem angegebenen Dateipfad zu der gegebenen reportID
+	 * 
+	 * @param filePath
+	 * @param rID
+	 */
 	public void start(String filePath, int rID)
 	{
 		System.out.println("Klassen initialisiert");
@@ -125,7 +136,7 @@ public class PlagiatsJaeger
 	}
 
 	/**
-	 * Die Funktion baut die Suchergebnisse �ber alle URLs zusammen.
+	 * Die Funktion baut die Suchergebnisse ueber alle URLs zusammen.
 	 * 
 	 * @param urls
 	 * @param wordsToCheck
@@ -166,7 +177,7 @@ public class PlagiatsJaeger
 	}
 
 	/**
-	 * L�d eine Datei in einen String
+	 * Laed eine Datei in einen String
 	 * 
 	 * @param fileName
 	 *            Datei die geladen werden soll
@@ -216,6 +227,13 @@ public class PlagiatsJaeger
 		return result;
 	}
 
+	/**
+	 * Läd eine Webseite und gibt den Inhalt(Text) zurueck.
+	 * 
+	 * @param strURL
+	 *            URL der Seite die geladen werden soll.
+	 * @return Inhalt der Webseite.s
+	 */
 	private String loadURL(String strURL)
 	{
 		StringBuilder result = new StringBuilder();

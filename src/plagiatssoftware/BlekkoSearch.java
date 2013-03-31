@@ -13,11 +13,9 @@ import java.util.regex.Pattern;
 
 import org.jsoup.Jsoup;
 
-import edu.stanford.nlp.io.EncodingPrintWriter.out;
-
 
 /**
- * Enthält Funktionen zum Suchen in der Suchmaschine <a href="http://blekko.com">Blekko</a>
+ * Entaelt Funktionen zum Suchen in der Suchmaschine <a href="http://blekko.com">Blekko</a>
  * 
  * @author Andreas
  */
@@ -35,13 +33,8 @@ public class BlekkoSearch
 
 	private ArrayList<String>	_searchResults	= new ArrayList<String>();
 
-	public BlekkoSearch()
-	{
-
-	}
-
 	/**
-	 * Sucht auf der Suchmaschine Blekko nach Treffern für den gegebenen Text
+	 * Sucht auf der Suchmaschine Blekko nach Treffern fuer den gegebenen Text
 	 * 
 	 * @param textToSearch
 	 * @return ArrayList mit den Ergebnis-Links
@@ -49,7 +42,6 @@ public class BlekkoSearch
 	public ArrayList<String> search(String textToSearch)
 	{
 		ArrayList<String> result = null;
-
 		try
 		{
 			textToSearch = URLEncoder.encode(textToSearch, CHARSET).replaceAll("[ \t\n\f\r]", "+");
@@ -101,7 +93,7 @@ public class BlekkoSearch
 
 		Matcher matMatcher;
 
-		// Und schließlich in der for schleife//
+		// Und schlieï¿½lich in der for schleife//
 		matMatcher = patPattern.matcher(strSearchLink);
 
 		if (matMatcher.find())
@@ -144,6 +136,12 @@ public class BlekkoSearch
 		return alUrlList;
 	}
 
+	/**
+	 * Erstellt eine saubere URL vom format "http://abc.de"
+	 * 
+	 * @param dirtyURL
+	 * @return
+	 */
 	private String cleanURL(String dirtyURL)
 	{
 		String result = "";

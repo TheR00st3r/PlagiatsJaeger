@@ -7,19 +7,20 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.servlet.annotation.WebServlet;
 
-
+/***
+ * 
+ * @author Michael
+ *
+ */
 @WebServlet("/MYSQLDataBaseHelper")
 public class MYSQLDataBaseHelper
 {
@@ -30,14 +31,14 @@ public class MYSQLDataBaseHelper
 	 * Stellt Verbindung zum MySQL Server und der Datenbank her.
 	 * 
 	 * @throws Exception
-	 *             Falls SQL Connect fehlschl�gt {@link SQLException} {@link ClassNotFoundException}
+	 *             Falls SQL Connect fehlschlaegt {@link SQLException} {@link ClassNotFoundException}
 	 *             {@link FileNotFoundException}
 	 */
 	public void connect() throws Exception
 	{
 		_connection = null;
 		_statement = null;
-		// L�dt den MySQL Treiber
+		// Laedt den MySQL Treiber
 		Class.forName("com.mysql.jdbc.Driver");
 		// Verbindung mit DB herstellen
 		String strPassword = this.readPassword();
