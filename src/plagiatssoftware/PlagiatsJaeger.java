@@ -36,8 +36,12 @@ public class PlagiatsJaeger
 	{
 
 	}
-
-	public void start(int rID)
+	/**
+	 * 
+	 * @param rID
+	 * @throws Exception
+	 */
+	public void start(int rID) throws Exception
 	{
 		start(ROOT_FILES + _mySQLDataBaseHelper.getDocumentID(rID) + ".txt", rID);
 	}

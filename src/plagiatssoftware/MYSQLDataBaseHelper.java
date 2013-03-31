@@ -104,11 +104,19 @@ public class MYSQLDataBaseHelper
 	 * 
 	 * @param rID ReportId
 	 * @return DokumentId
+	 * @throws Exception 
 	 */
-	public int getDocumentID(int rID)
+	public int getDocumentID(int rID) throws Exception
 	{
 		int result = 0;
-
+		this.connect();
+		String strStatement = "SELECT dID FROM report WHERE rID = " + rID;
+		ResultSet rstResultSet = _statement.executeQuery(strStatement);
+		if(rstResultSet.next())
+		{
+			result = rstResultSet.getInt("dID");
+		}
+		this.disconnect();
 		return result;
 	}
 

@@ -45,7 +45,15 @@ public class TestServlet extends HttpServlet
 		out.print(System.getProperty("user.home") + File.separator + "password.txt");
 		out.println("Suche startet...");
 		out.print("ReportID: " + rID);
-		new PlagiatsJaeger().start(rID);
+		try
+		{
+			new PlagiatsJaeger().start(rID);
+		}
+		catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		out.println("Suche beendet.");
 		
