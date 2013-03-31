@@ -39,6 +39,11 @@ public class PlagiatsJaeger
 
 	public void start(int rID)
 	{
+		start(ROOT_FILES + _mySQLDataBaseHelper.getDocumentID(rID) + ".txt", rID);
+	}
+	
+	public void start(String filePath, int rID)
+	{
 		if (_rabinKarpComparer == null)
 		{
 			_rabinKarpComparer = new RabinKarpComparer();
@@ -58,7 +63,7 @@ public class PlagiatsJaeger
 
 		System.out.println("Klassen initialisiert");
 
-		String textToCheck = loadFileToString(ROOT_FILES + _mySQLDataBaseHelper.getDocumentID(rID) + ".txt");
+		String textToCheck = loadFileToString(filePath);
 		System.out.println("Datei geladen");
 
 		ArrayList<String> alVerbsAndNouns = _wordProcessing.getVerbsAndNouns(textToCheck);

@@ -41,7 +41,8 @@ public class TestServlet extends HttpServlet
 		int rID = Integer.parseInt(request.getParameter("rID"));
 		
 		PrintWriter out = response.getWriter();
-//		out.print(System.getProperty("user.home") + File.separator + "password.txt");
+		
+		out.print(System.getProperty("user.home") + File.separator + "password.txt");
 		out.println("Suche startet...");
 		out.print("ReportID: " + rID);
 		new PlagiatsJaeger().start(rID);
