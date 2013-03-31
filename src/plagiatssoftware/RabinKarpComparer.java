@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
+/**
+ * Beinhaltet Funktionen zum Durchsuchen von Strings mithilfe des RabinKarpAlgorithmus.
+ * 
+ * @author Andreas
+ * 
+ */
 public class RabinKarpComparer
 {
 	// Basis-Wert: 257 fuer Anzahl Buchstaben des Alphabets
 	private final int	BASE	         = 257;
-	// initialer Modulo-Wert fuer die Hash-Funktion. Muss eine 2er Potenz sein
-	private int	      q	                 = 1024;
-	// damit q-1 nicht bei jeder Moduloberechnung erneut berechnet werden muss
-	private int	      reducedQ	         = q - 1;
 
 	// ab wievielen false matches soll q neu gewaehlt werden? 0 = Zufallsmodus
 	// ausschalten
@@ -20,6 +22,11 @@ public class RabinKarpComparer
 	// Min und Max von q festlegen, z. b. 2^10 - 2^31 Integer: Max 2^31
 	private final int	MIN_Q	         = 10;
 	private final int	MAX_Q	         = 31;
+
+	// initialer Modulo-Wert fuer die Hash-Funktion. Muss eine 2er Potenz sein
+	private int	      _q	             = 1024;
+	// damit q-1 nicht bei jeder Moduloberechnung erneut berechnet werden muss
+	private int	      _reducedQ	         = _q - 1;
 
 	private int	      _shiftFactor;
 
@@ -30,7 +37,6 @@ public class RabinKarpComparer
 	/**
 	 * Beinhaltet Funktionen zum Durchsuchen von Strings mithilfe des RabinKarpAlgorithmus.
 	 * 
-	 * @author Andreas Hahn
 	 */
 	public RabinKarpComparer()
 	{
@@ -50,10 +56,10 @@ public class RabinKarpComparer
 	}
 
 	/**
-	 * Die Funktion liefert alle SearchResults für die Wörter im searchText-Array.
+	 * Die Funktion liefert alle SearchResults fï¿½r die Wï¿½rter im searchText-Array.
 	 * 
 	 * @param searchText
-	 *            Array mit allen zusammenhängenden Texte/Wörter die gefunden werden sollen.
+	 *            Array mit allen zusammenhï¿½ngenden Texte/Wï¿½rter die gefunden werden sollen.
 	 * @param completeString
 	 *            Text der Durchsucht werden soll
 	 * @return ArrayList mit den SearchResults
@@ -64,10 +70,10 @@ public class RabinKarpComparer
 	}
 
 	/**
-	 * Die Funktion liefert alle SearchResults für die Wörter im searchText-Array.
+	 * Die Funktion liefert alle SearchResults fï¿½r die Wï¿½rter im searchText-Array.
 	 * 
 	 * @param searchText
-	 *            Array mit allen zusammenhängenden Texte/Wörter die gefunden werden sollen.
+	 *            Array mit allen zusammenhï¿½ngenden Texte/Wï¿½rter die gefunden werden sollen.
 	 * @param completeString
 	 *            Text der Durchsucht werden soll
 	 * @return ArrayList mit den SearchResults
@@ -252,7 +258,7 @@ public class RabinKarpComparer
 					// und die Strings an der Stelle auch uebereinstimmen
 					if (completeString.substring(i, i + intLengthSearchString).equals(searchString))
 					{
-						// Ueœbereinstimmung gefunden
+						// Ueï¿½bereinstimmung gefunden
 						result = i;
 						break;
 					}
@@ -267,8 +273,8 @@ public class RabinKarpComparer
 								// bis 2^maxQ
 								intRandomNumber = randomNumbers.nextInt(_qDiff) + MIN_Q;
 								// Schiebeoperatoren sind schneller
-								q = _minQResult << (intRandomNumber - MIN_Q);
-								reducedQ = q - 1;
+								_q = _minQResult << (intRandomNumber - MIN_Q);
+								_reducedQ = _q - 1;
 								// false matches zuruecksetzen
 								_falseMatches = 0;
 
@@ -322,7 +328,7 @@ public class RabinKarpComparer
 	 */
 	private int bitModulo(int x)
 	{
-		return (x & reducedQ);
+		return (x & _reducedQ);
 	}
 
 	/**
@@ -353,6 +359,5 @@ public class RabinKarpComparer
 		}
 		return result;
 	}
-
 
 }
