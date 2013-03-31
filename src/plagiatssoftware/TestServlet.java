@@ -37,16 +37,21 @@ public class TestServlet extends HttpServlet
 
 		response.setContentType("text/html");
 
-		int rID = Integer.parseInt(request.getParameter("rID"));
+		final int rID = Integer.parseInt(request.getParameter("rID"));
 
 		final PrintWriter out = response.getWriter();
 
-		out.print("start");
+		new Thread(new Runnable()
+		{
+			
+			@Override
+			public void run()
+			{
+				new PlagiatsJaeger().start(rID);				
+			}
+		}).start();
 		
-		new PlagiatsJaeger().start(rID);
 	
-
-		out.print("ende");
 		out.print("true");
 		out.close();
 	}
