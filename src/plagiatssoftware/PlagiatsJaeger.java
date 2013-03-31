@@ -24,10 +24,8 @@ import tests.WordProcessing;
  */
 public class PlagiatsJaeger
 {
-
 	private static final int	NUM_WORDS_FOR_BLEKKO	= 10;
-	//TODO: Filepath eintragen
-	private static final String	ROOT_FILES	         = "\\";
+	private static final String	ROOT_FILES	         = "/srv/www/uploads/";
 
 	private RabinKarpComparer	_rabinKarpComparer;
 	private WordProcessing	    _wordProcessing;
@@ -61,7 +59,6 @@ public class PlagiatsJaeger
 		System.out.println("Klassen initialisiert");
 
 		String textToCheck = loadFileToString(ROOT_FILES + rID + ".txt");
-
 		System.out.println("Datei geladen");
 
 		ArrayList<String> alVerbsAndNouns = _wordProcessing.getVerbsAndNouns(textToCheck);
@@ -82,11 +79,10 @@ public class PlagiatsJaeger
 			}
 
 			System.out.println("Aktueller SearchString: " + strSearch);
-
 			alURLs.addAll(_blekkoSearch.search(strSearch));
 		}
 
-		ArrayList<SearchResult> searchResults = checkAllSites(textToCheck, alURLs);
+		ArrayList<SearchResult> searchResults = checkAllSites(textToCheck, alURLs, rID);
 
 		for (SearchResult searchResult : searchResults)
 		{
@@ -110,9 +106,9 @@ public class PlagiatsJaeger
 	 * @param wordsToCheck
 	 * @return
 	 */
-	private ArrayList<SearchResult> checkAllSites(String textToCheck, ArrayList<String> urls)
+	private ArrayList<SearchResult> checkAllSites(String textToCheck, ArrayList<String> urls, int rID)
 	{
-		return checkAllSites(textToCheck, urls, 0);
+		return checkAllSites(textToCheck, urls, rID, 0);
 	}
 
 	/**
@@ -122,7 +118,7 @@ public class PlagiatsJaeger
 	 * @param wordsToCheck
 	 * @return
 	 */
-	private ArrayList<SearchResult> checkAllSites(String textToCheck, ArrayList<String> urls, int startReihenfolge)
+	private ArrayList<SearchResult> checkAllSites(String textToCheck, ArrayList<String> urls, int rID, int startReihenfolge)
 	{
 		ArrayList<SearchResult> result = new ArrayList<SearchResult>();
 		if (urls != null && urls.size() > 0)
@@ -136,7 +132,7 @@ public class PlagiatsJaeger
 				_wordProcessing = new WordProcessing();
 			}
 			String[] wordsToCheck = _wordProcessing.splitToWords(Jsoup.parse(textToCheck).text());
-			result = _rabinKarpComparer.search(wordsToCheck, new StringBuilder(Jsoup.parse(loadURL(urls.get(0))).text()), urls.get(0), startReihenfolge);
+			result = _rabinKarpComparer.search(wordsToCheck, new StringBuilder(Jsoup.parse(loadURL(urls.get(0))).text()), urls.get(0), rID, startReihenfolge);
 			// Solange noch URLs in der Liste stehen wird die Funktion rekursiv
 			// aufgerufen
 			if (urls.size() > 1)
@@ -150,7 +146,7 @@ public class PlagiatsJaeger
 				{
 					if (result.get(i).getplagiatsText().length() <= 0)
 					{
-						resultTmp.addAll(checkAllSites(result.get(i).getorginalText(), urls, result.get(i).getreihenfolge()));
+						resultTmp.addAll(checkAllSites(result.get(i).getorginalText(), urls, rID, result.get(i).getreihenfolge()));
 						result.remove(i);
 					}
 				}

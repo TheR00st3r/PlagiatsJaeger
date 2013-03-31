@@ -1,5 +1,8 @@
 package plagiatssoftware;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -24,30 +27,32 @@ public class TestServlet extends HttpServlet
 	public TestServlet()
 	{
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		
+		
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
 
-		// out.println("<html>");
-		// out.println("<h3> Hallo, mein erstes Servlet meldet sich </h3>");
-		// out.println("<a href='/PlagiatsSoftware/'>zur&uuml;ck</a>");
-		out.print(request.getParameter("rID"));
-		// out.println("</html>");
+		int rID = Integer.parseInt(request.getParameter("rID"));
+		
+		PrintWriter out = response.getWriter();
+//		out.print(System.getProperty("user.home") + File.separator + "password.txt");
+		out.println("Suche startet...");
+		out.print("ReportID: " + rID);
+		new PlagiatsJaeger().start(rID);
+
+		out.println("Suche beendet.");
+		
 		out.close();
-		// TODO Auto-generated method stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{

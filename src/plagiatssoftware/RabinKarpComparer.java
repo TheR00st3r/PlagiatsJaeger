@@ -58,9 +58,9 @@ public class RabinKarpComparer
 	 *            Text der Durchsucht werden soll
 	 * @return ArrayList mit den SearchResults
 	 */
-	public ArrayList<SearchResult> search(String[] searchText, StringBuilder completeString, String url)
+	public ArrayList<SearchResult> search(String[] searchText, StringBuilder completeString, String url, int rID)
 	{
-		return search(searchText, completeString, url, 0);
+		return search(searchText, completeString, url, rID, 0);
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class RabinKarpComparer
 	 *            Text der Durchsucht werden soll
 	 * @return ArrayList mit den SearchResults
 	 */
-	public ArrayList<SearchResult> search(String[] searchText, StringBuilder completeString, String url, int startReihefolge)
+	public ArrayList<SearchResult> search(String[] searchText, StringBuilder completeString, String url, int rID, int startReihefolge)
 	{
 		ArrayList<SearchResult> result = new ArrayList<SearchResult>();
 
@@ -97,7 +97,7 @@ public class RabinKarpComparer
 			int i = 0;
 			if (!searchString.equals(""))
 			{
-				SearchResult searchResult = new SearchResult(0, searchString, "", url, passedWords + startReihefolge);
+				SearchResult searchResult = new SearchResult(rID, searchString, "", url, passedWords + startReihefolge);
 				while ((i = searchRabinKarb(searchString, completeString, i)) != 0)
 				{
 					searchResult.setplagiatsText(resultWithOverhead(completeString, i, searchString.length(), 0, 0));
@@ -123,7 +123,7 @@ public class RabinKarpComparer
 							firstString += searchText[passedWords - 1] + " ";
 						}
 						firstString += searchText[passedWords];
-						lastNegativSearchResult = new SearchResult(0, firstString, "", "", passedWords + startReihefolge);
+						lastNegativSearchResult = new SearchResult(rID, firstString, "", "", passedWords + startReihefolge);
 					}
 					else
 					{

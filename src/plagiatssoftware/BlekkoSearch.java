@@ -13,6 +13,8 @@ import java.util.regex.Pattern;
 
 import org.jsoup.Jsoup;
 
+import edu.stanford.nlp.io.EncodingPrintWriter.out;
+
 
 /**
  * Enthält Funktionen zum Suchen in der Suchmaschine <a href="http://blekko.com">Blekko</a>
