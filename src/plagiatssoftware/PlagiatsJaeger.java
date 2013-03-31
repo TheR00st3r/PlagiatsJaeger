@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -34,19 +35,10 @@ public class PlagiatsJaeger
 
 	public PlagiatsJaeger()
 	{
+		init();
+	}
 
-	}
-	/**
-	 * 
-	 * @param rID
-	 * @throws Exception
-	 */
-	public void start(int rID) throws Exception
-	{
-		start(ROOT_FILES + _mySQLDataBaseHelper.getDocumentID(rID) + ".txt", rID);
-	}
-	
-	public void start(String filePath, int rID)
+	private void init()
 	{
 		if (_rabinKarpComparer == null)
 		{
@@ -64,7 +56,19 @@ public class PlagiatsJaeger
 		{
 			_mySQLDataBaseHelper = new MYSQLDataBaseHelper();
 		}
+	}
 
+	/**
+	 * 
+	 * @param rID
+	 */
+	public void start(int rID)
+	{
+		start(ROOT_FILES + _mySQLDataBaseHelper.getDocumentID(rID) + ".txt", rID);
+	}
+
+	public void start(String filePath, int rID)
+	{
 		System.out.println("Klassen initialisiert");
 
 		String textToCheck = loadFileToString(filePath);
@@ -132,14 +136,6 @@ public class PlagiatsJaeger
 		ArrayList<SearchResult> result = new ArrayList<SearchResult>();
 		if (urls != null && urls.size() > 0)
 		{
-			if (_rabinKarpComparer == null)
-			{
-				_rabinKarpComparer = new RabinKarpComparer();
-			}
-			if (_wordProcessing == null)
-			{
-				_wordProcessing = new WordProcessing();
-			}
 			String[] wordsToCheck = _wordProcessing.splitToWords(Jsoup.parse(textToCheck).text());
 			result = _rabinKarpComparer.search(wordsToCheck, new StringBuilder(Jsoup.parse(loadURL(urls.get(0))).text()), urls.get(0), rID, startReihenfolge);
 			// Solange noch URLs in der Liste stehen wird die Funktion rekursiv
