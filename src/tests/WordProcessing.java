@@ -35,7 +35,7 @@ public class WordProcessing
 	private String tagText(String textToTag)
 	{
 		String result = "";
-		if(_MaxentTagger== null)
+		if (_MaxentTagger == null)
 		{
 			try
 			{
@@ -52,8 +52,14 @@ public class WordProcessing
 				e.printStackTrace();
 			}
 		}
-		
-		result = _MaxentTagger.tagString(textToTag);
+		if (_MaxentTagger != null)
+		{
+			result = _MaxentTagger.tagString(textToTag);
+		}
+		else
+		{
+			result = textToTag;
+		}
 		return result;
 	}
 
@@ -103,9 +109,13 @@ public class WordProcessing
 
 		for (String word : taggedWords)
 		{
-			if (word.contains("_VV") || word.contains("_N"))
+			if (_MaxentTagger!= null && (word.contains("_VV") || word.contains("_N")))
 			{
 				result.add(word.split("_")[0]);
+			}
+			else
+			{
+				result.add(word);
 			}
 		}
 		return result;
