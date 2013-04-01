@@ -98,7 +98,7 @@ public class WordProcessing
 			{
 				result.add(word.split("_")[0]);
 			}
-			else
+			else if(_maxentTagger == null)
 			{
 				result.add(word);
 			}
