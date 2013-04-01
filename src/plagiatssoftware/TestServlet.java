@@ -37,13 +37,13 @@ public class TestServlet extends HttpServlet
 	protected void doGet(final HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		response.setContentType("text/html");
-
+		final int rID = Integer.parseInt(request.getParameter("rID"));
 		new Thread(new Runnable()
 		{
 			@Override
 			public void run()
 			{
-				int rID = Integer.parseInt(request.getParameter("rID"));
+				
 				new PlagiatsJaeger().start(rID);
 			}
 		}).start();
