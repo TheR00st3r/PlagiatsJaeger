@@ -2,13 +2,14 @@ package plagiatssoftware;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import org.jsoup.Jsoup;
@@ -124,7 +125,7 @@ public class PlagiatsJaeger
 	}
 
 	/**
-	 * Die Funktion baut die Suchergebnisse �ber alle URLs zusammen.
+	 * Die Funktion baut die Suchergebnisse ueber alle URLs zusammen.
 	 * 
 	 * @param urls
 	 * @param wordsToCheck
@@ -188,12 +189,20 @@ public class PlagiatsJaeger
 	{
 		String result = "";
 		File file = new File(fileName);
+		
+		FileInputStream fis = null;
+		InputStreamReader isr = null;
+		
 		StringBuffer stringBuffer = new StringBuffer();
 		BufferedReader bufferedReader = null;
 
 		try
 		{
-			bufferedReader = new BufferedReader(new FileReader(file));
+			fis = new FileInputStream(file);
+			isr = new InputStreamReader(fis, Charset.forName("ISO-8859-1"));
+			
+			
+			bufferedReader = new BufferedReader(isr);
 			String strLine = null;
 
 			while ((strLine = bufferedReader.readLine()) != null)
