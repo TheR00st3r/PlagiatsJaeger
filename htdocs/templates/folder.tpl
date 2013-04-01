@@ -119,11 +119,11 @@
 		{foreach from=$documents item=item}
 		<tr class="{$color}">
 			<td class="image"><img src="{$root}images/file.gif" alt="" /></td>
-			<td class="borderright"><a href="document.php?dID={$item.dID}" class="report fancybox.iframe">{$item.dOriginalName}</a>
+			<td class="borderright"><a href="document.php?dID={$item.dID}" class="iframeviewer fancybox.iframe">{$item.dOriginalName}</a>
 			
 				{foreach from=$item.reports item=report}
 				<li>
-					<a href="report.php?rID={$report.rID}" class="report fancybox.iframe">{$report.rDate}</a> rID={$report.rID}
+					<a href="report.php?rID={$report.rID}" class="iframeviewer fancybox.iframe">{$report.rDate}</a> rID={$report.rID}
 					<!-- <a href="{$root}report?rID={$report.rID}">{$report.rDate} -->
 				</li>
 				{/foreach}

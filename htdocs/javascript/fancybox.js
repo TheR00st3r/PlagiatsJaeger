@@ -15,7 +15,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$('.report').fancybox({
+	$('.iframeviewer').fancybox({
 		autoSize : false,
 	});
 });
