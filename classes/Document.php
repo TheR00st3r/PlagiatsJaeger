@@ -2,7 +2,11 @@
 class Document {
 
 	const path = '../uploads/';
-
+	/**
+	 * Returns all documents from given folder id.
+	 * @param int $fID
+	 * @return Array documents
+	 */
 	public static function getDocumentsFromFolderID($fID) {
 
 		$db = new db();
@@ -28,18 +32,19 @@ class Document {
 		return $docs;
 	}
 
+	/**
+	 * Returns the original content from given document id.
+	 * @param int $dID
+	 * @return string
+	 */
 	public static function getDocumentOriginalContent($dID) {
 		$handle = fopen(self::path . $dID . '.txt', 'r');
-		// fclose($handle);
-		// readfile(this::path . $dID . '.txt');
 
 		while (!feof($handle)) {
 			$buffer = fgets($handle);
 			echo $buffer;
 		}
 		fclose($handle);
-
-		// return $return;
 
 	}
 

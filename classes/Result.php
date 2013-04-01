@@ -1,6 +1,11 @@
 <?php
 class Result {
 
+	/**
+	 * Returns all results from the given report id.
+	 * @param int $rID
+	 * @return array
+	 */
 	public static function getResultsFromReportID($rID) {
 		if (Validator::validate(VAL_INTEGER, $rID, true)) {
 			$db = new db();

@@ -3,6 +3,12 @@ class LoginAccess {
 	
 	const suffix = 'plagiat';
 
+	/**
+	 * Check the given email and password values and set session vaiables.
+	 * @param string $email
+	 * @param string $password
+	 * @return boolean
+	 */
 	public static function login($email, $password) {
 
 		if (Validator::validate(VAL_EMAIL, $email)) {
@@ -34,6 +40,9 @@ class LoginAccess {
 			return false;
 	}
 
+	/**
+	 * Delete the login session valiables.
+	 */
 	public static function logout() {
 
 		unset($_SESSION[self::suffix . '_id']);
@@ -42,6 +51,11 @@ class LoginAccess {
 		unset($_SESSION[self::suffix . '_level']);
 	}
 
+	/**
+	 * Check if user logged in an hash the right permissions.
+	 * @param int $level
+	 * @return boolean
+	 */
 	public static function check($level = 100) {
 		if (isset($_SESSION[self::suffix . '_id']) AND isset($_SESSION[self::suffix . '_name']) AND isset($_SESSION[self::suffix . '_email']) AND $_SESSION[self::suffix . '_level'] >= $level) {
 			return true;
@@ -49,14 +63,27 @@ class LoginAccess {
 		return false;
 	}
 
+	/**
+	 * Returns the user informations from the set sessions.
+	 * @return string
+	 */
 	public static function userInfo() {
-		return $_SESSION[self::suffix . '_name'] . ' (' . $_SESSION[self::suffix . '_id'] . ')';
+		return $_SESSION[self::suffix . '_name'];
+		// (' . $_SESSION[self::suffix . '_id'] . ')';
 	}
 	
+	/**
+	 * Returns the user id from the set sessions.
+	 * @return int
+	 */
 	public static function userID() {
 		return $_SESSION[self::suffix . '_id'];
 	}
 
+	/**
+	 * Returns the user permissions from the set sessions.
+	 * @return int
+	 */
 	public static function userLevel() {
 		return $_SESSION[self::suffix . '_level'];
 	}

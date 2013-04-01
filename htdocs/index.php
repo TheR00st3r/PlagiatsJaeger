@@ -38,7 +38,7 @@ if ($page == 'public') {
 		}
 	} else
 		$contentTpl = 'error';
-	//$contentTpl = '<h1>öffentlicher Upload</h1>Hash=' . $_GET['id'] . ', FolderID=' . $folder['fID'] . ', FolderName=' . $folder['fName'];
+	
 } else if (LoginAccess::check()) {
 
 	$smarty -> assign('isLogin', true);
@@ -76,7 +76,6 @@ if ($page == 'public') {
 			if (Validator::validate(VAL_INTEGER, $_GET['dID'], true)) {
 				switch ($_GET['action']) {
 					case 'deleteDoc' :
-						//Document::deleteDocument($_GET['dID']);
 						break;
 					case 'check' :
 						Report::createReport($_GET['dID']);
@@ -102,7 +101,6 @@ if ($page == 'public') {
 
 		case 'report' :
 			require_once '../classes/Result.php';
-			// print_array(Result::getResultsFromReportID($_GET['rID']));
 			$smarty -> assign('results', Result::getResultsFromReportID($_GET['rID']));
 			$contentTpl = $smarty -> fetch('report.tpl');
 			break;

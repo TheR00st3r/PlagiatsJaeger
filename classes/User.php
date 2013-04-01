@@ -1,6 +1,10 @@
 <?php
 class User {
 
+	/**
+	 * Returns all users from database.
+	 * @return array
+	 */
 	public static function getAllUser() {
 
 		$db = new db();
@@ -15,6 +19,15 @@ class User {
 		return $db -> linesAsArray();
 	}
 
+	/**
+	 * Add a new user from the given informations.
+	 * @param string $uName
+	 * @param string $uLastname
+	 * @param string $uEMailAdress
+	 * @param string $uPassword
+	 * @param int $uPermissonLevel
+	 * @return boolean
+	 */
 	public static function newUser($uName, $uLastname, $uEMailAdress, $uPassword, $uPermissonLevel) {
 		if (Validator::validate(VAL_STRING, $uName, true) and Validator::validate(VAL_STRING, $uLastname, true) and
 			Validator::validate(VAL_EMAIL, $uEMailAdress, true) and Validator::validate(VAL_PASSWORD, $uPassword, true) and Validator::validate(VAL_INTEGER, $uPermissonLevel, true)) {
@@ -31,7 +44,7 @@ class User {
 												)
 								);
 		}
-
+		return false;
 	}
 
 }

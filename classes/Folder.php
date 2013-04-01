@@ -1,6 +1,14 @@
 <?php
 class Folder {
-
+	/**
+	 * Returns the recursive folder navigation as multidimensional array.
+	 * @param int $fParentID
+	 * @param int $depth
+	 * @param int $level
+	 * @param string $path
+	 * @param string $pathName
+	 * @return array
+	 */
 	public static function getFolderArray($fParentID = 1, $depth = 999, $level = 0, $path = '', $pathName ='') {
 
 		if (!isset($fParentID) or $fParentID == '') {
@@ -49,7 +57,16 @@ class Folder {
 		}
 		return $folder;
 	}
-
+	
+	/**
+	 * Returns the recursive folder navigation as array.
+	 * @param int $fParentID
+	 * @param int $depth
+	 * @param int $level
+	 * @param string $path
+	 * @param string $pathName
+	 * @return array
+	 */
 	public static function getFolder($fParentID = 1, $depth = 999, $level = 0, $path = '', $pathName ='') {
 
 		$uID = LoginAccess::userId();
@@ -90,7 +107,13 @@ class Folder {
 		}
 		return $folder;
 	}
-
+	
+	/**
+	 * Returns folders from given folder id as single array for example dropdowns (old)
+	 * @deprecated
+	 * @param id $fParentID
+	 * @return array
+	 */
 	public static function getFolderParents($fParentID = 1) {
 		$parents = self::getFolder($fParentID);
 		$tempParents = null;
@@ -99,7 +122,14 @@ class Folder {
 		}
 		return $tempParents;
 	}
-
+	
+	/**
+	 * Add new folder
+	 * @param int $fName
+	 * @param int $fParentID
+	 * @param int $uID
+	 * @return boolean
+	 */
 	public static function addFolder($fName, $fParentID, $uID) {
 
 		if (!isset($fParentID) or $fParentID == '') {
@@ -118,11 +148,21 @@ class Folder {
 		}
 	}
 
+	/**
+	 * Delete folder with given folder id.
+	 * @param int $fID
+	 * @return boolean
+	 */
 	public static function deleteFolder($fID) {
 		$db = new db();
 		return $db -> deleteWithWhereArray('folder', array('fID' => $fID));
 	}
 	
+	/**
+	 * Add hash link for given folder id.
+	 * @param int $fID
+	 * @return string (Hash value)
+	 */
 	public static function addFolderLink($fID) {
 		$hash = md5(uniqid());
 		$db = new db();
@@ -132,6 +172,11 @@ class Folder {
 		return false;
 	}
 	
+	/**
+	 * Returns the folder from the given hash value.
+	 * @param string $hash
+	 * @return array
+	 */
 	public static function getFolderFromHash($hash) {
 		$db = new db();
 		$db -> read("
@@ -146,6 +191,12 @@ class Folder {
 		return $db -> lines();
 	}
 	
+	/**
+	 * Edit the foler name from the given folder id.
+	 * @param int $fID
+	 * @param string $fName
+	 * @return boolean
+	 */
 	public static function editFolderName($fID, $fName) {
 		$db = new db();
 		return $db -> update('folder', array('fName' => $fName), array('fID' => $fID));

@@ -4,6 +4,14 @@ class Upload {
 	
 	const path = '../uploads/';
 
+	/**
+	 * Saves the short upload text fragments to a file and the infos to database.
+	 * @param int $uID
+	 * @param int $fID
+	 * @param string $dAuthor
+	 * @param string $text
+	 * @return boolean
+	 */
 	public static function shortTextUpload($uID, $fID, $dAuthor, $text) {
 		if (Validator::validate(VAL_INTEGER, $uID, true) and Validator::validate(VAL_INTEGER, $fID, true)) {
 
@@ -23,6 +31,14 @@ class Upload {
 		return false;
 	}
 
+	/**
+	 * Add the uploaded file infos to the database and starts the file copy.
+	 * @param int $uID
+	 * @param int $fID
+	 * @param string $dAuthor
+	 * @param file $file
+	 * @return boolean
+	 */
 	public static function fileUpload($uID, $fID, $dAuthor, $file) {
 
 		if (Validator::validate(VAL_INTEGER, $uID, true) and Validator::validate(VAL_INTEGER, $fID, true)) {
@@ -37,6 +53,13 @@ class Upload {
 		return false;
 	}
 
+	/**
+	 * Copies the uploaded temporary file to the right folder.
+	 * @param int $dID
+	 * @param file $file
+	 * @param string $extension
+	 * @return boolean
+	 */
 	private static function saveFile($dID, $file, $extension) {
 
 		$db = new db();

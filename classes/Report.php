@@ -1,6 +1,13 @@
 <?php
 class Report {
 
+	/**
+	 * Saves a new report and starts the backend functionality.
+	 * @param int $dID
+	 * @param int $rTreshold
+	 * @param int $rLevel
+	 * @return boolean
+	 */
 	public static function createReport($dID, $rTreshold = 0, $rLevel = 0) {
 		if (Validator::validate(VAL_INTEGER, $dID, true)) {
 			$db = new db();
@@ -16,6 +23,11 @@ class Report {
 		return false;
 	}
 
+	/**
+	 * Returns all reports from given document id.
+	 * @param int $dID
+	 * @return array
+	 */
 	public static function getReportsFromDocumentID($dID) {
 		if (Validator::validate(VAL_INTEGER, $dID, true)) {
 			$db = new db();
@@ -32,13 +44,5 @@ class Report {
 			return $db -> linesAsArray();
 		}
 	}
-	
-	public static function getReportFromID($rID) {
-		if (Validator::validate(VAL_INTEGER, $rID, true)) {
-
-		}
-		return false;
-	}
-
 }
 ?>
