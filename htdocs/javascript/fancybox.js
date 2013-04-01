@@ -15,7 +15,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$('.pictureManager').fancybox({
+	$('.report').fancybox({
 		autoSize : false,
 	});
 });

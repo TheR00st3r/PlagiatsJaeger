@@ -4,9 +4,16 @@ class Report {
 	public static function createReport($dID, $rTreshold = 0, $rLevel = 0) {
 		if (Validator::validate(VAL_INTEGER, $dID, true)) {
 			$db = new db();
-			return $db -> insert('report', array('dID' => $dID, 'rTreshold' => $rTreshold, 'rLevel' => $rLevel));
+			if($db -> insert('report', array('dID' => $dID, 'rTreshold' => $rTreshold, 'rLevel' => $rLevel))) {
+				$lastReportID = $db -> lastInsertId();
+				$result = file("http://192.168.4.28:8080/PlagiatsSoftware/TestServlet?rID=".$lastReportID);
+				print_array($result);
+				if($result) {
+					return true;
+				}
+			}
 		}
-
+		return false;
 	}
 
 	public static function getReportsFromDocumentID($dID) {
@@ -30,6 +37,7 @@ class Report {
 		if (Validator::validate(VAL_INTEGER, $rID, true)) {
 
 		}
+		return false;
 	}
 
 }

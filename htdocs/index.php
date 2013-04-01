@@ -26,7 +26,19 @@ if (isset($_POST['lSubmit'])) {
 if ($page == 'public') {
 	require_once '../classes/Folder.php';
 	$folder = Folder::getFolderFromHash($_GET['id']);
-	$contentTpl = '<h1>öffentlicher Upload</h1>Hash=' . $_GET['id'] . ', FolderID=' . $folder['fID'] . ', FolderName=' . $folder['fName'];
+	if ($folder['fID']) {
+		if (isset($_POST['dAddSubmit'])) {
+			require_once '../classes/Upload.php';
+			if (Upload::fileUpload(2, $folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'])) {
+				$contentTpl = 'vielen Dank!';
+			} else
+				$contentTpl = 'upload Error';
+		} else {
+			$contentTpl = $smarty -> fetch('public.tpl');
+		}
+	} else
+		$contentTpl = 'error';
+	//$contentTpl = '<h1>öffentlicher Upload</h1>Hash=' . $_GET['id'] . ', FolderID=' . $folder['fID'] . ', FolderName=' . $folder['fName'];
 } else if (LoginAccess::check()) {
 
 	$smarty -> assign('isLogin', true);
@@ -60,7 +72,7 @@ if ($page == 'public') {
 						break;
 				}
 			}
-			
+
 			if (Validator::validate(VAL_INTEGER, $_GET['dID'], true)) {
 				switch ($_GET['action']) {
 					case 'deleteDoc' :
@@ -87,7 +99,7 @@ if ($page == 'public') {
 			$smarty -> assign('folderNav', Folder::getFolderArray());
 			$contentTpl = $smarty -> fetch('folder.tpl');
 			break;
-		
+
 		case 'report' :
 			require_once '../classes/Result.php';
 			// print_array(Result::getResultsFromReportID($_GET['rID']));

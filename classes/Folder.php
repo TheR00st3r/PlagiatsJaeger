@@ -140,7 +140,7 @@ class Folder {
 				FROM
 					folder AS f
 				WHERE
-					f.fHashLink = '$hash'
+					f.fHashLink = '$hash' and f.fHashLink != ''
 				ORDER BY
 					f.fName ASC");
 		return $db -> lines();

@@ -14,12 +14,12 @@
 	</ul>
 	{/function}
 	<ul id="filetree1" class="filetree">
-		<li>
+		<li class="open">
 			<span class="folder"><a href="{$root}folder/">Meine Dateien</a></span>
 			<ul>
 				{call name=printFolders items=$folderNav level=0}
 		</li>
-		<li>
+		<li class="open">
 			<span class="folder"><a href="{$root}folder/">Freigegebene Ordner (not impl.)</a></span>
 			<ul>
 				<li>
@@ -119,11 +119,11 @@
 		{foreach from=$documents item=item}
 		<tr class="{$color}">
 			<td class="image"><img src="{$root}images/file.gif" alt="" /></td>
-			<td class="borderright"> {$item.dOriginalName}{$item.dID}
+			<td class="borderright"><a href="document.php?dID={$item.dID}" class="report fancybox.iframe">{$item.dOriginalName}</a>
 			
 				{foreach from=$item.reports item=report}
 				<li>
-					<a href="report.php?rID={$report.rID}" class="pictureManager fancybox.iframe">{$report.rDate}</a> rID={$report.rID}
+					<a href="report.php?rID={$report.rID}" class="report fancybox.iframe">{$report.rDate}</a> rID={$report.rID}
 					<!-- <a href="{$root}report?rID={$report.rID}">{$report.rDate} -->
 				</li>
 				{/foreach}
