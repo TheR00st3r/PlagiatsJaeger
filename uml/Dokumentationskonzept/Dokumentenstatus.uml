@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Package xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_ZTRPwJ-qEeK43OjeIxGOcw">
+  <elementImport xmi:id="_ZTTE8J-qEeK43OjeIxGOcw">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+  </elementImport>
+  <elementImport xmi:id="_ZTU6IJ-qEeK43OjeIxGOcw">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+  </elementImport>
+  <elementImport xmi:id="_ZTU6IZ-qEeK43OjeIxGOcw">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
+  </elementImport>
+  <elementImport xmi:id="_ZTU6Ip-qEeK43OjeIxGOcw">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+  </elementImport>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_6bNhAJ-qEeK43OjeIxGOcw" name="Dokumentenstatus">
+    <region xmi:id="_6ba8YJ-qEeK43OjeIxGOcw" name="Region">
+      <subvertex xmi:type="uml:State" xmi:id="_65ibwJ-qEeK43OjeIxGOcw" name="CREATED"/>
+      <subvertex xmi:type="uml:State" xmi:id="_-lRtsJ-qEeK43OjeIxGOcw" name="DRAFT"/>
+      <subvertex xmi:type="uml:State" xmi:id="__xH1wJ-qEeK43OjeIxGOcw" name="TOCHECK"/>
+      <subvertex xmi:type="uml:State" xmi:id="_BPFBgJ-rEeK43OjeIxGOcw" name="FINAL"/>
+      <transition xmi:id="_uYGfAJ-rEeK43OjeIxGOcw" source="_65ibwJ-qEeK43OjeIxGOcw" target="_-lRtsJ-qEeK43OjeIxGOcw"/>
+      <transition xmi:id="_utx0EJ-rEeK43OjeIxGOcw" source="_-lRtsJ-qEeK43OjeIxGOcw" target="__xH1wJ-qEeK43OjeIxGOcw"/>
+      <transition xmi:id="_vCtiQJ-rEeK43OjeIxGOcw" source="__xH1wJ-qEeK43OjeIxGOcw" target="_BPFBgJ-rEeK43OjeIxGOcw"/>
+      <transition xmi:id="_vh1uQJ-rEeK43OjeIxGOcw" source="__xH1wJ-qEeK43OjeIxGOcw" target="_-lRtsJ-qEeK43OjeIxGOcw"/>
+    </region>
+  </packagedElement>
+</uml:Package>
