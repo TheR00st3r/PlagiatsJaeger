@@ -5,276 +5,280 @@
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
     </packageImport>
     <packagedElement xmi:type="uml:Package" xmi:id="_41BTQJxdEeKGFdmMcDXXwg" name="System">
-      <packagedElement xmi:type="uml:Association" xmi:id="_lP9WEJ37EeKaDI83mD0GjA" name="A_Control_IOnlineSearch" memberEnd="_lQAZYJ37EeKaDI83mD0GjA _lQEDwJ37EeKaDI83mD0GjA">
-        <ownedEnd xmi:id="_lQEDwJ37EeKaDI83mD0GjA" name="control" visibility="public" type="_8fNtEJxdEeKGFdmMcDXXwg" isUnique="false" association="_lP9WEJ37EeKaDI83mD0GjA">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lQFR4J37EeKaDI83mD0GjA" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lQF48J37EeKaDI83mD0GjA"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_lcBcIJ37EeKaDI83mD0GjA" name="A_Control_IComparer" memberEnd="_lcFGgJ37EeKaDI83mD0GjA _lcIJ0Z37EeKaDI83mD0GjA">
-        <ownedEnd xmi:id="_lcIJ0Z37EeKaDI83mD0GjA" name="control" type="_8fNtEJxdEeKGFdmMcDXXwg" isUnique="false" association="_lcBcIJ37EeKaDI83mD0GjA">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lcJ_AJ37EeKaDI83mD0GjA" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lcKmEJ37EeKaDI83mD0GjA"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Package" xmi:id="_efLowJ6eEeKJ99ZeTpuTXA" name="Classes">
-        <packagedElement xmi:type="uml:Class" xmi:id="_8fNtEJxdEeKGFdmMcDXXwg" name="Control">
-          <ownedAttribute xmi:id="_lQAZYJ37EeKaDI83mD0GjA" name="iOnlineSearch" visibility="private" type="_K0cbUJxgEeKGFdmMcDXXwg" isUnique="false" association="_lP9WEJ37EeKaDI83mD0GjA">
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_plB44J37EeKaDI83mD0GjA" value="1"/>
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_pk_coJ37EeKaDI83mD0GjA" value="1"/>
-            <defaultValue xmi:type="uml:LiteralString" xmi:id="_MuaeUJ95EeKwyISs9616Ow" value=""/>
-          </ownedAttribute>
-          <ownedAttribute xmi:id="_lcFGgJ37EeKaDI83mD0GjA" name="iComparer" visibility="private" type="_J-aRkJxoEeKGFdmMcDXXwg" isUnique="false" association="_lcBcIJ37EeKaDI83mD0GjA">
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rr2bcJ37EeKaDI83mD0GjA" value="1"/>
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rryxEJ37EeKaDI83mD0GjA" value="1"/>
-            <defaultValue xmi:type="uml:LiteralString" xmi:id="_MubscJ95EeKwyISs9616Ow" value=""/>
-          </ownedAttribute>
-          <ownedAttribute xmi:id="_lGMzcJ93EeKwyISs9616Ow" name="mySqlDatabaseHelper" visibility="private" type="_vSJmAJ32EeKaDI83mD0GjA" isUnique="false" association="_lGGs0J93EeKwyISs9616Ow">
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lGRE4J93EeKwyISs9616Ow" value="1"/>
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lGQd0J93EeKwyISs9616Ow" value="1"/>
-            <defaultValue xmi:type="uml:LiteralString" xmi:id="_MucTgJ95EeKwyISs9616Ow" value=""/>
-          </ownedAttribute>
-          <ownedOperation xmi:id="_UE8SAJ3vEeKaDI83mD0GjA" name="start">
-            <ownedParameter xmi:id="_UE8SAZ3vEeKaDI83mD0GjA" name="rID" type="_UE09QJ3vEeKaDI83mD0GjA"/>
-          </ownedOperation>
+      <packagedElement xmi:type="uml:Package" xmi:id="_Xv0xgKKTEeKMIf9i-FycNQ" name="Backend">
+        <packagedElement xmi:type="uml:Association" xmi:id="_lP9WEJ37EeKaDI83mD0GjA" name="A_Control_IOnlineSearch" memberEnd="_lQAZYJ37EeKaDI83mD0GjA _lQEDwJ37EeKaDI83mD0GjA">
+          <ownedEnd xmi:id="_lQEDwJ37EeKaDI83mD0GjA" name="control" visibility="public" type="_8fNtEJxdEeKGFdmMcDXXwg" isUnique="false" association="_lP9WEJ37EeKaDI83mD0GjA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lQFR4J37EeKaDI83mD0GjA" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lQF48J37EeKaDI83mD0GjA"/>
+          </ownedEnd>
         </packagedElement>
-        <packagedElement xmi:type="uml:Class" xmi:id="_TFKM8JxjEeKGFdmMcDXXwg" name="RabinKarpComparer" clientDependency="_U5Q80J3tEeKaDI83mD0GjA">
-          <ownedAttribute xmi:id="_5is94Z34EeKaDI83mD0GjA" name="_connection" visibility="private" type="_5im3QJ34EeKaDI83mD0GjA">
-            <defaultValue xmi:type="uml:LiteralString" xmi:id="_5iuzEJ34EeKaDI83mD0GjA" value="null"/>
-          </ownedAttribute>
-          <ownedAttribute xmi:id="_5i05sJ34EeKaDI83mD0GjA" name="_statement" visibility="private" type="_5ivaIJ34EeKaDI83mD0GjA">
-            <defaultValue xmi:type="uml:LiteralString" xmi:id="_5i2u4J34EeKaDI83mD0GjA" value="null"/>
-          </ownedAttribute>
-          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ciJjUJ35EeKaDI83mD0GjA" name="compareBehavior" specification="_ciHHEJ35EeKaDI83mD0GjA">
-            <language>Java</language>
-            <body>// TODO Auto-generated method stub&#xA;return null;</body>
-          </ownedBehavior>
-          <interfaceRealization xmi:id="_U5Q80J3tEeKaDI83mD0GjA" name="Realization of IComparer" supplier="_J-aRkJxoEeKGFdmMcDXXwg" client="_TFKM8JxjEeKGFdmMcDXXwg" contract="_J-aRkJxoEeKGFdmMcDXXwg"/>
-          <ownedOperation xmi:id="_ciHHEJ35EeKaDI83mD0GjA" name="compare" method="_ciJjUJ35EeKaDI83mD0GjA">
-            <ownedParameter xmi:id="_ciHHEZ35EeKaDI83mD0GjA" name="originalText" type="_UMmZMJ3vEeKaDI83mD0GjA"/>
-            <ownedParameter xmi:id="_ciHHEp35EeKaDI83mD0GjA" name="textToCheck" type="_UMmZMJ3vEeKaDI83mD0GjA"/>
-            <ownedParameter xmi:id="_ciHHE535EeKaDI83mD0GjA" name="return" type="_JUYG4J35EeKaDI83mD0GjA" direction="return"/>
-          </ownedOperation>
+        <packagedElement xmi:type="uml:Association" xmi:id="_lcBcIJ37EeKaDI83mD0GjA" name="A_Control_IComparer" memberEnd="_lcFGgJ37EeKaDI83mD0GjA _lcIJ0Z37EeKaDI83mD0GjA">
+          <ownedEnd xmi:id="_lcIJ0Z37EeKaDI83mD0GjA" name="control" type="_8fNtEJxdEeKGFdmMcDXXwg" isUnique="false" association="_lcBcIJ37EeKaDI83mD0GjA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lcJ_AJ37EeKaDI83mD0GjA" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lcKmEJ37EeKaDI83mD0GjA"/>
+          </ownedEnd>
         </packagedElement>
-        <packagedElement xmi:type="uml:Class" xmi:id="_skVjwJxoEeKGFdmMcDXXwg" name="BlekkoSearch" clientDependency="_wysakJxoEeKGFdmMcDXXwg">
-          <ownedAttribute xmi:id="_DXze0J96EeKwyISs9616Ow" name="URL" visibility="private" isStatic="true" type="_UMmZMJ3vEeKaDI83mD0GjA" isUnique="false" isReadOnly="true">
-            <defaultValue xmi:type="uml:LiteralString" xmi:id="_TdV_AJ96EeKwyISs9616Ow" value="http://blekko.com/ws/?"/>
-          </ownedAttribute>
-          <ownedAttribute xmi:id="_VEVyAJ96EeKwyISs9616Ow" name="URL_ARG_JSON" visibility="private" isStatic="true" type="_UMmZMJ3vEeKaDI83mD0GjA" isUnique="false" isReadOnly="true">
-            <defaultValue xmi:type="uml:LiteralString" xmi:id="_ZuZtYJ96EeKwyISs9616Ow" value="+%2Fjson"/>
-          </ownedAttribute>
-          <ownedAttribute xmi:id="_a9FHAJ96EeKwyISs9616Ow" name="URL_ARG_SEARCH" visibility="private" isStatic="true" type="_UMmZMJ3vEeKaDI83mD0GjA" isUnique="false" isReadOnly="true">
-            <defaultValue xmi:type="uml:LiteralString" xmi:id="_dkXSUJ96EeKwyISs9616Ow" value="q="/>
-          </ownedAttribute>
-          <ownedAttribute xmi:id="_fdeJAJ96EeKwyISs9616Ow" name="MAX_URLS" visibility="private" isStatic="true" type="_UE09QJ3vEeKaDI83mD0GjA" isUnique="false" isReadOnly="true">
-            <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_hk8y4J96EeKwyISs9616Ow" value="5"/>
-          </ownedAttribute>
-          <ownedAttribute xmi:id="_iZOIcJ96EeKwyISs9616Ow" name="CHARSET" visibility="package" isStatic="true" type="_UMmZMJ3vEeKaDI83mD0GjA" isUnique="false" isReadOnly="true">
-            <defaultValue xmi:type="uml:LiteralString" xmi:id="_kQAD4J96EeKwyISs9616Ow" value="UTF-8"/>
-          </ownedAttribute>
-          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_DyhW8J3wEeKaDI83mD0GjA" name="searchBehavior" specification="_Dye6sJ3wEeKaDI83mD0GjA">
-            <language>Java</language>
-            <body>// TODO Auto-generated method stub&#xA;return null;</body>
-          </ownedBehavior>
-          <interfaceRealization xmi:id="_wysakJxoEeKGFdmMcDXXwg" name="Realization of IOnlineSearch" supplier="_K0cbUJxgEeKGFdmMcDXXwg" client="_skVjwJxoEeKGFdmMcDXXwg" contract="_K0cbUJxgEeKGFdmMcDXXwg"/>
-          <ownedOperation xmi:id="_Dye6sJ3wEeKaDI83mD0GjA" name="search" method="_DyhW8J3wEeKaDI83mD0GjA">
-            <ownedParameter xmi:id="_Dye6sZ3wEeKaDI83mD0GjA" name="searchString" type="_UMmZMJ3vEeKaDI83mD0GjA"/>
-            <ownedParameter xmi:id="_Dye6sp3wEeKaDI83mD0GjA" name="result" type="_JUYG4J35EeKaDI83mD0GjA" direction="return">
-              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_AiPKcZ97EeKwyISs9616Ow" value="1"/>
-              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_AiPKcJ97EeKwyISs9616Ow" value="1"/>
-              <defaultValue xmi:type="uml:LiteralString" xmi:id="_AiPxgJ97EeKwyISs9616Ow">
-                <value xsi:nil="true"/>
-              </defaultValue>
-            </ownedParameter>
-          </ownedOperation>
-          <ownedOperation xmi:id="_Dt4nEJ97EeKwyISs9616Ow" name="getUrlsFromJson" visibility="private">
-            <ownedParameter xmi:id="_GHC20J97EeKwyISs9616Ow" name="searchResult" type="_UMmZMJ3vEeKaDI83mD0GjA">
-              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_K-z3AJ97EeKwyISs9616Ow" value="1"/>
-              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_K-zP8J97EeKwyISs9616Ow" value="1"/>
-              <defaultValue xmi:type="uml:LiteralString" xmi:id="_K-z3AZ97EeKwyISs9616Ow">
-                <value xsi:nil="true"/>
-              </defaultValue>
-            </ownedParameter>
-            <ownedParameter xmi:id="_LNbh0J97EeKwyISs9616Ow" name="result" type="_JUYG4J35EeKaDI83mD0GjA" direction="return">
-              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_NTa98Z97EeKwyISs9616Ow" value="1"/>
-              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NTa98J97EeKwyISs9616Ow" value="1"/>
-              <defaultValue xmi:type="uml:LiteralString" xmi:id="_NTblAJ97EeKwyISs9616Ow">
-                <value xsi:nil="true"/>
-              </defaultValue>
-            </ownedParameter>
-          </ownedOperation>
-          <ownedOperation xmi:id="_RLYuAJ97EeKwyISs9616Ow" name="cleanUrl">
-            <ownedParameter xmi:id="_UOXW0J97EeKwyISs9616Ow" name="dirtyUrl" type="_UMmZMJ3vEeKaDI83mD0GjA">
-              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WMug8J97EeKwyISs9616Ow" value="1"/>
-              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WMt54J97EeKwyISs9616Ow" value="1"/>
-              <defaultValue xmi:type="uml:LiteralString" xmi:id="_WMvIAJ97EeKwyISs9616Ow">
-                <value xsi:nil="true"/>
-              </defaultValue>
-            </ownedParameter>
-            <ownedParameter xmi:id="_WWs8UJ97EeKwyISs9616Ow" name="result" type="_UMmZMJ3vEeKaDI83mD0GjA" direction="return">
-              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_YJPQ8Z97EeKwyISs9616Ow" value="1"/>
-              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YJPQ8J97EeKwyISs9616Ow" value="1"/>
-              <defaultValue xmi:type="uml:LiteralString" xmi:id="_YJP4AJ97EeKwyISs9616Ow">
-                <value xsi:nil="true"/>
-              </defaultValue>
-            </ownedParameter>
-          </ownedOperation>
-        </packagedElement>
-        <packagedElement xmi:type="uml:Class" xmi:id="_uhraMJxoEeKGFdmMcDXXwg" name="SearchResult">
-          <ownedAttribute xmi:id="_48X3cJxoEeKGFdmMcDXXwg" name="_originalText" visibility="private" isUnique="false">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-            <defaultValue xmi:type="uml:LiteralString" xmi:id="_UMwxQZ3vEeKaDI83mD0GjA" value=""/>
-          </ownedAttribute>
-          <ownedAttribute xmi:id="_ctl4EJxpEeKGFdmMcDXXwg" name="_plagiatsText" visibility="private" isUnique="false">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-            <defaultValue xmi:type="uml:LiteralString" xmi:id="_UMx_YJ3vEeKaDI83mD0GjA" value=""/>
-          </ownedAttribute>
-          <ownedAttribute xmi:id="_mb5JYJxpEeKGFdmMcDXXwg" name="_link" visibility="private" isUnique="false">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-            <defaultValue xmi:type="uml:LiteralString" xmi:id="_UMymcJ3vEeKaDI83mD0GjA" value=""/>
-          </ownedAttribute>
-          <ownedAttribute xmi:id="_UMuVAJ3vEeKaDI83mD0GjA" name="_rID" visibility="private" type="_UE09QJ3vEeKaDI83mD0GjA">
-            <defaultValue xmi:type="uml:LiteralString" xmi:id="_UMwxQJ3vEeKaDI83mD0GjA" value=""/>
-          </ownedAttribute>
-          <ownedAttribute xmi:id="_UMz0kJ3vEeKaDI83mD0GjA" name="_sequence" visibility="private" type="_UE09QJ3vEeKaDI83mD0GjA">
-            <defaultValue xmi:type="uml:LiteralString" xmi:id="_UM2Q0J3vEeKaDI83mD0GjA" value=""/>
-          </ownedAttribute>
-          <ownedOperation xmi:id="_UMqqoJ3vEeKaDI83mD0GjA" name="SearchResult">
-            <ownedParameter xmi:id="_UMqqoZ3vEeKaDI83mD0GjA" name="rID" type="_UE09QJ3vEeKaDI83mD0GjA"/>
-            <ownedParameter xmi:id="_UMqqop3vEeKaDI83mD0GjA" name="orginalText" type="_UMmZMJ3vEeKaDI83mD0GjA"/>
-            <ownedParameter xmi:id="_UMqqo53vEeKaDI83mD0GjA" name="plagiatsText" type="_UMmZMJ3vEeKaDI83mD0GjA"/>
-            <ownedParameter xmi:id="_UMqqpJ3vEeKaDI83mD0GjA" name="link" type="_UMmZMJ3vEeKaDI83mD0GjA"/>
-            <ownedParameter xmi:id="_UMqqpZ3vEeKaDI83mD0GjA" name="sequence" type="_UE09QJ3vEeKaDI83mD0GjA"/>
-          </ownedOperation>
-        </packagedElement>
-        <packagedElement xmi:type="uml:Class" xmi:id="_vSJmAJ32EeKaDI83mD0GjA" name="MySqlDatabaseHelper">
-          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RJ5HEJ34EeKaDI83mD0GjA" name="startQueryBehavior" specification="_PNRpYZ34EeKaDI83mD0GjA">
-            <language>Java</language>
-            <body>return null;</body>
-          </ownedBehavior>
-          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_SDY64J34EeKaDI83mD0GjA" name="getDocumentIDBehavior" specification="_PNJtkJ34EeKaDI83mD0GjA">
-            <language>Java</language>
-            <body>return 0;</body>
-          </ownedBehavior>
-          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_UDvCAJ34EeKaDI83mD0GjA" name="readPasswordBehavior" specification="_W68VIJ33EeKaDI83mD0GjA">
-            <language>Java</language>
-            <body>return &quot;&quot;;</body>
-          </ownedBehavior>
-          <ownedOperation xmi:id="_HHQZ8J33EeKaDI83mD0GjA" name="connect" visibility="private"/>
-          <ownedOperation xmi:id="_UlNz4J33EeKaDI83mD0GjA" name="disconnect" visibility="private"/>
-          <ownedOperation xmi:id="_W68VIJ33EeKaDI83mD0GjA" name="readPassword" method="_UDvCAJ34EeKaDI83mD0GjA">
-            <ownedParameter xmi:id="_ZXi6cJ33EeKaDI83mD0GjA" name="result" type="_UMmZMJ3vEeKaDI83mD0GjA" direction="return">
-              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_c-nHwJ33EeKaDI83mD0GjA" value="1"/>
-              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_c-mgsJ33EeKaDI83mD0GjA" value="1"/>
-              <defaultValue xmi:type="uml:LiteralString" xmi:id="_c-nu0J33EeKaDI83mD0GjA">
-                <value xsi:nil="true"/>
-              </defaultValue>
-            </ownedParameter>
-          </ownedOperation>
-          <ownedOperation xmi:id="_PNHRUJ34EeKaDI83mD0GjA" name="insertSearchResults">
-            <ownedParameter xmi:id="_PNHRUZ34EeKaDI83mD0GjA" name="searchResults" type="_UO77gJ3vEeKaDI83mD0GjA"/>
-          </ownedOperation>
-          <ownedOperation xmi:id="_PNJtkJ34EeKaDI83mD0GjA" name="getDocumentID" method="_SDY64J34EeKaDI83mD0GjA">
-            <ownedParameter xmi:id="_PNJtkZ34EeKaDI83mD0GjA" name="rID" type="_UE09QJ3vEeKaDI83mD0GjA"/>
-            <ownedParameter xmi:id="_PNJtkp34EeKaDI83mD0GjA" name="return" type="_UE09QJ3vEeKaDI83mD0GjA" direction="return"/>
-          </ownedOperation>
-          <ownedOperation xmi:id="_PNRpYZ34EeKaDI83mD0GjA" name="startQuery" method="_RJ5HEJ34EeKaDI83mD0GjA">
-            <ownedParameter xmi:id="_PNRpYp34EeKaDI83mD0GjA" name="query" type="_UMmZMJ3vEeKaDI83mD0GjA"/>
-            <ownedParameter xmi:id="_PNRpY534EeKaDI83mD0GjA" name="return" type="_PNMw4J34EeKaDI83mD0GjA" direction="return"/>
-          </ownedOperation>
-        </packagedElement>
-        <packagedElement xmi:type="uml:Class" xmi:id="_UE09QJ3vEeKaDI83mD0GjA" name="int"/>
-        <packagedElement xmi:type="uml:Class" xmi:id="_UMmZMJ3vEeKaDI83mD0GjA" name="String"/>
-        <packagedElement xmi:type="uml:Class" xmi:id="_UO77gJ3vEeKaDI83mD0GjA" name="HashSet"/>
-        <packagedElement xmi:type="uml:Class" xmi:id="_PNMw4J34EeKaDI83mD0GjA" name="ResultSet"/>
-        <packagedElement xmi:type="uml:Class" xmi:id="_5im3QJ34EeKaDI83mD0GjA" name="Connection"/>
-        <packagedElement xmi:type="uml:Class" xmi:id="_5ivaIJ34EeKaDI83mD0GjA" name="Statement"/>
-        <packagedElement xmi:type="uml:Class" xmi:id="_JUYG4J35EeKaDI83mD0GjA" name="ArrayList"/>
-        <packagedElement xmi:type="uml:Class" xmi:id="_DFqQ0J94EeKwyISs9616Ow" name="WordProcessing">
-          <nestedClassifier xmi:type="uml:DataType" xmi:id="_Tb4RUJ94EeKwyISs9616Ow" name="DataType_0"/>
-          <ownedOperation xmi:id="_Myz2IJ95EeKwyISs9616Ow" name="test"/>
-          <ownedOperation xmi:id="_S_gB4J95EeKwyISs9616Ow" name="splitToWords">
-            <ownedParameter xmi:id="_S_gB4Z95EeKwyISs9616Ow" name="text" type="_UMmZMJ3vEeKaDI83mD0GjA"/>
-            <ownedParameter xmi:id="_S_gB4p95EeKwyISs9616Ow" name="return" type="_UO77gJ3vEeKaDI83mD0GjA" direction="return"/>
-          </ownedOperation>
-          <ownedOperation xmi:id="_d59kUJ95EeKwyISs9616Ow" name="getVerbsAndNouns">
-            <ownedParameter xmi:id="_fp9iUJ95EeKwyISs9616Ow" name="text">
+        <packagedElement xmi:type="uml:Package" xmi:id="_efLowJ6eEeKJ99ZeTpuTXA" name="Classes">
+          <packagedElement xmi:type="uml:Class" xmi:id="_8fNtEJxdEeKGFdmMcDXXwg" name="Control">
+            <ownedAttribute xmi:id="_lQAZYJ37EeKaDI83mD0GjA" name="iOnlineSearch" visibility="private" type="_K0cbUJxgEeKGFdmMcDXXwg" isUnique="false" association="_lP9WEJ37EeKaDI83mD0GjA">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_plB44J37EeKaDI83mD0GjA" value="1"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_pk_coJ37EeKaDI83mD0GjA" value="1"/>
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_MuaeUJ95EeKwyISs9616Ow" value=""/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_lcFGgJ37EeKaDI83mD0GjA" name="iComparer" visibility="private" type="_J-aRkJxoEeKGFdmMcDXXwg" isUnique="false" association="_lcBcIJ37EeKaDI83mD0GjA">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rr2bcJ37EeKaDI83mD0GjA" value="1"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rryxEJ37EeKaDI83mD0GjA" value="1"/>
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_MubscJ95EeKwyISs9616Ow" value=""/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_lGMzcJ93EeKwyISs9616Ow" name="mySqlDatabaseHelper" visibility="private" type="_vSJmAJ32EeKaDI83mD0GjA" isUnique="false" association="_lGGs0J93EeKwyISs9616Ow">
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lGRE4J93EeKwyISs9616Ow" value="1"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lGQd0J93EeKwyISs9616Ow" value="1"/>
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_MucTgJ95EeKwyISs9616Ow" value=""/>
+            </ownedAttribute>
+            <ownedOperation xmi:id="_UE8SAJ3vEeKaDI83mD0GjA" name="start">
+              <ownedParameter xmi:id="_UE8SAZ3vEeKaDI83mD0GjA" name="rID" type="_UE09QJ3vEeKaDI83mD0GjA"/>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_TFKM8JxjEeKGFdmMcDXXwg" name="RabinKarpComparer" clientDependency="_U5Q80J3tEeKaDI83mD0GjA">
+            <ownedAttribute xmi:id="_5is94Z34EeKaDI83mD0GjA" name="_connection" visibility="private" type="_5im3QJ34EeKaDI83mD0GjA">
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_5iuzEJ34EeKaDI83mD0GjA" value="null"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_5i05sJ34EeKaDI83mD0GjA" name="_statement" visibility="private" type="_5ivaIJ34EeKaDI83mD0GjA">
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_5i2u4J34EeKaDI83mD0GjA" value="null"/>
+            </ownedAttribute>
+            <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_ciJjUJ35EeKaDI83mD0GjA" name="compareBehavior" specification="_ciHHEJ35EeKaDI83mD0GjA">
+              <language>Java</language>
+              <body>// TODO Auto-generated method stub&#xA;return null;</body>
+            </ownedBehavior>
+            <interfaceRealization xmi:id="_U5Q80J3tEeKaDI83mD0GjA" name="Realization of IComparer" supplier="_J-aRkJxoEeKGFdmMcDXXwg" client="_TFKM8JxjEeKGFdmMcDXXwg" contract="_J-aRkJxoEeKGFdmMcDXXwg"/>
+            <ownedOperation xmi:id="_ciHHEJ35EeKaDI83mD0GjA" name="compare" method="_ciJjUJ35EeKaDI83mD0GjA">
+              <ownedParameter xmi:id="_ciHHEZ35EeKaDI83mD0GjA" name="originalText" type="_UMmZMJ3vEeKaDI83mD0GjA"/>
+              <ownedParameter xmi:id="_ciHHEp35EeKaDI83mD0GjA" name="textToCheck" type="_UMmZMJ3vEeKaDI83mD0GjA"/>
+              <ownedParameter xmi:id="_ciHHE535EeKaDI83mD0GjA" name="return" type="_JUYG4J35EeKaDI83mD0GjA" direction="return"/>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_skVjwJxoEeKGFdmMcDXXwg" name="BlekkoSearch" clientDependency="_wysakJxoEeKGFdmMcDXXwg">
+            <ownedAttribute xmi:id="_DXze0J96EeKwyISs9616Ow" name="URL" visibility="private" isStatic="true" type="_UMmZMJ3vEeKaDI83mD0GjA" isUnique="false" isReadOnly="true">
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_TdV_AJ96EeKwyISs9616Ow" value="http://blekko.com/ws/?"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_VEVyAJ96EeKwyISs9616Ow" name="URL_ARG_JSON" visibility="private" isStatic="true" type="_UMmZMJ3vEeKaDI83mD0GjA" isUnique="false" isReadOnly="true">
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_ZuZtYJ96EeKwyISs9616Ow" value="+%2Fjson"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_a9FHAJ96EeKwyISs9616Ow" name="URL_ARG_SEARCH" visibility="private" isStatic="true" type="_UMmZMJ3vEeKaDI83mD0GjA" isUnique="false" isReadOnly="true">
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_dkXSUJ96EeKwyISs9616Ow" value="q="/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_fdeJAJ96EeKwyISs9616Ow" name="MAX_URLS" visibility="private" isStatic="true" type="_UE09QJ3vEeKaDI83mD0GjA" isUnique="false" isReadOnly="true">
+              <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_hk8y4J96EeKwyISs9616Ow" value="5"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_iZOIcJ96EeKwyISs9616Ow" name="CHARSET" visibility="package" isStatic="true" type="_UMmZMJ3vEeKaDI83mD0GjA" isUnique="false" isReadOnly="true">
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_kQAD4J96EeKwyISs9616Ow" value="UTF-8"/>
+            </ownedAttribute>
+            <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_DyhW8J3wEeKaDI83mD0GjA" name="searchBehavior" specification="_Dye6sJ3wEeKaDI83mD0GjA">
+              <language>Java</language>
+              <body>// TODO Auto-generated method stub&#xA;return null;</body>
+            </ownedBehavior>
+            <interfaceRealization xmi:id="_wysakJxoEeKGFdmMcDXXwg" name="Realization of IOnlineSearch" supplier="_K0cbUJxgEeKGFdmMcDXXwg" client="_skVjwJxoEeKGFdmMcDXXwg" contract="_K0cbUJxgEeKGFdmMcDXXwg"/>
+            <ownedOperation xmi:id="_Dye6sJ3wEeKaDI83mD0GjA" name="search" method="_DyhW8J3wEeKaDI83mD0GjA">
+              <ownedParameter xmi:id="_Dye6sZ3wEeKaDI83mD0GjA" name="searchString" type="_UMmZMJ3vEeKaDI83mD0GjA"/>
+              <ownedParameter xmi:id="_Dye6sp3wEeKaDI83mD0GjA" name="result" type="_JUYG4J35EeKaDI83mD0GjA" direction="return">
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_AiPKcZ97EeKwyISs9616Ow" value="1"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_AiPKcJ97EeKwyISs9616Ow" value="1"/>
+                <defaultValue xmi:type="uml:LiteralString" xmi:id="_AiPxgJ97EeKwyISs9616Ow">
+                  <value xsi:nil="true"/>
+                </defaultValue>
+              </ownedParameter>
+            </ownedOperation>
+            <ownedOperation xmi:id="_Dt4nEJ97EeKwyISs9616Ow" name="getUrlsFromJson" visibility="private">
+              <ownedParameter xmi:id="_GHC20J97EeKwyISs9616Ow" name="searchResult" type="_UMmZMJ3vEeKaDI83mD0GjA">
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_K-z3AJ97EeKwyISs9616Ow" value="1"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_K-zP8J97EeKwyISs9616Ow" value="1"/>
+                <defaultValue xmi:type="uml:LiteralString" xmi:id="_K-z3AZ97EeKwyISs9616Ow">
+                  <value xsi:nil="true"/>
+                </defaultValue>
+              </ownedParameter>
+              <ownedParameter xmi:id="_LNbh0J97EeKwyISs9616Ow" name="result" type="_JUYG4J35EeKaDI83mD0GjA" direction="return">
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_NTa98Z97EeKwyISs9616Ow" value="1"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NTa98J97EeKwyISs9616Ow" value="1"/>
+                <defaultValue xmi:type="uml:LiteralString" xmi:id="_NTblAJ97EeKwyISs9616Ow">
+                  <value xsi:nil="true"/>
+                </defaultValue>
+              </ownedParameter>
+            </ownedOperation>
+            <ownedOperation xmi:id="_RLYuAJ97EeKwyISs9616Ow" name="cleanUrl">
+              <ownedParameter xmi:id="_UOXW0J97EeKwyISs9616Ow" name="dirtyUrl" type="_UMmZMJ3vEeKaDI83mD0GjA">
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WMug8J97EeKwyISs9616Ow" value="1"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WMt54J97EeKwyISs9616Ow" value="1"/>
+                <defaultValue xmi:type="uml:LiteralString" xmi:id="_WMvIAJ97EeKwyISs9616Ow">
+                  <value xsi:nil="true"/>
+                </defaultValue>
+              </ownedParameter>
+              <ownedParameter xmi:id="_WWs8UJ97EeKwyISs9616Ow" name="result" type="_UMmZMJ3vEeKaDI83mD0GjA" direction="return">
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_YJPQ8Z97EeKwyISs9616Ow" value="1"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YJPQ8J97EeKwyISs9616Ow" value="1"/>
+                <defaultValue xmi:type="uml:LiteralString" xmi:id="_YJP4AJ97EeKwyISs9616Ow">
+                  <value xsi:nil="true"/>
+                </defaultValue>
+              </ownedParameter>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_uhraMJxoEeKGFdmMcDXXwg" name="SearchResult">
+            <ownedAttribute xmi:id="_48X3cJxoEeKGFdmMcDXXwg" name="_originalText" visibility="private" isUnique="false">
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jadYcJ95EeKwyISs9616Ow" value="1"/>
-              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jacxYJ95EeKwyISs9616Ow" value="1"/>
-              <defaultValue xmi:type="uml:LiteralString" xmi:id="_jad_gJ95EeKwyISs9616Ow">
-                <value xsi:nil="true"/>
-              </defaultValue>
-            </ownedParameter>
-            <ownedParameter xmi:id="_jsrJ0J95EeKwyISs9616Ow" name="result" type="_JUYG4J35EeKaDI83mD0GjA" direction="return">
-              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mMYtgJ95EeKwyISs9616Ow" value="1"/>
-              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mMYGcJ95EeKwyISs9616Ow" value="1"/>
-              <defaultValue xmi:type="uml:LiteralString" xmi:id="_mMYtgZ95EeKwyISs9616Ow">
-                <value xsi:nil="true"/>
-              </defaultValue>
-            </ownedParameter>
-          </ownedOperation>
-          <ownedOperation xmi:id="_nTwlQJ95EeKwyISs9616Ow" name="getVerbsAndNouns" visibility="private">
-            <ownedParameter xmi:id="_pJVm0J95EeKwyISs9616Ow" name="taggedWords" type="_UMmZMJ3vEeKaDI83mD0GjA">
-              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sWIS8J95EeKwyISs9616Ow" value="*"/>
-              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sWHr4J95EeKwyISs9616Ow"/>
-              <defaultValue xmi:type="uml:LiteralString" xmi:id="_sWIS8Z95EeKwyISs9616Ow">
-                <value xsi:nil="true"/>
-              </defaultValue>
-            </ownedParameter>
-            <ownedParameter xmi:id="_skwk0J95EeKwyISs9616Ow" name="result" type="_JUYG4J35EeKaDI83mD0GjA" direction="return">
-              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_upO-AJ95EeKwyISs9616Ow" value="1"/>
-              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_upOW8J95EeKwyISs9616Ow" value="1"/>
-              <defaultValue xmi:type="uml:LiteralString" xmi:id="_upO-AZ95EeKwyISs9616Ow">
-                <value xsi:nil="true"/>
-              </defaultValue>
-            </ownedParameter>
-          </ownedOperation>
-          <ownedOperation xmi:id="_wyGvAJ95EeKwyISs9616Ow" name="tagText" visibility="private">
-            <ownedParameter xmi:id="_zpyt0J95EeKwyISs9616Ow" name="textToTag" type="_UMmZMJ3vEeKaDI83mD0GjA">
-              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12aWYZ95EeKwyISs9616Ow" value="1"/>
-              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12aWYJ95EeKwyISs9616Ow" value="1"/>
-              <defaultValue xmi:type="uml:LiteralString" xmi:id="_12a9cJ95EeKwyISs9616Ow">
-                <value xsi:nil="true"/>
-              </defaultValue>
-            </ownedParameter>
-            <ownedParameter xmi:id="_2BY3UJ95EeKwyISs9616Ow" name="result" type="_UMmZMJ3vEeKaDI83mD0GjA" direction="return">
-              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4K4TYZ95EeKwyISs9616Ow" value="1"/>
-              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4K4TYJ95EeKwyISs9616Ow" value="1"/>
-              <defaultValue xmi:type="uml:LiteralString" xmi:id="_4K46cJ95EeKwyISs9616Ow">
-                <value xsi:nil="true"/>
-              </defaultValue>
-            </ownedParameter>
-          </ownedOperation>
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_UMwxQZ3vEeKaDI83mD0GjA" value=""/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_ctl4EJxpEeKGFdmMcDXXwg" name="_plagiatsText" visibility="private" isUnique="false">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_UMx_YJ3vEeKaDI83mD0GjA" value=""/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_mb5JYJxpEeKGFdmMcDXXwg" name="_link" visibility="private" isUnique="false">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_UMymcJ3vEeKaDI83mD0GjA" value=""/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_UMuVAJ3vEeKaDI83mD0GjA" name="_rID" visibility="private" type="_UE09QJ3vEeKaDI83mD0GjA">
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_UMwxQJ3vEeKaDI83mD0GjA" value=""/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_UMz0kJ3vEeKaDI83mD0GjA" name="_sequence" visibility="private" type="_UE09QJ3vEeKaDI83mD0GjA">
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_UM2Q0J3vEeKaDI83mD0GjA" value=""/>
+            </ownedAttribute>
+            <ownedOperation xmi:id="_UMqqoJ3vEeKaDI83mD0GjA" name="SearchResult">
+              <ownedParameter xmi:id="_UMqqoZ3vEeKaDI83mD0GjA" name="rID" type="_UE09QJ3vEeKaDI83mD0GjA"/>
+              <ownedParameter xmi:id="_UMqqop3vEeKaDI83mD0GjA" name="orginalText" type="_UMmZMJ3vEeKaDI83mD0GjA"/>
+              <ownedParameter xmi:id="_UMqqo53vEeKaDI83mD0GjA" name="plagiatsText" type="_UMmZMJ3vEeKaDI83mD0GjA"/>
+              <ownedParameter xmi:id="_UMqqpJ3vEeKaDI83mD0GjA" name="link" type="_UMmZMJ3vEeKaDI83mD0GjA"/>
+              <ownedParameter xmi:id="_UMqqpZ3vEeKaDI83mD0GjA" name="sequence" type="_UE09QJ3vEeKaDI83mD0GjA"/>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_vSJmAJ32EeKaDI83mD0GjA" name="MySqlDatabaseHelper">
+            <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RJ5HEJ34EeKaDI83mD0GjA" name="startQueryBehavior" specification="_PNRpYZ34EeKaDI83mD0GjA">
+              <language>Java</language>
+              <body>return null;</body>
+            </ownedBehavior>
+            <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_SDY64J34EeKaDI83mD0GjA" name="getDocumentIDBehavior" specification="_PNJtkJ34EeKaDI83mD0GjA">
+              <language>Java</language>
+              <body>return 0;</body>
+            </ownedBehavior>
+            <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_UDvCAJ34EeKaDI83mD0GjA" name="readPasswordBehavior" specification="_W68VIJ33EeKaDI83mD0GjA">
+              <language>Java</language>
+              <body>return &quot;&quot;;</body>
+            </ownedBehavior>
+            <ownedOperation xmi:id="_HHQZ8J33EeKaDI83mD0GjA" name="connect" visibility="private"/>
+            <ownedOperation xmi:id="_UlNz4J33EeKaDI83mD0GjA" name="disconnect" visibility="private"/>
+            <ownedOperation xmi:id="_W68VIJ33EeKaDI83mD0GjA" name="readPassword" method="_UDvCAJ34EeKaDI83mD0GjA">
+              <ownedParameter xmi:id="_ZXi6cJ33EeKaDI83mD0GjA" name="result" type="_UMmZMJ3vEeKaDI83mD0GjA" direction="return">
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_c-nHwJ33EeKaDI83mD0GjA" value="1"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_c-mgsJ33EeKaDI83mD0GjA" value="1"/>
+                <defaultValue xmi:type="uml:LiteralString" xmi:id="_c-nu0J33EeKaDI83mD0GjA">
+                  <value xsi:nil="true"/>
+                </defaultValue>
+              </ownedParameter>
+            </ownedOperation>
+            <ownedOperation xmi:id="_PNHRUJ34EeKaDI83mD0GjA" name="insertSearchResults">
+              <ownedParameter xmi:id="_PNHRUZ34EeKaDI83mD0GjA" name="searchResults" type="_UO77gJ3vEeKaDI83mD0GjA"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_PNJtkJ34EeKaDI83mD0GjA" name="getDocumentID" method="_SDY64J34EeKaDI83mD0GjA">
+              <ownedParameter xmi:id="_PNJtkZ34EeKaDI83mD0GjA" name="rID" type="_UE09QJ3vEeKaDI83mD0GjA"/>
+              <ownedParameter xmi:id="_PNJtkp34EeKaDI83mD0GjA" name="return" type="_UE09QJ3vEeKaDI83mD0GjA" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_PNRpYZ34EeKaDI83mD0GjA" name="startQuery" method="_RJ5HEJ34EeKaDI83mD0GjA">
+              <ownedParameter xmi:id="_PNRpYp34EeKaDI83mD0GjA" name="query" type="_UMmZMJ3vEeKaDI83mD0GjA"/>
+              <ownedParameter xmi:id="_PNRpY534EeKaDI83mD0GjA" name="return" type="_PNMw4J34EeKaDI83mD0GjA" direction="return"/>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_UE09QJ3vEeKaDI83mD0GjA" name="int"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_UMmZMJ3vEeKaDI83mD0GjA" name="String"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_UO77gJ3vEeKaDI83mD0GjA" name="HashSet"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_PNMw4J34EeKaDI83mD0GjA" name="ResultSet"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_5im3QJ34EeKaDI83mD0GjA" name="Connection"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_5ivaIJ34EeKaDI83mD0GjA" name="Statement"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_JUYG4J35EeKaDI83mD0GjA" name="ArrayList"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_DFqQ0J94EeKwyISs9616Ow" name="WordProcessing">
+            <nestedClassifier xmi:type="uml:DataType" xmi:id="_Tb4RUJ94EeKwyISs9616Ow" name="DataType_0"/>
+            <ownedOperation xmi:id="_Myz2IJ95EeKwyISs9616Ow" name="test"/>
+            <ownedOperation xmi:id="_S_gB4J95EeKwyISs9616Ow" name="splitToWords">
+              <ownedParameter xmi:id="_S_gB4Z95EeKwyISs9616Ow" name="text" type="_UMmZMJ3vEeKaDI83mD0GjA"/>
+              <ownedParameter xmi:id="_S_gB4p95EeKwyISs9616Ow" name="return" type="_UO77gJ3vEeKaDI83mD0GjA" direction="return"/>
+            </ownedOperation>
+            <ownedOperation xmi:id="_d59kUJ95EeKwyISs9616Ow" name="getVerbsAndNouns">
+              <ownedParameter xmi:id="_fp9iUJ95EeKwyISs9616Ow" name="text">
+                <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jadYcJ95EeKwyISs9616Ow" value="1"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jacxYJ95EeKwyISs9616Ow" value="1"/>
+                <defaultValue xmi:type="uml:LiteralString" xmi:id="_jad_gJ95EeKwyISs9616Ow">
+                  <value xsi:nil="true"/>
+                </defaultValue>
+              </ownedParameter>
+              <ownedParameter xmi:id="_jsrJ0J95EeKwyISs9616Ow" name="result" type="_JUYG4J35EeKaDI83mD0GjA" direction="return">
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mMYtgJ95EeKwyISs9616Ow" value="1"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mMYGcJ95EeKwyISs9616Ow" value="1"/>
+                <defaultValue xmi:type="uml:LiteralString" xmi:id="_mMYtgZ95EeKwyISs9616Ow">
+                  <value xsi:nil="true"/>
+                </defaultValue>
+              </ownedParameter>
+            </ownedOperation>
+            <ownedOperation xmi:id="_nTwlQJ95EeKwyISs9616Ow" name="getVerbsAndNouns" visibility="private">
+              <ownedParameter xmi:id="_pJVm0J95EeKwyISs9616Ow" name="taggedWords" type="_UMmZMJ3vEeKaDI83mD0GjA">
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sWIS8J95EeKwyISs9616Ow" value="*"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sWHr4J95EeKwyISs9616Ow"/>
+                <defaultValue xmi:type="uml:LiteralString" xmi:id="_sWIS8Z95EeKwyISs9616Ow">
+                  <value xsi:nil="true"/>
+                </defaultValue>
+              </ownedParameter>
+              <ownedParameter xmi:id="_skwk0J95EeKwyISs9616Ow" name="result" type="_JUYG4J35EeKaDI83mD0GjA" direction="return">
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_upO-AJ95EeKwyISs9616Ow" value="1"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_upOW8J95EeKwyISs9616Ow" value="1"/>
+                <defaultValue xmi:type="uml:LiteralString" xmi:id="_upO-AZ95EeKwyISs9616Ow">
+                  <value xsi:nil="true"/>
+                </defaultValue>
+              </ownedParameter>
+            </ownedOperation>
+            <ownedOperation xmi:id="_wyGvAJ95EeKwyISs9616Ow" name="tagText" visibility="private">
+              <ownedParameter xmi:id="_zpyt0J95EeKwyISs9616Ow" name="textToTag" type="_UMmZMJ3vEeKaDI83mD0GjA">
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12aWYZ95EeKwyISs9616Ow" value="1"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12aWYJ95EeKwyISs9616Ow" value="1"/>
+                <defaultValue xmi:type="uml:LiteralString" xmi:id="_12a9cJ95EeKwyISs9616Ow">
+                  <value xsi:nil="true"/>
+                </defaultValue>
+              </ownedParameter>
+              <ownedParameter xmi:id="_2BY3UJ95EeKwyISs9616Ow" name="result" type="_UMmZMJ3vEeKaDI83mD0GjA" direction="return">
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4K4TYZ95EeKwyISs9616Ow" value="1"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4K4TYJ95EeKwyISs9616Ow" value="1"/>
+                <defaultValue xmi:type="uml:LiteralString" xmi:id="_4K46cJ95EeKwyISs9616Ow">
+                  <value xsi:nil="true"/>
+                </defaultValue>
+              </ownedParameter>
+            </ownedOperation>
+          </packagedElement>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_hnO-0J6eEeKJ99ZeTpuTXA" name="Interfaces">
+          <packagedElement xmi:type="uml:Interface" xmi:id="_K0cbUJxgEeKGFdmMcDXXwg" name="IOnlineSearch">
+            <ownedOperation xmi:id="_UPAM8Z3vEeKaDI83mD0GjA" name="search">
+              <ownedParameter xmi:id="_UPAM8p3vEeKaDI83mD0GjA" name="searchString" type="_UMmZMJ3vEeKaDI83mD0GjA"/>
+              <ownedParameter xmi:id="_UPAM853vEeKaDI83mD0GjA" name="result" type="_JUYG4J35EeKaDI83mD0GjA" direction="return">
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_99c5gJ96EeKwyISs9616Ow" value="1"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_99cScJ96EeKwyISs9616Ow" value="1"/>
+                <defaultValue xmi:type="uml:LiteralString" xmi:id="_99c5gZ96EeKwyISs9616Ow">
+                  <value xsi:nil="true"/>
+                </defaultValue>
+              </ownedParameter>
+            </ownedOperation>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Interface" xmi:id="_J-aRkJxoEeKGFdmMcDXXwg" name="IComparer">
+            <ownedOperation xmi:id="_RkwosJ35EeKaDI83mD0GjA" name="compare">
+              <ownedParameter xmi:id="_RkwosZ35EeKaDI83mD0GjA" name="originalText" type="_UMmZMJ3vEeKaDI83mD0GjA"/>
+              <ownedParameter xmi:id="_Rkwosp35EeKaDI83mD0GjA" name="textToCheck" type="_UMmZMJ3vEeKaDI83mD0GjA"/>
+              <ownedParameter xmi:id="_Rkwos535EeKaDI83mD0GjA" name="return" type="_JUYG4J35EeKaDI83mD0GjA" direction="return"/>
+            </ownedOperation>
+          </packagedElement>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_lGGs0J93EeKwyISs9616Ow" name="A_Control_MySqlDatabaseHelper" memberEnd="_lGMzcJ93EeKwyISs9616Ow _lGRr8J93EeKwyISs9616Ow">
+          <ownedEnd xmi:id="_lGRr8J93EeKwyISs9616Ow" name="control" visibility="public" type="_8fNtEJxdEeKGFdmMcDXXwg" isUnique="false" association="_lGGs0J93EeKwyISs9616Ow">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lGUvQJ93EeKwyISs9616Ow" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lGVWUJ93EeKwyISs9616Ow"/>
+          </ownedEnd>
         </packagedElement>
       </packagedElement>
-      <packagedElement xmi:type="uml:Package" xmi:id="_hnO-0J6eEeKJ99ZeTpuTXA" name="Interfaces">
-        <packagedElement xmi:type="uml:Interface" xmi:id="_K0cbUJxgEeKGFdmMcDXXwg" name="IOnlineSearch">
-          <ownedOperation xmi:id="_UPAM8Z3vEeKaDI83mD0GjA" name="search">
-            <ownedParameter xmi:id="_UPAM8p3vEeKaDI83mD0GjA" name="searchString" type="_UMmZMJ3vEeKaDI83mD0GjA"/>
-            <ownedParameter xmi:id="_UPAM853vEeKaDI83mD0GjA" name="result" type="_JUYG4J35EeKaDI83mD0GjA" direction="return">
-              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_99c5gJ96EeKwyISs9616Ow" value="1"/>
-              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_99cScJ96EeKwyISs9616Ow" value="1"/>
-              <defaultValue xmi:type="uml:LiteralString" xmi:id="_99c5gZ96EeKwyISs9616Ow">
-                <value xsi:nil="true"/>
-              </defaultValue>
-            </ownedParameter>
-          </ownedOperation>
-        </packagedElement>
-        <packagedElement xmi:type="uml:Interface" xmi:id="_J-aRkJxoEeKGFdmMcDXXwg" name="IComparer">
-          <ownedOperation xmi:id="_RkwosJ35EeKaDI83mD0GjA" name="compare">
-            <ownedParameter xmi:id="_RkwosZ35EeKaDI83mD0GjA" name="originalText" type="_UMmZMJ3vEeKaDI83mD0GjA"/>
-            <ownedParameter xmi:id="_Rkwosp35EeKaDI83mD0GjA" name="textToCheck" type="_UMmZMJ3vEeKaDI83mD0GjA"/>
-            <ownedParameter xmi:id="_Rkwos535EeKaDI83mD0GjA" name="return" type="_JUYG4J35EeKaDI83mD0GjA" direction="return"/>
-          </ownedOperation>
-        </packagedElement>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_lGGs0J93EeKwyISs9616Ow" name="A_Control_MySqlDatabaseHelper" memberEnd="_lGMzcJ93EeKwyISs9616Ow _lGRr8J93EeKwyISs9616Ow">
-        <ownedEnd xmi:id="_lGRr8J93EeKwyISs9616Ow" name="control" visibility="public" type="_8fNtEJxdEeKGFdmMcDXXwg" isUnique="false" association="_lGGs0J93EeKwyISs9616Ow">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lGUvQJ93EeKwyISs9616Ow" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lGVWUJ93EeKwyISs9616Ow"/>
-        </ownedEnd>
-      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_dE_fYKKTEeKMIf9i-FycNQ" name="Frontend"/>
+      <packagedElement xmi:type="uml:Package" xmi:id="_eys-YKKTEeKMIf9i-FycNQ" name="Database"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_4EHbkJ6eEeKJ99ZeTpuTXA" name="UseCases">
       <packagedElement xmi:type="uml:Package" xmi:id="_cu_oEJ6fEeKJ99ZeTpuTXA" name="Overview">
