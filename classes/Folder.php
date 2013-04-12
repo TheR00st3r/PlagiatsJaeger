@@ -9,7 +9,7 @@ class Folder {
 	 * @param string $pathName
 	 * @return array
 	 */
-	public static function getFolderArray($fParentID = 1, $depth = 999, $level = 0, $path = '', $pathName ='') {
+	public static function getFolderArray($fParentID = 1, $depth = 999, $level = 0, $path = '', $pathName = '') {
 
 		if (!isset($fParentID) or $fParentID == '') {
 			$fParentID = 1;
@@ -51,13 +51,13 @@ class Folder {
 			if (count($back) > 0) {
 				$folder[$row['fID']]['sub'] = $back;
 			}
-			
+
 			//print_array($back);
 
 		}
 		return $folder;
 	}
-	
+
 	/**
 	 * Returns the recursive folder navigation as array.
 	 * @param int $fParentID
@@ -67,7 +67,7 @@ class Folder {
 	 * @param string $pathName
 	 * @return array
 	 */
-	public static function getFolder($fParentID = 1, $depth = 999, $level = 0, $path = '', $pathName ='') {
+	public static function getFolder($fParentID = 1, $depth = 999, $level = 0, $path = '', $pathName = '') {
 
 		$uID = LoginAccess::userId();
 
@@ -107,7 +107,7 @@ class Folder {
 		}
 		return $folder;
 	}
-	
+
 	/**
 	 * Returns folders from given folder id as single array for example dropdowns (old)
 	 * @deprecated
@@ -122,7 +122,7 @@ class Folder {
 		}
 		return $tempParents;
 	}
-	
+
 	/**
 	 * Add new folder
 	 * @param int $fName
@@ -140,7 +140,8 @@ class Folder {
 			$db = new db();
 			if ($db -> insert('folder', array('fName' => $fName, 'fParentID' => $fParentID))) {
 				$lastID = $db -> lastInsertId();
-				if ($db -> insert('folderpermission', array('fpPermissionLevel' => '900', 'fID' => $lastID, 'uID' => $uID))) {
+				if (self::saveFolderPermission('900', $lastID, $uID)) {
+					// if ($db -> insert('folderpermission', array('fpPermissionLevel' => '900', 'fID' => $lastID, 'uID' => $uID))) {
 					return true;
 				}
 			}
@@ -157,7 +158,7 @@ class Folder {
 		$db = new db();
 		return $db -> deleteWithWhereArray('folder', array('fID' => $fID));
 	}
-	
+
 	/**
 	 * Add hash link for given folder id.
 	 * @param int $fID
@@ -166,12 +167,13 @@ class Folder {
 	public static function addFolderLink($fID) {
 		$hash = md5(uniqid());
 		$db = new db();
-		if($db -> update('folder', array('fHashLink' => $hash), array('fID' => $fID))) {
+		// TODO: add expire date
+		if ($db -> update('folder', array('fHashLink' => $hash, 'fLinkExpireDatetime' => '9999-99-99 99:99:99'), array('fID' => $fID))) {
 			return $hash;
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Returns the folder from the given hash value.
 	 * @param string $hash
@@ -190,7 +192,7 @@ class Folder {
 					f.fName ASC");
 		return $db -> lines();
 	}
-	
+
 	/**
 	 * Edit the foler name from the given folder id.
 	 * @param int $fID
@@ -200,6 +202,19 @@ class Folder {
 	public static function editFolderName($fID, $fName) {
 		$db = new db();
 		return $db -> update('folder', array('fName' => $fName), array('fID' => $fID));
+	}
+
+	/**
+	 * Saves the folder permission for the given folder id.
+	 * @param int $fpPermissionLevel
+	 * @param int $fID
+	 * @param int $uID
+	 * @return boolean
+	 */
+	public static function saveFolderPermission($fpPermissionLevel, $fID, $uID) {
+		//TODO Check Values;
+		$db = new db();
+		return $db -> insert('folderpermission', array('fpPermissionLevel' => $fpPermissionLevel, 'fID' => $fID, 'uID' => $uID));
 	}
 
 }
