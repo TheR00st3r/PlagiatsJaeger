@@ -279,6 +279,9 @@
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_dE_fYKKTEeKMIf9i-FycNQ" name="Frontend"/>
       <packagedElement xmi:type="uml:Package" xmi:id="_eys-YKKTEeKMIf9i-FycNQ" name="Database"/>
+      <packagedElement xmi:type="uml:Component" xmi:id="_qxeeoKNxEeKrwpL2Qi3j6w" name="Backend"/>
+      <packagedElement xmi:type="uml:Component" xmi:id="_0KCJcKNxEeKrwpL2Qi3j6w" name="Frontend"/>
+      <packagedElement xmi:type="uml:Component" xmi:id="_1pMPEKNxEeKrwpL2Qi3j6w" name="Database"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_4EHbkJ6eEeKJ99ZeTpuTXA" name="UseCases">
       <packagedElement xmi:type="uml:Actor" xmi:id="_BsV6EJ6fEeKJ99ZeTpuTXA" name="Student" clientDependency="_oYYdoJ--EeKPS4Gz0JjhAg _02_6cJ--EeKPS4Gz0JjhAg _Ri7B8KNlEeKMzuD3Gl31Cw _RwuNYKNlEeKMzuD3Gl31Cw _CW8KgKNmEeKMzuD3Gl31Cw"/>
