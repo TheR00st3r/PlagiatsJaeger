@@ -11,11 +11,11 @@ class Report {
 	public static function createReport($dID, $rTreshold = 0, $rLevel = 0) {
 		if (Validator::validate(VAL_INTEGER, $dID, true)) {
 			$db = new db();
-			if($db -> insert('report', array('dID' => $dID, 'rTreshold' => $rTreshold, 'rLevel' => $rLevel))) {
+			if ($db -> insert('report', array('dID' => $dID, 'rTreshold' => $rTreshold, 'rLevel' => $rLevel))) {
 				$lastReportID = $db -> lastInsertId();
-				$result = file("http://192.168.4.28:8080/PlagiatsSoftware/TestServlet?rID=".$lastReportID);
+				$result = file("http://192.168.4.28:8080/PlagiatsSoftware/TestServlet?rID=" . $lastReportID);
 				print_array($result);
-				if($result) {
+				if ($result) {
 					return true;
 				}
 			}
@@ -44,5 +44,36 @@ class Report {
 			return $db -> linesAsArray();
 		}
 	}
+
+	public static function createGraphicReport($uID) {
+		// TODO: createGraphicReport not imp.
+		throw new Exception('Not implemented');
+	}
+
+	public static function createShortReport($uID) {
+		// TODO: createShortReport not imp.
+		throw new Exception('Not implemented');
+	}
+
+	public static function createReport($uID) {
+		// TODO: createReport not imp.
+		throw new Exception('Not implemented');
+	}
+
+	public static function showGraphicReport($uID) {
+		// TODO: showGraphicReport not imp.
+		throw new Exception('Not implemented');
+	}
+
+	public static function showShortReport($uID) {
+		// TODO: showShortReport not imp.
+		throw new Exception('Not implemented');
+	}
+
+	public static function showReport($uID) {
+		// TODO: showReport not imp.
+		throw new Exception('Not implemented');
+	}
+
 }
 ?>
