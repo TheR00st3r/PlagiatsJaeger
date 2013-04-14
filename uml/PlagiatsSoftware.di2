@@ -315,7 +315,7 @@
           <element xsi:type="uml:InterfaceRealization" href="PlagiatsSoftware.uml#_U5Q80J3tEeKaDI83mD0GjA"/>
         </semanticModel>
       </contained>
-      <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="31:48" size="336:219">
+      <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="31:48" size="336:239">
         <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
         <property key="QUALIFIED_NAME_DEPTH" value="0"/>
         <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
@@ -374,6 +374,13 @@
               <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_L7u2QKQxEeK6m6kjeiRD8g"/>
             </semanticModel>
           </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_e7QFIKT-EeKc15wdmXCqUA"/>
+            </semanticModel>
+          </contained>
         </contained>
         <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="1194:427" size="334:61">
           <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
@@ -382,7 +389,7 @@
         <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
           <element xsi:type="uml:Class" href="PlagiatsSoftware.uml#_vSJmAJ32EeKaDI83mD0GjA"/>
         </semanticModel>
-        <anchorage position="367:262" graphEdge="/0/@contained.0/@contained.11"/>
+        <anchorage position="367:282" graphEdge="/0/@contained.0/@contained.11"/>
       </contained>
       <contained xsi:type="di2:GraphEdge" isVisible="true" fontFamily="Arial" fontSize="9" lineStyle="solid" fontColor="0:0:0" foregroundColor="0:0:0" backgroundColor="0:0:0" borderColor="0:0:0" anchor="/0/@contained.0/@contained.0/@anchorage.2 /0/@contained.0/@contained.1/@anchorage.1">
         <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
@@ -2933,6 +2940,105 @@
     </contained>
     <owner xsi:type="di2:Uml1SemanticModelBridge">
       <element xsi:type="uml:Package" href="PlagiatsSoftware.uml#_dE_fYKKTEeKMIf9i-FycNQ"/>
+    </owner>
+  </di2:Diagram>
+  <di2:Diagram isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="255:255:255" foregroundColor="255:255:255" backgroundColor="255:255:255" borderColor="255:255:255" position="0:0" name="Parse File without  Plagiatscheck" type="SequenceDiagram">
+    <contained xsi:type="di2:GraphNode" fontFamily="Arial" fontColor="0:0:0" foregroundColor="0:0:0" backgroundColor="248:249:214" borderColor="157:124:47" position="30:30" size="1455:551">
+      <contained xsi:type="di2:GraphNode" fontFamily="Arial" fontColor="0:0:0" foregroundColor="0:0:0" backgroundColor="248:249:214" borderColor="157:124:47" position="146:40" size="100:496">
+        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" graphElement="/13/@contained.0/@contained.0">
+          <element xsi:type="uml:Lifeline" href="PlagiatsSoftware.uml#_gGmFoKT4EeKc15wdmXCqUA"/>
+        </semanticModel>
+        <anchorage position="315:142" graphEdge="/13/@contained.1"/>
+        <anchorage position="315:172" graphEdge="/13/@contained.2"/>
+        <anchorage position="216:303" graphEdge="/13/@contained.3"/>
+        <anchorage position="315:262" graphEdge="/13/@contained.4"/>
+        <anchorage position="315:292" graphEdge="/13/@contained.5"/>
+        <anchorage position="487:646" graphEdge="/13/@contained.6"/>
+        <anchorage position="315:382" graphEdge="/13/@contained.7"/>
+      </contained>
+      <contained xsi:type="di2:GraphNode" fontFamily="Arial" fontColor="0:0:0" foregroundColor="0:0:0" backgroundColor="248:249:214" borderColor="157:124:47" position="368:40" size="100:496">
+        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" graphElement="/13/@contained.0/@contained.1">
+          <element xsi:type="uml:Lifeline" href="PlagiatsSoftware.uml#_-kM3kKT4EeKc15wdmXCqUA"/>
+        </semanticModel>
+        <anchorage position="542:333" graphEdge="/13/@contained.4"/>
+        <anchorage position="534:363" graphEdge="/13/@contained.5"/>
+        <anchorage position="633:359" graphEdge="/13/@contained.6"/>
+      </contained>
+      <contained xsi:type="di2:GraphNode" fontFamily="Arial" fontColor="0:0:0" foregroundColor="0:0:0" backgroundColor="248:249:214" borderColor="157:124:47" position="635:40" size="100:496">
+        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" graphElement="/13/@contained.0/@contained.2">
+          <element xsi:type="uml:Lifeline" href="PlagiatsSoftware.uml#_NsN_kKT5EeKc15wdmXCqUA"/>
+        </semanticModel>
+        <anchorage position="942:206" graphEdge="/13/@contained.1"/>
+        <anchorage position="935:243" graphEdge="/13/@contained.2"/>
+        <anchorage position="1034:239" graphEdge="/13/@contained.3"/>
+        <anchorage position="1034:389" graphEdge="/13/@contained.7"/>
+      </contained>
+      <contained xsi:type="di2:GraphNode" fontFamily="Arial" fontColor="0:0:0" foregroundColor="0:0:0" backgroundColor="248:249:214" borderColor="157:124:47" position="196:125" size="1:126">
+        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" graphElement="/13/@contained.0/@contained.3">
+          <element xsi:type="uml:BehaviorExecutionSpecification" href="PlagiatsSoftware.uml#_-BnyIqT8EeKc15wdmXCqUA"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di2:GraphNode" fontFamily="Arial" fontColor="0:0:0" foregroundColor="0:0:0" backgroundColor="248:249:214" borderColor="157:124:47" position="685:155" size="1:41">
+        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" graphElement="/13/@contained.0/@contained.4">
+          <element xsi:type="uml:BehaviorExecutionSpecification" href="PlagiatsSoftware.uml#_PXJ6kqT9EeKc15wdmXCqUA"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di2:GraphNode" fontFamily="Arial" fontColor="0:0:0" foregroundColor="0:0:0" backgroundColor="248:249:214" borderColor="157:124:47" position="418:235" size="1:41">
+        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" graphElement="/13/@contained.0/@contained.5">
+          <element xsi:type="uml:BehaviorExecutionSpecification" href="PlagiatsSoftware.uml#_xtuiIqT9EeKc15wdmXCqUA"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di2:GraphNode" fontFamily="Arial" fontColor="0:0:0" foregroundColor="0:0:0" backgroundColor="248:249:214" borderColor="157:124:47" position="685:295" size="1:16">
+        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" graphElement="/13/@contained.0/@contained.6">
+          <element xsi:type="uml:BehaviorExecutionSpecification" href="PlagiatsSoftware.uml#_mGrxEqT-EeKc15wdmXCqUA"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di2:GraphNode" fontFamily="Arial" fontColor="0:0:0" foregroundColor="0:0:0" backgroundColor="248:249:214" borderColor="157:124:47" position="196:275" size="1:61">
+        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" graphElement="/13/@contained.0/@contained.7">
+          <element xsi:type="uml:BehaviorExecutionSpecification" href="PlagiatsSoftware.uml#_pnXpkqT-EeKc15wdmXCqUA"/>
+        </semanticModel>
+      </contained>
+      <semanticModel xsi:type="di2:Uml1SemanticModelBridge" graphElement="/13/@contained.0">
+        <element xsi:type="uml:Interaction" href="PlagiatsSoftware.uml#_cgeTgKT4EeKc15wdmXCqUA"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="di2:GraphEdge" fontFamily="Arial" fontColor="0:0:0" foregroundColor="0:0:0" backgroundColor="255:255:255" borderColor="0:0:0" anchor="/13/@contained.0/@contained.0/@anchorage.0 /13/@contained.0/@contained.2/@anchorage.0">
+      <semanticModel xsi:type="di2:Uml1SemanticModelBridge" graphElement="/13/@contained.1">
+        <element xsi:type="uml:Message" href="PlagiatsSoftware.uml#_CRBKwKT9EeKc15wdmXCqUA"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="di2:GraphEdge" fontFamily="Arial" fontColor="0:0:0" foregroundColor="0:0:0" backgroundColor="255:255:255" borderColor="0:0:0" anchor="/13/@contained.0/@contained.0/@anchorage.1 /13/@contained.0/@contained.2/@anchorage.1">
+      <semanticModel xsi:type="di2:Uml1SemanticModelBridge" graphElement="/13/@contained.2">
+        <element xsi:type="uml:Message" href="PlagiatsSoftware.uml#_SdSlEKT9EeKc15wdmXCqUA"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="di2:GraphEdge" fontFamily="Arial" fontColor="0:0:0" foregroundColor="0:0:0" backgroundColor="255:255:255" borderColor="0:0:0" anchor="/13/@contained.0/@contained.2/@anchorage.2 /13/@contained.0/@contained.0/@anchorage.2">
+      <semanticModel xsi:type="di2:Uml1SemanticModelBridge" graphElement="/13/@contained.3">
+        <element xsi:type="uml:Message" href="PlagiatsSoftware.uml#_erGlwKT9EeKc15wdmXCqUA"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="di2:GraphEdge" fontFamily="Arial" fontColor="0:0:0" foregroundColor="0:0:0" backgroundColor="255:255:255" borderColor="0:0:0" anchor="/13/@contained.0/@contained.0/@anchorage.3 /13/@contained.0/@contained.1/@anchorage.0">
+      <semanticModel xsi:type="di2:Uml1SemanticModelBridge" graphElement="/13/@contained.4">
+        <element xsi:type="uml:Message" href="PlagiatsSoftware.uml#_r9Lf0KT9EeKc15wdmXCqUA"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="di2:GraphEdge" fontFamily="Arial" fontColor="0:0:0" foregroundColor="0:0:0" backgroundColor="255:255:255" borderColor="0:0:0" anchor="/13/@contained.0/@contained.0/@anchorage.4 /13/@contained.0/@contained.1/@anchorage.1">
+      <semanticModel xsi:type="di2:Uml1SemanticModelBridge" graphElement="/13/@contained.5">
+        <element xsi:type="uml:Message" href="PlagiatsSoftware.uml#_3l7EkKT9EeKc15wdmXCqUA"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="di2:GraphEdge" fontFamily="Arial" fontColor="0:0:0" foregroundColor="0:0:0" backgroundColor="255:255:255" borderColor="0:0:0" anchor="/13/@contained.0/@contained.1/@anchorage.2 /13/@contained.0/@contained.0/@anchorage.5">
+      <semanticModel xsi:type="di2:Uml1SemanticModelBridge" graphElement="/13/@contained.6">
+        <element xsi:type="uml:Message" href="PlagiatsSoftware.uml#_CAKO0KT-EeKc15wdmXCqUA"/>
+      </semanticModel>
+    </contained>
+    <contained xsi:type="di2:GraphEdge" fontFamily="Arial" fontColor="0:0:0" foregroundColor="0:0:0" backgroundColor="255:255:255" borderColor="0:0:0" anchor="/13/@contained.0/@contained.0/@anchorage.6 /13/@contained.0/@contained.2/@anchorage.3">
+      <semanticModel xsi:type="di2:Uml1SemanticModelBridge" graphElement="/13/@contained.7">
+        <element xsi:type="uml:Message" href="PlagiatsSoftware.uml#_uJjbUKT-EeKc15wdmXCqUA"/>
+      </semanticModel>
+    </contained>
+    <owner xsi:type="di2:Uml1SemanticModelBridge">
+      <element xsi:type="uml:Package" href="PlagiatsSoftware.uml#_Xv0xgKKTEeKMIf9i-FycNQ"/>
     </owner>
   </di2:Diagram>
 </xmi:XMI>
