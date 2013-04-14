@@ -1835,7 +1835,7 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_4EHbkJ6eEeKJ99ZeTpuTXA" name="UseCases">
       <packagedElement xmi:type="uml:Actor" xmi:id="_BsV6EJ6fEeKJ99ZeTpuTXA" name="Student" clientDependency="_oYYdoJ--EeKPS4Gz0JjhAg _02_6cJ--EeKPS4Gz0JjhAg _Ri7B8KNlEeKMzuD3Gl31Cw _RwuNYKNlEeKMzuD3Gl31Cw _CW8KgKNmEeKMzuD3Gl31Cw"/>
-      <packagedElement xmi:type="uml:Actor" xmi:id="_94NhIJ6eEeKJ99ZeTpuTXA" name="Dozent" clientDependency="_u1Lh8J--EeKPS4Gz0JjhAg _1UlOUJ--EeKPS4Gz0JjhAg _JZrUUJ-_EeKPS4Gz0JjhAg _ZaWioJ-_EeKPS4Gz0JjhAg _jz-MYJ_AEeKPS4Gz0JjhAg _nGxZ4J_AEeKPS4Gz0JjhAg _roNkwJ_AEeKPS4Gz0JjhAg _r4ljEJ_AEeKPS4Gz0JjhAg _sHb3YJ_AEeKPS4Gz0JjhAg _wp3EQJ_BEeKPS4Gz0JjhAg _w6rHcJ_BEeKPS4Gz0JjhAg _xJOg0J_BEeKPS4Gz0JjhAg _fU9YgJ_CEeKPS4Gz0JjhAg _fp4foJ_CEeKPS4Gz0JjhAg _3eEGgJ_CEeKPS4Gz0JjhAg _3pi9wJ_CEeKPS4Gz0JjhAg _31YaUJ_CEeKPS4Gz0JjhAg _1xA5YJ_DEeKPS4Gz0JjhAg _BSfYgJ_EEeKPS4Gz0JjhAg _HO66sJ_EEeKPS4Gz0JjhAg _B8vh0KNmEeKMzuD3Gl31Cw"/>
+      <packagedElement xmi:type="uml:Actor" xmi:id="_94NhIJ6eEeKJ99ZeTpuTXA" name="Dozent" clientDependency="_u1Lh8J--EeKPS4Gz0JjhAg _1UlOUJ--EeKPS4Gz0JjhAg _JZrUUJ-_EeKPS4Gz0JjhAg _ZaWioJ-_EeKPS4Gz0JjhAg _jz-MYJ_AEeKPS4Gz0JjhAg _nGxZ4J_AEeKPS4Gz0JjhAg _roNkwJ_AEeKPS4Gz0JjhAg _r4ljEJ_AEeKPS4Gz0JjhAg _sHb3YJ_AEeKPS4Gz0JjhAg _wp3EQJ_BEeKPS4Gz0JjhAg _w6rHcJ_BEeKPS4Gz0JjhAg _xJOg0J_BEeKPS4Gz0JjhAg _fU9YgJ_CEeKPS4Gz0JjhAg _fp4foJ_CEeKPS4Gz0JjhAg _3eEGgJ_CEeKPS4Gz0JjhAg _3pi9wJ_CEeKPS4Gz0JjhAg _31YaUJ_CEeKPS4Gz0JjhAg _1xA5YJ_DEeKPS4Gz0JjhAg _BSfYgJ_EEeKPS4Gz0JjhAg _HO66sJ_EEeKPS4Gz0JjhAg _B8vh0KNmEeKMzuD3Gl31Cw _tkXeQKU4EeKAc95ovt51HQ _t3iR4KU4EeKAc95ovt51HQ _uFGMwKU4EeKAc95ovt51HQ"/>
       <packagedElement xmi:type="uml:Package" xmi:id="_Re-28J6gEeKJ99ZeTpuTXA" name="PlagiatsSoftware">
         <packagedElement xmi:type="uml:Package" xmi:id="_GIyaEJ-5EeKPS4Gz0JjhAg" name="Benutzerverwaltung">
           <packagedElement xmi:type="uml:UseCase" xmi:id="_N5O8wJ-nEeK43OjeIxGOcw" name="Benutzer löschen"/>
@@ -1867,11 +1867,11 @@
           <packagedElement xmi:type="uml:Usage" xmi:id="_dRZ-oJ-9EeKPS4Gz0JjhAg" name="FromAdministratortoBenutzer anlegen" supplier="_L4xg4J-nEeK43OjeIxGOcw" client="_66xpgJ-4EeKPS4Gz0JjhAg"/>
           <packagedElement xmi:type="uml:Usage" xmi:id="_dfEnMJ-9EeKPS4Gz0JjhAg" name="FromAdministratortoBenutzer freischalten" supplier="_PO1dwJ-nEeK43OjeIxGOcw" client="_66xpgJ-4EeKPS4Gz0JjhAg"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Package" xmi:id="_Jg_sAJ-5EeKPS4Gz0JjhAg" name="Quelldateien bereitstellen">
+        <packagedElement xmi:type="uml:Package" xmi:id="_Jg_sAJ-5EeKPS4Gz0JjhAg" name="Prüfdateien bereitstellen">
           <packagedElement xmi:type="uml:UseCase" xmi:id="_-c6qoJ-kEeK43OjeIxGOcw" name="Hochladen über generierten Link"/>
-          <packagedElement xmi:type="uml:UseCase" xmi:id="_xKCC0J-lEeK43OjeIxGOcw" name="URL als Quelldatei angeben"/>
+          <packagedElement xmi:type="uml:UseCase" xmi:id="_xKCC0J-lEeK43OjeIxGOcw" name="URL als Prüfdatei angeben"/>
           <packagedElement xmi:type="uml:UseCase" xmi:id="_YAPB8J-nEeK43OjeIxGOcw" name="Dateiimport per E-Mail"/>
-          <packagedElement xmi:type="uml:UseCase" xmi:id="_awkGcJ-lEeK43OjeIxGOcw" name="Quelldatei hochladen"/>
+          <packagedElement xmi:type="uml:UseCase" xmi:id="_awkGcJ-lEeK43OjeIxGOcw" name="Prüfdatei hochladen"/>
           <packagedElement xmi:type="uml:UseCase" xmi:id="_evuDoJ-lEeK43OjeIxGOcw" name="Dokumentarchive hochladen"/>
           <packagedElement xmi:type="uml:Usage" xmi:id="_oYYdoJ--EeKPS4Gz0JjhAg" name="FromStudenttoHochladen über generierten Link" supplier="_-c6qoJ-kEeK43OjeIxGOcw" client="_BsV6EJ6fEeKJ99ZeTpuTXA"/>
           <packagedElement xmi:type="uml:Usage" xmi:id="_u1Lh8J--EeKPS4Gz0JjhAg" name="FromDozenttoURL als Quelldatei angeben" supplier="_xKCC0J-lEeK43OjeIxGOcw" client="_94NhIJ6eEeKJ99ZeTpuTXA"/>
@@ -1922,6 +1922,12 @@
           <packagedElement xmi:type="uml:UseCase" xmi:id="_RZySYJ-nEeK43OjeIxGOcw" name="Grafikbericht erstellen"/>
           <packagedElement xmi:type="uml:UseCase" xmi:id="_UXxGcJ-nEeK43OjeIxGOcw" name="Schnellbericht erstellen"/>
           <packagedElement xmi:type="uml:UseCase" xmi:id="_xJkTUJ-mEeK43OjeIxGOcw" name="Resultatbericht erstellen"/>
+          <packagedElement xmi:type="uml:Usage" xmi:id="_tkXeQKU4EeKAc95ovt51HQ" name="FromDozenttoGrafikbericht erstellen" supplier="_RZySYJ-nEeK43OjeIxGOcw" client="_94NhIJ6eEeKJ99ZeTpuTXA"/>
+          <packagedElement xmi:type="uml:Usage" xmi:id="_t3iR4KU4EeKAc95ovt51HQ" name="FromDozenttoSchnellbericht erstellen" supplier="_UXxGcJ-nEeK43OjeIxGOcw" client="_94NhIJ6eEeKJ99ZeTpuTXA"/>
+          <packagedElement xmi:type="uml:Usage" xmi:id="_uFGMwKU4EeKAc95ovt51HQ" name="FromDozenttoResultatbericht erstellen" supplier="_xJkTUJ-mEeK43OjeIxGOcw" client="_94NhIJ6eEeKJ99ZeTpuTXA"/>
+          <packagedElement xmi:type="uml:Usage" xmi:id="_uSRtIKU4EeKAc95ovt51HQ" name="FromAdministratortoGrafikbericht erstellen" supplier="_RZySYJ-nEeK43OjeIxGOcw" client="_66xpgJ-4EeKPS4Gz0JjhAg"/>
+          <packagedElement xmi:type="uml:Usage" xmi:id="_uic3IKU4EeKAc95ovt51HQ" name="FromAdministratortoSchnellbericht erstellen" supplier="_UXxGcJ-nEeK43OjeIxGOcw" client="_66xpgJ-4EeKPS4Gz0JjhAg"/>
+          <packagedElement xmi:type="uml:Usage" xmi:id="_uymzAKU4EeKAc95ovt51HQ" name="FromAdministratortoResultatbericht erstellen" supplier="_xJkTUJ-mEeK43OjeIxGOcw" client="_66xpgJ-4EeKPS4Gz0JjhAg"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Package" xmi:id="_zOExoJ-6EeKPS4Gz0JjhAg" name="Plagiatsprüfung">
           <packagedElement xmi:type="uml:UseCase" xmi:id="_b6lXoJ-nEeK43OjeIxGOcw" name="Textfragmentprüfung"/>
@@ -1962,7 +1968,7 @@
           <packagedElement xmi:type="uml:Usage" xmi:id="_4conkJ_CEeKPS4Gz0JjhAg" name="FromAdministratortoLokale Quellen verwalten" supplier="_APtzEJ-nEeK43OjeIxGOcw" client="_66xpgJ-4EeKPS4Gz0JjhAg"/>
         </packagedElement>
       </packagedElement>
-      <packagedElement xmi:type="uml:Actor" xmi:id="_66xpgJ-4EeKPS4Gz0JjhAg" name="Administrator" clientDependency="_dAOIAJ-9EeKPS4Gz0JjhAg _dRZ-oJ-9EeKPS4Gz0JjhAg _dfEnMJ-9EeKPS4Gz0JjhAg _vL0gUJ--EeKPS4Gz0JjhAg _1t5tQJ--EeKPS4Gz0JjhAg _J-kxIJ-_EeKPS4Gz0JjhAg _aAt_EJ-_EeKPS4Gz0JjhAg _kS49AJ_AEeKPS4Gz0JjhAg _m17hgJ_AEeKPS4Gz0JjhAg _sX5VQJ_AEeKPS4Gz0JjhAg _so8B8J_AEeKPS4Gz0JjhAg _s5V1cJ_AEeKPS4Gz0JjhAg _xgjbsJ_BEeKPS4Gz0JjhAg _xyuw0J_BEeKPS4Gz0JjhAg _yDo6oJ_BEeKPS4Gz0JjhAg _f14UQJ_CEeKPS4Gz0JjhAg _gCRKcJ_CEeKPS4Gz0JjhAg _4EMSYJ_CEeKPS4Gz0JjhAg _4QMuEJ_CEeKPS4Gz0JjhAg _4conkJ_CEeKPS4Gz0JjhAg _2CqqEJ_DEeKPS4Gz0JjhAg _BAY74J_EEeKPS4Gz0JjhAg _G4y5sJ_EEeKPS4Gz0JjhAg _CMDJIKNmEeKMzuD3Gl31Cw">
+      <packagedElement xmi:type="uml:Actor" xmi:id="_66xpgJ-4EeKPS4Gz0JjhAg" name="Administrator" clientDependency="_dAOIAJ-9EeKPS4Gz0JjhAg _dRZ-oJ-9EeKPS4Gz0JjhAg _dfEnMJ-9EeKPS4Gz0JjhAg _vL0gUJ--EeKPS4Gz0JjhAg _1t5tQJ--EeKPS4Gz0JjhAg _J-kxIJ-_EeKPS4Gz0JjhAg _aAt_EJ-_EeKPS4Gz0JjhAg _kS49AJ_AEeKPS4Gz0JjhAg _m17hgJ_AEeKPS4Gz0JjhAg _sX5VQJ_AEeKPS4Gz0JjhAg _so8B8J_AEeKPS4Gz0JjhAg _s5V1cJ_AEeKPS4Gz0JjhAg _xgjbsJ_BEeKPS4Gz0JjhAg _xyuw0J_BEeKPS4Gz0JjhAg _yDo6oJ_BEeKPS4Gz0JjhAg _f14UQJ_CEeKPS4Gz0JjhAg _gCRKcJ_CEeKPS4Gz0JjhAg _4EMSYJ_CEeKPS4Gz0JjhAg _4QMuEJ_CEeKPS4Gz0JjhAg _4conkJ_CEeKPS4Gz0JjhAg _2CqqEJ_DEeKPS4Gz0JjhAg _BAY74J_EEeKPS4Gz0JjhAg _G4y5sJ_EEeKPS4Gz0JjhAg _CMDJIKNmEeKMzuD3Gl31Cw _uSRtIKU4EeKAc95ovt51HQ _uic3IKU4EeKAc95ovt51HQ _uymzAKU4EeKAc95ovt51HQ">
         <generalization xmi:id="_ga7ikKNmEeKMzuD3Gl31Cw" general="_94NhIJ6eEeKJ99ZeTpuTXA"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Actor" xmi:id="_by8fwJ_BEeKPS4Gz0JjhAg" name="Benutzer" clientDependency="_gqig0J_BEeKPS4Gz0JjhAg _p78awJ_BEeKPS4Gz0JjhAg"/>
