@@ -12,4 +12,23 @@
   <elementImport xmi:id="_tGBCMqNzEeKrwpL2Qi3j6w">
     <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
   </elementImport>
+  <packagedElement xmi:type="uml:Activity" xmi:id="_lsiCgKU8EeKAc95ovt51HQ" name="Ablauf einer Anfrage">
+    <node xmi:type="uml:InitialNode" xmi:id="_EFSpUKVAEeKAc95ovt51HQ" outgoing="_KYfFsKVAEeKAc95ovt51HQ" inPartition="__stfgKU_EeKAc95ovt51HQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_FnGaUKVAEeKAc95ovt51HQ" name="Userinteraktion" outgoing="_bWL88KVAEeKAc95ovt51HQ" incoming="_KYfFsKVAEeKAc95ovt51HQ" inPartition="__stfgKU_EeKAc95ovt51HQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_SATysKVAEeKAc95ovt51HQ" name="Daten in DB ablegen" outgoing="_bzLa8KVAEeKAc95ovt51HQ" incoming="_bWL88KVAEeKAc95ovt51HQ" inPartition="__stfgKU_EeKAc95ovt51HQ"/>
+    <node xmi:type="uml:SendSignalAction" xmi:id="_WDAMEKVAEeKAc95ovt51HQ" name="http-Request an Backend" outgoing="_7LL_oKVAEeKAc95ovt51HQ" incoming="_bzLa8KVAEeKAc95ovt51HQ" inPartition="__stfgKU_EeKAc95ovt51HQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_ymL4sKVAEeKAc95ovt51HQ" name="Daten aus DB holen" outgoing="_Afo70KVBEeKAc95ovt51HQ" incoming="_7LL_oKVAEeKAc95ovt51HQ" inPartition="_slT7YKVAEeKAc95ovt51HQ"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_4G8ykKVAEeKAc95ovt51HQ" name="Aktion ausführen" outgoing="_BCxeEKVBEeKAc95ovt51HQ" incoming="_Afo70KVBEeKAc95ovt51HQ" inPartition="_slT7YKVAEeKAc95ovt51HQ"/>
+    <node xmi:type="uml:ActivityFinalNode" xmi:id="_6YbF8KVAEeKAc95ovt51HQ" incoming="_BCxeEKVBEeKAc95ovt51HQ" inPartition="_slT7YKVAEeKAc95ovt51HQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_KYfFsKVAEeKAc95ovt51HQ" source="_EFSpUKVAEeKAc95ovt51HQ" target="_FnGaUKVAEeKAc95ovt51HQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_bWL88KVAEeKAc95ovt51HQ" source="_FnGaUKVAEeKAc95ovt51HQ" target="_SATysKVAEeKAc95ovt51HQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_bzLa8KVAEeKAc95ovt51HQ" source="_SATysKVAEeKAc95ovt51HQ" target="_WDAMEKVAEeKAc95ovt51HQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_7LL_oKVAEeKAc95ovt51HQ" source="_WDAMEKVAEeKAc95ovt51HQ" target="_ymL4sKVAEeKAc95ovt51HQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_Afo70KVBEeKAc95ovt51HQ" source="_ymL4sKVAEeKAc95ovt51HQ" target="_4G8ykKVAEeKAc95ovt51HQ"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_BCxeEKVBEeKAc95ovt51HQ" source="_4G8ykKVAEeKAc95ovt51HQ" target="_6YbF8KVAEeKAc95ovt51HQ"/>
+    <group xmi:type="uml:ActivityPartition" xmi:id="__stfgKU_EeKAc95ovt51HQ" name="Frontend" node="_EFSpUKVAEeKAc95ovt51HQ _FnGaUKVAEeKAc95ovt51HQ _SATysKVAEeKAc95ovt51HQ _WDAMEKVAEeKAc95ovt51HQ">
+      <subpartition xmi:id="_qM4EYKVAEeKAc95ovt51HQ" name="ActivityPartition"/>
+    </group>
+    <group xmi:type="uml:ActivityPartition" xmi:id="_slT7YKVAEeKAc95ovt51HQ" name="Backend" node="_ymL4sKVAEeKAc95ovt51HQ _4G8ykKVAEeKAc95ovt51HQ _6YbF8KVAEeKAc95ovt51HQ"/>
+  </packagedElement>
 </uml:Package>
