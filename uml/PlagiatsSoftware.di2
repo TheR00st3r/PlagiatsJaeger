@@ -831,511 +831,6 @@
         <element xsi:type="uml:Package" href="PlagiatsSoftware.uml#_41BTQJxdEeKGFdmMcDXXwg"/>
       </semanticModel>
     </contained>
-    <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="-215:809" size="1642:614">
-      <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-      <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-      <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="41:96" size="359:140">
-        <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-        <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        </contained>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_jP0kAKSCEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_HEhWcKSDEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-        </contained>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        </contained>
-        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-          <element xsi:type="uml:Class" href="PlagiatsSoftware.uml#_bz4W4KSCEeKENtWc67-9bw"/>
-        </semanticModel>
-      </contained>
-      <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="515:91" size="354:116">
-        <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-        <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        </contained>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_zgUB4KSAEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_88ImoKSBEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-        </contained>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        </contained>
-        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-          <element xsi:type="uml:Class" href="PlagiatsSoftware.uml#_p_cvoKSAEeKENtWc67-9bw"/>
-        </semanticModel>
-      </contained>
-      <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="-17:254" size="429:258">
-        <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-        <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        </contained>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_Ij63MKSEEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_olIJ4KSEEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_EXbMIKSFEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_VRjK8KSFEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_jETJIKSFEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_rW7GoKSFEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_8TlcEKSFEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_NIMBsKSGEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-        </contained>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        </contained>
-        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-          <element xsi:type="uml:Class" href="PlagiatsSoftware.uml#_FIkxsKSEEeKENtWc67-9bw"/>
-        </semanticModel>
-      </contained>
-      <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="461:289" size="286:220">
-        <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-        <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        </contained>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="461:326" size="285:50">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_gBaxgKSGEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_r9GgYKSGEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_zEeywKSGEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_7FYHEKSGEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_AqtX4KSHEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_FIEUAKSHEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-        </contained>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        </contained>
-        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-          <element xsi:type="uml:Class" href="PlagiatsSoftware.uml#_b4xhIKSGEeKENtWc67-9bw"/>
-        </semanticModel>
-      </contained>
-      <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="891:89" size="255:96">
-        <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-        <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        </contained>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_TXkfoKSHEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-        </contained>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        </contained>
-        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-          <element xsi:type="uml:Class" href="PlagiatsSoftware.uml#_MFnU8KSHEeKENtWc67-9bw"/>
-        </semanticModel>
-      </contained>
-      <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="781:288" size="279:275">
-        <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-        <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        </contained>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_mrLeUKSHEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_2j4cYKSHEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_-cSjEKSHEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_C6-78KSIEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_FK7lUKSIEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_LioHMKSIEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_OjTC4KSIEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_R5lCMKSIEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-        </contained>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        </contained>
-        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-          <element xsi:type="uml:Class" href="PlagiatsSoftware.uml#_kXgLgKSHEeKENtWc67-9bw"/>
-        </semanticModel>
-      </contained>
-      <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="1173:76" size="360:83">
-        <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-        <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        </contained>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_bJcrEKSIEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-        </contained>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        </contained>
-        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-          <element xsi:type="uml:Class" href="PlagiatsSoftware.uml#_X1tCYKSIEeKENtWc67-9bw"/>
-        </semanticModel>
-      </contained>
-      <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="907:199" size="210:74">
-        <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-        <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        </contained>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_s6j8QKSIEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-        </contained>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        </contained>
-        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-          <element xsi:type="uml:Class" href="PlagiatsSoftware.uml#_qEBM8KSIEeKENtWc67-9bw"/>
-        </semanticModel>
-      </contained>
-      <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="1151:217" size="339:113">
-        <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-        <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="1297:228" size="98:18">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        </contained>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_32dpIKSIEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_L4tPcKSJEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_p57AUKSJEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-        </contained>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        </contained>
-        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-          <element xsi:type="uml:Class" href="PlagiatsSoftware.uml#_1Gol0KSIEeKENtWc67-9bw"/>
-        </semanticModel>
-      </contained>
-      <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="1089:345" size="326:345">
-        <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-        <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        </contained>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_8PFZwKSJEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_FumoMKSKEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_faDSsKSKEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_xoOTUKSKEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_B9Yj4KSLEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_OLGd8KSLEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_ZxU6MKSLEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_prOyIKSLEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_wCeoEKSLEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_zmKxQKSLEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_2687wKSLEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_7fwjsKSLEeKENtWc67-9bw"/>
-            </semanticModel>
-          </contained>
-        </contained>
-        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
-          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
-          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
-        </contained>
-        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-          <element xsi:type="uml:Class" href="PlagiatsSoftware.uml#_5B5sEKSJEeKENtWc67-9bw"/>
-        </semanticModel>
-      </contained>
-      <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
-        <element xsi:type="uml:Package" href="PlagiatsSoftware.uml#_2PKi4KSCEeKENtWc67-9bw"/>
-      </semanticModel>
-    </contained>
     <owner xsi:type="di2:Uml1SemanticModelBridge">
       <element xsi:type="uml:Package" href="PlagiatsSoftware.uml#_Xv0xgKKTEeKMIf9i-FycNQ"/>
     </owner>
@@ -2926,6 +2421,516 @@
     </owner>
   </di2:Diagram>
   <di2:Diagram isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="255:255:255" foregroundColor="255:255:255" backgroundColor="255:255:255" borderColor="255:255:255" position="0:0" name="Composite diagram of Frontend" type="CompositeStructureDiagram">
+    <owner xsi:type="di2:Uml1SemanticModelBridge">
+      <element xsi:type="uml:Package" href="PlagiatsSoftware.uml#_dE_fYKKTEeKMIf9i-FycNQ"/>
+    </owner>
+  </di2:Diagram>
+  <di2:Diagram isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="255:255:255" foregroundColor="255:255:255" backgroundColor="255:255:255" borderColor="255:255:255" position="0:0" name="Class diagram of Frontend" type="ClassDiagram">
+    <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="-8:-5" size="1765:565">
+      <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+      <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+      <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="59:59" size="334:109">
+        <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+        <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        </contained>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="80:87" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_jP0kAKSCEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="200:87" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_HEhWcKSDEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+        </contained>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        </contained>
+        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+          <element xsi:type="uml:Class" href="PlagiatsSoftware.uml#_bz4W4KSCEeKENtWc67-9bw"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="57:182" size="337:100">
+        <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+        <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        </contained>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="355:218" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_zgUB4KSAEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="475:218" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_88ImoKSBEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+        </contained>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        </contained>
+        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+          <element xsi:type="uml:Class" href="PlagiatsSoftware.uml#_p_cvoKSAEeKENtWc67-9bw"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="56:292" size="464:205">
+        <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+        <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        </contained>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="102:258" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_Ij63MKSEEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="222:258" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_olIJ4KSEEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="342:258" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_EXbMIKSFEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="462:258" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_VRjK8KSFEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="582:258" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_jETJIKSFEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="702:258" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_rW7GoKSFEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="822:258" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_8TlcEKSFEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="942:258" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_NIMBsKSGEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+        </contained>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        </contained>
+        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+          <element xsi:type="uml:Class" href="PlagiatsSoftware.uml#_FIkxsKSEEeKENtWc67-9bw"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="415:62" size="255:175">
+        <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+        <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        </contained>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="416:99" size="249:114">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="343:85" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_gBaxgKSGEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="463:85" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_r9GgYKSGEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="583:85" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_zEeywKSGEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="703:85" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_7FYHEKSGEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="823:85" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_AqtX4KSHEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="943:85" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_FIEUAKSHEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+        </contained>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        </contained>
+        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+          <element xsi:type="uml:Class" href="PlagiatsSoftware.uml#_b4xhIKSGEeKENtWc67-9bw"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="680:61" size="266:100">
+        <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+        <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        </contained>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="613:223" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_TXkfoKSHEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+        </contained>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        </contained>
+        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+          <element xsi:type="uml:Class" href="PlagiatsSoftware.uml#_MFnU8KSHEeKENtWc67-9bw"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="536:289" size="386:215">
+        <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+        <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        </contained>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="451:226" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_mrLeUKSHEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="571:226" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_2j4cYKSHEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="691:226" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_-cSjEKSHEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="811:226" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_C6-78KSIEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="931:226" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_FK7lUKSIEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="1051:226" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_LioHMKSIEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="1171:226" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_OjTC4KSIEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="1291:226" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_R5lCMKSIEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+        </contained>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        </contained>
+        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+          <element xsi:type="uml:Class" href="PlagiatsSoftware.uml#_kXgLgKSHEeKENtWc67-9bw"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="680:170" size="326:100">
+        <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+        <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        </contained>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="742:89" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_bJcrEKSIEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+        </contained>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        </contained>
+        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+          <element xsi:type="uml:Class" href="PlagiatsSoftware.uml#_X1tCYKSIEeKENtWc67-9bw"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="972:57" size="214:100">
+        <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+        <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        </contained>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="769:81" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_s6j8QKSIEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+        </contained>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        </contained>
+        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+          <element xsi:type="uml:Class" href="PlagiatsSoftware.uml#_qEBM8KSIEeKENtWc67-9bw"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="1212:54" size="439:110">
+        <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+        <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        </contained>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="816:169" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_32dpIKSIEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="936:169" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_L4tPcKSJEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="1056:169" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_p57AUKSJEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+        </contained>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        </contained>
+        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+          <element xsi:type="uml:Class" href="PlagiatsSoftware.uml#_1Gol0KSIEeKENtWc67-9bw"/>
+        </semanticModel>
+      </contained>
+      <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="1023:170" size="455:344">
+        <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+        <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        </contained>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="801:169" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_8PFZwKSJEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="921:169" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_FumoMKSKEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="1041:169" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_faDSsKSKEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="1161:169" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_xoOTUKSKEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="1281:169" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_B9Yj4KSLEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="1401:169" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_OLGd8KSLEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="1521:169" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_ZxU6MKSLEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="1641:169" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_prOyIKSLEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="1761:169" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_wCeoEKSLEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="1881:169" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_zmKxQKSLEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="2001:169" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_2687wKSLEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+          <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="2121:169" size="100:100">
+            <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+            <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+            <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+              <element xsi:type="uml:Operation" href="PlagiatsSoftware.uml#_7fwjsKSLEeKENtWc67-9bw"/>
+            </semanticModel>
+          </contained>
+        </contained>
+        <contained xsi:type="di2:GraphNode" isVisible="true" fontFamily="Arial" lineStyle="solid" fontColor="0:0:0" foregroundColor="248:249:214" backgroundColor="248:249:214" borderColor="157:124:47" position="20:20" size="100:100">
+          <property key="STEREOTYPE_DISPLAY_LOCATION" value="Comment"/>
+          <property key="QUALIFIED_NAME_DEPTH" value="0"/>
+        </contained>
+        <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+          <element xsi:type="uml:Class" href="PlagiatsSoftware.uml#_5B5sEKSJEeKENtWc67-9bw"/>
+        </semanticModel>
+      </contained>
+      <semanticModel xsi:type="di2:Uml1SemanticModelBridge" presentation="TextStereotype">
+        <element xsi:type="uml:Package" href="PlagiatsSoftware.uml#_dE_fYKKTEeKMIf9i-FycNQ"/>
+      </semanticModel>
+    </contained>
     <owner xsi:type="di2:Uml1SemanticModelBridge">
       <element xsi:type="uml:Package" href="PlagiatsSoftware.uml#_dE_fYKKTEeKMIf9i-FycNQ"/>
     </owner>
