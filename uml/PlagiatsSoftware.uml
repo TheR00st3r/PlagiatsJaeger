@@ -1185,7 +1185,7 @@
           </ownedOperation>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_MFnU8KSHEeKENtWc67-9bw" name="Mail.php">
-          <ownedOperation xmi:id="_TXkfoKSHEeKENtWc67-9bw" name="login" isAbstract="true">
+          <ownedOperation xmi:id="_TXkfoKSHEeKENtWc67-9bw" name="login">
             <ownedParameter xmi:id="_VR6FYKSHEeKENtWc67-9bw" name="email">
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Yqa5UaSHEeKENtWc67-9bw" value="1"/>
@@ -1264,7 +1264,7 @@
               </defaultValue>
             </ownedParameter>
           </ownedOperation>
-          <ownedOperation xmi:id="_-cSjEKSHEeKENtWc67-9bw" name="createGraphicReport" isAbstract="true">
+          <ownedOperation xmi:id="_-cSjEKSHEeKENtWc67-9bw" name="createGraphicReport">
             <ownedParameter xmi:id="_AsYWYKSIEeKENtWc67-9bw" name="uID">
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CAuTIaSIEeKENtWc67-9bw" value="1"/>
@@ -1274,7 +1274,7 @@
               </defaultValue>
             </ownedParameter>
           </ownedOperation>
-          <ownedOperation xmi:id="_C6-78KSIEeKENtWc67-9bw" name="createShortReport" isAbstract="true">
+          <ownedOperation xmi:id="_C6-78KSIEeKENtWc67-9bw" name="createShortReport">
             <ownedParameter xmi:id="_ETWdEKSIEeKENtWc67-9bw" name="uID">
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_E61T0KSIEeKENtWc67-9bw" value="1"/>
@@ -1284,7 +1284,7 @@
               </defaultValue>
             </ownedParameter>
           </ownedOperation>
-          <ownedOperation xmi:id="_FK7lUKSIEeKENtWc67-9bw" name="createReport" isAbstract="true">
+          <ownedOperation xmi:id="_FK7lUKSIEeKENtWc67-9bw" name="createReport">
             <ownedParameter xmi:id="_G_wY8KSIEeKENtWc67-9bw" name="uID">
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_J2JXQaSIEeKENtWc67-9bw" value="1"/>
@@ -1294,7 +1294,7 @@
               </defaultValue>
             </ownedParameter>
           </ownedOperation>
-          <ownedOperation xmi:id="_LioHMKSIEeKENtWc67-9bw" name="showGraphicReport" isAbstract="true">
+          <ownedOperation xmi:id="_LioHMKSIEeKENtWc67-9bw" name="showGraphicReport">
             <ownedParameter xmi:id="_NIZyMKSIEeKENtWc67-9bw" name="uID">
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_NwCZ8aSIEeKENtWc67-9bw" value="1"/>
@@ -1304,7 +1304,7 @@
               </defaultValue>
             </ownedParameter>
           </ownedOperation>
-          <ownedOperation xmi:id="_OjTC4KSIEeKENtWc67-9bw" name="showShortReport" isAbstract="true">
+          <ownedOperation xmi:id="_OjTC4KSIEeKENtWc67-9bw" name="showShortReport">
             <ownedParameter xmi:id="_QICMEKSIEeKENtWc67-9bw" name="uID">
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_QqKBsKSIEeKENtWc67-9bw" value="1"/>
@@ -1314,7 +1314,7 @@
               </defaultValue>
             </ownedParameter>
           </ownedOperation>
-          <ownedOperation xmi:id="_R5lCMKSIEeKENtWc67-9bw" name="showReport" isAbstract="true">
+          <ownedOperation xmi:id="_R5lCMKSIEeKENtWc67-9bw" name="showReport">
             <ownedParameter xmi:id="_T0EY8KSIEeKENtWc67-9bw" name="uID">
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_UhqewKSIEeKENtWc67-9bw" value="1"/>
@@ -1345,7 +1345,7 @@
           </ownedOperation>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_qEBM8KSIEeKENtWc67-9bw" name="SearchProperties.php">
-          <ownedOperation xmi:id="_s6j8QKSIEeKENtWc67-9bw" name="saveProperties" isAbstract="true">
+          <ownedOperation xmi:id="_s6j8QKSIEeKENtWc67-9bw" name="saveProperties">
             <ownedParameter xmi:id="_uzjeMKSIEeKENtWc67-9bw" name="result" direction="return">
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xMcBIaSIEeKENtWc67-9bw" value="1"/>
@@ -1441,7 +1441,7 @@
               </defaultValue>
             </ownedParameter>
           </ownedOperation>
-          <ownedOperation xmi:id="_p57AUKSJEeKENtWc67-9bw" name="webPageUpload" isAbstract="true">
+          <ownedOperation xmi:id="_p57AUKSJEeKENtWc67-9bw" name="webPageUpload">
             <ownedParameter xmi:id="_rf_mQKSJEeKENtWc67-9bw" name="result" isUnique="false" direction="return">
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tpFZsaSJEeKENtWc67-9bw" value="1"/>
@@ -1512,7 +1512,7 @@
               </defaultValue>
             </ownedParameter>
           </ownedOperation>
-          <ownedOperation xmi:id="_faDSsKSKEeKENtWc67-9bw" name="registrateUser" isAbstract="true">
+          <ownedOperation xmi:id="_faDSsKSKEeKENtWc67-9bw" name="registrateUser">
             <ownedParameter xmi:id="_h_KTwKSKEeKENtWc67-9bw" name="uName">
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jAktcaSKEeKENtWc67-9bw" value="1"/>
@@ -1641,7 +1641,7 @@
               </defaultValue>
             </ownedParameter>
           </ownedOperation>
-          <ownedOperation xmi:id="_prOyIKSLEeKENtWc67-9bw" name="setUserPasswort" isAbstract="true">
+          <ownedOperation xmi:id="_prOyIKSLEeKENtWc67-9bw" name="setUserPasswort">
             <ownedParameter xmi:id="_sY-KwKSLEeKENtWc67-9bw" name="passwort1">
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_vnptQaSLEeKENtWc67-9bw" value="1"/>
@@ -1651,8 +1651,8 @@
               </defaultValue>
             </ownedParameter>
           </ownedOperation>
-          <ownedOperation xmi:id="_wCeoEKSLEeKENtWc67-9bw" name="setMailNotification" isAbstract="true"/>
-          <ownedOperation xmi:id="_zmKxQKSLEeKENtWc67-9bw" name="activateUser" isAbstract="true">
+          <ownedOperation xmi:id="_wCeoEKSLEeKENtWc67-9bw" name="setMailNotification"/>
+          <ownedOperation xmi:id="_zmKxQKSLEeKENtWc67-9bw" name="activateUser">
             <ownedParameter xmi:id="_1SM1QKSLEeKENtWc67-9bw" name="uID">
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_151dAaSLEeKENtWc67-9bw" value="1"/>
@@ -1662,7 +1662,7 @@
               </defaultValue>
             </ownedParameter>
           </ownedOperation>
-          <ownedOperation xmi:id="_2687wKSLEeKENtWc67-9bw" name="deleteUser" isAbstract="true">
+          <ownedOperation xmi:id="_2687wKSLEeKENtWc67-9bw" name="deleteUser">
             <ownedParameter xmi:id="_4qauQKSLEeKENtWc67-9bw" name="uID">
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_5RA0MaSLEeKENtWc67-9bw" value="1"/>
