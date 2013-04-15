@@ -1,65 +1,65 @@
 package info.plagiatsjaeger;
 
+import java.util.ArrayList;
 import java.util.HashSet;
-
 
 
 /**
  * Description of the class WordProcessing.
- *
- *
  */
-public class WordProcessing {
-
-
-
-	/**
-	 * Description of the method test.
-	 *
-	 */
-	public void test() {
-
-	}
+public class WordProcessing
+{
 
 	/**
 	 * Description of the method splitToWords.
-	 *
+	 * 
 	 * @param text
 	 * @return return
 	 */
-	public HashSet splitToWords(String text) {
+	public ArrayList<String> splitToWords(String text)
+	{
+		ArrayList<String> result = null;
 
+		return result;
 	}
 
 	/**
 	 * Description of the method getVerbsAndNouns.
-	 *
+	 * 
 	 * @param text
 	 * @return result
 	 */
-	public ArrayList getVerbsAndNouns(String text) {
+	public ArrayList<String> getVerbsAndNouns(String text)
+	{
+		ArrayList<String> result = null;
 
+		return result;
 	}
 
 	/**
 	 * Description of the method getVerbsAndNouns.
-	 *
+	 * 
 	 * @param taggedWords
 	 * @return result
 	 */
-	private ArrayList getVerbsAndNouns(HashSet<String> taggedWords) {
+	private ArrayList<String> getVerbsAndNouns(HashSet<String> taggedWords)
+	{
+		ArrayList<String> result = null;
 
+		return result;
 	}
 
 	/**
 	 * Description of the method tagText.
-	 *
+	 * 
 	 * @param textToTag
 	 * @return result
 	 */
-	private String tagText(String textToTag) {
+	private String tagText(String textToTag)
+	{
+		String result = null;
 
+		return result;
 	}
-
 
 }

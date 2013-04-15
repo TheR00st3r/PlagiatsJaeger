@@ -1,15 +1,13 @@
 package info.plagiatsjaeger;
 
+import info.plagiatsjaeger.enums.FileType;
+
+
 /**
  * Description of the class FileParser.
  */
 public class FileParser
 {
-
-	private static int	PDF		= 0;
-	private static int	DOC		= 1;
-	private static int	DOCX	= 2;
-	private static int	TXT		= 3;
 
 	/**
 	 * Description of the method parseFile.
@@ -19,7 +17,9 @@ public class FileParser
 	 */
 	public boolean parseFile(String filePath)
 	{
+		boolean result = false;
 
+		return result;
 	}
 
 	/**
@@ -27,9 +27,10 @@ public class FileParser
 	 * 
 	 * @return result
 	 */
-	private int detectFileType()
+	private FileType detectFileType()
 	{
-
+		FileType result = null;
+		return result;
 	}
 
 	/**
@@ -39,7 +40,9 @@ public class FileParser
 	 */
 	private boolean fileToTxt()
 	{
+		boolean result = false;
 
+		return result;
 	}
 
 	/**

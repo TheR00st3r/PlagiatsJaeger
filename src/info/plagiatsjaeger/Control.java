@@ -1,8 +1,9 @@
 package info.plagiatsjaeger;
 
+import info.plagiatsjaeger.interfaces.IComparer;
+import info.plagiatsjaeger.interfaces.IOnlineSearch;
+
 import java.util.HashSet;
-import System.Backend.Interfaces.IOnlineSearch;
-import System.Backend.Interfaces.IComparer;
 
 
 

@@ -14,13 +14,8 @@ public class SourceLoader
 	 */
 	public String loadURL(String url)
 	{
+		String result = null;
 
+		return result;
 	}
-
-	/**
-	 * Description of the method onSourceLoaded.
-	 * 
-	 * @param filePath
-	 */
-	public void onSourceLoaded(String filePath);
 }
