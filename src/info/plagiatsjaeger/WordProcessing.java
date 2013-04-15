@@ -16,10 +16,10 @@ public class WordProcessing
 	 * @param text
 	 * @return return
 	 */
-	public ArrayList<String> splitToWords(String text)
+	public String[] splitToWords(String text)
 	{
-		ArrayList<String> result = null;
-
+		String[] result = null;
+		result = text.split("[ \t\n\f\r]");
 		return result;
 	}
 
