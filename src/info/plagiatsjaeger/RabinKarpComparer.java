@@ -1,4 +1,4 @@
-package System.Backend.Classes;
+package info.plagiatsjaeger;
 
 import java.sql.Connection;
 import java.sql.Statement;

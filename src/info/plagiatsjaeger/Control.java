@@ -1,4 +1,4 @@
-package System.Backend.Classes;
+package info.plagiatsjaeger;
 
 import java.util.HashSet;
 import System.Backend.Interfaces.IOnlineSearch;
