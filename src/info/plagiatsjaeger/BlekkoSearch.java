@@ -21,10 +21,12 @@ import org.jsoup.Jsoup;
  */
 public class BlekkoSearch implements IOnlineSearch
 {
-
-	private static String		URL					= "http://blekko.com/ws/?";
-	private static String		URL_ARG_JSON		= "+%2Fjson";
-	private static String		URL_ARG_SEARCH		= "q=";
+	private static final String APIKEY_CHRISTOPH = "4e04dc3e";
+	
+	private static final String		URL					= "http://blekko.com/ws/?";
+	private static final String		URL_ARG_JSON		= "+%2Fjson";
+	private static final String		URL_ARG_AUTH		= "auth=";
+	private static final String		URL_ARG_SEARCH		= "q=";
 	private static int			MAX_URLS			= 5;
 	static String				CHARSET				= "UTF-8";
 	private ArrayList<String>	_allSearchResults	= new ArrayList<String>();
@@ -42,7 +44,7 @@ public class BlekkoSearch implements IOnlineSearch
 		{
 			searchString = URLEncoder.encode(searchString, CHARSET).replaceAll("[ \t\n\f\r]", "+");
 
-			URL url = new URL(URL + URL_ARG_SEARCH + searchString + URL_ARG_JSON);
+			URL url = new URL(URL + URL_ARG_SEARCH + searchString + URL_ARG_JSON + URL_ARG_AUTH + APIKEY_CHRISTOPH);
 			InputStreamReader reader = new InputStreamReader(url.openStream(), CHARSET);
 
 			BufferedReader bufferedReader = new BufferedReader(reader);
