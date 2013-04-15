@@ -2,7 +2,18 @@ package info.plagiatsjaeger;
 
 import info.plagiatsjaeger.interfaces.IOnlineSearch;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.jsoup.Jsoup;
 
 
 /**
@@ -11,11 +22,12 @@ import java.util.ArrayList;
 public class BlekkoSearch implements IOnlineSearch
 {
 
-	private static String	URL				= "http://blekko.com/ws/?";
-	private static String	URL_ARG_JSON	= "+%2Fjson";
-	private static String	URL_ARG_SEARCH	= "q=";
-	private static int		MAX_URLS		= 5;
-	static String			CHARSET			= "UTF-8";
+	private static String		URL					= "http://blekko.com/ws/?";
+	private static String		URL_ARG_JSON		= "+%2Fjson";
+	private static String		URL_ARG_SEARCH		= "q=";
+	private static int			MAX_URLS			= 5;
+	static String				CHARSET				= "UTF-8";
+	private ArrayList<String>	_allSearchResults	= new ArrayList<String>();
 
 	/**
 	 * Description of the method search.
@@ -23,9 +35,40 @@ public class BlekkoSearch implements IOnlineSearch
 	 * @param searchString
 	 * @return result
 	 */
-	public ArrayList<SearchResult> search(String searchString)
+	public ArrayList<String> search(String searchString)
 	{
-		ArrayList<SearchResult> result = null;
+		ArrayList<String> result = null;
+		try
+		{
+			searchString = URLEncoder.encode(searchString, CHARSET).replaceAll("[ \t\n\f\r]", "+");
+
+			URL url = new URL(URL + URL_ARG_SEARCH + searchString + URL_ARG_JSON);
+			InputStreamReader reader = new InputStreamReader(url.openStream(), CHARSET);
+
+			BufferedReader bufferedReader = new BufferedReader(reader);
+
+			StringBuilder stringBuilder = new StringBuilder();
+			String line = bufferedReader.readLine();
+			while (line != null)
+			{
+				stringBuilder.append(line);
+				line = bufferedReader.readLine();
+			}
+			result = getUrlsFromJson(stringBuilder.toString());
+		}
+		catch (MalformedURLException e)
+		{
+			e.printStackTrace();
+		}
+		catch (UnsupportedEncodingException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+
 		return result;
 	}
 
@@ -37,9 +80,59 @@ public class BlekkoSearch implements IOnlineSearch
 	 */
 	private ArrayList<String> getUrlsFromJson(String searchResult)
 	{
-		ArrayList<String> result = null;
+		ArrayList<String> alUrlList = new ArrayList<String>();
+		// Matchpattern
+		// Altes JSON
+		Pattern patPattern = Pattern.compile("\"url\"\\s*?:\\s*?\"([^\"]+?)\"");
+		// Neues JSON
+		Pattern patPatternNew = Pattern.compile("\"displayUrl\"\\s*?:\\s*?\"([^\"]+?)\"");
 
-		return result;
+		Matcher matMatcher;
+
+		// Und schlie�lich in der for schleife//
+		matMatcher = patPattern.matcher(searchResult);
+
+		if (matMatcher.find())
+		{
+			// Falls matcher nicht leer ist
+			matMatcher.reset();
+
+			int numURL = 0;
+			while (numURL < MAX_URLS && matMatcher.find())
+			{
+				numURL++;
+				String strLink = cleanUrl(Jsoup.parse(matMatcher.group(1)).text());
+				// Falls Link bereits in _serchResults vorhanden nicht nochmal
+				// schicken
+				if (!_allSearchResults.contains(strLink))
+				{
+					alUrlList.add(strLink);
+					System.out.println(strLink);
+				}
+			}
+		}
+		else
+		{
+			matMatcher = patPatternNew.matcher(searchResult);
+			matMatcher.reset();
+			int numURL = 0;
+			while (numURL < MAX_URLS && matMatcher.find())
+			{
+				numURL++;
+				String strLink = cleanUrl(Jsoup.parse(matMatcher.group(1)).text());
+				// Falls Link bereits in _serchResults vorhanden nicht nochmal
+				// schicken
+				if (!_allSearchResults.contains(strLink))
+				{
+					alUrlList.add(strLink);
+					System.out.println(strLink);
+				}
+			}
+
+		}
+		_allSearchResults.addAll(alUrlList);
+		return alUrlList;
+
 	}
 
 	/**
@@ -50,8 +143,10 @@ public class BlekkoSearch implements IOnlineSearch
 	 */
 	private String cleanUrl(String dirtyUrl)
 	{
-		String result = null;
-
+		String result = "";
+		dirtyUrl = dirtyUrl.replaceAll("www.", "");
+		dirtyUrl = dirtyUrl.replaceAll("http://", "");
+		result = "http://" + dirtyUrl;
 		return result;
 	}
 

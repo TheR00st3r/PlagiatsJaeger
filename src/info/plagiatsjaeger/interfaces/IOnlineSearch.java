@@ -1,7 +1,5 @@
 package info.plagiatsjaeger.interfaces;
 
-import info.plagiatsjaeger.SearchResult;
-
 import java.util.ArrayList;
 
 
@@ -17,6 +15,6 @@ public interface IOnlineSearch
 	 * @param searchString
 	 * @return result
 	 */
-	public ArrayList<SearchResult> search(String searchString);
+	public ArrayList<String> search(String searchString);
 
 }
