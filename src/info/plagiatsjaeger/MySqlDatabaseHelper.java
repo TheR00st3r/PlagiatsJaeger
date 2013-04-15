@@ -15,8 +15,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 
-/**
- * Description of the class MySqlDatabaseHelper.
+/***
+ * Stellt Methoden zur Kommunikation mit der MySqlDatenbank zur Verfügung.
+ * 
+ * @author Michael
+ * 
  */
 public class MySqlDatabaseHelper
 {
@@ -95,30 +98,29 @@ public class MySqlDatabaseHelper
 	 */
 	public void insertSearchResults(ArrayList<SearchResult> searchResults)
 	{
-		
+
 		try
-        {
+		{
 			String strStatement = "";
-	        connect();
-	    	for (SearchResult result : searchResults)
+			connect();
+			for (SearchResult result : searchResults)
 			{
 				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + result.getreihenfolge() + "','" + result.getorginalText() + "' , '" + result.getlink() + "' , '" + result.getplagiatsText() + "' , '" + result.getsearchID() + "' )";
 				_statement.executeUpdate(strStatement);
 			}
 			disconnect();
-        }
-        catch (ClassNotFoundException e)
-        {
-	        // TODO Auto-generated catch block
-	        e.printStackTrace();
-        }
-        catch (SQLException e)
-        {
-	        // TODO Auto-generated catch block
-	        e.printStackTrace();
-        }
-		
-	
+		}
+		catch (ClassNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	/**
@@ -159,8 +161,8 @@ public class MySqlDatabaseHelper
 	 * 
 	 * @param query
 	 * @return return
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
 	 */
 	public ResultSet startQuery(String query) throws ClassNotFoundException, SQLException
 	{

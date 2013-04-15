@@ -2,31 +2,34 @@ package info.plagiatsjaeger.interfaces;
 
 import info.plagiatsjaeger.SearchResult;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 
 /**
- * Description of the interface IComparer.
+ * Schnittstelle zum Vergleichen von Texten
+ * 
+ * @author Andreas
+ * 
  */
 public interface IComparer
 {
 
 	/**
-	 * Description of the method compareText.
+	 * Vergleicht zwei eingegebene Texte und gibt die Zugehörigen {@link SearchResult SearchResults} zurück.
 	 * 
 	 * @param originalText
 	 * @param textToCheck
 	 * @return result
 	 */
-	public HashSet<SearchResult> compareText(String originalText, String textToCheck);
+	public ArrayList<SearchResult> compareText(String originalText, String textToCheck);
 
 	/**
-	 * Description of the method compareFiles.
+	 * Vergleicht zwei Dateien und gibt die Zugehörigen {@link SearchResult SearchResults} zurück.
 	 * 
 	 * @param filePathSource
 	 * @param filePathToCheck
 	 * @return result
 	 */
-	public HashSet<SearchResult> compareFiles(String filePathSource, String filePathToCheck);
+	public ArrayList<SearchResult> compareFiles(String filePathSource, String filePathToCheck);
 
 }

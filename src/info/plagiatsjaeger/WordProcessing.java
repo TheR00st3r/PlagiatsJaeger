@@ -5,16 +5,20 @@ import java.util.HashSet;
 
 
 /**
- * Description of the class WordProcessing.
+ * Stellt Funktionen zum bearbeiten/aufbereiten von Texten zur Verfügung.
+ * 
+ * @author Andreas
+ * 
  */
 public class WordProcessing
 {
 
 	/**
-	 * Description of the method splitToWords.
+	 * Teilt den gegebenen Text in einzelne Woerter auf.
 	 * 
 	 * @param text
-	 * @return return
+	 *            Text der aufgeteilt werden soll.
+	 * @return Array mit Allen Woertern.
 	 */
 	public String[] splitToWords(String text)
 	{
@@ -23,12 +27,6 @@ public class WordProcessing
 		return result;
 	}
 
-	/**
-	 * Description of the method getVerbsAndNouns.
-	 * 
-	 * @param text
-	 * @return result
-	 */
 	public ArrayList<String> getVerbsAndNouns(String text)
 	{
 		ArrayList<String> result = null;
@@ -36,12 +34,6 @@ public class WordProcessing
 		return result;
 	}
 
-	/**
-	 * Description of the method getVerbsAndNouns.
-	 * 
-	 * @param taggedWords
-	 * @return result
-	 */
 	private ArrayList<String> getVerbsAndNouns(HashSet<String> taggedWords)
 	{
 		ArrayList<String> result = null;
@@ -49,12 +41,6 @@ public class WordProcessing
 		return result;
 	}
 
-	/**
-	 * Description of the method tagText.
-	 * 
-	 * @param textToTag
-	 * @return result
-	 */
 	private String tagText(String textToTag)
 	{
 		String result = null;

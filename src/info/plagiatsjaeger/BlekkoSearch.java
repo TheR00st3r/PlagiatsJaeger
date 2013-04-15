@@ -1,6 +1,7 @@
 package info.plagiatsjaeger;
 
 import info.plagiatsjaeger.interfaces.IOnlineSearch;
+import info.plagiatsjaeger.interfaces.OnLinkFoundListener;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,26 +18,28 @@ import org.jsoup.Jsoup;
 
 
 /**
- * Description of the class BlekkoSearch.
+ * Stellt Methoden zur Kommunikation mit der Blekko Suchmaschine zur verfügung. Dabei ist die Schnittstelle
+ * {@link IOnlineSearch} implementiert.
+ * 
+ * @author Andreas
+ * 
  */
 public class BlekkoSearch implements IOnlineSearch
 {
-	private static final String APIKEY_CHRISTOPH = "4e04dc3e";
-	
-	private static final String		URL					= "http://blekko.com/ws/?";
-	private static final String		URL_ARG_JSON		= "+%2Fjson";
-	private static final String		URL_ARG_AUTH		= "auth=";
-	private static final String		URL_ARG_SEARCH		= "q=";
-	private static int			MAX_URLS			= 5;
-	static String				CHARSET				= "UTF-8";
-	private ArrayList<String>	_allSearchResults	= new ArrayList<String>();
+	private static final String	APIKEY_CHRISTOPH	         = "4e04dc3e";
+	public static final int	    NUM_WORDS_FOR_SEARCH_DEFAULT	= 10;
 
-	/**
-	 * Description of the method search.
-	 * 
-	 * @param searchString
-	 * @return result
-	 */
+	private static final String	URL	                         = "http://blekko.com/ws/?";
+	private static final String	URL_ARG_JSON	             = "+%2Fjson";
+	private static final String	URL_ARG_AUTH	             = "auth=";
+	private static final String	URL_ARG_SEARCH	             = "q=";
+	private static int	        MAX_URLS	                 = 5;
+	static String	            CHARSET	                     = "UTF-8";
+	private ArrayList<String>	_allSearchResults	         = new ArrayList<String>();
+
+	private OnLinkFoundListener	_onLinkFoundListener;
+
+	@Override
 	public ArrayList<String> search(String searchString)
 	{
 		ArrayList<String> result = null;
@@ -44,7 +47,8 @@ public class BlekkoSearch implements IOnlineSearch
 		{
 			searchString = URLEncoder.encode(searchString, CHARSET).replaceAll("[ \t\n\f\r]", "+");
 
-			URL url = new URL(URL + URL_ARG_SEARCH + searchString + URL_ARG_JSON + URL_ARG_AUTH + APIKEY_CHRISTOPH);
+			URL url = new URL(URL + URL_ARG_SEARCH + searchString + URL_ARG_JSON);// + "&" + URL_ARG_AUTH +
+			                                                                      // APIKEY_CHRISTOPH);
 			InputStreamReader reader = new InputStreamReader(url.openStream(), CHARSET);
 
 			BufferedReader bufferedReader = new BufferedReader(reader);
@@ -74,8 +78,36 @@ public class BlekkoSearch implements IOnlineSearch
 		return result;
 	}
 
+	@Override
+	public void searchAsync(final String completeText, final int numWordsToSearchFor)
+	{
+		new Thread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				WordProcessing wordProcessing = new WordProcessing();
+				String[] words = wordProcessing.splitToWords(completeText);
+				for (int i = 0; i < words.length - numWordsToSearchFor; i += numWordsToSearchFor)
+				{
+					String searchString = "";
+					for (int j = 0; j < numWordsToSearchFor; j++)
+					{
+						if (searchString.length() > 0)
+						{
+							searchString += " ";
+						}
+						searchString += words[i + j];
+					}
+					search(searchString);
+				}
+			}
+		}).start();
+	}
+
 	/**
-	 * Description of the method getUrlsFromJson.
+	 * Extrahiert die Links aus dem eingegebenen String. Wenn ein {@link OnLinkFoundListener} registriert ist werden
+	 * diesem die Links übermittelt.
 	 * 
 	 * @param searchResult
 	 * @return result
@@ -91,7 +123,7 @@ public class BlekkoSearch implements IOnlineSearch
 
 		Matcher matMatcher;
 
-		// Und schlie�lich in der for schleife//
+		// Und schliesslich in der for schleife//
 		matMatcher = patPattern.matcher(searchResult);
 
 		if (matMatcher.find())
@@ -110,6 +142,8 @@ public class BlekkoSearch implements IOnlineSearch
 				{
 					alUrlList.add(strLink);
 					System.out.println(strLink);
+					// TODO: eventuell direkt in neuem Thread zurückgeben
+					if (_onLinkFoundListener != null) _onLinkFoundListener.onLinkFound(strLink);
 				}
 			}
 		}
@@ -152,19 +186,10 @@ public class BlekkoSearch implements IOnlineSearch
 		return result;
 	}
 
-	/**
-	 * Description of the interface OnLinkFoundListener.
-	 */
-	public interface OnLinkFoundListener
+	@Override
+	public void setOnLinkFoundListener(OnLinkFoundListener listener)
 	{
-
-		/**
-		 * Description of the method onLinkFound.
-		 * 
-		 * @param link
-		 */
-		public void onLinkFound(String link);
-
+		_onLinkFoundListener = listener;
 	}
 
 }
