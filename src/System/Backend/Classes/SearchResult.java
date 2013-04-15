@@ -1,4 +1,4 @@
-package PlagiatsJaeger;
+package System.Backend.Classes;
 
 
 
@@ -25,7 +25,7 @@ public class SearchResult {
 	 * @param link.
 	 * @param sequence.
 	 */
-	public SearchResult(int rID, String orginalText, String plagiatsText, String link, int sequence) {
+	public SearchResult(int rID, Object orginalText, Object plagiatsText, Object link, int sequence) {
 
 	}
 

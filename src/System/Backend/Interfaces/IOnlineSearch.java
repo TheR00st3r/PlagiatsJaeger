@@ -1,5 +1,6 @@
-package PlagiatsJaeger;
+package System.Backend.Interfaces;
 
+import System.Backend.Classes.ArrayList;
 import java.util.HashSet;
 
 
@@ -16,8 +17,8 @@ public interface IOnlineSearch {
      *
      *
      * @param searchString
-     * @return return
+     * @return result
      */
-    public HashSet search(String searchString) ;
+    public ArrayList search(String searchString) ;
 
 }

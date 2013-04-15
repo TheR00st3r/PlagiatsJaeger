@@ -1,4 +1,4 @@
-package PlagiatsJaeger;
+package System.Backend.Classes;
 
 import java.util.HashSet;
 import java.sql.ResultSet;
@@ -66,6 +66,25 @@ public class MySqlDatabaseHelper {
 	 */
 	public ResultSet startQuery(String query) {
 		return null;
+	}
+
+	/**
+	 * Description of the method getSettings.
+	 *
+	 * @param rId
+	 * @return result
+	 */
+	public Settings getSettings(int rId) {
+
+	}
+
+	/**
+	 * Description of the method setDocumentAsParsed.
+	 *
+	 * @param docId
+	 */
+	public void setDocumentAsParsed(int docId) {
+
 	}
 
 

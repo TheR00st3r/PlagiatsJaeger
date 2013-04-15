@@ -6,21 +6,6 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>com.cea.papyrus.gen.java.builder</name>
-			<arguments>
-				<dictionary>
-					<key>configurationName</key>
-					<value>PlagiatsJaeger</value>
-				</dictionary>
-				<dictionary>
-					<key>memento</key>
-					<value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
-&lt;launchConfiguration local=&quot;true&quot; path=&quot;PlagiatsJaeger&quot;/&gt;
-</value>
-				</dictionary>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
 			<name>org.eclipse.wst.jsdt.core.javascriptValidator</name>
 			<arguments>
 			</arguments>
