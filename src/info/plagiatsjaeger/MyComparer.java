@@ -1,17 +1,54 @@
 package info.plagiatsjaeger;
 
-import java.util.ArrayList;
-
 import info.plagiatsjaeger.interfaces.IComparer;
+
+import java.util.ArrayList;
 
 
 public class MyComparer implements IComparer
 {
 
+	private static final int	NUM_WORDS_TO_COMPARE	= 10;
+	private static final double	SCHWELLENWERT			= 0.9;
+
 	@Override
 	public ArrayList<SearchResult> compareText(String originalText, String textToCheck)
 	{
-		// TODO Auto-generated method stub
+		WordProcessing wordProcessing = new WordProcessing();
+
+		
+		String[] words1 = wordProcessing.splitToWords(originalText);
+		String[] words2 = wordProcessing.splitToWords(textToCheck);
+
+		for (int i = 0; i < words1.length;i++)
+		{
+			String searchString1 = "";
+			for (int j = 0; (j < NUM_WORDS_TO_COMPARE) && ((i + j) < words1.length); j++)
+			{
+				searchString1 += " " + words1[i+j];		
+			}
+			
+			for (int i2 = 0; i2 < words1.length; i2++)
+			{
+				String searchString2 = "";
+				for (int j = 0; (j < NUM_WORDS_TO_COMPARE) && ((i2 + j) < words2.length); j++)
+				{
+					searchString2 += " " + words2[i2+j];					
+				}
+				
+				double aehnlichkeit = compareStrings(searchString1, searchString2);
+				if(aehnlichkeit >= SCHWELLENWERT)
+				{
+					System.out.println("Text1: " + searchString1);
+					System.out.println("Text2: " + searchString2);
+
+					System.out.println("Aehnlichket: " + aehnlichkeit);
+					
+					i+= NUM_WORDS_TO_COMPARE;
+					break;
+				}
+			}
+		}		
 		return null;
 	}
 
