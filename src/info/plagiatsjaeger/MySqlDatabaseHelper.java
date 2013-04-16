@@ -105,8 +105,11 @@ public class MySqlDatabaseHelper
 			connect();
 			for (SearchResult result : searchResults)
 			{
-				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + result.getreihenfolge() + "','" + result.getorginalText() + "' , '" + result.getlink() + "' , '" + result.getplagiatsText() + "' , '" + result.getsearchID() + "' )";
-				_statement.executeUpdate(strStatement);
+				// TODO: statement an neues DB Design anpassen.
+				// strStatement = "INSERT INTO result VALUES(DEFAULT, '" + result.getreihenfolge() + "','" +
+				// result.getOrginalText() + "' , '" + result.getlink() + "' , '" + result.getplagiatsText() + "' , '" +
+				// result.getsearchID() + "' )";
+				// _statement.executeUpdate(strStatement);
 			}
 			disconnect();
 		}

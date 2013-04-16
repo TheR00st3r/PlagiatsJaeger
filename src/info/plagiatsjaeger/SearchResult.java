@@ -1,57 +1,36 @@
 package info.plagiatsjaeger;
 
+import java.util.ArrayList;
+
+
 public class SearchResult
 {
 
-	private String	_originalText;
-	private String	_plagiatsText;
-	private String	_link;
-	private int	   _rID;
-	private int	   _sequence;
+	private String	        _originalText;
+	private int	            _rID;
+	private int	            _sequence;
+	private ArrayList<Fund>	_funds	= new ArrayList<Fund>();
 
-	public SearchResult(int rID, String orginalText, String plagiatsText, String link, int sequence)
+	public SearchResult(int rID, String orginalText, int sequence)
 	{
-
+		_rID = rID;
+		_originalText = orginalText;
+		_sequence = sequence;
 	}
 
-	public int getsearchID()
+	public int getReportID()
 	{
 		return _rID;
 	}
 
-	public void setsearchID(int _searchID)
-	{
-		this._rID = _searchID;
-	}
-
-	public String getorginalText()
+	public String getOrginalText()
 	{
 		return _originalText;
 	}
 
-	public void setorginalText(String _orginalText)
+	public void setOrginalText(String orginalText)
 	{
-		this._originalText = _orginalText.trim();
-	}
-
-	public String getplagiatsText()
-	{
-		return _plagiatsText;
-	}
-
-	public void setplagiatsText(String _plagiatsText)
-	{
-		this._plagiatsText = _plagiatsText.trim();
-	}
-
-	public String getlink()
-	{
-		return _link;
-	}
-
-	public void setlink(String _link)
-	{
-		this._link = _link;
+		_originalText = orginalText.trim();
 	}
 
 	public int getreihenfolge()
@@ -59,9 +38,40 @@ public class SearchResult
 		return _sequence;
 	}
 
-	public void setreihenfolge(int _reihenfolge)
+	public void setreihenfolge(int reihenfolge)
 	{
-		this._sequence = _reihenfolge;
+		_sequence = reihenfolge;
 	}
 
+	public void addFund(Fund fund)
+	{
+		_funds.add(fund);
+	}
+
+	public ArrayList<Fund> getFunds()
+	{
+		return _funds;
+	}
+
+	public class Fund
+	{
+		private String	_snippet;
+		private String	_link;
+		private int		_docId;
+		private String	_title;
+
+		public Fund(String title, String snippet, String link)
+		{
+			_title = title;
+			_snippet = snippet;
+			_link = link;
+		}
+
+		public Fund(String title, String snippet, int docId)
+		{
+			_title = title;
+			_snippet = snippet;
+			_docId = docId;
+		}
+	}
 }
