@@ -1,62 +1,72 @@
 package info.plagiatsjaeger;
 
+import info.plagiatsjaeger.SearchResult.Fund;
 import info.plagiatsjaeger.interfaces.IComparer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class MyComparer implements IComparer
 {
 
-	private static final int	NUM_WORDS_TO_COMPARE	= 10;
-	private static final double	SCHWELLENWERT			= 0.9;
+	private static final int						NUM_WORDS_TO_COMPARE	= 10;
+	private static final double						SCHWELLENWERT			= 0.9;
+
+	private static HashMap<Integer, SearchResult>	result					= new HashMap<Integer, SearchResult>();
 
 	@Override
-	public ArrayList<SearchResult> compareText(String originalText, String textToCheck)
+	public void compareText(String originalText, String textToCheck)
 	{
 		WordProcessing wordProcessing = new WordProcessing();
 
-		
 		String[] words1 = wordProcessing.splitToWords(originalText);
 		String[] words2 = wordProcessing.splitToWords(textToCheck);
 
-		for (int i = 0; i < words1.length;i++)
+		for (int i = 0; i < words1.length; i++)
 		{
 			String searchString1 = "";
 			for (int j = 0; (j < NUM_WORDS_TO_COMPARE) && ((i + j) < words1.length); j++)
 			{
-				searchString1 += " " + words1[i+j];		
+				searchString1 += " " + words1[i + j];
 			}
-			
+
+			SearchResult searchResult = result.get(i);
+			if (searchResult == null)
+			{
+
+				searchResult = new SearchResult(0, searchString1, 0);
+				searchResult.setStartEnd(i, i + NUM_WORDS_TO_COMPARE);
+				result.put(i, searchResult);
+			}
 			for (int i2 = 0; i2 < words1.length; i2++)
 			{
 				String searchString2 = "";
 				for (int j = 0; (j < NUM_WORDS_TO_COMPARE) && ((i2 + j) < words2.length); j++)
 				{
-					searchString2 += " " + words2[i2+j];					
+					searchString2 += " " + words2[i2 + j];
 				}
-				
+
 				double aehnlichkeit = compareStrings(searchString1, searchString2);
-				if(aehnlichkeit >= SCHWELLENWERT)
+				if (aehnlichkeit >= SCHWELLENWERT)
 				{
 					System.out.println("Text1: " + searchString1);
 					System.out.println("Text2: " + searchString2);
 
 					System.out.println("Aehnlichket: " + aehnlichkeit);
-					
-					i+= NUM_WORDS_TO_COMPARE;
+
+					i += NUM_WORDS_TO_COMPARE - 1;
+					searchResult.addFund(new Fund(String.valueOf(i2), searchString2, aehnlichkeit, ""));
 					break;
 				}
 			}
-		}		
-		return null;
+		}
 	}
 
 	@Override
-	public ArrayList<SearchResult> compareFiles(String filePathSource, String filePathToCheck)
+	public void compareFiles(String filePathSource, String filePathToCheck)
 	{
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 	/** @return lexical similarity value in the range [0,1] */
@@ -116,5 +126,11 @@ public class MyComparer implements IComparer
 			}
 		}
 		return pairs;
+	}
+
+	@Override
+	public HashMap<Integer, SearchResult> getSearchResults()
+	{
+		return result;
 	}
 }

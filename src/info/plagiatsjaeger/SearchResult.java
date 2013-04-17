@@ -6,9 +6,11 @@ import java.util.ArrayList;
 public class SearchResult
 {
 
-	private String	        _originalText;
-	private int	            _rID;
-	private int	            _sequence;
+	private String			_originalText;
+	private int				_rID;
+	private int				_sequence;
+	private int				_start;
+	private int				_end;
 	private ArrayList<Fund>	_funds	= new ArrayList<Fund>();
 
 	public SearchResult(int rID, String orginalText, int sequence)
@@ -16,6 +18,12 @@ public class SearchResult
 		_rID = rID;
 		_originalText = orginalText;
 		_sequence = sequence;
+	}
+
+	public void setStartEnd(int start, int end)
+	{
+		_start = start;
+		_end = end;
 	}
 
 	public int getReportID()
@@ -53,25 +61,28 @@ public class SearchResult
 		return _funds;
 	}
 
-	public class Fund
+	public static class Fund
 	{
 		private String	_snippet;
 		private String	_link;
 		private int		_docId;
 		private String	_title;
+		private double	_aehnlichkeit;
 
-		public Fund(String title, String snippet, String link)
+		public Fund(String title, String snippet, double aehnlichkeit, String link)
 		{
 			_title = title;
 			_snippet = snippet;
 			_link = link;
+			_aehnlichkeit = aehnlichkeit;
 		}
 
-		public Fund(String title, String snippet, int docId)
+		public Fund(String title, String snippet, double aehnlichkeit, int docId)
 		{
 			_title = title;
 			_snippet = snippet;
 			_docId = docId;
+			_aehnlichkeit = aehnlichkeit;
 		}
 	}
 }
