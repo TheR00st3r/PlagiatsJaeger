@@ -2,7 +2,7 @@ package info.plagiatsjaeger.interfaces;
 
 import info.plagiatsjaeger.SearchResult;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -15,21 +15,24 @@ public interface IComparer
 {
 
 	/**
-	 * Vergleicht zwei eingegebene Texte und gibt die Zugehörigen {@link SearchResult SearchResults} zurück.
+	 * Vergleicht zwei eingegebene Texte und schreibt die {@link SearchResult SearchResults} in eine {@link HashMap}.
 	 * 
 	 * @param originalText
 	 * @param textToCheck
-	 * @return result
 	 */
-	public ArrayList<SearchResult> compareText(String originalText, String textToCheck);
+	public void compareText(String originalText, String textToCheck);
 
 	/**
-	 * Vergleicht zwei Dateien und gibt die Zugehörigen {@link SearchResult SearchResults} zurück.
+	 * Vergleicht zwei Dateien und schreibt die {@link SearchResult SearchResults} in eine {@link HashMap}.
 	 * 
 	 * @param filePathSource
 	 * @param filePathToCheck
-	 * @return result
 	 */
-	public ArrayList<SearchResult> compareFiles(String filePathSource, String filePathToCheck);
+	public void compareFiles(String filePathSource, String filePathToCheck);
 
+	/**
+	 * Liefert die gefundenen Suchergebnisse zur�ck.
+	 * @return
+	 */
+	public HashMap<Integer, SearchResult> getSearchResults();
 }
