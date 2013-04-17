@@ -54,7 +54,7 @@
 				<h2>Neuer Ordner</h2>
 				<input type="text" name="fAddName" value="" />
 				<input type="hidden" name="fAddParent" value="{$folder.fID}" />
-				<input type="submit" name="fAddSubmit" value="speichern" />
+				<input type="submit" name="button[fAddSubmit]" value="speichern" />
 			</form>
 		</div>
 		<a class="create button" href="#newFolderForm"><img src="{$root}images/folder-closed.gif" alt="" /> Neuer Ordner</a>
@@ -71,7 +71,7 @@
 				<input type="text" name="dAddAutor" id="dAddAutor" />
 				<br />
 				<br />
-				<input type="submit" name="dAddSubmit" value="upload" />
+				<input type="submit" name="button[dAddSubmit]" value="upload" />
 			</form>
 		</div>
 		<a class="create button" href="#newFileForm"><img src="{$root}images/file.gif" alt="" /> Datei upload</a>
@@ -87,7 +87,7 @@
 				<input type="text" name="dAddAutor" id="dAddShortAutor" />
 				<br />
 				<br />
-				<input type="submit" name="dAddShortSubmit" value="upload" />
+				<input type="submit" name="button[dAddShortSubmit]" value="upload" />
 			</form>
 		</div>
 		<a class="create button" href="#newShortTestForm"><img src="{$root}images/file.gif" alt="" /> Schnelltest</a>
@@ -111,7 +111,28 @@
 				{$item.fName}
 			</div></td>
 			<td class="borderright">&nbsp;</td>
-			<td class="smal"> {if $item.fHashLink != ''} <a target="_blank" href="{$root}public?id={$item.fHashLink}">[Link]</a> {else} <a href="{$root}{$page}?action=hash&amp;fID={$item.fID}">[hash]</a> {/if} </td>
+			<td class="smal">
+				{if $item.fHashLink != ''}
+					<a target="_blank" href="{$root}public?id={$item.fHashLink}">[Link] bis {$item.fLinkExpireDatetime}</a>
+				{else}
+					<div id="createLinkForm{$item.fID}" style="display: none">
+						<form method="post" action="{$root}{$page}" enctype="multipart/form-data">
+							<input type="text" name="fID" id="fID" value="{$item.fID}" />
+							<h2>Link für Studenten freigeben</h2>
+							<label for="fLinkExpireDatetime">Link freigeben bis:</label>
+							<input type="text" name="fLinkExpireDatetime" id="fLinkExpireDatetime" value="2013-12-12 23:59:59" />
+							<br />
+							<br />
+							<label for="">Settings:</label>
+							<br />
+							<br />
+							<input type="submit" name="button[dAddFolderLinkSubmit]" value="freigeben" />
+						</form>
+					</div>
+					<a class="create" href="#createLinkForm{$item.fID}">[hash]</a>
+					<!-- <a href="{$root}{$page}?action=hash&amp;fID={$item.fID}">[hash]</a> -->
+				{/if}
+			</td>
 			<td class="smal"><a href="{$root}{$page}?action=deleteFolder&amp;fID={$item.fID}">[delete]</a></td>
 		</tr>
 		{if $color == ''}{$color = 'bgcolor'}{else}{$color = ''}{/if}
@@ -119,15 +140,10 @@
 		{foreach from=$documents item=item}
 		<tr class="{$color}">
 			<td class="image"><img src="{$root}images/file.gif" alt="" /></td>
-			<td class="borderright"><a href="document.php?dID={$item.dID}" class="iframeviewer fancybox.iframe">{$item.dOriginalName}</a>
-			
-				{foreach from=$item.reports item=report}
-				<li>
-					<a href="report.php?rID={$report.rID}" class="iframeviewer fancybox.iframe">{$report.rDate}</a> rID={$report.rID}
-					<!-- <a href="{$root}report?rID={$report.rID}">{$report.rDate} -->
-				</li>
-				{/foreach}
-			</td>
+			<td class="borderright"><a href="document.php?dID={$item.dID}" class="iframeviewer fancybox.iframe">{$item.dOriginalName}</a> {foreach from=$item.reports item=report}
+			<li>
+				<a href="report.php?rID={$report.rID}" class="iframeviewer fancybox.iframe">{$report.rDatetime}</a> rID={$report.rID} <!-- <a href="{$root}report?rID={$report.rID}">{$report.rDate} -->
+			</li> {/foreach} </td>
 			<td class="borderright">{$item.dAuthor}</td>
 			<td class="smal"><a href="{$root}{$page}?action=check&amp;dID={$item.dID}">[prüfen]</a></td>
 			<td class="smal">[delete]</td>

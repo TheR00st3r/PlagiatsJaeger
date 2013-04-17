@@ -1,7 +1,6 @@
 <?php
 class Document {
 
-	const path = '../uploads/';
 	/**
 	 * Returns all documents from given folder id.
 	 * @param int $fID
@@ -12,7 +11,7 @@ class Document {
 		$db = new db();
 		$db -> read("
 				SELECT
-					d.dID, d.dOriginalName, d.dAuthor, d.uID, d.fID
+					d.dID, d.dOriginalName, d.dAuthor, d.fID
 				FROM
 					document AS d
 				WHERE
@@ -33,19 +32,33 @@ class Document {
 	}
 
 	/**
+	 * Uploads a given file and creates a database entry.
+	 * @param int $dID
+	 * @return string
+	 */
+	public static function fileUpload($fID, $dAuthor, $file) {
+
+		if (Validator::validate(VAL_INTEGER, $fID, true) and Validator::validate(VAL_STRING, $dAuthor)) {
+			require_once 'Upload.php';
+			$db = new db();
+			if ($db -> insert('document', array('dOriginalName' => $file["name"], 'dAuthor' => $dAuthor, 'fID' => $fID))) {
+				$lastID = $db -> lastInsertId();
+				if (Upload::fileUpload($lastID, $file)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Returns the original content from given document id.
 	 * @param int $dID
 	 * @return string
 	 */
 	public static function getDocumentOriginalContent($dID) {
-		$handle = fopen(self::path . $dID . '.txt', 'r');
-
-		while (!feof($handle)) {
-			$buffer = fgets($handle);
-			echo $buffer;
-		}
-		fclose($handle);
-
+		require_once 'File.php';
+		return File::readFile($dID . '.txt');
 	}
 
 }

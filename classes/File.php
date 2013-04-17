@@ -29,7 +29,7 @@ class File {
 	 * @param string $extension
 	 * @return boolean
 	 */
-	private static function copyTempFile($dID, $file) {
+	public static function copyTempFile($dID, $file) {
 
 		$db = new db();
 		$allowedExtensions = array('.pdf', '.doc', '.docx', '.txt', '.html');
@@ -50,6 +50,23 @@ class File {
 		}
 		// else $messages[] = array('type' => 'error', 'text' => 'ID und/oder Datei leer!');
 		return false;
+	}
+
+	/**
+	 * Returns the content from given filename.
+	 * @param string $filename
+	 * @return string
+	 */
+	public static function readFile($filename) {
+		$handle = fopen(self::path . $filename, 'r');
+
+		while (!feof($handle)) {
+			$buffer = fgets($handle);
+			$return .= $buffer;
+		}
+		fclose($handle);
+
+		return $return;
 	}
 
 }

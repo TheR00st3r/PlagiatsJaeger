@@ -134,16 +134,11 @@ class User {
 		return $return;
 	}
 
-	public static function setUserPassword($password1) {
-		// TODO: setUserPassword not imp.
-		throw new Exception('Not implemented');
-	}
-
 	public static function setMailNotofication() {
 		// TODO: setMailNotofication not imp.
 		throw new Exception('Not implemented');
 	}
-	
+
 	public static function activateUser($uID) {
 		// TODO: activateUser not imp.
 		throw new Exception('Not implemented');
@@ -153,7 +148,6 @@ class User {
 		// TODO: deleteUser not imp.
 		throw new Exception('Not implemented');
 	}
-
 
 	private static function checkNewPassword($password1, $password2) {
 		if (Validator::validate(VAL_PASSWORD, $password1) and Validator::validate(VAL_PASSWORD, $password2)) {

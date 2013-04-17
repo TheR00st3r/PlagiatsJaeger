@@ -67,7 +67,7 @@ class LoginAccess {
 	 * Returns the user informations from the set sessions.
 	 * @return string
 	 */
-	public static function userInfo() {
+	public static function getUserInfo() {
 		return $_SESSION[self::suffix . '_name'];
 		// (' . $_SESSION[self::suffix . '_id'] . ')';
 	}
@@ -76,7 +76,7 @@ class LoginAccess {
 	 * Returns the user id from the set sessions.
 	 * @return int
 	 */
-	public static function userID() {
+	public static function getUserID() {
 		return $_SESSION[self::suffix . '_id'];
 	}
 
@@ -84,7 +84,7 @@ class LoginAccess {
 	 * Returns the user permissions from the set sessions.
 	 * @return int
 	 */
-	public static function userLevel() {
+	public static function getUserLevel() {
 		return $_SESSION[self::suffix . '_level'];
 	}
 

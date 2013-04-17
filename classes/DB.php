@@ -121,26 +121,33 @@ class DB {
 		$sql = "INSERT $ignoreClause INTO `$table` (";
 		$first = true;
 		foreach ($array as $name => $content) {
-			if ($first == false)
-				$sql .= ", ";
-			else
-				$first = false;
-			$sql .= $name;
+			// TODO: implode ( string $glue , array $pieces )
+			if ($content != NULL) {
+				if ($first == false)
+					$sql .= ", ";
+				else
+					$first = false;
+				$sql .= $name;
+			}
 		}
 		$sql .= ") VALUES (";
 		$first = true;
 		foreach ($array as $name => $content) {
-			if ($first == false)
-				$sql .= ", ";
-			else
-				$first = false;
-			if (is_array($content)) {
-				//array_walk_recursive($content, 'myFunc');
-				$content = serialize($content);
-			} else {
-				$content = stringSave($content);
+			// TODO: implode ( string $glue , array $pieces )
+			if ($content != NULL) {
+				if ($first == false) {
+					$sql .= ", ";
+				} else {
+					$first = false;
+				}
+				if (is_array($content)) {
+					//array_walk_recursive($content, 'myFunc');
+					$content = serialize($content);
+				} else {
+					$content = stringSave($content);
+				}
+				$sql .= "'" . $content . "'";
 			}
-			$sql .= "'" . $content . "'";
 		}
 		$sql .= ")";
 
@@ -162,18 +169,20 @@ class DB {
 
 		$first = true;
 		foreach ($array as $name => $content) {
-			if ($first == false)
-				$sql .= ", ";
-			else
-				$first = false;
-			if (is_array($content)) {
-				//array_walk_recursive($content, 'myFunc');
-				$content = serialize($content);
-			} else {
-				$content = stringSave($content);
-			}
+			if ($content != NULL) {
+				if ($first == false)
+					$sql .= ", ";
+				else
+					$first = false;
+				if (is_array($content)) {
+					//array_walk_recursive($content, 'myFunc');
+					$content = serialize($content);
+				} else {
+					$content = stringSave($content);
+				}
 
-			$sql .= "`$name` = '$content'";
+				$sql .= "`$name` = '$content'";
+			}
 		}
 
 		$sql .= " WHERE ";
@@ -367,13 +376,13 @@ class DB {
 }
 
 function stringSave($string) {
-	$string = htmlspecialchars($string, ENT_QUOTES, 'UTF-8', false);
-	$string = mysql_real_escape_string($string);
+	// $string = htmlspecialchars($string, ENT_QUOTES, 'UTF-8', false);
+	// $string = mysql_real_escape_string($string);
 	return $string;
 }
 
 function stripslashes_deep($value) {
-	$value = is_array($value) ? array_map('stripslashes_deep', $value) : stripslashes($value);
+	// $value = is_array($value) ? array_map('stripslashes_deep', $value) : stripslashes($value);
 	return $value;
 }
 ?>

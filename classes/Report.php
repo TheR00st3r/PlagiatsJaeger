@@ -11,7 +11,7 @@ class Report {
 	public static function createReport($dID, $rTreshold = 0, $rLevel = 0) {
 		if (Validator::validate(VAL_INTEGER, $dID, true)) {
 			$db = new db();
-			if ($db -> insert('report', array('dID' => $dID, 'rTreshold' => $rTreshold, 'rLevel' => $rLevel))) {
+			if ($db -> insert('report', array('dID' => $dID, 'rDatetime' => date('Y-m-d H:m:s'), 'rTreshold' => $rTreshold, 'rLevel' => $rLevel))) {
 				$lastReportID = $db -> lastInsertId();
 				$result = file("http://192.168.4.28:8080/PlagiatsSoftware/TestServlet?rID=" . $lastReportID);
 				print_array($result);
@@ -33,13 +33,13 @@ class Report {
 			$db = new db();
 			$db -> read("
 				SELECT
-					r.rID, r.rDate, r.rTreshold, r.rLevel, r.dID
+					r.rID, r.rDatetime, r.rTreshold, r.rLevel, r.dID
 				FROM
 					report AS r
 				WHERE
 					r.dID = '$dID'
 				ORDER BY
-					r.rDate DESC");
+					r.rDatetime DESC");
 
 			return $db -> linesAsArray();
 		}
@@ -55,7 +55,7 @@ class Report {
 		throw new Exception('Not implemented');
 	}
 
-	public static function createReport($uID) {
+	public static function createSearchReport($uID) {
 		// TODO: createReport not imp.
 		throw new Exception('Not implemented');
 	}
@@ -70,7 +70,7 @@ class Report {
 		throw new Exception('Not implemented');
 	}
 
-	public static function showReport($uID) {
+	public static function showSearchReport($uID) {
 		// TODO: showReport not imp.
 		throw new Exception('Not implemented');
 	}

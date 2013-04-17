@@ -9,27 +9,39 @@ class Folder {
 	 * @param string $pathName
 	 * @return array
 	 */
-	public static function getFolderArray($fParentID = 1, $depth = 999, $level = 0, $path = '', $pathName = '') {
+	public static function getFolderArray($fParentID = null, $depth = 999, $level = 0, $path = '', $pathName = '') {
 
 		if (!isset($fParentID) or $fParentID == '') {
-			$fParentID = 1;
+			$fParentID = null;
 		}
 
-		$uID = LoginAccess::userID();
+		$uID = LoginAccess::getUserID();
 
 		if ($level > $depth)
 			return;
 
 		$db = new db();
-		$db -> read("
+		if ($fParentID == null) {
+			$db -> read("
 				SELECT
-					f.fID, f.fName, f.fParentID, f.fHashLink
+					f.fID, f.fName, f.fParentID, f.fHashLink, fLinkExpireDatetime
+				FROM
+					folder AS f LEFT JOIN folderpermission AS p ON f.fID = p.fID
+				WHERE
+					f.fParentID IS NULL and p.uID = '$uID'
+				ORDER BY
+					f.fName ASC");
+		} else {
+			$db -> read("
+				SELECT
+					f.fID, f.fName, f.fParentID, f.fHashLink, fLinkExpireDatetime
 				FROM
 					folder AS f LEFT JOIN folderpermission AS p ON f.fID = p.fID
 				WHERE
 					f.fParentID = '$fParentID' and p.uID = '$uID'
 				ORDER BY
 					f.fName ASC");
+		}
 
 		if ($db -> valueCount() == 0) {
 			return;
@@ -46,6 +58,7 @@ class Folder {
 			$folder[$row['fID']]['fID'] = $row['fID'];
 			$folder[$row['fID']]['fName'] = $row['fName'];
 			$folder[$row['fID']]['fHashLink'] = $row['fHashLink'];
+			$folder[$row['fID']]['fLinkExpireDatetime'] = $row['fLinkExpireDatetime'];
 
 			$back = self::getFolderArray($row['fID'], $depth, $level + 1, $path . $alias . '/', $pathName . $row['fName'] . ' / ');
 			if (count($back) > 0) {
@@ -67,20 +80,32 @@ class Folder {
 	 * @param string $pathName
 	 * @return array
 	 */
-	public static function getFolder($fParentID = 1, $depth = 999, $level = 0, $path = '', $pathName = '') {
+	public static function getFolder($fParentID = null, $depth = 999, $level = 0, $path = '', $pathName = '') {
 
-		$uID = LoginAccess::userId();
+		$uID = LoginAccess::getUserID();
 
 		$db = new db();
-		$db -> read("
+		if ($fParentID == null) {
+			$db -> read("
 				SELECT
-					f.fID, f.fName, f.fParentID, f.fHashLink
+					f.fID, f.fName, f.fParentID, f.fHashLink, fLinkExpireDatetime
+				FROM
+					folder AS f LEFT JOIN folderpermission AS p ON f.fID = p.fID
+				WHERE
+					f.fParentID IS NULL and p.uID = '$uID'
+				ORDER BY
+					f.fName ASC");
+		} else {
+			$db -> read("
+				SELECT
+					f.fID, f.fName, f.fParentID, f.fHashLink, fLinkExpireDatetime
 				FROM
 					folder AS f LEFT JOIN folderpermission AS p ON f.fID = p.fID
 				WHERE
 					f.fParentID = '$fParentID' and p.uID = '$uID'
 				ORDER BY
 					f.fName ASC");
+		}
 
 		if ($db -> valueCount() == 0) {
 			return;
@@ -97,6 +122,7 @@ class Folder {
 			$folder[$path . $alias]['fID'] = $row['fID'];
 			$folder[$path . $alias]['fName'] = $row['fName'];
 			$folder[$path . $alias]['fHashLink'] = $row['fHashLink'];
+			$folder[$path . $alias]['fLinkExpireDatetime'] = $row['fLinkExpireDatetime'];
 
 			if ($row['fID'] > 1) {
 				$back = self::getFolder($row['fID'], $depth, $level + 1, $path . $alias . '/', $pathName . $row['fName'] . ' / ');
@@ -114,7 +140,7 @@ class Folder {
 	 * @param id $fParentID
 	 * @return array
 	 */
-	public static function getFolderParents($fParentID = 1) {
+	public static function getFolderParents($fParentID = null) {
 		$parents = self::getFolder($fParentID);
 		$tempParents = null;
 		foreach ($parents as $parent) {
@@ -133,15 +159,14 @@ class Folder {
 	public static function addFolder($fName, $fParentID, $uID) {
 
 		if (!isset($fParentID) or $fParentID == '') {
-			$fParentID = 1;
+			$fParentID = NULL;
 		}
 
-		if (Validator::validate(VAL_STRING, $fName, true) and Validator::validate(VAL_INTEGER, $fParentID, true) and Validator::validate(VAL_INTEGER, $uID, true)) {
+		if (Validator::validate(VAL_STRING, $fName, true) and Validator::validate(VAL_INTEGER, $uID, true)) {
 			$db = new db();
 			if ($db -> insert('folder', array('fName' => $fName, 'fParentID' => $fParentID))) {
 				$lastID = $db -> lastInsertId();
 				if (self::saveFolderPermission('900', $lastID, $uID)) {
-					// if ($db -> insert('folderpermission', array('fpPermissionLevel' => '900', 'fID' => $lastID, 'uID' => $uID))) {
 					return true;
 				}
 			}
@@ -164,11 +189,11 @@ class Folder {
 	 * @param int $fID
 	 * @return string (Hash value)
 	 */
-	public static function addFolderLink($fID) {
+	public static function addFolderLink($fID, $fLinkExpireDatetime) {
 		$hash = md5(uniqid());
 		$db = new db();
 		// TODO: add expire date
-		if ($db -> update('folder', array('fHashLink' => $hash, 'fLinkExpireDatetime' => '9999-99-99 99:99:99'), array('fID' => $fID))) {
+		if ($db -> update('folder', array('fHashLink' => $hash, 'fLinkExpireDatetime' => $fLinkExpireDatetime), array('fID' => $fID))) {
 			return $hash;
 		}
 		return false;
@@ -183,7 +208,7 @@ class Folder {
 		$db = new db();
 		$db -> read("
 				SELECT
-					f.fID, f.fName
+					f.fID, f.fName, fLinkExpireDatetime
 				FROM
 					folder AS f
 				WHERE

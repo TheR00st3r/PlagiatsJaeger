@@ -27,9 +27,12 @@ if ($page == 'public') {
 	require_once '../classes/Folder.php';
 	$folder = Folder::getFolderFromHash($_GET['id']);
 	if ($folder['fID']) {
+		
+		//TODO: DATUM PRÜFEN fLinkExpireDatetime
+		
 		if (isset($_POST['dAddSubmit'])) {
 			require_once '../classes/Upload.php';
-			if (Upload::fileUpload(2, $folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'])) {
+			if (Upload::fileUpload($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'])) {
 				$contentTpl = 'vielen Dank!';
 			} else
 				$contentTpl = 'upload Error';
@@ -38,13 +41,13 @@ if ($page == 'public') {
 		}
 	} else
 		$contentTpl = 'error';
-	
+
 } else if (LoginAccess::check()) {
 
 	$smarty -> assign('isLogin', true);
-	$smarty -> assign('userLevel', LoginAccess::userLevel());
+	$smarty -> assign('userLevel', LoginAccess::getUserLevel());
 
-	$smarty -> assign('userinfo', LoginAccess::userInfo());
+	$smarty -> assign('userinfo', LoginAccess::getUserInfo());
 
 	switch ($url[0]) {
 		case '' :
@@ -66,7 +69,7 @@ if ($page == 'public') {
 						Folder::deleteFolder($_GET['fID']);
 						break;
 					case 'hash' :
-						Folder::addFolderLink($_GET['fID']);
+						Folder::addFolderLink($_POST['fID'], $_POST['fLinkExpireDatetime']);
 						break;
 					default :
 						break;
@@ -85,12 +88,20 @@ if ($page == 'public') {
 				}
 			}
 
-			if (isset($_POST['fAddSubmit'])) {
-				Folder::addFolder($_POST['fAddName'], $folder['fID'], LoginAccess::userID());
-			} else if (isset($_POST['dAddSubmit'])) {
-				Upload::fileUpload(LoginAccess::userID(), $folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile']);
-			} else if (isset($_POST['dAddShortSubmit'])) {
-				Upload::shortTextUpload(LoginAccess::userID(), $folder['fID'], $_POST['dAddAutor'], $_POST['dAddShortText']);
+			$post = key($_POST['button']);
+			switch ($post) {
+				case 'dAddFolderLinkSubmit' :
+					Folder::addFolderLink($_POST['fID'], $_POST['fLinkExpireDatetime']);
+					break;
+				case 'fAddSubmit' :
+					Folder::addFolder($_POST['fAddName'], $folder['fID'], LoginAccess::getUserID());
+					break;
+				case 'dAddSubmit' :
+					Document::fileUpload($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile']);
+					break;
+				case 'dAddShortSubmit' :
+					Upload::shortTextUpload($folder['fID'], $_POST['dAddAutor'], $_POST['dAddShortText']);
+					break;
 			}
 
 			$smarty -> assign('documents', Document::getDocumentsFromFolderID($folder['fID']));
@@ -103,6 +114,10 @@ if ($page == 'public') {
 			require_once '../classes/Result.php';
 			$smarty -> assign('results', Result::getResultsFromReportID($_GET['rID']));
 			$contentTpl = $smarty -> fetch('report.tpl');
+			break;
+
+		case 'settings' :
+			$contentTpl = $smarty -> fetch('settings.tpl');
 			break;
 
 		case 'admin' :

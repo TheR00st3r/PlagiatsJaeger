@@ -1,9 +1,16 @@
 <?php
 
+/*
+ * 
+ * VERSION 1.0
+ * STAND: 2013-04-16
+ * 
+ */
+
 class Validator {
 	static $checkTypes = array(
 		VAL_STRING => '/^[-a-zàáâãäåæçèéêëìíîïðñòóôõöøùúûüý€0-9\s*\.\'\/",_()|& ]*$/i',
-		// VAL_TEXT => '/^[-a-zàáâãäåæçèéêëìíîïðñòóôõöøùúûüý€0-9:\)\(\s*\.\'\/"_,?#@^*!&() ]*$/i',
+		VAL_TEXT => '/^[-a-zàáâãäåæçèéêëìíîïðñòóôõöøùúûüý€0-9:\)\(\s*\.\'\/"_,?#@^*!&() ]*$/i',
 		// VAL_NUMERIC => '/^[0-9,\.]*$/i',
 		VAL_ALPHANUMERIC => '/^[a-zA-Z0-9]*$/i',
 		VAL_INTEGER => '/^[0-9]*$/i',
@@ -36,9 +43,9 @@ class Validator {
 		return $return;
 	}
 	
-	public static function validFormat($checkType, $value) {
-		return (Validator::validate($checkType, $value)) ? $value : '';
-	}
+	// private static function validFormat($checkType, $value) {
+		// return (Validator::validate($checkType, $value)) ? $value : '';
+	// }
 	
 	// public static function getCheck($checkType) {
 		// $strReturn = "";

@@ -13,6 +13,9 @@
 			<li>
 				<a href="{$root}folder">Folder</a>
 			</li>
+			<li>
+				<a href="{$root}settings">Settings</a>
+			</li>
 			{if $userLevel >= 500}
 			<li>
 				<a href="{$root}admin">Admin</a>

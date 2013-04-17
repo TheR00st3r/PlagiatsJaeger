@@ -10,13 +10,13 @@ class Upload {
 	 * @param string $text
 	 * @return boolean
 	 */
-	public static function shortTextUpload($uID, $fID, $dAuthor, $text) {
-		if (Validator::validate(VAL_INTEGER, $uID, true) and Validator::validate(VAL_INTEGER, $fID, true)) {
-
+	public static function shortTextUpload($fID, $dAuthor, $text) {
+		if (Validator::validate(VAL_INTEGER, $fID, true) and Validator::validate(VAL_STRING, $dAuthor)) {
 			$db = new db();
-			if ($db -> insert('document', array('dOriginalName' => 'Schnelltest Upload', 'dAuthor' => $dAuthor, 'uID' => $uID, 'fID' => $fID))) {
+			if ($db -> insert('document', array('dOriginalName' => 'Schnelltest Upload', 'dAuthor' => $dAuthor, 'fID' => $fID))) {
 				$lastID = $db -> lastInsertId();
-				if (File::writeFile($lastID, $text, '.txt')) {
+				require_once 'File.php';
+				if (File::writeFile($lastID, nl2br($text), '.txt')) {
 					return true;
 				}
 			}
@@ -32,16 +32,12 @@ class Upload {
 	 * @param file $file
 	 * @return boolean
 	 */
-	public static function fileUpload($uID, $fID, $dAuthor, $file) {
+	public static function fileUpload($dID, $file) {
 
-		if (Validator::validate(VAL_INTEGER, $uID, true) and Validator::validate(VAL_INTEGER, $fID, true)) {
-			$db = new db();
-			if ($db -> insert('document', array('dOriginalName' => $file["name"], 'dAuthor' => $dAuthor, 'uID' => $uID, 'fID' => $fID))) {
-				$lastID = $db -> lastInsertId();
-				require_once 'File.php';
-				if (File::copyTempFile($lastID, $file)) {
-					return true;
-				}
+		if (Validator::validate(VAL_INTEGER, $dID, true)) {
+			require_once 'File.php';
+			if (File::copyTempFile($dID, $file)) {
+				return true;
 			}
 		}
 		return false;
