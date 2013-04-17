@@ -109,6 +109,19 @@ public class MyComparer implements IComparer
 					// System.out.println("Text2: " + sb2.toString());
 
 					System.out.println("Aehnlichket: " + sumAehnlichkeit / countAehnlichkeit);
+					
+					SearchResult searchResult = result.get(resultStart1);
+					if (searchResult == null)
+					{
+
+						searchResult = new SearchResult(0, sb1.toString(), 0);
+						searchResult.setStartEnd(resultStart1, resultEnd1);
+						result.put(resultStart1, searchResult);
+					}
+					else
+					{
+						searchResult.addFund(new Fund("", sbPlagText.toString(), sumAehnlichkeit / countAehnlichkeit, 0));
+					}
 
 					resultStart1 = -1;
 					resultStart2 = -1;
