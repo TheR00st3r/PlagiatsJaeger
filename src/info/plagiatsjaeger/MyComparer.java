@@ -10,57 +10,183 @@ import java.util.HashMap;
 public class MyComparer implements IComparer
 {
 
-	private static final int						NUM_WORDS_TO_COMPARE	= 10;
-	private static final double						SCHWELLENWERT			= 0.9;
+	private static final int	                  NUM_WORDS_TO_COMPARE	= 10;
+	private static final double	                  SCHWELLENWERT	       = 0.9;
 
-	private static HashMap<Integer, SearchResult>	result					= new HashMap<Integer, SearchResult>();
+	private static HashMap<Integer, SearchResult>	result	           = new HashMap<Integer, SearchResult>();
+
+	private String[]	                          words1;
+	private String[]	                          words2;
+	StringBuilder	                              sb1;
+	StringBuilder	                              sb2;
 
 	@Override
 	public void compareText(String originalText, String textToCheck)
 	{
 		WordProcessing wordProcessing = new WordProcessing();
 
-		String[] words1 = wordProcessing.splitToWords(originalText);
-		String[] words2 = wordProcessing.splitToWords(textToCheck);
+		words1 = wordProcessing.splitToWords(originalText);
+		words2 = wordProcessing.splitToWords(textToCheck);
 
-		for (int i = 0; i < words1.length; i++)
+		sb1 = new StringBuilder();
+		sb2 = new StringBuilder();
+
+		int resultStart1 = -1;
+		int resultEnd1 = -1;
+
+		int resultStart2 = -1;
+		int resultEnd2 = -1;
+
+		for (int i1 = 0; i1 < words1.length; i1++)
 		{
-			String searchString1 = "";
-			for (int j = 0; (j < NUM_WORDS_TO_COMPARE) && ((i + j) < words1.length); j++)
+			sb1 = new StringBuilder();
+			int j1 = 0;
+			for (; (j1 < NUM_WORDS_TO_COMPARE) && ((i1 + j1) < words1.length); j1++)
 			{
-				searchString1 += " " + words1[i + j];
+				sb1.append(words1[i1 + j1]).append(" ");
 			}
 
-			SearchResult searchResult = result.get(i);
-			if (searchResult == null)
+			double aehnlichkeit = 0.0;
+			boolean aehnlichkeitFound = false;
+			for (int i2 = 0; i2 < words2.length; i2++)
 			{
+				sb2 = new StringBuilder();
+				int j2 = 0;
+				for (; (j2 < NUM_WORDS_TO_COMPARE) && ((i2 + j2) < words2.length); j2++)
+				{
+					sb2.append(words2[i2 + j2]).append(" ");
+				}
 
-				searchResult = new SearchResult(0, searchString1, 0);
-				searchResult.setStartEnd(i, i + NUM_WORDS_TO_COMPARE);
-				result.put(i, searchResult);
+				boolean resultFound = false;
+				double sumAehnlichkeit = 0.0;
+				int countAehnlichkeit = 0;
+				while ((aehnlichkeit = compareStrings(sb1.toString(), sb2.toString())) >= SCHWELLENWERT)
+				{
+					resultFound = true;
+					if (resultStart1 < 0)
+					{
+						resultStart1 = i1;
+					}
+					if (resultStart2 < 0)
+					{
+						resultStart2 = i2;
+					}
+					resultEnd1 = i1 + j1 + 1;
+					resultEnd2 = i2 + j2 + 1;
+
+					sumAehnlichkeit += aehnlichkeit;
+					countAehnlichkeit++;
+
+					sb1.delete(0, words1[i1].length() + 1);
+					sb2.delete(0, words2[i2].length() + 1);
+					i1++;
+					i2++;
+					if (words1.length > (i1 + NUM_WORDS_TO_COMPARE) && words2.length > (i2 + NUM_WORDS_TO_COMPARE))
+					{
+						sb1.append(words1[i1 + NUM_WORDS_TO_COMPARE]).append(" ");
+						sb2.append(words2[i2 + NUM_WORDS_TO_COMPARE]).append(" ");
+					}
+					else
+					{
+						break;
+					}
+
+				}
+				if (resultFound)
+				{
+					StringBuilder sbOrgText = new StringBuilder();
+					StringBuilder sbPlagText = new StringBuilder();
+					for (int c = resultStart1; c < resultEnd1; c++)
+					{
+						sbOrgText.append(words1[c]).append(" ");
+					}
+					for (int c = resultStart2; c < resultEnd2; c++)
+					{
+						sbPlagText.append(words2[c]).append(" ");
+					}
+					System.out.println("Text: " + sbOrgText.toString());
+					System.out.println("Text: " + sbPlagText.toString());
+					// System.out.println("Text2: " + sb2.toString());
+
+					System.out.println("Aehnlichket: " + sumAehnlichkeit / countAehnlichkeit);
+
+					resultStart1 = -1;
+					resultStart2 = -1;
+					resultEnd1 = -1;
+					resultEnd2 = -1;
+					aehnlichkeitFound = true;
+
+					i2 += NUM_WORDS_TO_COMPARE - 1;
+				}
+
 			}
-			for (int i2 = 0; i2 < words1.length; i2++)
+			if (!aehnlichkeitFound)
 			{
-				String searchString2 = "";
-				for (int j = 0; (j < NUM_WORDS_TO_COMPARE) && ((i2 + j) < words2.length); j++)
-				{
-					searchString2 += " " + words2[i2 + j];
-				}
-
-				double aehnlichkeit = compareStrings(searchString1, searchString2);
-				if (aehnlichkeit >= SCHWELLENWERT)
-				{
-					System.out.println("Text1: " + searchString1);
-					System.out.println("Text2: " + searchString2);
-
-					System.out.println("Aehnlichket: " + aehnlichkeit);
-
-					i += NUM_WORDS_TO_COMPARE - 1;
-					searchResult.addFund(new Fund(String.valueOf(i2), searchString2, aehnlichkeit, ""));
-					break;
-				}
+				System.out.println("Text: " + sb1.toString());
+				i1 += NUM_WORDS_TO_COMPARE - 1;
+			}
+			else
+			{
+				i1 += NUM_WORDS_TO_COMPARE - 1;
+				aehnlichkeitFound = false;
 			}
 		}
+
+		// for (int i = 0; i < words1.length; i++)
+		// {
+		// for (int j = 0; (j < NUM_WORDS_TO_COMPARE) && ((i + j) < words1.length); j++)
+		// {
+		// sb1.append(" ");
+		// sb1.append(words1[i + j]);
+		//
+		// }
+		//
+		// SearchResult searchResult = result.get(i);
+		// if (searchResult == null)
+		// {
+		//
+		// searchResult = new SearchResult(0, sb1.toString(), 0);
+		// searchResult.setStartEnd(i, i + NUM_WORDS_TO_COMPARE);
+		// result.put(i, searchResult);
+		// }
+		// for (int i2 = 0; i2 < words1.length; i2++)
+		// {
+		// String searchString2 = "";
+		// for (int j = 0; (j < NUM_WORDS_TO_COMPARE) && ((i2 + j) < words2.length); j++)
+		// {
+		// searchString2 += " " + words2[i2 + j];
+		// }
+		//
+		// double aehnlichkeit = compareStrings(sb1.toString(), searchString2);
+		// if (aehnlichkeit >= SCHWELLENWERT)
+		// {
+		// System.out.println("Text1: " + sb1.toString());
+		// System.out.println("Text2: " + searchString2);
+		//
+		// System.out.println("Aehnlichket: " + aehnlichkeit);
+		//
+		// i += NUM_WORDS_TO_COMPARE - 1;
+		// searchResult.addFund(new Fund(String.valueOf(i2), searchString2, aehnlichkeit, ""));
+		// break;
+		// }
+		// }
+		// }
+	}
+
+	private boolean doCompare()
+	{
+		boolean result = false;
+		double aehnlichkeit = compareStrings(sb1.toString(), sb2.toString());
+		if (aehnlichkeit >= SCHWELLENWERT)
+		{
+			System.out.println("Text1: " + sb1.toString());
+			System.out.println("Text2: " + sb2.toString());
+
+			System.out.println("Aehnlichket: " + aehnlichkeit);
+
+			result = true;
+		}
+		return result;
 	}
 
 	@Override
