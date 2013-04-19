@@ -69,25 +69,7 @@ public class MySqlDatabaseHelper
 		// Open the file that is the first
 		// command line parameter
 		String strFilepath = System.getProperty("user.home") + File.separator + "password.txt";
-		FileInputStream fileInputstream = null;
-		DataInputStream dataInputStream = null;
-		try
-		{
-			fileInputstream = new FileInputStream(strFilepath);
-			dataInputStream = new DataInputStream(fileInputstream);
-			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(dataInputStream));
-			result = bufferedReader.readLine();
-			// Close the input stream
-			dataInputStream.close();
-		}
-		catch (FileNotFoundException e)
-		{
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+		result = SourceLoader.loadFile(strFilepath);
 		return result;
 	}
 
