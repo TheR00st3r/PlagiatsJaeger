@@ -17,7 +17,7 @@ public class SourceLoader
 		return result;
 	}
 	
-	public String loadFile(String filePath)
+	public static String loadFile(String filePath)
 	{
 		String result = "";
 		FileInputStream fileInputstream = null;
