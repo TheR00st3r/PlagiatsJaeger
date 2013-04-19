@@ -17,7 +17,7 @@ public class FileParser
 		return result;
 	}
 
-	private void detectFileType()
+	private FileType detectFileType()
 	{
 		if (myFile.getName().endsWith("docx")){
 			
@@ -35,6 +35,7 @@ public class FileParser
 			typ=FileType.TXT;
 			
 		}
+		return typ;
 	}
 
 	private boolean fileToTxt()
