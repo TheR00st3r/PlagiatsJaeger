@@ -2,12 +2,12 @@
 class Mail {
 
 	/**
-	 * Check the given email and password values and set session vaiables.
-	 * @param string $email
-	 * @param string $password
+	 * Send mail to client administrator after user registration.
+	 * @param string $uEMailAdress
+	 * @param int $cID
 	 * @return boolean
 	 */
-	public static function login($email, $password) {
+	public static function registrate($uEMailAdress, $cID) {
 		throw new Exception('Not implemented');
 
 	}
