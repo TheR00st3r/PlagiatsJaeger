@@ -12,4 +12,63 @@
   <elementImport xmi:id="_04q9UqmhEeK-L_TP_ICSHg">
     <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
   </elementImport>
+  <packagedElement xmi:type="uml:Activity" xmi:id="_JNd0wKm5EeK-L_TP_ICSHg" name="Plagiatsprüfung">
+    <node xmi:type="uml:InitialNode" xmi:id="_Xh6x0Km5EeK-L_TP_ICSHg" outgoing="_ie75AKm5EeK-L_TP_ICSHg" inPartition="_QiOb0Km5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_c7T4YKm5EeK-L_TP_ICSHg" name="Plagiatsprüfung&#xD;&#xA;angestoßen" outgoing="_uX5rEKm5EeK-L_TP_ICSHg" incoming="_ie75AKm5EeK-L_TP_ICSHg" inPartition="_QiOb0Km5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_lUz58Km5EeK-L_TP_ICSHg" name="Eintrag in DB&#xD;&#xA;(rId als result)" outgoing="_5qZ6EKm5EeK-L_TP_ICSHg" incoming="_uX5rEKm5EeK-L_TP_ICSHg" inPartition="_QiOb0Km5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:SendSignalAction" xmi:id="_0USxAKm5EeK-L_TP_ICSHg" name="http-Request an Backend;&#xD;&#xA;rId prüfen" outgoing="_8SbFMKm5EeK-L_TP_ICSHg" incoming="_5qZ6EKm5EeK-L_TP_ICSHg" inPartition="_QiOb0Km5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:ForkNode" xmi:id="_7T6OgKm5EeK-L_TP_ICSHg" outgoing="_GWfyMKm6EeK-L_TP_ICSHg _g6Ry4Km6EeK-L_TP_ICSHg" incoming="_8SbFMKm5EeK-L_TP_ICSHg" inPartition="_QiOb0Km5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_Ev8rIKm6EeK-L_TP_ICSHg" name="warten" outgoing="_I7YJwKm6EeK-L_TP_ICSHg" incoming="_GWfyMKm6EeK-L_TP_ICSHg" inPartition="_QiOb0Km5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:JoinNode" xmi:id="_H9flMKm6EeK-L_TP_ICSHg" outgoing="_8O1MYKm-EeK-L_TP_ICSHg" incoming="_I7YJwKm6EeK-L_TP_ICSHg _-qg2kKm8EeK-L_TP_ICSHg" inPartition="_QiOb0Km5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_ZCVmQKm6EeK-L_TP_ICSHg" name="Eintrag mit rId in&#xD;&#xA;DB vorhanden?" outgoing="_s8aIAKm6EeK-L_TP_ICSHg" incoming="_g6Ry4Km6EeK-L_TP_ICSHg" inPartition="_TIodYKm5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:DecisionNode" xmi:id="_rhJq8Km6EeK-L_TP_ICSHg" name="DecisionNode" outgoing="_84-5cKm6EeK-L_TP_ICSHg _ATAJQKm7EeK-L_TP_ICSHg" incoming="_s8aIAKm6EeK-L_TP_ICSHg" inPartition="_TIodYKm5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_55UqYKm6EeK-L_TP_ICSHg" name="OpaqueAction" outgoing="_L3HQMKm8EeK-L_TP_ICSHg" incoming="_84-5cKm6EeK-L_TP_ICSHg" inPartition="_TIodYKm5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_6ULaYKm6EeK-L_TP_ICSHg" name="OpaqueAction" outgoing="_ORwGoKm8EeK-L_TP_ICSHg" incoming="_ATAJQKm7EeK-L_TP_ICSHg" inPartition="_TIodYKm5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:DecisionNode" xmi:id="_KCSckKm8EeK-L_TP_ICSHg" name="DecisionNode" outgoing="_5eNJwKm8EeK-L_TP_ICSHg" incoming="_L3HQMKm8EeK-L_TP_ICSHg _ORwGoKm8EeK-L_TP_ICSHg" inPartition="_TIodYKm5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:SendSignalAction" xmi:id="_VRbOgKm8EeK-L_TP_ICSHg" name="Sende Status&#xD;&#xA;(nicht vorhanden/vorhanden)" outgoing="_-qg2kKm8EeK-L_TP_ICSHg _iERukKm_EeK-L_TP_ICSHg" incoming="_5eNJwKm8EeK-L_TP_ICSHg" inPartition="_TIodYKm5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:DecisionNode" xmi:id="_56fyQKm-EeK-L_TP_ICSHg" name="DecisionNode" outgoing="_AXHQYKm_EeK-L_TP_ICSHg _LEsNYKm_EeK-L_TP_ICSHg" incoming="_8O1MYKm-EeK-L_TP_ICSHg" inPartition="_QiOb0Km5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_91NUUKm-EeK-L_TP_ICSHg" name="Ausgabe:&#xD;&#xA;Fehler" outgoing="_bGonAKm_EeK-L_TP_ICSHg" incoming="_AXHQYKm_EeK-L_TP_ICSHg" inPartition="_QiOb0Km5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_-fEwsKm-EeK-L_TP_ICSHg" name="Ausgabe:&#xD;&#xA;Erfolg" outgoing="_Zzj1kKm_EeK-L_TP_ICSHg" incoming="_LEsNYKm_EeK-L_TP_ICSHg" inPartition="_QiOb0Km5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:DecisionNode" xmi:id="_X8vd4Km_EeK-L_TP_ICSHg" name="DecisionNode" outgoing="_eDBfoKm_EeK-L_TP_ICSHg" incoming="_Zzj1kKm_EeK-L_TP_ICSHg _bGonAKm_EeK-L_TP_ICSHg" inPartition="_QiOb0Km5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:ActivityFinalNode" xmi:id="_cdJG8Km_EeK-L_TP_ICSHg" incoming="_eDBfoKm_EeK-L_TP_ICSHg" inPartition="_QiOb0Km5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:DecisionNode" xmi:id="_hU9KcKm_EeK-L_TP_ICSHg" name="DecisionNode" outgoing="_1rHLQKm_EeK-L_TP_ICSHg _P23GcKnAEeK-L_TP_ICSHg" incoming="_iERukKm_EeK-L_TP_ICSHg" inPartition="_TIodYKm5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_i2FmAKm_EeK-L_TP_ICSHg" name="Datei für Prüfung&#xD;&#xA;vorbereiten" outgoing="_3slTwKm_EeK-L_TP_ICSHg" incoming="_1rHLQKm_EeK-L_TP_ICSHg" inPartition="_TIodYKm5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_mgnXAKm_EeK-L_TP_ICSHg" name="Suchmaschinen-&#xD;&#xA;abfrage" outgoing="_4IvEQKm_EeK-L_TP_ICSHg" incoming="_3slTwKm_EeK-L_TP_ICSHg" inPartition="_TIodYKm5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_plhScKm_EeK-L_TP_ICSHg" name="Ergebnisse auswerten" outgoing="_Ift5wKnAEeK-L_TP_ICSHg" incoming="_4IvEQKm_EeK-L_TP_ICSHg" inPartition="_TIodYKm5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="__FD9MKm_EeK-L_TP_ICSHg" name="Ergebnisse in DB&#xD;&#xA;ablegen" outgoing="_Lk3FwKnAEeK-L_TP_ICSHg" incoming="_Ift5wKnAEeK-L_TP_ICSHg" inPartition="_TIodYKm5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_Dl_xwKnAEeK-L_TP_ICSHg" name="Bericht generieren" outgoing="_NWjF0KnAEeK-L_TP_ICSHg" incoming="_Lk3FwKnAEeK-L_TP_ICSHg" inPartition="_TIodYKm5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:DecisionNode" xmi:id="_GSkswKnAEeK-L_TP_ICSHg" name="DecisionNode" outgoing="_Xf-M4KnAEeK-L_TP_ICSHg" incoming="_NWjF0KnAEeK-L_TP_ICSHg _P23GcKnAEeK-L_TP_ICSHg" inPartition="_TIodYKm5EeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:FlowFinalNode" xmi:id="_WyajUKnAEeK-L_TP_ICSHg" incoming="_Xf-M4KnAEeK-L_TP_ICSHg" inPartition="_TIodYKm5EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_ie75AKm5EeK-L_TP_ICSHg" source="_Xh6x0Km5EeK-L_TP_ICSHg" target="_c7T4YKm5EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_uX5rEKm5EeK-L_TP_ICSHg" source="_c7T4YKm5EeK-L_TP_ICSHg" target="_lUz58Km5EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_5qZ6EKm5EeK-L_TP_ICSHg" source="_lUz58Km5EeK-L_TP_ICSHg" target="_0USxAKm5EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_8SbFMKm5EeK-L_TP_ICSHg" source="_0USxAKm5EeK-L_TP_ICSHg" target="_7T6OgKm5EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_GWfyMKm6EeK-L_TP_ICSHg" source="_7T6OgKm5EeK-L_TP_ICSHg" target="_Ev8rIKm6EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_I7YJwKm6EeK-L_TP_ICSHg" source="_Ev8rIKm6EeK-L_TP_ICSHg" target="_H9flMKm6EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_g6Ry4Km6EeK-L_TP_ICSHg" source="_7T6OgKm5EeK-L_TP_ICSHg" target="_ZCVmQKm6EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_s8aIAKm6EeK-L_TP_ICSHg" source="_ZCVmQKm6EeK-L_TP_ICSHg" target="_rhJq8Km6EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_84-5cKm6EeK-L_TP_ICSHg" name="nicht vorhanden" source="_rhJq8Km6EeK-L_TP_ICSHg" target="_55UqYKm6EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_ATAJQKm7EeK-L_TP_ICSHg" name="vorhanden" source="_rhJq8Km6EeK-L_TP_ICSHg" target="_6ULaYKm6EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_L3HQMKm8EeK-L_TP_ICSHg" name="nicht vorhanden" source="_55UqYKm6EeK-L_TP_ICSHg" target="_KCSckKm8EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_ORwGoKm8EeK-L_TP_ICSHg" name="vorhanden" source="_6ULaYKm6EeK-L_TP_ICSHg" target="_KCSckKm8EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_5eNJwKm8EeK-L_TP_ICSHg" source="_KCSckKm8EeK-L_TP_ICSHg" target="_VRbOgKm8EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_-qg2kKm8EeK-L_TP_ICSHg" source="_VRbOgKm8EeK-L_TP_ICSHg" target="_H9flMKm6EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_8O1MYKm-EeK-L_TP_ICSHg" source="_H9flMKm6EeK-L_TP_ICSHg" target="_56fyQKm-EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_AXHQYKm_EeK-L_TP_ICSHg" name="kein Eintrag vorhanden" source="_56fyQKm-EeK-L_TP_ICSHg" target="_91NUUKm-EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_LEsNYKm_EeK-L_TP_ICSHg" name="Eintrag vorhanden" source="_56fyQKm-EeK-L_TP_ICSHg" target="_-fEwsKm-EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_Zzj1kKm_EeK-L_TP_ICSHg" source="_-fEwsKm-EeK-L_TP_ICSHg" target="_X8vd4Km_EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_bGonAKm_EeK-L_TP_ICSHg" source="_91NUUKm-EeK-L_TP_ICSHg" target="_X8vd4Km_EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_eDBfoKm_EeK-L_TP_ICSHg" source="_X8vd4Km_EeK-L_TP_ICSHg" target="_cdJG8Km_EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_iERukKm_EeK-L_TP_ICSHg" source="_VRbOgKm8EeK-L_TP_ICSHg" target="_hU9KcKm_EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_1rHLQKm_EeK-L_TP_ICSHg" name="Eintrag vorhanden" source="_hU9KcKm_EeK-L_TP_ICSHg" target="_i2FmAKm_EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_3slTwKm_EeK-L_TP_ICSHg" source="_i2FmAKm_EeK-L_TP_ICSHg" target="_mgnXAKm_EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_4IvEQKm_EeK-L_TP_ICSHg" source="_mgnXAKm_EeK-L_TP_ICSHg" target="_plhScKm_EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_Ift5wKnAEeK-L_TP_ICSHg" source="_plhScKm_EeK-L_TP_ICSHg" target="__FD9MKm_EeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_Lk3FwKnAEeK-L_TP_ICSHg" source="__FD9MKm_EeK-L_TP_ICSHg" target="_Dl_xwKnAEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_NWjF0KnAEeK-L_TP_ICSHg" source="_Dl_xwKnAEeK-L_TP_ICSHg" target="_GSkswKnAEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_P23GcKnAEeK-L_TP_ICSHg" name="kein Eintrag vorhanden" source="_hU9KcKm_EeK-L_TP_ICSHg" target="_GSkswKnAEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_Xf-M4KnAEeK-L_TP_ICSHg" source="_GSkswKnAEeK-L_TP_ICSHg" target="_WyajUKnAEeK-L_TP_ICSHg"/>
+    <group xmi:type="uml:ActivityPartition" xmi:id="_QiOb0Km5EeK-L_TP_ICSHg" name="Frontend" node="_Xh6x0Km5EeK-L_TP_ICSHg _c7T4YKm5EeK-L_TP_ICSHg _lUz58Km5EeK-L_TP_ICSHg _0USxAKm5EeK-L_TP_ICSHg _7T6OgKm5EeK-L_TP_ICSHg _Ev8rIKm6EeK-L_TP_ICSHg _H9flMKm6EeK-L_TP_ICSHg _56fyQKm-EeK-L_TP_ICSHg _91NUUKm-EeK-L_TP_ICSHg _-fEwsKm-EeK-L_TP_ICSHg _X8vd4Km_EeK-L_TP_ICSHg _cdJG8Km_EeK-L_TP_ICSHg"/>
+    <group xmi:type="uml:ActivityPartition" xmi:id="_TIodYKm5EeK-L_TP_ICSHg" name="Backend" node="_ZCVmQKm6EeK-L_TP_ICSHg _rhJq8Km6EeK-L_TP_ICSHg _55UqYKm6EeK-L_TP_ICSHg _6ULaYKm6EeK-L_TP_ICSHg _KCSckKm8EeK-L_TP_ICSHg _VRbOgKm8EeK-L_TP_ICSHg _hU9KcKm_EeK-L_TP_ICSHg _i2FmAKm_EeK-L_TP_ICSHg _mgnXAKm_EeK-L_TP_ICSHg _plhScKm_EeK-L_TP_ICSHg __FD9MKm_EeK-L_TP_ICSHg _Dl_xwKnAEeK-L_TP_ICSHg _GSkswKnAEeK-L_TP_ICSHg _WyajUKnAEeK-L_TP_ICSHg"/>
+  </packagedElement>
 </uml:Package>
