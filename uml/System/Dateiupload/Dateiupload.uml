@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Package xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_y2cm4KmhEeK-L_TP_ICSHg">
+  <elementImport xmi:id="_y2fDIKmhEeK-L_TP_ICSHg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+  </elementImport>
+  <elementImport xmi:id="_y2jUkKmhEeK-L_TP_ICSHg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+  </elementImport>
+  <elementImport xmi:id="_y2jUkamhEeK-L_TP_ICSHg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
+  </elementImport>
+  <elementImport xmi:id="_y2jUkqmhEeK-L_TP_ICSHg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+  </elementImport>
+  <packagedElement xmi:type="uml:Activity" xmi:id="_3fZH8KmhEeK-L_TP_ICSHg" name="Dateiupload">
+    <node xmi:type="uml:InitialNode" xmi:id="_7y1TEKmhEeK-L_TP_ICSHg" outgoing="_dQRTMKmiEeK-L_TP_ICSHg" inPartition="_5xr6sKmhEeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_Hds-wKmiEeK-L_TP_ICSHg" name="Dateiupload&#xD;&#xA;angestoßen" outgoing="_krNawKmiEeK-L_TP_ICSHg" incoming="_dQRTMKmiEeK-L_TP_ICSHg" inPartition="_5xr6sKmhEeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_Qarg0KmiEeK-L_TP_ICSHg" name="Eintrag in DB&#xD;&#xA;(dId als result)" outgoing="_rJFdIKmiEeK-L_TP_ICSHg" incoming="_krNawKmiEeK-L_TP_ICSHg" inPartition="_5xr6sKmhEeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_ny0E4KmiEeK-L_TP_ICSHg" name="Datei mit dId&#xD;&#xA;als Name ablegen" outgoing="_8KK_kKmiEeK-L_TP_ICSHg" incoming="_rJFdIKmiEeK-L_TP_ICSHg" inPartition="_5xr6sKmhEeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:SendSignalAction" xmi:id="_2gO7kKmiEeK-L_TP_ICSHg" name="http-Request an Backend;&#xD;&#xA;Datei mit dId prüfen" outgoing="_C446UKmjEeK-L_TP_ICSHg" incoming="_8KK_kKmiEeK-L_TP_ICSHg" inPartition="_5xr6sKmhEeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:ForkNode" xmi:id="_BFfqEKmjEeK-L_TP_ICSHg" outgoing="_FkT-wKmjEeK-L_TP_ICSHg _S07gQKmjEeK-L_TP_ICSHg" incoming="_C446UKmjEeK-L_TP_ICSHg" inPartition="_5xr6sKmhEeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_Do7QIKmjEeK-L_TP_ICSHg" name="warten" outgoing="_zPaOkKmjEeK-L_TP_ICSHg" incoming="_FkT-wKmjEeK-L_TP_ICSHg" inPartition="_5xr6sKmhEeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_QmQCMKmjEeK-L_TP_ICSHg" name="Daten prüfen&#xD;&#xA;(Datei mit dId vorhanden)" outgoing="_45QL8KmjEeK-L_TP_ICSHg" incoming="_S07gQKmjEeK-L_TP_ICSHg" inPartition="_K3gWsKmjEeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:JoinNode" xmi:id="_ww6y4KmjEeK-L_TP_ICSHg" outgoing="_sY-3YKmlEeK-L_TP_ICSHg" incoming="_zPaOkKmjEeK-L_TP_ICSHg _MwEv8KmlEeK-L_TP_ICSHg" inPartition="_5xr6sKmhEeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:DecisionNode" xmi:id="_2ZkdcKmjEeK-L_TP_ICSHg" name="DecisionNode" outgoing="_jM4wsKmkEeK-L_TP_ICSHg _lz_84KmkEeK-L_TP_ICSHg" incoming="_45QL8KmjEeK-L_TP_ICSHg" inPartition="_K3gWsKmjEeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:DecisionNode" xmi:id="_XIGwMKmkEeK-L_TP_ICSHg" name="DecisionNode" outgoing="_GAkLAKmlEeK-L_TP_ICSHg" incoming="_4bpNcKmkEeK-L_TP_ICSHg _7ezccKmkEeK-L_TP_ICSHg" inPartition="_K3gWsKmjEeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_eZ90QKmkEeK-L_TP_ICSHg" name="Nachricht: Erfolg" outgoing="_7ezccKmkEeK-L_TP_ICSHg" incoming="_lz_84KmkEeK-L_TP_ICSHg" inPartition="_K3gWsKmjEeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_h2wEMKmkEeK-L_TP_ICSHg" name="Nachricht: Fehler" outgoing="_4bpNcKmkEeK-L_TP_ICSHg" incoming="_jM4wsKmkEeK-L_TP_ICSHg" inPartition="_K3gWsKmjEeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:SendSignalAction" xmi:id="_Aq5G0KmlEeK-L_TP_ICSHg" name="Sende Status&#xD;&#xA;(nicht korrekt/korrket)" outgoing="_MwEv8KmlEeK-L_TP_ICSHg _PEKdAKmmEeK-L_TP_ICSHg" incoming="_GAkLAKmlEeK-L_TP_ICSHg" inPartition="_K3gWsKmjEeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:DecisionNode" xmi:id="_pjOLMKmlEeK-L_TP_ICSHg" name="DecisionNode" outgoing="_2n8lwKmlEeK-L_TP_ICSHg _7JqdcKmlEeK-L_TP_ICSHg" incoming="_sY-3YKmlEeK-L_TP_ICSHg" inPartition="_5xr6sKmhEeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_x7HDMKmlEeK-L_TP_ICSHg" name="Ausgabe:&#xD;&#xA;Erfolg" outgoing="_AjrPEKmmEeK-L_TP_ICSHg" incoming="_7JqdcKmlEeK-L_TP_ICSHg" inPartition="_5xr6sKmhEeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_0rrGUKmlEeK-L_TP_ICSHg" name="Ausgabe:&#xD;&#xA;Fehler" outgoing="_Bt-fAKmmEeK-L_TP_ICSHg" incoming="_2n8lwKmlEeK-L_TP_ICSHg" inPartition="_5xr6sKmhEeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:DecisionNode" xmi:id="__X0f8KmlEeK-L_TP_ICSHg" name="DecisionNode" outgoing="_F1MMAKmmEeK-L_TP_ICSHg" incoming="_AjrPEKmmEeK-L_TP_ICSHg _Bt-fAKmmEeK-L_TP_ICSHg" inPartition="_5xr6sKmhEeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:ActivityFinalNode" xmi:id="_Ekh1YKmmEeK-L_TP_ICSHg" incoming="_F1MMAKmmEeK-L_TP_ICSHg" inPartition="_5xr6sKmhEeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:DecisionNode" xmi:id="_OTB7AKmmEeK-L_TP_ICSHg" name="DecisionNode" outgoing="_WEQboKmmEeK-L_TP_ICSHg _cyMTQKmmEeK-L_TP_ICSHg" incoming="_PEKdAKmmEeK-L_TP_ICSHg" inPartition="_K3gWsKmjEeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_TigQkKmmEeK-L_TP_ICSHg" name="Parsen, Text filtern,&#xD;&#xA;abspeichern" outgoing="_bwx5kKmmEeK-L_TP_ICSHg" incoming="_WEQboKmmEeK-L_TP_ICSHg" inPartition="_K3gWsKmjEeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:DecisionNode" xmi:id="_bFv_kKmmEeK-L_TP_ICSHg" name="DecisionNode" outgoing="_ilGtEKmmEeK-L_TP_ICSHg" incoming="_bwx5kKmmEeK-L_TP_ICSHg _cyMTQKmmEeK-L_TP_ICSHg" inPartition="_K3gWsKmjEeK-L_TP_ICSHg"/>
+    <node xmi:type="uml:FlowFinalNode" xmi:id="_hV2rsKmmEeK-L_TP_ICSHg" incoming="_ilGtEKmmEeK-L_TP_ICSHg" inPartition="_K3gWsKmjEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_dQRTMKmiEeK-L_TP_ICSHg" source="_7y1TEKmhEeK-L_TP_ICSHg" target="_Hds-wKmiEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_krNawKmiEeK-L_TP_ICSHg" source="_Hds-wKmiEeK-L_TP_ICSHg" target="_Qarg0KmiEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_rJFdIKmiEeK-L_TP_ICSHg" source="_Qarg0KmiEeK-L_TP_ICSHg" target="_ny0E4KmiEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_8KK_kKmiEeK-L_TP_ICSHg" source="_ny0E4KmiEeK-L_TP_ICSHg" target="_2gO7kKmiEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_C446UKmjEeK-L_TP_ICSHg" source="_2gO7kKmiEeK-L_TP_ICSHg" target="_BFfqEKmjEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_FkT-wKmjEeK-L_TP_ICSHg" source="_BFfqEKmjEeK-L_TP_ICSHg" target="_Do7QIKmjEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ObjectFlow" xmi:id="_S07gQKmjEeK-L_TP_ICSHg" name="dId" source="_BFfqEKmjEeK-L_TP_ICSHg" target="_QmQCMKmjEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_zPaOkKmjEeK-L_TP_ICSHg" source="_Do7QIKmjEeK-L_TP_ICSHg" target="_ww6y4KmjEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_45QL8KmjEeK-L_TP_ICSHg" source="_QmQCMKmjEeK-L_TP_ICSHg" target="_2ZkdcKmjEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_jM4wsKmkEeK-L_TP_ICSHg" name="nicht korrekt" source="_2ZkdcKmjEeK-L_TP_ICSHg" target="_h2wEMKmkEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_lz_84KmkEeK-L_TP_ICSHg" name="korrekt" source="_2ZkdcKmjEeK-L_TP_ICSHg" target="_eZ90QKmkEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ObjectFlow" xmi:id="_4bpNcKmkEeK-L_TP_ICSHg" name="nicht korrekt" source="_h2wEMKmkEeK-L_TP_ICSHg" target="_XIGwMKmkEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ObjectFlow" xmi:id="_7ezccKmkEeK-L_TP_ICSHg" name="korrekt" source="_eZ90QKmkEeK-L_TP_ICSHg" target="_XIGwMKmkEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_GAkLAKmlEeK-L_TP_ICSHg" source="_XIGwMKmkEeK-L_TP_ICSHg" target="_Aq5G0KmlEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ObjectFlow" xmi:id="_MwEv8KmlEeK-L_TP_ICSHg" name="nicht korrekt/korrekt" source="_Aq5G0KmlEeK-L_TP_ICSHg" target="_ww6y4KmjEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_sY-3YKmlEeK-L_TP_ICSHg" source="_ww6y4KmjEeK-L_TP_ICSHg" target="_pjOLMKmlEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_2n8lwKmlEeK-L_TP_ICSHg" name="nicht korrekt" source="_pjOLMKmlEeK-L_TP_ICSHg" target="_0rrGUKmlEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_7JqdcKmlEeK-L_TP_ICSHg" name="korrekt" source="_pjOLMKmlEeK-L_TP_ICSHg" target="_x7HDMKmlEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_AjrPEKmmEeK-L_TP_ICSHg" source="_x7HDMKmlEeK-L_TP_ICSHg" target="__X0f8KmlEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_Bt-fAKmmEeK-L_TP_ICSHg" source="_0rrGUKmlEeK-L_TP_ICSHg" target="__X0f8KmlEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_F1MMAKmmEeK-L_TP_ICSHg" source="__X0f8KmlEeK-L_TP_ICSHg" target="_Ekh1YKmmEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_PEKdAKmmEeK-L_TP_ICSHg" source="_Aq5G0KmlEeK-L_TP_ICSHg" target="_OTB7AKmmEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_WEQboKmmEeK-L_TP_ICSHg" name="korrekt" source="_OTB7AKmmEeK-L_TP_ICSHg" target="_TigQkKmmEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_bwx5kKmmEeK-L_TP_ICSHg" source="_TigQkKmmEeK-L_TP_ICSHg" target="_bFv_kKmmEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_cyMTQKmmEeK-L_TP_ICSHg" name="nicht korrekt" source="_OTB7AKmmEeK-L_TP_ICSHg" target="_bFv_kKmmEeK-L_TP_ICSHg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_ilGtEKmmEeK-L_TP_ICSHg" source="_bFv_kKmmEeK-L_TP_ICSHg" target="_hV2rsKmmEeK-L_TP_ICSHg"/>
+    <group xmi:type="uml:ActivityPartition" xmi:id="_5xr6sKmhEeK-L_TP_ICSHg" name="Frontend" node="_7y1TEKmhEeK-L_TP_ICSHg _Hds-wKmiEeK-L_TP_ICSHg _Qarg0KmiEeK-L_TP_ICSHg _ny0E4KmiEeK-L_TP_ICSHg _2gO7kKmiEeK-L_TP_ICSHg _BFfqEKmjEeK-L_TP_ICSHg _Do7QIKmjEeK-L_TP_ICSHg _ww6y4KmjEeK-L_TP_ICSHg _pjOLMKmlEeK-L_TP_ICSHg _x7HDMKmlEeK-L_TP_ICSHg _0rrGUKmlEeK-L_TP_ICSHg __X0f8KmlEeK-L_TP_ICSHg _Ekh1YKmmEeK-L_TP_ICSHg"/>
+    <group xmi:type="uml:ActivityPartition" xmi:id="_K3gWsKmjEeK-L_TP_ICSHg" name="Backend" node="_QmQCMKmjEeK-L_TP_ICSHg _2ZkdcKmjEeK-L_TP_ICSHg _XIGwMKmkEeK-L_TP_ICSHg _eZ90QKmkEeK-L_TP_ICSHg _h2wEMKmkEeK-L_TP_ICSHg _Aq5G0KmlEeK-L_TP_ICSHg _OTB7AKmmEeK-L_TP_ICSHg _TigQkKmmEeK-L_TP_ICSHg _bFv_kKmmEeK-L_TP_ICSHg _hV2rsKmmEeK-L_TP_ICSHg"/>
+  </packagedElement>
+</uml:Package>

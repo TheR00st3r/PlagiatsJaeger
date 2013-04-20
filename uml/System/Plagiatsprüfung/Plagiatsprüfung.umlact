@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_04q9U6mhEeK-L_TP_ICSHg" type="UMLActivity" name="Plagiatsprüfung.umlact" measurementUnit="Pixel">
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_04q9VKmhEeK-L_TP_ICSHg"/>
+  <element xmi:type="uml:Package" href="Plagiatsprüfung.uml#_04n6AKmhEeK-L_TP_ICSHg"/>
+</notation:Diagram>
