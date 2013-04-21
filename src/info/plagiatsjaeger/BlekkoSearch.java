@@ -141,7 +141,7 @@ public class BlekkoSearch implements IOnlineSearch
 				if (!_allSearchResults.contains(strLink))
 				{
 					alUrlList.add(strLink);
-					System.out.println(strLink);
+//					System.out.println(strLink);
 					// TODO: eventuell direkt in neuem Thread zurückgeben
 					if (_onLinkFoundListener != null) _onLinkFoundListener.onLinkFound(strLink);
 				}
@@ -161,7 +161,7 @@ public class BlekkoSearch implements IOnlineSearch
 				if (!_allSearchResults.contains(strLink))
 				{
 					alUrlList.add(strLink);
-					System.out.println(strLink);
+//					System.out.println(strLink);
 				}
 			}
 
