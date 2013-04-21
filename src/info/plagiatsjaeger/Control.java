@@ -16,7 +16,7 @@ public class Control
 	public SourceLoader	        sourceLoader;
 
 	private static final String	ROOT_FILES	= "/srv/www/uploads/";
-	
+
 	public void startParsing(int documentHash)
 	{
 
@@ -27,19 +27,26 @@ public class Control
 		int documentId = mySqlDatabaseHelper.getDocumentID(rId);
 		startPlagiatsSearch(ROOT_FILES + documentId + ".txt", rId);
 	}
-	
+
 	public void startPlagiatsSearch(String filePath, int rId)
 	{
 		final String orginalText = SourceLoader.loadFile(filePath);
-
 		iOnlineSearch = new BlekkoSearch();
 		iOnlineSearch.setOnLinkFoundListener(new OnLinkFoundListener()
 		{
 
 			@Override
-			public void onLinkFound(String link)
+			public void onLinkFound(final String link)
 			{
-				iComparer.compareText(orginalText, SourceLoader.loadURL(link));
+				new Thread(new Runnable()
+				{
+
+					@Override
+					public void run()
+					{
+						new MyComparer().compareText(orginalText, SourceLoader.loadURL(link));
+					}
+				}).start();
 			}
 		});
 		iOnlineSearch.searchAsync(orginalText, 8);
