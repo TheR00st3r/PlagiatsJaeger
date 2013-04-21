@@ -149,4 +149,30 @@ h2 {
 tr:hover {
   background: #ffa !important;
 }
+/*-------------Meldungen------------------*/
+.error,
+.save,
+.info {
+  color: #000;
+  text-align: center;
+  padding: 3px;
+  margin: 10px 0 10px 0;
+}
+.error {
+  background-color: #FF9999;
+  border: solid 1px #E53333;
+}
+.save {
+  background-color: #7FFF99;
+  border: solid 1px #00B233;
+}
+.info {
+  background-color: #eee;
+  border: solid 1px #555;
+}
+.error a,
+.save a,
+.info a {
+  color: #000;
+}
 /*@import "../../../thirdparty/fancybox/jquery.fancybox.less"*/

@@ -32,6 +32,11 @@
 	{/if}
 
 	<div id="content" id="content">
+		{foreach from=$messages item=message}
+		<div class="{$message.type}">
+			{$message.text}
+		</div>
+		{/foreach}
 		{$content}
 	</div>
 

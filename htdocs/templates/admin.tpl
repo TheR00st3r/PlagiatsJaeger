@@ -9,6 +9,7 @@
 			<th>uSentenceLength</th>
 			<th>uJumpLength</th>
 			<th>uTreshold</th>
+			<th></th>
 		</tr>
 		{$color = ''}
 		{foreach from=$user item=item}
@@ -20,12 +21,43 @@
 			<td>{$item.uSentenceLength}</td>
 			<td>{$item.uJumpLength}</td>
 			<td>{$item.uTreshold}</td>
+			<td> {if $item.uPermissonLevel == 1}
+			<div id="activateUserForm{$item.uID}" style="display: none">
+				<form method="post" action="{$root}{$page}">
+					<input type="hidden" name="uID" value="{$item.uID}" />
+					<h2>Benutzer freischlaten</h2>
+					<label for="uPermissonLevel">Berechtigung:</label>
+					<select name="uPermissonLevel" id="uPermissonLevel">
+						<option value="100">User</option>
+						<option value="500">Admin</option>
+						<!-- <option value="900">SuperAdmin</option> -->
+					</select>
+					<br />
+					<input type="submit" name="button[uActivate]" value="freischalten" />
+				</form>
+			</div><a class="create" href="#activateUserForm{$item.uID}">[activate]</a> {/if} 
+			
+			<div id="deleteUserForm{$item.uID}" style="display: none">
+				<form method="post" action="{$root}{$page}">
+					<input type="hidden" name="uID" value="{$item.uID}" />
+					<h2>Benutzer löschen</h2>
+					wirklich löschen?<br />
+					Mit dem Benutzer werden auch alle seine Dokumente und Plagiatsprüfungen gelöscht.<br />
+					<input type="submit" name="button[uDelete]" value="löschen" />
+				</form>
+			</div><a class="create" href="#deleteUserForm{$item.uID}">[löschen]</a>
+			
+			</td>
 		</tr>
 		{if $color == ''}{$color = 'bgcolor'}{else}{$color = ''}{/if}
 		{/foreach}
 	</table>
+	
+	<br />
+	<br />
+	<br />
 
-	<h2>New User Form</h2>
+	<h2>Neuen Benuter anlegen</h2>
 	<form method="post" action="" enctype="multipart/form-data">
 		<table>
 			<tr>
@@ -65,7 +97,7 @@
 			<tr>
 				<td></td>
 				<td>
-				<input type="submit" name="uAddSubmit" value="speichern" />
+				<input type="submit" name="button[uAddSubmit]" value="speichern" />
 				</td>
 			</tr>
 		</table>

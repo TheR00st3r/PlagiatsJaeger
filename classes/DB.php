@@ -376,13 +376,13 @@ class DB {
 }
 
 function stringSave($string) {
-	// $string = htmlspecialchars($string, ENT_QUOTES, 'UTF-8', false);
-	// $string = mysql_real_escape_string($string);
+	$string = htmlspecialchars($string, ENT_QUOTES, 'UTF-8', false);
+	$string = mysql_real_escape_string($string);
 	return $string;
 }
 
 function stripslashes_deep($value) {
-	// $value = is_array($value) ? array_map('stripslashes_deep', $value) : stripslashes($value);
+	$value = is_array($value) ? array_map('stripslashes_deep', $value) : stripslashes($value);
 	return $value;
 }
 ?>

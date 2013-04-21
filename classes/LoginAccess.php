@@ -17,7 +17,7 @@ class LoginAccess {
 
 			$dbLogin = new db();
 			$dbLogin -> read("SELECT
-								uID, uName, uLastname, uEMailAdress, uPassword, uPermissonLevel
+								uID, uName, uLastname, uEMailAdress, uPassword, uPermissonLevel, cID
 							FROM 
 								user
 							WHERE
@@ -29,6 +29,7 @@ class LoginAccess {
 				$row = $dbLogin -> lines();
 
 				$_SESSION[self::suffix . '_id'] = $row['uID'];
+				$_SESSION[self::suffix . '_client'] = $row['cID'];
 				$_SESSION[self::suffix . '_name'] = $row['uLastname'] . ', ' . $row['uName'];
 				$_SESSION[self::suffix . '_email'] = $row['uEMailAdress'];
 				$_SESSION[self::suffix . '_level'] = $row['uPermissonLevel'];
@@ -46,6 +47,7 @@ class LoginAccess {
 	public static function logout() {
 
 		unset($_SESSION[self::suffix . '_id']);
+		unset($_SESSION[self::suffix . '_client']);
 		unset($_SESSION[self::suffix . '_name']);
 		unset($_SESSION[self::suffix . '_email']);
 		unset($_SESSION[self::suffix . '_level']);
@@ -78,6 +80,14 @@ class LoginAccess {
 	 */
 	public static function getUserID() {
 		return $_SESSION[self::suffix . '_id'];
+	}
+
+	/**
+	 * Returns the client id from the set sessions.
+	 * @return int
+	 */
+	public static function getClientID() {
+		return $_SESSION[self::suffix . '_client'];
 	}
 
 	/**

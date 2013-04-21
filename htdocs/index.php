@@ -28,8 +28,8 @@ if ($page == 'public') {
 	$folder = Folder::getFolderFromHash($_GET['id']);
 	if ($folder['fID']) {
 		
-		//TODO: DATUM PRÜFEN fLinkExpireDatetime
-		
+		if($folder['fLinkExpireDatetime'] > date("Y-m-d H:i:s")) {
+
 		if (isset($_POST['dAddSubmit'])) {
 			require_once '../classes/Upload.php';
 			if (Upload::fileUpload($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'])) {
@@ -38,6 +38,10 @@ if ($page == 'public') {
 				$contentTpl = 'upload Error';
 		} else {
 			$contentTpl = $smarty -> fetch('public.tpl');
+		}
+		}
+		else {
+			$contentTpl = 'Link ist abgelaufen....';
 		}
 	} else
 		$contentTpl = 'error';
@@ -123,9 +127,21 @@ if ($page == 'public') {
 		case 'admin' :
 			if (LoginAccess::check(500)) {
 				require_once '../classes/User.php';
-				if (isset($_POST['uAddSubmit'])) {
-					User::newUser($_POST['uName'], $_POST['uLastname'], $_POST['uEMailAdress'], $_POST['uPassword'], $_POST['uPermissonLevel']);
+
+				$post = key($_POST['button']);
+				switch ($post) {
+					case 'uAddSubmit' :
+						$return = User::newUser($_POST['uName'], $_POST['uLastname'], $_POST['uEMailAdress'], $_POST['uPassword'], $_POST['uPermissonLevel']);
+						break;
+					case 'uActivate' :
+						$return = User::activateUser($_POST['uID'], $_POST['uPermissonLevel']);
+						break;
+					case 'uDelete' :
+						$return = User::deleteUser($_POST['uID']);
+						break;
 				}
+				
+				$smarty -> assign('messages', $return['messages']);
 
 				$smarty -> assign('user', User::getAllUser());
 				$contentTpl = $smarty -> fetch('admin.tpl');
@@ -136,7 +152,24 @@ if ($page == 'public') {
 			break;
 	}
 } else {
-	$contentTpl = $smarty -> fetch('login.tpl');
+	switch ($url[0]) {
+		case 'registrate' :
+			$post = key($_POST['button']);
+			switch ($post) {
+				case 'uRegistrate' :
+					require_once '../classes/User.php';
+					$return = User::registrateUser($_POST['uName'], $_POST['uLastname'], $_POST['uEMailAdress'], $_POST['uPassword'], $_POST['uPassword2'], $_POST['cID']);
+					print_array($return);
+					$smarty -> assign('messages', $return['messages']);
+					break;
+			}
+			$contentTpl = $smarty -> fetch('registrate.tpl');
+			break;
+
+		default :
+			$contentTpl = $smarty -> fetch('login.tpl');
+			break;
+	}
 }
 $smarty -> assign('content', $contentTpl);
 $bodyTpl = $smarty -> fetch('layout.tpl');

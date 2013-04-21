@@ -22,6 +22,10 @@
 				<input type="submit" name="lSubmit" value="login" />
 				</td>
 			</tr>
+
 		</table>
+		<br />
+		<a href="{$root}">Passwort vergessen?</a><br />
+		<a href="{$root}registrate">Ich möchte mich Registrieren.</a>
 	</fieldset>
 </form>

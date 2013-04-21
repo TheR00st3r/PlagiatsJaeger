@@ -24,7 +24,7 @@ class Folder {
 		if ($fParentID == null) {
 			$db -> read("
 				SELECT
-					f.fID, f.fName, f.fParentID, f.fHashLink, fLinkExpireDatetime
+					f.fID, f.fName, f.fParentID, f.fHashLink, f.fLinkExpireDatetime
 				FROM
 					folder AS f LEFT JOIN folderpermission AS p ON f.fID = p.fID
 				WHERE
@@ -208,7 +208,7 @@ class Folder {
 		$db = new db();
 		$db -> read("
 				SELECT
-					f.fID, f.fName, fLinkExpireDatetime
+					f.fID, f.fName, f.fLinkExpireDatetime
 				FROM
 					folder AS f
 				WHERE
