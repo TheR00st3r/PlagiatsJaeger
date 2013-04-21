@@ -13,7 +13,7 @@ public class MyComparer implements IComparer
 	private static final int	                  NUM_WORDS_TO_COMPARE	= 10;
 	private static final double	                  SCHWELLENWERT	       = 0.9;
 
-	private static HashMap<Integer, SearchResult>	result	           = new HashMap<Integer, SearchResult>();
+	private static HashMap<Integer, SearchResult>	_searchResults	   = new HashMap<Integer, SearchResult>();
 
 	private String[]	                          words1;
 	private String[]	                          words2;
@@ -33,7 +33,6 @@ public class MyComparer implements IComparer
 
 		int resultStart1 = -1;
 		int resultEnd1 = -1;
-
 		int resultStart2 = -1;
 		int resultEnd2 = -1;
 
@@ -73,7 +72,6 @@ public class MyComparer implements IComparer
 					}
 					resultEnd1 = i1 + j1 + 1;
 					resultEnd2 = i2 + j2 + 1;
-
 					sumAehnlichkeit += aehnlichkeit;
 					countAehnlichkeit++;
 
@@ -90,13 +88,12 @@ public class MyComparer implements IComparer
 					{
 						break;
 					}
-
 				}
 				if (resultFound)
 				{
 					StringBuilder sbOrgText = new StringBuilder();
 					StringBuilder sbPlagText = new StringBuilder();
-					for (int c = resultStart1; c < resultEnd1; c++)
+					for (int c = resultStart1; (c < resultEnd1) && (c < words1.length - 1); c++)
 					{
 						sbOrgText.append(words1[c]).append(" ");
 					}
@@ -106,23 +103,16 @@ public class MyComparer implements IComparer
 					}
 					System.out.println("Text: " + sbOrgText.toString());
 					System.out.println("Text: " + sbPlagText.toString());
-					// System.out.println("Text2: " + sb2.toString());
-
 					System.out.println("Aehnlichket: " + sumAehnlichkeit / countAehnlichkeit);
-					
-					SearchResult searchResult = result.get(resultStart1);
+
+					SearchResult searchResult = _searchResults.get(resultStart1);
 					if (searchResult == null)
 					{
-
-						searchResult = new SearchResult(0, sb1.toString(), 0);
+						searchResult = new SearchResult(0, sb1.toString(), resultStart1);
 						searchResult.setStartEnd(resultStart1, resultEnd1);
-						result.put(resultStart1, searchResult);
+						_searchResults.put(resultStart1, searchResult);
 					}
-					else
-					{
-						searchResult.addFund(new Fund("", sbPlagText.toString(), sumAehnlichkeit / countAehnlichkeit, 0));
-					}
-
+					searchResult.addFund(new Fund("", sbPlagText.toString(), sumAehnlichkeit / countAehnlichkeit, 0));
 					resultStart1 = -1;
 					resultStart2 = -1;
 					resultEnd1 = -1;
@@ -136,6 +126,14 @@ public class MyComparer implements IComparer
 			if (!aehnlichkeitFound)
 			{
 				System.out.println("Text: " + sb1.toString());
+				SearchResult searchResult = _searchResults.get(resultStart1);
+				if (searchResult == null)
+				{
+					searchResult = new SearchResult(0, sb1.toString(), resultStart1);
+					searchResult.setStartEnd(resultStart1, resultEnd1);
+					_searchResults.put(resultStart1, searchResult);
+				}
+
 				i1 += NUM_WORDS_TO_COMPARE - 1;
 			}
 			else
@@ -143,69 +141,15 @@ public class MyComparer implements IComparer
 				i1 += NUM_WORDS_TO_COMPARE - 1;
 				aehnlichkeitFound = false;
 			}
+
 		}
-
-		// for (int i = 0; i < words1.length; i++)
-		// {
-		// for (int j = 0; (j < NUM_WORDS_TO_COMPARE) && ((i + j) < words1.length); j++)
-		// {
-		// sb1.append(" ");
-		// sb1.append(words1[i + j]);
-		//
-		// }
-		//
-		// SearchResult searchResult = result.get(i);
-		// if (searchResult == null)
-		// {
-		//
-		// searchResult = new SearchResult(0, sb1.toString(), 0);
-		// searchResult.setStartEnd(i, i + NUM_WORDS_TO_COMPARE);
-		// result.put(i, searchResult);
-		// }
-		// for (int i2 = 0; i2 < words1.length; i2++)
-		// {
-		// String searchString2 = "";
-		// for (int j = 0; (j < NUM_WORDS_TO_COMPARE) && ((i2 + j) < words2.length); j++)
-		// {
-		// searchString2 += " " + words2[i2 + j];
-		// }
-		//
-		// double aehnlichkeit = compareStrings(sb1.toString(), searchString2);
-		// if (aehnlichkeit >= SCHWELLENWERT)
-		// {
-		// System.out.println("Text1: " + sb1.toString());
-		// System.out.println("Text2: " + searchString2);
-		//
-		// System.out.println("Aehnlichket: " + aehnlichkeit);
-		//
-		// i += NUM_WORDS_TO_COMPARE - 1;
-		// searchResult.addFund(new Fund(String.valueOf(i2), searchString2, aehnlichkeit, ""));
-		// break;
-		// }
-		// }
-		// }
 	}
-
-	private boolean doCompare()
-	{
-		boolean result = false;
-		double aehnlichkeit = compareStrings(sb1.toString(), sb2.toString());
-		if (aehnlichkeit >= SCHWELLENWERT)
-		{
-			System.out.println("Text1: " + sb1.toString());
-			System.out.println("Text2: " + sb2.toString());
-
-			System.out.println("Aehnlichket: " + aehnlichkeit);
-
-			result = true;
-		}
-		return result;
-	}
-
+	
 	@Override
 	public void compareFiles(String filePathSource, String filePathToCheck)
 	{
-		// TODO Auto-generated method stub
+		// Eventuell dateien Stück für Stück laden(RAM Verbrauch senken)
+		compareText(SourceLoader.loadFile(filePathSource), SourceLoader.loadFile(filePathToCheck));
 	}
 
 	/** @return lexical similarity value in the range [0,1] */
@@ -270,6 +214,7 @@ public class MyComparer implements IComparer
 	@Override
 	public HashMap<Integer, SearchResult> getSearchResults()
 	{
-		return result;
+		//TODO: Doppelte Einträge/Ueberschneidungen zusammenfassen
+		return _searchResults;
 	}
 }

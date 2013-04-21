@@ -1,5 +1,7 @@
 package info.plagiatsjaeger.test;
 
+import java.io.File;
+
 import info.plagiatsjaeger.MyComparer;
 
 
@@ -15,11 +17,9 @@ public class TestComparer
 
 		
 //		WordProcessing wordProcessing = new WordProcessing();
-		String text1 = "Die prunkvolle mit Figurenschmuck und ornamentalem Dekor üppig ausgestattete Fassade ist eine barock-theatralische Inszenierung zum Lob des Stifters Vincenzo Fini, der mit einer hoch aufgesockelte Büste über dem Hauptportal präsentiert wird. Die Supersuckers sind eine amerikanische Rockband. Die Errichtung eines weiteren Rektorats in Oberkassel wurde seit den späten 1920er Jahren angestrebt. Sie selbst bezeichnen sich als Greatest Rock'n'Roll Band in the World.";
-		String text2 = "Die prunkvollere mit Figurenschmuck und ornamentalem Dekor üppig ausgestattete Fassade ist eine barock-theatralische Inszenierung zum Lob des Stifters Vincenzo Fini, der mit einer hoch aufgesockelte Büste über dem Hauptportal präsentiert wird. Simultaneum nennt man das Recht, nach welchem in demselben Staat der evangelische und katholische Glaube freie Ausübung hat. Die Supersuckers sind eine amerikanische Rockband. Sie selbst bezeichnen sich als Greatest Rock'n'Roll Band in the World.";
-//		String text2 = "Die prunkvolle Kirche wird zum ersten mal im 8. Jahrhundert(mit Figurenschmuck und ornamentalem Dekor) in venezianischen Quellen erwähnt. Demnach geht sie auf eine Stiftung der Familien der Artigeri und Scopari zurück. Francesco Sansovino datiert ihre Gründung auf das Jahr 947, allerdings ohne eine Quelle anzugeben. Seit dem 13. Jahrhundert ist die Kirche als Pfarrkirche nachgewiesen.";
-
-		myComparer.compareText(text1, text2);
+		String path1 = System.getProperty("user.home") + File.separator + "orgText.txt";
+		String path2 = System.getProperty("user.home") + File.separator + "plagText.txt";
+		myComparer.compareFiles(path1, path2);
 		
 		//System.out.println(myComparer.compareStrings(text1, text2));
 		

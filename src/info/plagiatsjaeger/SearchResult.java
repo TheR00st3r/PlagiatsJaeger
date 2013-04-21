@@ -60,6 +60,16 @@ public class SearchResult
 	{
 		return _funds;
 	}
+	
+	public int getStart()
+	{
+		return _start;
+	}
+	
+	public int getEnd()
+	{
+		return _end;
+	}
 
 	public static class Fund
 	{

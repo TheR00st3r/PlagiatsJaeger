@@ -23,7 +23,8 @@ public class WordProcessing
 	public String[] splitToWords(String text)
 	{
 		String[] result = null;
-		result = text.split("[ \t\n\f\r]");
+		text = text.replaceAll("\n", "\n ");
+		result = text.split("[ \t\f\r]");
 		return result;
 	}
 

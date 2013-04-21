@@ -32,7 +32,7 @@ public class SourceLoader
 			dataInputStream = new DataInputStream(fileInputstream);
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(dataInputStream));
 			
-			while((line = bufferedReader.readLine()).length() != 0)
+			while((line = bufferedReader.readLine()) != null)
 			{
 				stringBuilder.append(line);
 			}
