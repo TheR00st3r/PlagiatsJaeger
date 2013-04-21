@@ -10,15 +10,15 @@ import java.util.HashMap;
 public class MyComparer implements IComparer
 {
 
-	private static final int	                  NUM_WORDS_TO_COMPARE	= 10;
-	private static final double	                  SCHWELLENWERT	       = 0.9;
+	private static final int	       NUM_WORDS_TO_COMPARE	= 10;
+	private static final double	       SCHWELLENWERT	    = 0.9;
 
-	private static HashMap<Integer, SearchResult>	_searchResults	   = new HashMap<Integer, SearchResult>();
+	private static SyncedSearchResults	_searchResults	    = new SyncedSearchResults();
 
-	private String[]	                          words1;
-	private String[]	                          words2;
-	StringBuilder	                              sb1;
-	StringBuilder	                              sb2;
+	private String[]	               words1;
+	private String[]	               words2;
+	StringBuilder	                   sb1;
+	StringBuilder	                   sb2;
 
 	@Override
 	public void compareText(String originalText, String textToCheck)
@@ -144,7 +144,7 @@ public class MyComparer implements IComparer
 
 		}
 	}
-	
+
 	@Override
 	public void compareFiles(String filePathSource, String filePathToCheck)
 	{
@@ -214,7 +214,7 @@ public class MyComparer implements IComparer
 	@Override
 	public HashMap<Integer, SearchResult> getSearchResults()
 	{
-		//TODO: Doppelte Einträge/Ueberschneidungen zusammenfassen
-		return _searchResults;
+		// TODO: Doppelte Einträge/Ueberschneidungen zusammenfassen
+		return _searchResults.getAll();
 	}
 }
