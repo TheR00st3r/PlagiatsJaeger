@@ -3,7 +3,7 @@
   <children xmi:type="notation:Shape" xmi:id="_lvf28KU8EeKAc95ovt51HQ" type="2026" fontName="Segoe UI">
     <children xmi:type="notation:DecorationNode" xmi:id="_lvjhUKU8EeKAc95ovt51HQ" type="5030"/>
     <children xmi:type="notation:DecorationNode" xmi:id="_lvjhUaU8EeKAc95ovt51HQ" type="5093"/>
-    <children xmi:type="notation:Shape" xmi:id="__tEE0KU_EeKAc95ovt51HQ" type="3056" fontName="Segoe UI">
+    <children xmi:type="notation:Shape" xmi:id="__tEE0KU_EeKAc95ovt51HQ" type="3056" fontName="Segoe UI" fillColor="8047085">
       <children xmi:type="notation:DecorationNode" xmi:id="__tEE0qU_EeKAc95ovt51HQ" type="5045"/>
       <children xmi:type="notation:Node" xmi:id="_EFW6wKVAEeKAc95ovt51HQ" type="3064">
         <styles xmi:type="notation:DescriptionStyle" xmi:id="_EFW6waVAEeKAc95ovt51HQ"/>
@@ -38,7 +38,7 @@
       <element xmi:type="uml:ActivityPartition" href="OverviewActivities.uml#__stfgKU_EeKAc95ovt51HQ"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="__tEE0aU_EeKAc95ovt51HQ" y="9" width="566" height="156"/>
     </children>
-    <children xmi:type="notation:Shape" xmi:id="_sloEcKVAEeKAc95ovt51HQ" type="3056" fontName="Segoe UI">
+    <children xmi:type="notation:Shape" xmi:id="_sloEcKVAEeKAc95ovt51HQ" type="3056" fontName="Segoe UI" fillColor="13420443">
       <children xmi:type="notation:DecorationNode" xmi:id="_slorgKVAEeKAc95ovt51HQ" type="5045"/>
       <children xmi:type="notation:Shape" xmi:id="_ymkTMKVAEeKAc95ovt51HQ" type="3067" fontName="Segoe UI">
         <children xmi:type="notation:DecorationNode" xmi:id="_ymk6QKVAEeKAc95ovt51HQ" type="5073"/>
