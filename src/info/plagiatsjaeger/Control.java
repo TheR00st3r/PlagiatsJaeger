@@ -44,7 +44,7 @@ public class Control
 					@Override
 					public void run()
 					{
-						new MyComparer().compareText(orginalText, SourceLoader.loadURL(link));
+						new MyComparer().compareText(orginalText, SourceLoader.loadURL(link), link);
 					}
 				}).start();
 			}

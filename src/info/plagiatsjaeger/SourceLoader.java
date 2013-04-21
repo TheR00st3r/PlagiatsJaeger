@@ -10,6 +10,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.jsoup.Jsoup;
+
 
 public class SourceLoader
 {
@@ -24,12 +26,10 @@ public class SourceLoader
 			InputStreamReader reader = new InputStreamReader(url.openStream(), "UTF-8");
 
 			BufferedReader bufferedReader = new BufferedReader(reader);
-
-			String line = bufferedReader.readLine();
-			while (line != null)
+			String line = "";
+			while ((line = bufferedReader.readLine()) != null)
 			{
-				result.append(line);
-				line = bufferedReader.readLine();
+				result.append(line).append("\n");
 			}
 
 		}
@@ -46,7 +46,8 @@ public class SourceLoader
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return result.toString();
+				
+		return Jsoup.parse(result.toString()).text();
 	}
 
 	public static String loadFile(String filePath)
@@ -66,7 +67,7 @@ public class SourceLoader
 
 			while ((line = bufferedReader.readLine()) != null)
 			{
-				stringBuilder.append(line);
+				stringBuilder.append(line).append("\n");
 			}
 			// Close the input stream
 			dataInputStream.close();

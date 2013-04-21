@@ -3,6 +3,7 @@ package info.plagiatsjaeger.test;
 import java.io.File;
 
 import info.plagiatsjaeger.MyComparer;
+import info.plagiatsjaeger.SourceLoader;
 
 
 public class TestComparer
@@ -19,7 +20,7 @@ public class TestComparer
 //		WordProcessing wordProcessing = new WordProcessing();
 		String path1 = System.getProperty("user.home") + File.separator + "orgText.txt";
 		String path2 = System.getProperty("user.home") + File.separator + "plagText.txt";
-		myComparer.compareFiles(path1, path2);
+		myComparer.compareText(SourceLoader.loadFile(path1),SourceLoader.loadFile(path2), "");
 		
 		//System.out.println(myComparer.compareStrings(text1, text2));
 		

@@ -11,55 +11,71 @@ public class MyComparer implements IComparer
 {
 
 	private static final int	       NUM_WORDS_TO_COMPARE	= 10;
-	private static final double	       SCHWELLENWERT	    = 0.9;
+	private static final double	       SCHWELLENWERT	    = 0.93;
 
 	private static SyncedSearchResults	_searchResults	    = new SyncedSearchResults();
 
-	private String[]	               words1;
-	private String[]	               words2;
-	StringBuilder	                   sb1;
-	StringBuilder	                   sb2;
+	private String[]	               _words1;
+	private String[]	               _words2;
+	private StringBuilder	           _sb1;
+	private StringBuilder	           _sb2;
+
+	private String	                   _currentLink;
+	private int	                       _currentDocId;
 
 	@Override
-	public void compareText(String originalText, String textToCheck)
+	public void compareText(String originalText, String textToCheck, String link)
+	{
+		_currentLink = link;
+		compareText(originalText, textToCheck);
+	}
+
+	@Override
+	public void compareText(String originalText, String textToCheck, int docId)
+	{
+		_currentDocId = docId;
+		compareText(originalText, textToCheck);
+	}
+
+	private void compareText(String originalText, String textToCheck)
 	{
 		WordProcessing wordProcessing = new WordProcessing();
 
-		words1 = wordProcessing.splitToWords(originalText);
-		words2 = wordProcessing.splitToWords(textToCheck);
+		_words1 = wordProcessing.splitToWords(originalText);
+		_words2 = wordProcessing.splitToWords(textToCheck);
 
-		sb1 = new StringBuilder();
-		sb2 = new StringBuilder();
+		_sb1 = new StringBuilder();
+		_sb2 = new StringBuilder();
 
 		int resultStart1 = -1;
 		int resultEnd1 = -1;
 		int resultStart2 = -1;
 		int resultEnd2 = -1;
 
-		for (int i1 = 0; i1 < words1.length; i1++)
+		for (int i1 = 0; i1 < _words1.length; i1++)
 		{
-			sb1 = new StringBuilder();
+			_sb1 = new StringBuilder();
 			int j1 = 0;
-			for (; (j1 < NUM_WORDS_TO_COMPARE) && ((i1 + j1) < words1.length); j1++)
+			for (; (j1 < NUM_WORDS_TO_COMPARE) && ((i1 + j1) < _words1.length); j1++)
 			{
-				sb1.append(words1[i1 + j1]).append(" ");
+				_sb1.append(_words1[i1 + j1]).append(" ");
 			}
 
 			double aehnlichkeit = 0.0;
 			boolean aehnlichkeitFound = false;
-			for (int i2 = 0; i2 < words2.length; i2++)
+			for (int i2 = 0; i2 < _words2.length; i2++)
 			{
-				sb2 = new StringBuilder();
+				_sb2 = new StringBuilder();
 				int j2 = 0;
-				for (; (j2 < NUM_WORDS_TO_COMPARE) && ((i2 + j2) < words2.length); j2++)
+				for (; (j2 < NUM_WORDS_TO_COMPARE) && ((i2 + j2) < _words2.length); j2++)
 				{
-					sb2.append(words2[i2 + j2]).append(" ");
+					_sb2.append(_words2[i2 + j2]).append(" ");
 				}
 
 				boolean resultFound = false;
 				double sumAehnlichkeit = 0.0;
 				int countAehnlichkeit = 0;
-				while ((aehnlichkeit = compareStrings(sb1.toString(), sb2.toString())) >= SCHWELLENWERT)
+				while ((aehnlichkeit = compareStrings(_sb1.toString(), _sb2.toString())) >= SCHWELLENWERT)
 				{
 					resultFound = true;
 					if (resultStart1 < 0)
@@ -75,14 +91,14 @@ public class MyComparer implements IComparer
 					sumAehnlichkeit += aehnlichkeit;
 					countAehnlichkeit++;
 
-					sb1.delete(0, words1[i1].length() + 1);
-					sb2.delete(0, words2[i2].length() + 1);
+					_sb1.delete(0, _words1[i1].length() + 1);
+					_sb2.delete(0, _words2[i2].length() + 1);
 					i1++;
 					i2++;
-					if (words1.length > (i1 + NUM_WORDS_TO_COMPARE) && words2.length > (i2 + NUM_WORDS_TO_COMPARE))
+					if (_words1.length > (i1 + NUM_WORDS_TO_COMPARE) && _words2.length > (i2 + NUM_WORDS_TO_COMPARE))
 					{
-						sb1.append(words1[i1 + NUM_WORDS_TO_COMPARE]).append(" ");
-						sb2.append(words2[i2 + NUM_WORDS_TO_COMPARE]).append(" ");
+						_sb1.append(_words1[i1 + NUM_WORDS_TO_COMPARE]).append(" ");
+						_sb2.append(_words2[i2 + NUM_WORDS_TO_COMPARE]).append(" ");
 					}
 					else
 					{
@@ -93,26 +109,36 @@ public class MyComparer implements IComparer
 				{
 					StringBuilder sbOrgText = new StringBuilder();
 					StringBuilder sbPlagText = new StringBuilder();
-					for (int c = resultStart1; (c < resultEnd1) && (c < words1.length - 1); c++)
+					for (int c = resultStart1; (c < resultEnd1) && (c < _words1.length - 1); c++)
 					{
-						sbOrgText.append(words1[c]).append(" ");
+						sbOrgText.append(_words1[c]).append(" ");
 					}
 					for (int c = resultStart2; c < resultEnd2; c++)
 					{
-						sbPlagText.append(words2[c]).append(" ");
+						sbPlagText.append(_words2[c]).append(" ");
 					}
-					System.out.println("Text: " + sbOrgText.toString());
-					System.out.println("Text: " + sbPlagText.toString());
-					System.out.println("Aehnlichket: " + sumAehnlichkeit / countAehnlichkeit);
-
+					
 					SearchResult searchResult = _searchResults.get(resultStart1);
 					if (searchResult == null)
 					{
-						searchResult = new SearchResult(0, sb1.toString(), resultStart1);
+						searchResult = new SearchResult(0, _sb1.toString(), resultStart1);
 						searchResult.setStartEnd(resultStart1, resultEnd1);
 						_searchResults.put(resultStart1, searchResult);
 					}
-					searchResult.addFund(new Fund("", sbPlagText.toString(), sumAehnlichkeit / countAehnlichkeit, 0));
+					if (_currentLink != "")
+					{
+						searchResult.addFund(new Fund("", sbPlagText.toString(), sumAehnlichkeit / countAehnlichkeit, _currentLink));
+					}
+					else
+					{
+						searchResult.addFund(new Fund("", sbPlagText.toString(), sumAehnlichkeit / countAehnlichkeit, _currentDocId));
+					}
+					System.out.println("Text: " + sbOrgText.toString());
+					System.out.println("Text: " + sbPlagText.toString());
+					System.out.println("Source: " + _currentLink);
+					System.out.println("Aehnlichket: " + sumAehnlichkeit / countAehnlichkeit);
+
+					
 					resultStart1 = -1;
 					resultStart2 = -1;
 					resultEnd1 = -1;
@@ -125,11 +151,11 @@ public class MyComparer implements IComparer
 			}
 			if (!aehnlichkeitFound)
 			{
-				System.out.println("Text: " + sb1.toString());
+				 System.out.println("NoFund: " + _sb1.toString() + " Link :" + _currentLink );
 				SearchResult searchResult = _searchResults.get(resultStart1);
 				if (searchResult == null)
 				{
-					searchResult = new SearchResult(0, sb1.toString(), resultStart1);
+					searchResult = new SearchResult(0, _sb1.toString(), resultStart1);
 					searchResult.setStartEnd(resultStart1, resultEnd1);
 					_searchResults.put(resultStart1, searchResult);
 				}
@@ -143,13 +169,6 @@ public class MyComparer implements IComparer
 			}
 
 		}
-	}
-
-	@Override
-	public void compareFiles(String filePathSource, String filePathToCheck)
-	{
-		// Eventuell dateien Stück für Stück laden(RAM Verbrauch senken)
-		compareText(SourceLoader.loadFile(filePathSource), SourceLoader.loadFile(filePathToCheck));
 	}
 
 	/** @return lexical similarity value in the range [0,1] */
@@ -217,4 +236,5 @@ public class MyComparer implements IComparer
 		// TODO: Doppelte Einträge/Ueberschneidungen zusammenfassen
 		return _searchResults.getAll();
 	}
+
 }
