@@ -20,18 +20,18 @@ public interface IComparer
 	 * @param originalText
 	 * @param textToCheck
 	 */
-	public void compareText(String originalText, String textToCheck);
+	public void compareText(String originalText, String textToCheck, String link);
 
 	/**
-	 * Vergleicht zwei Dateien und schreibt die {@link SearchResult SearchResults} in eine {@link HashMap}.
+	 * Vergleicht zwei eingegebene Texte und schreibt die {@link SearchResult SearchResults} in eine {@link HashMap}.
 	 * 
-	 * @param filePathSource
-	 * @param filePathToCheck
+	 * @param originalText
+	 * @param textToCheck
 	 */
-	public void compareFiles(String filePathSource, String filePathToCheck);
-
+	public void compareText(String originalText, String textToCheck, int docId);
+	
 	/**
-	 * Liefert die gefundenen Suchergebnisse zurück.
+	 * Liefert die gefundenen Suchergebnisse zurï¿½ck.
 	 * @return
 	 */
 	public HashMap<Integer, SearchResult> getSearchResults();
