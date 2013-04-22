@@ -880,7 +880,7 @@
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_dE_fYKKTEeKMIf9i-FycNQ" name="Frontend">
         <packagedElement xmi:type="uml:Package" xmi:id="_jI8LYKnREeK-L_TP_ICSHg" name="Classes">
-          <packagedElement xmi:type="uml:Class" xmi:id="_bz4W4KSCEeKENtWc67-9bw" name="File.php">
+          <packagedElement xmi:type="uml:Class" xmi:id="_bz4W4KSCEeKENtWc67-9bw" name="File.php" clientDependency="_W4nd0KrEEeKdfdUz5jNNCw">
             <ownedOperation xmi:id="_jP0kAKSCEeKENtWc67-9bw" name="writeFile" isStatic="true">
               <ownedParameter xmi:id="_nng9AKSCEeKENtWc67-9bw" name="dID">
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
@@ -960,7 +960,7 @@
               </ownedParameter>
             </ownedOperation>
           </packagedElement>
-          <packagedElement xmi:type="uml:Class" xmi:id="_p_cvoKSAEeKENtWc67-9bw" name="Document.php">
+          <packagedElement xmi:type="uml:Class" xmi:id="_p_cvoKSAEeKENtWc67-9bw" name="Document.php" clientDependency="_LzhYsKrEEeKdfdUz5jNNCw _MJlIQKrEEeKdfdUz5jNNCw _WqxPEKrEEeKdfdUz5jNNCw">
             <ownedOperation xmi:id="_zgUB4KSAEeKENtWc67-9bw" name="getDocumentsFromFolderID" isStatic="true">
               <ownedParameter xmi:id="_WH0BYKSBEeKENtWc67-9bw" name="fID">
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
@@ -1031,7 +1031,7 @@
               </ownedParameter>
             </ownedOperation>
           </packagedElement>
-          <packagedElement xmi:type="uml:Class" xmi:id="_FIkxsKSEEeKENtWc67-9bw" name="Folder.php">
+          <packagedElement xmi:type="uml:Class" xmi:id="_FIkxsKSEEeKENtWc67-9bw" name="Folder.php" clientDependency="_YN6c0KrEEeKdfdUz5jNNCw">
             <ownedOperation xmi:id="_Ij63MKSEEeKENtWc67-9bw" name="getFolderArray" isStatic="true">
               <ownedParameter xmi:id="_KgyMgKSEEeKENtWc67-9bw" name="fParentID">
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
@@ -1271,7 +1271,7 @@
               </ownedParameter>
             </ownedOperation>
           </packagedElement>
-          <packagedElement xmi:type="uml:Class" xmi:id="_b4xhIKSGEeKENtWc67-9bw" name="LoginAccess.php">
+          <packagedElement xmi:type="uml:Class" xmi:id="_b4xhIKSGEeKENtWc67-9bw" name="LoginAccess.php" clientDependency="_Yf3vgKrEEeKdfdUz5jNNCw">
             <ownedOperation xmi:id="_gBaxgKSGEeKENtWc67-9bw" name="login" isStatic="true">
               <ownedParameter xmi:id="_hmvwkKSGEeKENtWc67-9bw" name="email">
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
@@ -1458,7 +1458,7 @@
                 </defaultValue>
               </ownedParameter>
             </ownedOperation>
-            <ownedOperation xmi:id="_LioHMKSIEeKENtWc67-9bw" name="showGraphicReport" isStatic="true" isAbstract="true">
+            <ownedOperation xmi:id="_LioHMKSIEeKENtWc67-9bw" name="showGraphicReport" clientDependency="_Wd_-YKrEEeKdfdUz5jNNCw" isStatic="true" isAbstract="true">
               <ownedParameter xmi:id="_NIZyMKSIEeKENtWc67-9bw" name="uID">
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
                 <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_NwCZ8aSIEeKENtWc67-9bw" value="1"/>
@@ -1489,7 +1489,7 @@
               </ownedParameter>
             </ownedOperation>
           </packagedElement>
-          <packagedElement xmi:type="uml:Class" xmi:id="_X1tCYKSIEeKENtWc67-9bw" name="Result.php">
+          <packagedElement xmi:type="uml:Class" xmi:id="_X1tCYKSIEeKENtWc67-9bw" name="Result.php" clientDependency="_X75fwKrEEeKdfdUz5jNNCw">
             <ownedOperation xmi:id="_bJcrEKSIEeKENtWc67-9bw" name="getResultsFromReportID" isStatic="true">
               <ownedParameter xmi:id="_eh0VEKSIEeKENtWc67-9bw" name="rID">
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
@@ -1508,7 +1508,7 @@
               </ownedParameter>
             </ownedOperation>
           </packagedElement>
-          <packagedElement xmi:type="uml:Class" xmi:id="_qEBM8KSIEeKENtWc67-9bw" name="SearchProperties.php">
+          <packagedElement xmi:type="uml:Class" xmi:id="_qEBM8KSIEeKENtWc67-9bw" name="SearchProperties.php" clientDependency="_Xq_9AKrEEeKdfdUz5jNNCw">
             <ownedOperation xmi:id="_s6j8QKSIEeKENtWc67-9bw" name="saveProperties" isStatic="true">
               <ownedParameter xmi:id="_uzjeMKSIEeKENtWc67-9bw" name="result" direction="return">
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
@@ -1520,7 +1520,7 @@
               </ownedParameter>
             </ownedOperation>
           </packagedElement>
-          <packagedElement xmi:type="uml:Class" xmi:id="_1Gol0KSIEeKENtWc67-9bw" name="Upload.php">
+          <packagedElement xmi:type="uml:Class" xmi:id="_1Gol0KSIEeKENtWc67-9bw" name="Upload.php" clientDependency="_M4cZYKrEEeKdfdUz5jNNCw _XLwcQKrEEeKdfdUz5jNNCw">
             <ownedOperation xmi:id="_32dpIKSIEeKENtWc67-9bw" name="shortTextUpload" isStatic="true">
               <ownedParameter xmi:id="_9amnIKSIEeKENtWc67-9bw" name="uID">
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
@@ -1616,7 +1616,7 @@
               </ownedParameter>
             </ownedOperation>
           </packagedElement>
-          <packagedElement xmi:type="uml:Class" xmi:id="_5B5sEKSJEeKENtWc67-9bw" name="User.php">
+          <packagedElement xmi:type="uml:Class" xmi:id="_5B5sEKSJEeKENtWc67-9bw" name="User.php" clientDependency="_XcAewKrEEeKdfdUz5jNNCw">
             <ownedOperation xmi:id="_8PFZwKSJEeKENtWc67-9bw" name="getAllUser" isStatic="true">
               <ownedParameter xmi:id="_CjD5QKSKEeKENtWc67-9bw" name="result" type="_JUYG4J35EeKaDI83mD0GjA" direction="return">
                 <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DEcIAaSKEeKENtWc67-9bw" value="1"/>
@@ -1862,7 +1862,20 @@
               </ownedParameter>
             </ownedOperation>
           </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_FnIu8KrEEeKdfdUz5jNNCw" name="DB"/>
         </packagedElement>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_LzhYsKrEEeKdfdUz5jNNCw" name="FromDocument.phptoReport.php" supplier="_kXgLgKSHEeKENtWc67-9bw" client="_p_cvoKSAEeKENtWc67-9bw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_MJlIQKrEEeKdfdUz5jNNCw" name="FromDocument.phptoFile.php" supplier="_bz4W4KSCEeKENtWc67-9bw" client="_p_cvoKSAEeKENtWc67-9bw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_M4cZYKrEEeKdfdUz5jNNCw" name="FromUpload.phptoreadFile" supplier="_cnKOgKnTEeK-L_TP_ICSHg" client="_1Gol0KSIEeKENtWc67-9bw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_Wd_-YKrEEeKdfdUz5jNNCw" name="FromshowGraphicReporttoDB" supplier="_FnIu8KrEEeKdfdUz5jNNCw" client="_LioHMKSIEeKENtWc67-9bw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_WqxPEKrEEeKdfdUz5jNNCw" name="FromDocument.phptoDB" supplier="_FnIu8KrEEeKdfdUz5jNNCw" client="_p_cvoKSAEeKENtWc67-9bw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_W4nd0KrEEeKdfdUz5jNNCw" name="FromFile.phptoDB" supplier="_FnIu8KrEEeKdfdUz5jNNCw" client="_bz4W4KSCEeKENtWc67-9bw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_XLwcQKrEEeKdfdUz5jNNCw" name="FromUpload.phptoDB" supplier="_FnIu8KrEEeKdfdUz5jNNCw" client="_1Gol0KSIEeKENtWc67-9bw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_XcAewKrEEeKdfdUz5jNNCw" name="FromUser.phptoDB" supplier="_FnIu8KrEEeKdfdUz5jNNCw" client="_5B5sEKSJEeKENtWc67-9bw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_Xq_9AKrEEeKdfdUz5jNNCw" name="FromSearchProperties.phptoDB" supplier="_FnIu8KrEEeKdfdUz5jNNCw" client="_qEBM8KSIEeKENtWc67-9bw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_X75fwKrEEeKdfdUz5jNNCw" name="FromResult.phptoDB" supplier="_FnIu8KrEEeKdfdUz5jNNCw" client="_X1tCYKSIEeKENtWc67-9bw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_YN6c0KrEEeKdfdUz5jNNCw" name="FromFolder.phptoDB" supplier="_FnIu8KrEEeKdfdUz5jNNCw" client="_FIkxsKSEEeKENtWc67-9bw"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_Yf3vgKrEEeKdfdUz5jNNCw" name="FromLoginAccess.phptoDB" supplier="_FnIu8KrEEeKdfdUz5jNNCw" client="_b4xhIKSGEeKENtWc67-9bw"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_eys-YKKTEeKMIf9i-FycNQ" name="Database"/>
       <packagedElement xmi:type="uml:Component" xmi:id="_qxeeoKNxEeKrwpL2Qi3j6w" name="Backend"/>
