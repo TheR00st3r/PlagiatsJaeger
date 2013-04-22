@@ -244,7 +244,9 @@ class User {
 					$messages[] = array('type' => 'error', 'text' => 'Benuter konnte nicht gelöscht werden.');
 				}
 			}
-			$messages[] = array('type' => 'info', 'text' => 'Sie haben versucht sich selber zu löschen :-).');
+			else {
+				$messages[] = array('type' => 'info', 'text' => 'Sie haben versucht sich selber zu löschen :-).');
+			}
 		} else {
 			$messages[] = array('type' => 'error', 'text' => 'Benutzer ID ungültig.');
 		}
