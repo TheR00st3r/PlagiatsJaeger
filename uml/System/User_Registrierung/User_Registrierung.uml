@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Package xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_wf_nYKsWEeKUAvc9bJeyBg">
+  <elementImport xmi:id="_wgBckKsWEeKUAvc9bJeyBg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+  </elementImport>
+  <elementImport xmi:id="_wgD40KsWEeKUAvc9bJeyBg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+  </elementImport>
+  <elementImport xmi:id="_wgD40asWEeKUAvc9bJeyBg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
+  </elementImport>
+  <elementImport xmi:id="_wgEf4KsWEeKUAvc9bJeyBg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+  </elementImport>
+  <packagedElement xmi:type="uml:Activity" xmi:id="_x0df8KsWEeKUAvc9bJeyBg" name="User Registrierung">
+    <node xmi:type="uml:InitialNode" xmi:id="_09shwKsWEeKUAvc9bJeyBg" outgoing="_74QgIKsWEeKUAvc9bJeyBg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_1oM3UKsWEeKUAvc9bJeyBg" name="Registrierung&#xD;&#xA;- eMail&#xD;&#xA;- Passwort&#xD;&#xA;- Mandantenname" outgoing="_Juf3MKsXEeKUAvc9bJeyBg" incoming="_74QgIKsWEeKUAvc9bJeyBg"/>
+    <node xmi:type="uml:ForkNode" xmi:id="_F7rs4KsXEeKUAvc9bJeyBg" outgoing="_nPeBwKsXEeKUAvc9bJeyBg _n6ulQKsXEeKUAvc9bJeyBg" incoming="_Juf3MKsXEeKUAvc9bJeyBg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_L-824KsXEeKUAvc9bJeyBg" name="in DB eintragen" outgoing="_AaHsUKsYEeKUAvc9bJeyBg" incoming="_n6ulQKsXEeKUAvc9bJeyBg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_NyUR8KsXEeKUAvc9bJeyBg" name="Mail an Admin" outgoing="_a4rEMKsXEeKUAvc9bJeyBg" incoming="_nPeBwKsXEeKUAvc9bJeyBg"/>
+    <node xmi:type="uml:MergeNode" xmi:id="_Vv4lcKsXEeKUAvc9bJeyBg" name="MergeNode" outgoing="_3uUZ0KsXEeKUAvc9bJeyBg _8Rnl4KsXEeKUAvc9bJeyBg" incoming="_a4rEMKsXEeKUAvc9bJeyBg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_YA7bAKsXEeKUAvc9bJeyBg" name="DB Eintrag&#xD;&#xA;freischalten" outgoing="_FaB74KsYEeKUAvc9bJeyBg" incoming="_EDXD4KsYEeKUAvc9bJeyBg"/>
+    <node xmi:type="uml:ActivityFinalNode" xmi:id="_wT0XIKsXEeKUAvc9bJeyBg" incoming="_3uUZ0KsXEeKUAvc9bJeyBg"/>
+    <node xmi:type="uml:ForkNode" xmi:id="_x3JyIKsXEeKUAvc9bJeyBg" outgoing="_EDXD4KsYEeKUAvc9bJeyBg" incoming="_8Rnl4KsXEeKUAvc9bJeyBg _AaHsUKsYEeKUAvc9bJeyBg"/>
+    <node xmi:type="uml:ActivityFinalNode" xmi:id="_ErUbwKsYEeKUAvc9bJeyBg" incoming="_FaB74KsYEeKUAvc9bJeyBg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_74QgIKsWEeKUAvc9bJeyBg" source="_09shwKsWEeKUAvc9bJeyBg" target="_1oM3UKsWEeKUAvc9bJeyBg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_Juf3MKsXEeKUAvc9bJeyBg" source="_1oM3UKsWEeKUAvc9bJeyBg" target="_F7rs4KsXEeKUAvc9bJeyBg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_a4rEMKsXEeKUAvc9bJeyBg" source="_NyUR8KsXEeKUAvc9bJeyBg" target="_Vv4lcKsXEeKUAvc9bJeyBg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_nPeBwKsXEeKUAvc9bJeyBg" source="_F7rs4KsXEeKUAvc9bJeyBg" target="_NyUR8KsXEeKUAvc9bJeyBg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_n6ulQKsXEeKUAvc9bJeyBg" source="_F7rs4KsXEeKUAvc9bJeyBg" target="_L-824KsXEeKUAvc9bJeyBg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_3uUZ0KsXEeKUAvc9bJeyBg" name="ablehnen" source="_Vv4lcKsXEeKUAvc9bJeyBg" target="_wT0XIKsXEeKUAvc9bJeyBg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_8Rnl4KsXEeKUAvc9bJeyBg" name="freigabe" source="_Vv4lcKsXEeKUAvc9bJeyBg" target="_x3JyIKsXEeKUAvc9bJeyBg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_AaHsUKsYEeKUAvc9bJeyBg" source="_L-824KsXEeKUAvc9bJeyBg" target="_x3JyIKsXEeKUAvc9bJeyBg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_EDXD4KsYEeKUAvc9bJeyBg" source="_x3JyIKsXEeKUAvc9bJeyBg" target="_YA7bAKsXEeKUAvc9bJeyBg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_FaB74KsYEeKUAvc9bJeyBg" source="_YA7bAKsXEeKUAvc9bJeyBg" target="_ErUbwKsYEeKUAvc9bJeyBg"/>
+  </packagedElement>
+</uml:Package>
