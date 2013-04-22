@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Package xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_cbEZIKsZEeKUAvc9bJeyBg">
+  <elementImport xmi:id="_cbG1YKsZEeKUAvc9bJeyBg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+  </elementImport>
+  <elementImport xmi:id="_cbG1YasZEeKUAvc9bJeyBg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+  </elementImport>
+  <elementImport xmi:id="_cbG1YqsZEeKUAvc9bJeyBg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural"/>
+  </elementImport>
+  <elementImport xmi:id="_cbG1Y6sZEeKUAvc9bJeyBg">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+  </elementImport>
+  <packagedElement xmi:type="uml:Activity" xmi:id="_dQzHQKsZEeKUAvc9bJeyBg" name="User Anmeldung">
+    <node xmi:type="uml:InitialNode" xmi:id="_fCkm4KsZEeKUAvc9bJeyBg" outgoing="_uwJ6EKsZEeKUAvc9bJeyBg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_hST04KsZEeKUAvc9bJeyBg" name="Login-Daten in&#xD;&#xA;Formular eintragen" outgoing="_wRDFEKsZEeKUAvc9bJeyBg" incoming="_uwJ6EKsZEeKUAvc9bJeyBg _zYpIIKsZEeKUAvc9bJeyBg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_lFJ0YKsZEeKUAvc9bJeyBg" name="Passwort  eMail mit&#xD;&#xA;DB abgleichen" outgoing="_xUpQEKsZEeKUAvc9bJeyBg" incoming="_wRDFEKsZEeKUAvc9bJeyBg"/>
+    <node xmi:type="uml:DecisionNode" xmi:id="_toVWYKsZEeKUAvc9bJeyBg" name="DecisionNode" outgoing="_zYpIIKsZEeKUAvc9bJeyBg __gaLMKsZEeKUAvc9bJeyBg" incoming="_xUpQEKsZEeKUAvc9bJeyBg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_5QdQEKsZEeKUAvc9bJeyBg" name="Session isLoggedin = true&#xD;&#xA;Session userId = 15" outgoing="_Ec7vkKsaEeKUAvc9bJeyBg" incoming="__gaLMKsZEeKUAvc9bJeyBg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_A_iboKsaEeKUAvc9bJeyBg" name="User ist eingeloggt" outgoing="_FAvAMKsaEeKUAvc9bJeyBg" incoming="_Ec7vkKsaEeKUAvc9bJeyBg"/>
+    <node xmi:type="uml:ActivityFinalNode" xmi:id="_DlZqoKsaEeKUAvc9bJeyBg" incoming="_FAvAMKsaEeKUAvc9bJeyBg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_uwJ6EKsZEeKUAvc9bJeyBg" source="_fCkm4KsZEeKUAvc9bJeyBg" target="_hST04KsZEeKUAvc9bJeyBg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_wRDFEKsZEeKUAvc9bJeyBg" source="_hST04KsZEeKUAvc9bJeyBg" target="_lFJ0YKsZEeKUAvc9bJeyBg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_xUpQEKsZEeKUAvc9bJeyBg" source="_lFJ0YKsZEeKUAvc9bJeyBg" target="_toVWYKsZEeKUAvc9bJeyBg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_zYpIIKsZEeKUAvc9bJeyBg" name="falsch" source="_toVWYKsZEeKUAvc9bJeyBg" target="_hST04KsZEeKUAvc9bJeyBg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="__gaLMKsZEeKUAvc9bJeyBg" source="_toVWYKsZEeKUAvc9bJeyBg" target="_5QdQEKsZEeKUAvc9bJeyBg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_Ec7vkKsaEeKUAvc9bJeyBg" source="_5QdQEKsZEeKUAvc9bJeyBg" target="_A_iboKsaEeKUAvc9bJeyBg"/>
+    <edge xmi:type="uml:ControlFlow" xmi:id="_FAvAMKsaEeKUAvc9bJeyBg" source="_A_iboKsaEeKUAvc9bJeyBg" target="_DlZqoKsaEeKUAvc9bJeyBg"/>
+  </packagedElement>
+</uml:Package>
