@@ -29,10 +29,4 @@ public interface IComparer
 	 * @param textToCheck
 	 */
 	public void compareText(String originalText, String textToCheck, int docId);
-	
-	/**
-	 * Liefert die gefundenen Suchergebnisse zur�ck.
-	 * @return
-	 */
-	public HashMap<Integer, SearchResult> getSearchResults();
 }

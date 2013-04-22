@@ -9,7 +9,6 @@ public class Control
 {
 
 	private IOnlineSearch	    iOnlineSearch;
-	private IComparer	        iComparer;
 	private MySqlDatabaseHelper	mySqlDatabaseHelper;
 	public FileParser	        fileParser;
 	public WordProcessing	    wordProcessing;
