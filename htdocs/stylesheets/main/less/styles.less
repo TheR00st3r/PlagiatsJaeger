@@ -6,6 +6,11 @@
 	font-family: Arial;
 }
 
+body {
+	margin: 0px;
+	background: url(../../../images/background.jpg);
+}
+
 a {
 	text-decoration: underlined;
 	color: #000000;
@@ -18,6 +23,7 @@ label {
 input {
 	border: solid 1px @inputborder;
 	/*min-width: 100px;*/
+	
 }
 
 textarea {
@@ -32,17 +38,38 @@ textarea {
 #container {
 	width: 900px;
 	margin: auto;
-	border: solid 1px #ccc;
+
+	background: #FFF;
 }
 
 #header {
 	position: relative;
-	height: 100px;
+	height: 125px;
+	
+	img {
+		position: absolute;
+		left: 30px;
+		top: 20px;
+	}
+	
+	h1 {
+		position: absolute;
+		left: 120px;
+		top: 70px;
+		font-style: italic;
+	
+		a {
+			font-size: 30px;
+			color: @fontcolor;
+			text-decoration: none;
+		}
+
+	}
 	
 	#userinfo {
 		position: absolute;
-		right: 0px;
-		top: 0px;
+		right: 10px;
+		top: 10px;
 	}
 }
 
@@ -63,6 +90,10 @@ textarea {
 			margin: 5px;
 			padding: 0 30px;
 			border-right: solid 1px #000;
+			
+			a {
+				text-decoration: none;
+			}
 		}
 	}
 }
@@ -77,6 +108,7 @@ textarea {
 #foot {
 	text-align: right;
 	font-size: 8pt;
+	padding: 3px;
 }
 
 .floatleft {
@@ -173,16 +205,6 @@ textarea {
 		td {
 			width: 50%;
 		}
-	}
-}
-
-h1 {
-	font-size: 40px;
-
-	a {
-		font-size: 40px;
-		color: @fontcolor;
-		text-decoration: none;
 	}
 }
 

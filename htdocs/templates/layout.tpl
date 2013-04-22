@@ -1,9 +1,10 @@
 <div id="container">
 	<div id="header">
+		<a href="{$root}"><img src="{$root}images/plagiatsjaeger-logo.png" alt="Plagiatsjaeger Logo" /></a>
 		<h1><a href="{$root}">PLAGIATSJÄGER</a></h1>
 		{if $userinfo}
 		<div id="userinfo">
-			{$userinfo} <a href="{$root}logout">logout</a>
+			Hallo {$userinfo} | <a href="{$root}logout">logout</a>
 		</div>
 		{/if}
 	</div>
@@ -11,18 +12,18 @@
 	<div id="nav" id="nav">
 		<ul>
 			<li>
-				<a href="{$root}folder">Folder</a>
+				<a href="{$root}folder">Ordnerübersicht</a>
 			</li>
 			<li>
-				<a href="{$root}settings">Settings</a>
+				<a href="{$root}settings">Einstellungen</a>
 			</li>
 			{if $userLevel >= 500}
 			<li>
-				<a href="{$root}admin">Admin</a>
+				<a href="{$root}admin">Administration</a>
 			</li>
 			{/if}
 			<li>
-				<a href="{$root}logout">logout</a>
+				<a href="{$root}logout">Abmelden</a>
 			</li>
 		</ul>
 		<div class="floatclear">

@@ -30,7 +30,7 @@ class LoginAccess {
 
 				$_SESSION[self::suffix . '_id'] = $row['uID'];
 				$_SESSION[self::suffix . '_client'] = $row['cID'];
-				$_SESSION[self::suffix . '_name'] = $row['uLastname'] . ', ' . $row['uName'];
+				$_SESSION[self::suffix . '_name'] = $row['uName'] . ' ' . $row['uLastname'];
 				$_SESSION[self::suffix . '_email'] = $row['uEMailAdress'];
 				$_SESSION[self::suffix . '_level'] = $row['uPermissonLevel'];
 
