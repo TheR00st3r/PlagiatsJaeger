@@ -159,7 +159,7 @@ if ($page == 'public') {
 				case 'uRegistrate' :
 					require_once '../classes/User.php';
 					$return = User::registrateUser($_POST['uName'], $_POST['uLastname'], $_POST['uEMailAdress'], $_POST['uPassword'], $_POST['uPassword2'], $_POST['cID']);
-					print_array($return);
+					//print_array($return);
 					$smarty -> assign('messages', $return['messages']);
 					break;
 			}

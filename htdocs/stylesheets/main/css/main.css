@@ -25,10 +25,13 @@ textarea {
   width: 800px;
   height: 400px;
 }
+#frame {
+  background: #FFF;
+}
 #container {
   width: 900px;
   margin: auto;
-  background: #FFF;
+  background: #fff;
 }
 #header {
   position: relative;
@@ -152,8 +155,14 @@ textarea {
 .admin .user .bgcolor {
   background: #f3f6fa;
 }
+.report {
+  background: #FFF;
+}
 .report table td {
   width: 50%;
+}
+.document {
+  background: #FFF;
 }
 h2 {
   font-size: 20px;

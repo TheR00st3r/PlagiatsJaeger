@@ -5,7 +5,10 @@ $smarty = new MySmarty();
 $smarty -> assign('root', $root);
 
 require_once '../classes/Document.php';
-$bodyTpl = Document::getDocumentOriginalContent($_GET['dID']);
+$orgDocument = Document::getDocumentOriginalContent($_GET['dID']);
+$smarty -> assign('orgDocument', $orgDocument);
+
+$bodyTpl = $smarty -> fetch('document.tpl');
 
 $smarty -> assign('body', $bodyTpl);
 
