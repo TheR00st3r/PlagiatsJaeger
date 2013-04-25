@@ -3,6 +3,7 @@ package info.plagiatsjaeger;
 import info.plagiatsjaeger.interfaces.IComparer;
 import info.plagiatsjaeger.interfaces.IOnlineSearch;
 import info.plagiatsjaeger.interfaces.OnLinkFoundListener;
+import info.plagiatsjaeger.onlinesearch.BlekkoSearch;
 
 
 public class Control
