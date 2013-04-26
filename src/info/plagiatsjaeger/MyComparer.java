@@ -9,17 +9,18 @@ public class MyComparer implements IComparer
 {
 
 	private static final int	NUM_WORDS_TO_COMPARE	= 10;
-	private static final double	SCHWELLENWERT	     = 0.9;
+	private static final double	SCHWELLENWERT			= 0.9;
 
-	// private static SyncedSearchResults _searchResults = new SyncedSearchResults();
+	// private static SyncedSearchResults _searchResults = new
+	// SyncedSearchResults();
 
-	private String[]	        _words1;
-	private String[]	        _words2;
-	private StringBuilder	    _sb1;
-	private StringBuilder	    _sb2;
+	private String[]			_words1;
+	private String[]			_words2;
+	private StringBuilder		_sb1;
+	private StringBuilder		_sb2;
 
-	private String	            _currentLink;
-	private int	                _currentDocId;
+	private String				_currentLink;
+	private int					_currentDocId;
 
 	@Override
 	public void compareText(String originalText, String textToCheck, String link)
@@ -103,7 +104,7 @@ public class MyComparer implements IComparer
 					}
 					i1++;
 					i2++;
-					
+
 				}
 				if (resultFound)
 				{
@@ -119,20 +120,21 @@ public class MyComparer implements IComparer
 					}
 
 					// TODO: rID eintragen
-					SearchResult searchResult = new SearchResult(0, _sb2.toString(), resultStart1, resultEnd1, sumAehnlichkeit / countAehnlichkeit);
+					SearchResult searchResult = new SearchResult(0, resultStart1, resultEnd1, resultStart2, resultEnd2, sumAehnlichkeit / countAehnlichkeit);
 					searchResults.add(searchResult);
 
-					System.out.println("Text: " + sbOrgText.toString());
-					System.out.println("Text: " + sbPlagText.toString());
-					System.out.println("Source: " + _currentLink);
-					System.out.println("Aehnlichket: " + sumAehnlichkeit / countAehnlichkeit);
+					// System.out.println("Text: " + sbOrgText.toString());
+					// System.out.println("Text: " + sbPlagText.toString());
+					// System.out.println("Source: " + _currentLink);
+					// System.out.println("Aehnlichket: " + sumAehnlichkeit /
+					// countAehnlichkeit);
 
 					resultStart1 = -1;
 					resultStart2 = -1;
 					resultEnd1 = -1;
 					resultEnd2 = -1;
 					break;
-					//i2 += NUM_WORDS_TO_COMPARE - 1;
+					// i2 += NUM_WORDS_TO_COMPARE - 1;
 				}
 
 			}
@@ -140,19 +142,22 @@ public class MyComparer implements IComparer
 		}
 
 		ArrayList<SearchResult> result = new ArrayList<SearchResult>();
+		// Searchresults zusammenf�gen und Trefferlinks schreiben.
 		for (int i = 0; i < searchResults.size() - 1; i++)
 		{
 			SearchResult searchResult1 = searchResults.get(i);
 			SearchResult searchResult2 = searchResults.get(i + 1);
-			//TODO: plagiatsposition ebenfalls merken (zum zusammenführen)
-			while (searchResult1.getEnd() == searchResult2.getStart())
+			// TODO: plagiatsposition ebenfalls merken (zum zusammenführen)
+
+			// ZUsammenh�ngende Text erkennen und start/end aktualisieren
+			int missingWords = 4;
+			while ((searchResult1.getEnd() >= (searchResult2.getStart() - missingWords)) && (searchResult1.getPlagEnd() >= (searchResult2.getPlagStart() - missingWords)))
 			{
-				searchResult1.setPlagiatsText(searchResult1.getPlagiatsText() + " " + searchResult2.getPlagiatsText());
-
-				// TODO: Wahrscheinlichkeiten Proportional zusammenrechnen(abhängig von Wörtern/Länge)
+				// TODO: Wahrscheinlichkeiten Proportional
+				// zusammenrechnen(abhängig von Wörtern/Länge)
 				searchResult1.setAehnlichkeit(searchResult1.getAehnlichkeit() + searchResult2.getAehnlichkeit() / 2);
-
 				searchResult1.setEnd(searchResult2.getEnd());
+				searchResult1.setPlagEnd(searchResult2.getPlagEnd());
 				i++;
 				if (i < searchResults.size() - 1)
 				{
@@ -163,8 +168,17 @@ public class MyComparer implements IComparer
 					break;
 				}
 			}
-//			System.out.println("Text: " + searchResult1.getPlagiatsText());
-//			System.out.println("Source: " + _currentLink + "\n");
+			// plagiatsText f�r plagStart/plagEnd setzen.
+			StringBuilder resultText = new StringBuilder();
+			for (int j = searchResult1.getPlagStart(); j < searchResult1.getPlagEnd(); j++)
+			{
+				resultText.append(_words2[j]).append(" ");
+			}
+			searchResult1.setPlagiatsText(resultText.toString());
+			System.out.println("###################################");
+			System.out.println("Source: " + _currentLink);
+			System.out.println("Text: " + searchResult1.getPlagiatsText());
+			System.out.println("###################################");
 		}
 	}
 
