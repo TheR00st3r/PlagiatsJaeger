@@ -29,155 +29,208 @@ import info.plagiatsjaeger.enums.FileType;
 
 public class FileParser
 {
-	private static File myFile;
-	
+	private File _fileMy;
+
+	/**
+	 * startet die Konvertierung der Datei
+	 * 
+	 * @param String filePath, gibt den Speicherpfad der zu konvertierende Datei an
+	 * @return boolean result, gibt bei Erfolg true zurück
+	 * @throws NException Hier kann es sich um InvalidFormatException, OpenXML4JException, XmlException, IOException handeln
+	 */
 	public boolean parseFile(String filePath)
 	{
 		boolean result = false;
-		myFile=new File(filePath);
+		_fileMy = new File(filePath);
+		try
+		{
+			result=fileToTxt();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			result = false;
+		}
+	
 		return result;
 	}
-
+	
+	/**
+	 * Ermittelt den Dateityp der Datei
+	 * 
+	 * @return FileTyp result, gibt den ermittelten Enum-Wert zurück
+	  */
 	private FileType detectFileType()
 	{
-		FileType typ=null;
-		if (myFile.getName().endsWith("docx")){
-			
-			typ=FileType.DOCX;
+		FileType result = null;
+		if (_fileMy.getName().endsWith("docx"))
+		{
+
+			result = FileType.DOCX;
 		}
-		else if (myFile.getName().endsWith("doc")){
-			typ=FileType.DOC;
-			
+		else if (_fileMy.getName().endsWith("doc"))
+		{
+			result = FileType.DOC;
+
 		}
-		else if(myFile.getName().endsWith(".pdf")){
-			typ=FileType.PDF;
-			
+		else if (_fileMy.getName().endsWith(".pdf"))
+		{
+			result = FileType.PDF;
+
 		}
-		else if(myFile.getName().endsWith(".txt")){
-			typ=FileType.TXT;
-			
+		else if (_fileMy.getName().endsWith(".txt"))
+		{
+			result = FileType.TXT;
+
 		}
-		return typ;
+		return result;
 	}
+/**
+ * Ließt die gegebende Datei ein und speichert den beinhalteten Text in einer txt File unter dem selben Namen und Speicherort ab.
+ * @return boolean result; true falls Konvertierung erfolgreich
+ * @throws InvalidFormatException; Falls eine Datei mit falscher Endung abgespeichert war
+ * @throws OpenXML4JException; Falls docx auslesen Fehlschlägt
+ * @throws XmlException; Falls es Probleme mit docx gibt
+ * @throws IOException; falls auf die Dateien nicht zugegriffen werden kann
+ */
+	private boolean fileToTxt() throws InvalidFormatException, OpenXML4JException, XmlException, IOException
+	{
 
-	private boolean fileToTxt() throws InvalidFormatException,
-		OpenXML4JException, XmlException, IOException {
+		boolean result = false;
+		FileType fTyp = detectFileType();
+		// Filename= Selber Dateiname und Speicherort wie orginale Datei, nur
+		// mit txt Endung
+		String strName = _fileMy.getAbsolutePath().toString().substring(0, _fileMy.getAbsolutePath().toString().length() - fTyp.toString().length()) + "txt";
+		Writer writer = null;
+		File file = new File(strName);
+		writer = new BufferedWriter(new FileWriter(file));
+		String strLineSeparator = System.getProperty("line.separator"); // Zeilenumbruch
 
-	boolean result = false;
-	FileType typ = detectFileType();
-	//Filename= Selber Dateiname und Speicherort wie orginale Datei, nur mit txt Endung
-	String filename = myFile.getAbsolutePath().toString().substring(0,myFile.getAbsolutePath().toString().length()- typ.toString().length()) + "txt";
-	Writer writer = null;
-	File file = new File(filename);
-	writer = new BufferedWriter(new FileWriter(file));
-	String lineSeparator = System.getProperty("line.separator"); //Zeilenumbruch
+		FileInputStream fileInputStream = new FileInputStream(_fileMy);
+		String text = "";
 
-	FileInputStream inputStream = new FileInputStream(myFile);
-	String text = "";
-
-	// Falls .doc
-	if (typ == FileType.DOC) {
-		//System.out.println("Well, it's a doc!"); // Geht
-		POIFSFileSystem fs = new POIFSFileSystem(inputStream);
-		HWPFDocument doc = new HWPFDocument(fs);
-		WordExtractor we = new WordExtractor(doc);
-		//Geht alle Absätze durch und schreibt diese in txt
-		String[] paragraphs = we.getParagraphText();
-		for (String line : paragraphs) {
-			if (line != null && !line.trim().isEmpty()) {
-				writer.write(line.trim() + lineSeparator);
+		// Falls .doc
+		if (fTyp == FileType.DOC)
+		{
+			POIFSFileSystem poifsFileSystem = new POIFSFileSystem(fileInputStream);
+			HWPFDocument hwpfDoc = new HWPFDocument(poifsFileSystem);
+			WordExtractor we = new WordExtractor(hwpfDoc);
+			// Geht alle Absätze durch und schreibt diese in txt
+			String[] strParagraphs = we.getParagraphText();
+			for (String line : strParagraphs)
+			{
+				if (line != null && !line.trim().isEmpty())
+				{
+					writer.write(line.trim() + strLineSeparator);
+				}
 			}
+			writer.close();
+			result = true;
 		}
-		writer.close();
-		result = true;
-	}
-	// falls docx ----> Geht
-	else if (typ == FileType.DOCX) {
-		try {
-			//Entzippt die Docx, parst die XML
-			ZipFile docxFile = new ZipFile(myFile);
-			ZipEntry documentXML = docxFile.getEntry("word/document.xml");
-			InputStream documentXMLIS = docxFile
-					.getInputStream(documentXML);
-			DocumentBuilderFactory dbf = DocumentBuilderFactory
-					.newInstance();
-			Document doc = dbf.newDocumentBuilder().parse(documentXMLIS);
+		// falls docx 
+		else if (fTyp == FileType.DOCX)
+		{
+			try
+			{
+				// Entzippt die Docx, parst die XML
+				ZipFile zipFile = new ZipFile(_fileMy);
+				ZipEntry zipEntryXML = zipFile.getEntry("word/document.xml");
+				InputStream inputStreamXMLIS = zipFile.getInputStream(zipEntryXML);
+				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+				Document doc = dbf.newDocumentBuilder().parse(inputStreamXMLIS);
 
-			Element tElement = doc.getDocumentElement();
-			NodeList n = (NodeList) tElement.getElementsByTagName("w:p");
-			//schreibt alle Absätze in die txt
-			for (int j = 0; j < n.getLength(); j++) {
+				Element element = doc.getDocumentElement();
+				NodeList n = (NodeList) element.getElementsByTagName("w:p");
+				// schreibt alle Absätze in die txt
+				for (int j = 0; j < n.getLength(); j++)
+				{
 
-				Node child = n.item(j);
-				String line = child.getTextContent();
+					Node nChild = n.item(j);
+					String strLine = nChild.getTextContent();
 
-				if (line != null && !line.trim().isEmpty()) {
+					if (strLine != null && !strLine.trim().isEmpty())
+					{
 
-					writer.write(line.trim() + lineSeparator);
+						writer.write(strLine.trim() + strLineSeparator);
+					}
+
+				}
+				writer.close();
+				zipFile.close();
+				result = true;
+			}
+			catch (Exception e)
+			{
+				System.out.print(e.toString());
+
+			}
+
+		}
+		else if (fTyp == FileType.PDF)
+		{ // Geht!
+			PDFParser pdfParser = null;
+			
+			PDFTextStripper pdfStripper;
+			PDDocument pdDoc = null;
+			COSDocument cosDoc = null;
+			// PDDocumentInformation pdDocInfo;
+
+			if (!_fileMy.isFile())
+			{
+				System.out.println("File does not exist.");
+
+			}
+
+			try
+			{
+				pdfParser = new PDFParser(new FileInputStream(_fileMy));
+			}
+			catch (Exception e)
+			{
+				System.out.println("Unable to open PDF Parser.");
+
+			}
+
+			try
+			{
+				pdfParser.parse();
+				cosDoc = pdfParser.getDocument();
+				pdfStripper = new PDFTextStripper();
+				pdDoc = new PDDocument(cosDoc);
+				text = pdfStripper.getText(pdDoc);
+			}
+			catch (Exception e)
+			{
+				System.out.println("An exception occured in parsing the PDF Document.");
+				e.printStackTrace();
+				try
+				{
+					if (cosDoc != null) cosDoc.close();
+					if (pdDoc != null) pdDoc.close();
+				}
+				catch (Exception e1)
+				{
+					e.printStackTrace();
 				}
 
 			}
+			writer.write(text);
 			writer.close();
-			docxFile.close();
 			result = true;
-		} catch (Exception e) {
-			System.out.print(e.toString());
-			
 		}
-
-	} else if (typ == FileType.PDF) { // Geht!
-		PDFParser parser = null;
-		// String parsedText=null;
-		PDFTextStripper pdfStripper;
-		PDDocument pdDoc = null;
-		COSDocument cosDoc = null;
-		// PDDocumentInformation pdDocInfo;
-
-		if (!myFile.isFile()) {
-			System.out.println("File does not exist.");
-			
+		else if (fTyp == FileType.TXT)
+		{
+			// Do nothing
+			result = true;
 		}
-
-		try {
-			parser = new PDFParser(new FileInputStream(myFile));
-		} catch (Exception e) {
-			System.out.println("Unable to open PDF Parser.");
-
+		else
+		{
+			// brauchen wir eine Fehlerbehandlung?
 		}
+		System.out.println("fertig");
+		return result;
 
-		try {
-			parser.parse();
-			cosDoc = parser.getDocument();
-			pdfStripper = new PDFTextStripper();
-			pdDoc = new PDDocument(cosDoc);
-			text = pdfStripper.getText(pdDoc);
-		} catch (Exception e) {
-			System.out.println("An exception occured in parsing the PDF Document.");
-			e.printStackTrace();
-			try {
-				if (cosDoc != null)
-					cosDoc.close();
-				if (pdDoc != null)
-					pdDoc.close();
-			} catch (Exception e1) {
-				e.printStackTrace();
-			}
-			
-		}
-		writer.write(text);
-		writer.close();
-		result = true;
-	} else if (typ == FileType.TXT) {
-		// Do nothing
-		result = true;
-	} else {
-		// brauchen wir eine Fehlerbehandlung?
 	}
-	System.out.println("fertig");
-	return result;
-
-}
-	
 
 	public interface OnFileParsedListener
 	{
