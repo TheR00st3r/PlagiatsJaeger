@@ -14,7 +14,7 @@ public class TestComparer
 	 */
 	public static void main(String[] args)
 	{
-		MyComparer myComparer = new MyComparer();
+		MyComparer myComparer = new MyComparer(0);
 
 		
 //		WordProcessing wordProcessing = new WordProcessing();

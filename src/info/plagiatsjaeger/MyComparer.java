@@ -20,6 +20,13 @@ public class MyComparer implements IComparer
 
 	private OnCompareFinishedListener	_onCompareFinishedListener;
 
+	private int _rId;
+	
+	public MyComparer(int rId)
+	{
+		_rId = rId;
+	}
+	
 	@Override
 	public void compareText(String originalText, String textToCheck, String link)
 	{
@@ -107,7 +114,7 @@ public class MyComparer implements IComparer
 				if (resultFound)
 				{
 					// TODO: rID eintragen
-					SearchResult searchResult = new SearchResult(0, resultStart1, resultEnd1, resultStart2, resultEnd2, sumAehnlichkeit / countAehnlichkeit);
+					SearchResult searchResult = new SearchResult(_rId, resultStart1, resultEnd1, resultStart2, resultEnd2, sumAehnlichkeit / countAehnlichkeit);
 					searchResults.add(searchResult);
 
 					resultStart1 = -1;
