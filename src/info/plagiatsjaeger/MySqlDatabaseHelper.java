@@ -174,7 +174,7 @@ public class MySqlDatabaseHelper
 			e.printStackTrace();
 		}
 		return result;
-	}
+	}	
 
 	/**
 	 * Description of the method startQuery.
@@ -201,7 +201,29 @@ public class MySqlDatabaseHelper
 	public Settings getSettings(int rId)
 	{
 		Settings result = null;
-
+		
+		String strStatement = "SELECT s.sThreshold, sl.slSearchSentenceLength, sl.slSearchJumpLength, sl.slCompareSentenceLength, sl.slCompareJumpLength, s.sCheckWWW FROM report AS r LEFT JOIN setting AS s ON r.sID = s.sID LEFT JOIN settinglevel AS sl on s.sLevel = slID WHERE r.rID = " + rId;
+		ResultSet rstResultSet;
+		try
+		{
+			connect();
+			rstResultSet = _statement.executeQuery(strStatement);
+			if (rstResultSet.next())
+			{
+				result = new Settings(rstResultSet.getInt("s.sThreshold"), rstResultSet.getInt("sl.slSearchSentenceLength"), rstResultSet.getInt("sl.slSearchJumpLength"), rstResultSet.getInt("sl.slCompareSentenceLength"), rstResultSet.getInt("sl.slCompareJumpLength"), rstResultSet.getBoolean("s.sCheckWWW"));		
+			}
+			this.disconnect();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		
 		return result;
 	}
 

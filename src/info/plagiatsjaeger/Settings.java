@@ -15,8 +15,9 @@ public class Settings
 	private boolean						_checkWWW;
 	private static ArrayList<Integer>	_localFolders;
 
-	public Settings(int searchSentenceLength, int searchJumpLength, int compareSentenceLength, int compareJumpLength, boolean checkWWW)
+	public Settings(int threshold, int searchSentenceLength, int searchJumpLength, int compareSentenceLength, int compareJumpLength, boolean checkWWW)
 	{
+		_threshold = threshold;
 		_searchSentenceLength = searchSentenceLength;
 		_searchJumpLength = searchJumpLength;
 		_compareSentenceLength = compareSentenceLength;
@@ -24,9 +25,9 @@ public class Settings
 		_checkWWW = checkWWW;
 	}
 
-	public Settings(int searchSentenceLength, int searchJumpLength, int compareSentenceLength, int compareJumpLength, boolean checkWWW, ArrayList<Integer> localFolders)
+	public Settings(int threshold, int searchSentenceLength, int searchJumpLength, int compareSentenceLength, int compareJumpLength, boolean checkWWW, ArrayList<Integer> localFolders)
 	{
-		this(searchSentenceLength, searchJumpLength, compareSentenceLength, compareJumpLength, checkWWW);
+		this(threshold, searchSentenceLength, searchJumpLength, compareSentenceLength, compareJumpLength, checkWWW);
 		_localFolders = localFolders;
 	}
 
