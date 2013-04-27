@@ -9,13 +9,13 @@ import java.util.HashMap;
  * Schnittstelle zum Vergleichen von Texten
  * 
  * @author Andreas
- * 
  */
 public interface IComparer
 {
 
 	/**
-	 * Vergleicht zwei eingegebene Texte und schreibt die {@link SearchResult SearchResults} in eine {@link HashMap}.
+	 * Vergleicht zwei eingegebene Texte und schreibt die {@link SearchResult
+	 * SearchResults} in eine {@link HashMap}.
 	 * 
 	 * @param originalText
 	 * @param textToCheck
@@ -23,10 +23,19 @@ public interface IComparer
 	public void compareText(String originalText, String textToCheck, String link);
 
 	/**
-	 * Vergleicht zwei eingegebene Texte und schreibt die {@link SearchResult SearchResults} in eine {@link HashMap}.
+	 * Vergleicht zwei eingegebene Texte und schreibt die {@link SearchResult
+	 * SearchResults} in eine {@link HashMap}.
 	 * 
 	 * @param originalText
 	 * @param textToCheck
 	 */
 	public void compareText(String originalText, String textToCheck, int docId);
+
+	/**
+	 * Registriert einen {@link OnCompareFinishedListener} um auf gefundene
+	 * Suchergebnisse zu reagieren.
+	 * 
+	 * @param listener
+	 */
+	public void setOnCompareFinishedListener(OnCompareFinishedListener listener);
 }
