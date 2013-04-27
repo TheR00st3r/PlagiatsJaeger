@@ -12,6 +12,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -69,7 +70,7 @@ public class MySqlDatabaseHelper
 		// Open the file that is the first
 		// command line parameter
 		String strFilepath = System.getProperty("user.home") + File.separator + "password.txt";
-		result = SourceLoader.loadFile(strFilepath);
+		result = SourceLoader.loadFile(strFilepath).trim();
 		return result;
 	}
 
@@ -78,7 +79,7 @@ public class MySqlDatabaseHelper
 	 * 
 	 * @param searchResults
 	 */
-	public void insertSearchResults(ArrayList<SearchResult> searchResults)
+	public void insertSearchResults(ArrayList<SearchResult> searchResults, int dID)
 	{
 
 		try
@@ -87,11 +88,12 @@ public class MySqlDatabaseHelper
 			connect();
 			for (SearchResult result : searchResults)
 			{
-				// TODO: statement an neues DB Design anpassen.
-				// strStatement = "INSERT INTO result VALUES(DEFAULT, '" + result.getreihenfolge() + "','" +
-				// result.getOrginalText() + "' , '" + result.getlink() + "' , '" + result.getplagiatsText() + "' , '" +
-				// result.getsearchID() + "' )";
-				// _statement.executeUpdate(strStatement);
+				
+				DecimalFormat df = new DecimalFormat("###.##");
+				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + result.getPlagiatsText() + "' , '" +
+				"' , '" + dID + "' , '" + result.getStart() + "' , '" +
+				result.getEnd() + "' , '" + df.format(result.getAehnlichkeit()) + "' , '"+ result.getReportID() + "' )";
+				_statement.executeUpdate(strStatement);
 			}
 			disconnect();
 		}
@@ -107,7 +109,40 @@ public class MySqlDatabaseHelper
 		}
 
 	}
-
+	
+	/**
+	 * 
+	 * @param searchResults
+	 * @param sourceLink
+	 */
+	public void insertSearchResults(ArrayList<SearchResult> searchResults, String sourceLink)
+	{
+		try
+		{
+			String strStatement = "";
+			connect();
+			for (SearchResult result : searchResults)
+			{
+				DecimalFormat df = new DecimalFormat("###.##");
+				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + result.getPlagiatsText() + "','" +
+				sourceLink + "' , " + "null" + " , '" + result.getStart() + "' , '" +
+				result.getEnd() + "','" + df.format(result.getAehnlichkeit()) + "' , '" + result.getReportID() + "' )";
+				_statement.executeUpdate(strStatement);
+			}
+			disconnect();
+		}
+		catch (ClassNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Description of the method getDocumentID.
 	 * 
