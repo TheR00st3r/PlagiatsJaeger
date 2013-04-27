@@ -6,9 +6,6 @@ public class SearchResult
 	private String	_plagiatsText;
 	private int		_start;
 	private int		_end;
-	
-	private int _docId;
-	private String _link;
 
 	private int		_plagStart;
 	private int		_plagEnd;
@@ -75,7 +72,7 @@ public class SearchResult
 	{
 		return _plagEnd;
 	}
-	
+
 	public void setPlagEnd(int plagEnd)
 	{
 		_plagEnd = plagEnd;
@@ -89,25 +86,5 @@ public class SearchResult
 	public void setAehnlichkeit(double aehnlichkeit)
 	{
 		_aehnlichkeit = aehnlichkeit;
-	}
-	
-	public int getDocId()
-	{
-		return _docId;
-	}
-	
-	public void setDocId(int docId)
-	{
-		_docId = docId;
-	}
-	
-	public String getLink()
-	{
-		return _link;
-	}
-	
-	public void setLink(String link)
-	{
-		_link = link;
 	}
 }
