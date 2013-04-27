@@ -6,11 +6,63 @@ import java.util.ArrayList;
 public class Settings
 {
 
-	private static int	              _capacityThreshold;
-	private static int	              _jumpDistance;
-	private static int	              _recordLength;
-	private static boolean	          _onlyLocal;
+	private int							_threshold;
+
+	private int							_searchSentenceLength;
+	private int							_searchJumpLength;
+	private int							_compareSentenceLength;
+	private int							_compareJumpLength;
+	private boolean						_checkWWW;
 	private static ArrayList<Integer>	_localFolders;
-	private static boolean	          _sendMail;
+
+	public Settings(int searchSentenceLength, int searchJumpLength, int compareSentenceLength, int compareJumpLength, boolean checkWWW)
+	{
+		_searchSentenceLength = searchSentenceLength;
+		_searchJumpLength = searchJumpLength;
+		_compareSentenceLength = compareSentenceLength;
+		_compareJumpLength = compareJumpLength;
+		_checkWWW = checkWWW;
+	}
+
+	public Settings(int searchSentenceLength, int searchJumpLength, int compareSentenceLength, int compareJumpLength, boolean checkWWW, ArrayList<Integer> localFolders)
+	{
+		this(searchSentenceLength, searchJumpLength, compareSentenceLength, compareJumpLength, checkWWW);
+		_localFolders = localFolders;
+	}
+
+	public int getThreshold()
+	{
+		return _threshold;
+	}
+
+	public int getSearchSentenceLength()
+	{
+		return _searchSentenceLength;
+	}
+
+	public int getSearchJumpLength()
+	{
+		return _searchJumpLength;
+	}
+
+	public int getCompareSentenceLength()
+	{
+		return _compareSentenceLength;
+	}
+
+	public int getCompareJumpLength()
+	{
+		return _compareJumpLength;
+	}
+
+	public boolean getCheckWWW()
+	{
+		return _checkWWW;
+	}
+
+	public ArrayList<Integer> getLocalFolders()
+	{
+		return _localFolders;
+	}
 
 }
