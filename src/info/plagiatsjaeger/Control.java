@@ -13,16 +13,15 @@ public class Control
 {
 
 	private MySqlDatabaseHelper	mySqlDatabaseHelper;
-	private Settings _settings;
-	
-	
+	private Settings			_settings;
+
 	private static final String	ROOT_FILES	= "/srv/www/uploads/";
 
 	public Control()
 	{
 		mySqlDatabaseHelper = new MySqlDatabaseHelper();
 	}
-	
+
 	public void startParsing(int documentHash)
 	{
 
@@ -38,25 +37,32 @@ public class Control
 	public void startPlagiatsSearch(String filePath, final int rId)
 	{
 		final String orginalText = SourceLoader.loadFile(filePath);
-		IOnlineSearch iOnlineSearch = new BlekkoSearch();
-		iOnlineSearch.setOnLinkFoundListener(new OnLinkFoundListener()
+		if (_settings.getCheckWWW())
 		{
-
-			@Override
-			public void onLinkFound(final String link)
+			IOnlineSearch iOnlineSearch = new BlekkoSearch();
+			iOnlineSearch.setOnLinkFoundListener(new OnLinkFoundListener()
 			{
-				new Thread(new Runnable()
-				{
 
-					@Override
-					public void run()
+				@Override
+				public void onLinkFound(final String link)
+				{
+					new Thread(new Runnable()
 					{
-						compare(rId, orginalText, link, 0);
-					}
-				}).start();
-			}
-		});
-		iOnlineSearch.searchAsync(orginalText, 8);
+
+						@Override
+						public void run()
+						{
+							compare(rId, orginalText, link, 0);
+						}
+					}).start();
+				}
+			});
+			iOnlineSearch.searchAsync(orginalText, 8);
+		}
+		for(int i : _settings.getLocalFolders())
+		{
+			//TODO: Compare local Files
+		}
 	}
 
 	private void compare(int rId, String sourceText, String link, int docId)
@@ -67,7 +73,7 @@ public class Control
 			@Override
 			public void onLinkFound(ArrayList<SearchResult> searchResult, int docId)
 			{
-				
+
 			}
 
 			@Override
