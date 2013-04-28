@@ -40,7 +40,7 @@ public class FarooSearch implements IOnlineSearch
 		ArrayList<String> result = null;
 		try
 		{
-			searchString = URLEncoder.encode(searchString, CHARSET).replaceAll("[ \t\n\f\r]", "+");
+			searchString = URLEncoder.encode(searchString, CHARSET).replaceAll("[ \t\n\f\r]", " ");
 
 			URL url = new URL(URL + URL_ARG_SEARCH + searchString + "&" + URL_ARG_ATTRS + "&"+  URL_ARG_JSON);
 			InputStreamReader reader = new InputStreamReader(url.openStream(), CHARSET);
