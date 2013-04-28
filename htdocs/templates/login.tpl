@@ -25,7 +25,7 @@
 
 		</table>
 		<br />
-		<a href="{$root}">Passwort vergessen?</a><br />
+		<a href="{$root}forgot-password">Passwort vergessen?</a><br />
 		<a href="{$root}registrate">Ich möchte mich Registrieren.</a>
 	</fieldset>
 </form>

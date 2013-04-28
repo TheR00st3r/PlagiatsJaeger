@@ -20,6 +20,41 @@ class User {
 	}
 
 	/**
+	 * Returns the user infos from the given user id.
+	 * @return array
+	 */
+	public static function getUser($uID) {
+		$state = false;
+		if (Validator::validate(VAL_INTEGER, $uID, true)) {
+			$db = new db();
+			$db -> read("
+				SELECT
+					u.uID, u.uName, u.uLastname, u.uEMailAdress, u.uPassword, u.uPermissonLevel, u.uSentenceLength, u.uJumpLength, u.uTreshold
+				FROM
+					user AS u
+				WHERE 
+					 u.uID = $uID
+				LIMIT
+					1
+				");
+			$row = $db -> lines();
+			if (Validator::validate(VAL_INTEGER, $row['uID'])) {
+				$user = $row;
+				$state = true;
+			} else {
+				$messages[] = array('type' => 'error', 'text' => 'Id ist nicht gültig.');
+			}
+		} else {
+			$messages[] = array('type' => 'error', 'text' => 'ID hat kein gültiges Format.');
+		}
+		$return['user'] = $user;
+		$return['state'] = $state;
+		$return['messages'] = $messages;
+		return $return;
+
+	}
+
+	/**
 	 * Add a new user from the given informations.
 	 * @param string $uName
 	 * @param string $uLastname
@@ -89,58 +124,41 @@ class User {
 	}
 
 	/**
-	 * Returns the user id from the given emailaddress
-
-	 * @param string $uEMailAdress
-	 * @return int $cID
-	 */
-	private static function getIdFromEmail($uEMailAdress) {
-		$state = false;
-		if (Validator::validate(VAL_EMAIL, $uEMailAdress)) {
-			$db = new db();
-			$db -> read("SELECT uID FROM user WHERE uEMailAdress = '$uEMailAdress' and uEMailAdress != ''");
-			$row = $db -> lines();
-			if (Validator::validate(VAL_INTEGER, $row['uID'])) {
-				$uID = $row['uID'];
-				$state = true;
-			}
-			$messages[] = array('type' => 'error', 'text' => 'eMail-Adresse ist falsch.');
-		} else
-			$messages[] = array('type' => 'error', 'text' => 'Die eMail-Adresse hat kein gültiges Format.');
-
-		$return['uID'] = $uID;
-		$return['state'] = $state;
-		$return['messages'] = $messages;
-
-		return $return;
-	}
-
-	/**
 	 * Add the uploaded file infos to the database and starts the file copy.
-	 * @param int $uID
+	 * @param int $uEMailAdress
 	 * @param int $fID
 	 * @param string $dAuthor
 	 * @param file $file
 	 * @return boolean
 	 */
 	public static function setRestoreKey($uEMailAdress) {
-		//global $root;
 
-		$uID = self::getIdFromEmail($uEMailAdress);
+		global $root;
 
-		if (Validator::validate(VAL_INTEGER, $uID)) {
-			$key = uniqid();
+		$uIDCheck = self::getIdFromEmail($uEMailAdress);
+
+		if ($uIDCheck['state'] == true) {
+			$uRestoreKey = uniqid();
+			$uRestoreEndDate = date("Y-m-d", mktime(0, 0, 0, date("m"), date("d") + 1, date("Y")));
 			$db = new db();
-			//TODO: uRestoreEndDate berechnen
-			if ($db -> insertUpdate('user', array('uRestoreKey' => md5($key), 'uRestoreEndDate' => '9999-99-99'), array('uID' => $uID))) {
-				//$mails = new Mails();
-				// send mail
-				//if ($mails -> resetPasswordMailSend($key, $dealerID, $root)) {
-				return true;
-				// }
+			if ($db -> update('user', array('uRestoreKey' => md5($uRestoreKey), 'uRestoreEndDate' => $uRestoreEndDate), array('uID' => $uIDCheck['uID']))) {
+				require_once '../classes/Mail.php';
+				$mail = new Mail();
+				$mailCheck = $mail -> forgotPasswordMailSend($root, $uRestoreKey, $uIDCheck['uID']);
+				if ($mailCheck['state'] == true) {
+					$state = true;
+				}
+				$messages = $mailCheck['messages'];
 			}
-		}
-		return false;
+		} else
+			$messages = $uIDCheck['messages'];
+
+		$return['uID'] = $uID;
+		$return['state'] = $state;
+		$return['messages'] = $messages;
+
+		return $return;
+
 	}
 
 	/**
@@ -151,13 +169,13 @@ class User {
 	public static function checkRestoreKey($uRestoreKey) {
 		$state = false;
 		if (Validator::validate(VAL_ALPHANUMERIC, $uRestoreKey)) {
-			$key = md5($key);
+			$uRestoreKey = md5($uRestoreKey);
 			$today = date("Y-m-d");
 			$db = new db();
-			$db -> read("SELECT uID FROM user WHERE `uRestoreKey` = '$uRestoreKey' and uRestoreEndDate <= '$today' LIMIT 1");
+			$db -> read("SELECT uID FROM user WHERE `uRestoreKey` = '$uRestoreKey' and uRestoreEndDate >= '$today' LIMIT 1");
 			$row = $db -> lines();
-			if (Validator::validate(VAL_INTEGER, $row['uID'])) {
-				$uID = $row['uID'];
+			if (Validator::validate(VAL_INTEGER, $row['uID'], true)) {
+				$uID = $row['uID']; 
 				$state = true;
 			} else
 				$messages[] = array('type' => 'error', 'text' => 'Der Key ist falsch oder nicht mehr gültig, Bitte fordnern Sie einen neuen Key an!');
@@ -181,15 +199,14 @@ class User {
 	public static function setUserPassword($password1, $password2, $uID) {
 		$state = false;
 		if (Validator::validate(VAL_INTEGER, $uID)) {
-			$pwCheck = self::checkNewPassword($password1, $uPassword2);
+			$pwCheck = self::checkNewPassword($password1, $password2);
 			if ($pwCheck['state'] == true) {
 				$db = new db();
-				$uRestoreEndDate = date('Y-m-d', strtotime('+1 day'));
-				if ($db -> insertUpdate('user', array('uPassword' => md5($password1), 'uRestoreKey' => '', 'uRestoreEndDate' => $uRestoreEndDate), array('uID' => $uID))) {
+				if ($db -> insertUpdate('user', array('uPassword' => md5($password1), 'uRestoreKey' => '', 'uRestoreEndDate' => '0000-00-00'), array('uID' => $uID))) {
 					$messages[] = array('type' => 'save', 'text' => 'Neues Passwort wurde gespeichert, bitte loggen Sie sich nun mit Ihrem neuen Passwort ein.');
 					$state = true;
 					// TODO: Need Logout?
-					// LoginAccess::logout();
+					LoginAccess::logout();
 				} else {
 					$messages[] = array('type' => 'error', 'text' => 'Passwort konnte nicht gespeichert werden!');
 				}
@@ -243,8 +260,7 @@ class User {
 				} else {
 					$messages[] = array('type' => 'error', 'text' => 'Benuter konnte nicht gelöscht werden.');
 				}
-			}
-			else {
+			} else {
 				$messages[] = array('type' => 'info', 'text' => 'Sie haben versucht sich selber zu löschen :-).');
 			}
 		} else {
@@ -301,7 +317,33 @@ class User {
 		$return['state'] = $state;
 		$return['messages'] = $messages;
 		return $return;
+	}
 
+	/**
+	 * Returns the user id from the given emailaddress
+
+	 * @param string $uEMailAdress
+	 * @return int $cID
+	 */
+	private static function getIdFromEmail($uEMailAdress) {
+		$state = false;
+		if (Validator::validate(VAL_EMAIL, $uEMailAdress)) {
+			$db = new db();
+			$db -> read("SELECT uID FROM user WHERE uEMailAdress = '$uEMailAdress' and uEMailAdress != ''");
+			$row = $db -> lines();
+			if (Validator::validate(VAL_INTEGER, $row['uID'])) {
+				$uID = $row['uID'];
+				$state = true;
+			} else
+				$messages[] = array('type' => 'error', 'text' => 'eMail-Adresse ist falsch.');
+		} else
+			$messages[] = array('type' => 'error', 'text' => 'Die eMail-Adresse hat kein gültiges Format.');
+
+		$return['uID'] = $uID;
+		$return['state'] = $state;
+		$return['messages'] = $messages;
+
+		return $return;
 	}
 
 }

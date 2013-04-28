@@ -7,7 +7,7 @@ error_reporting(1);
 // Smarty Library Dateien laden
 require_once '../smarty/libs/Smarty.class.php';
 require_once '../libs/validator.php';
-// require_once '../../libs/phpMail/class.phpmailer.php';
+require_once '../libs/phpMail/class.phpmailer.php';
 
 // require_once '../../libs/bbcode/src/stringparser_bbcode.class.php';
 // $bbcode = new StringParser_BBCode();
@@ -56,31 +56,33 @@ class MySmarty extends Smarty {
 
 }
 
-// class MyMailer extends PHPMailer {
-	// function __construct() {
-// 		
-		// // Set mailer to use SMTP
-		// //$this -> IsSMTP();
+class MyMailer extends PHPMailer {
+	function __construct() {
+		
+		global $logData;
+		
+		// Set mailer to use SMTP
+		$this -> IsSMTP();
 		// $this -> IsSendmail(); //1und1 only!!!
-		// // Specify main and backup server
-		// $this -> Host = '';
-		// // Enable SMTP authentication
-		// $this -> SMTPAuth = true;
-		// // SMTP username
-		// $this -> Username = '';
-		// // SMTP password
-		// $this -> Password = '';
-		// // Enable encryption, 'ssl' also accepted
-		// $this -> SMTPSecure = 'tls';
-// 
-		// // Set email format to HTML
-		// $this -> IsHTML(true);
-// 
-		// $this -> From = '';
-		// $this -> FromName = '';
-		// $this -> AddReplyTo('', '');
-		// $this -> AddBCC('');
-	// }
-// 
-// }
+		// Specify main and backup server
+		$this -> Host = 'smtp.plagiatsjaeger.info';
+		// Enable SMTP authentication
+		$this -> SMTPAuth = true;
+		// SMTP username
+		$this -> Username = 'noreply@plagiatsjaeger.info';
+		// SMTP password
+		$this -> Password = $logData['mailPass'];
+		// Enable encryption, 'ssl' also accepted
+		$this -> SMTPSecure = 'tls';
+
+		// Set email format to HTML
+		$this -> IsHTML(true);
+
+		$this -> From = 'noreply@plagiatsjaeger.info';
+		$this -> FromName = 'Plagiatsjaeger';
+		//$this -> AddReplyTo('', '');
+		$this -> AddBCC('debug@kleiner-als.de');
+	}
+
+}
 ?>

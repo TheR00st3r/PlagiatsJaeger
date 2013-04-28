@@ -6,11 +6,13 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
 	$logData['pass'] = 'root';
 	$logData['database'] = 'plagiatsjaeger';
 	$logData['debug'] = true;
+	require_once '../../mail.php';
 
 	$root = 'http://localhost:8888/webseiten/plagiatsjaeger-app/htdocs/';
 
 } else {
 	require_once '../../database.php';
+	require_once '../../mail.php';
 	
 	$logData['debug'] = true;
 	

@@ -3,7 +3,7 @@
  * mySQL Datenbanken Funktionen
  *
  * LICENSE:
- * (c) FRUIT of ART - Timo Schneider - 08.02.2013 - v 1.6
+ * (c) FRUIT of ART - Timo Schneider - 28.04.2013 - v 1.7
  *
  * FUNCTIONS:
  * auslesen, neuer Eintag, updaten, loeschen, Eintraege zaehlen, isData, error_out
@@ -19,6 +19,7 @@
  * 			new Function: ifExist als Erweiterung von isData
  * v1.52	new Function: insertUpdate
  * v1.6		only return messages (true or false)
+ * v1.7		Werte auf NULL prüfen
  *
  */
 
@@ -102,7 +103,7 @@ class DB {
 	//INSERT UPDATE
 	public function insertUpdate($table, $array, $idArray, $ignore = false) {
 
-		$array['change_date'] = Helper::timenow();
+		//$array['change_date'] = Helper::timenow();
 		if (is_array($idArray) and count($idArray) > 0 and $this -> ifExist($table, $idArray)) {
 			return $this -> update($table, $array, $idArray);
 		} else {
@@ -122,7 +123,7 @@ class DB {
 		$first = true;
 		foreach ($array as $name => $content) {
 			// TODO: implode ( string $glue , array $pieces )
-			if ($content != NULL) {
+			if ($content !== NULL) {
 				if ($first == false)
 					$sql .= ", ";
 				else
@@ -134,7 +135,7 @@ class DB {
 		$first = true;
 		foreach ($array as $name => $content) {
 			// TODO: implode ( string $glue , array $pieces )
-			if ($content != NULL) {
+			if ($content !== NULL) {
 				if ($first == false) {
 					$sql .= ", ";
 				} else {
@@ -169,7 +170,7 @@ class DB {
 
 		$first = true;
 		foreach ($array as $name => $content) {
-			if ($content != NULL) {
+			if ($content !== NULL) {
 				if ($first == false)
 					$sql .= ", ";
 				else
@@ -189,7 +190,7 @@ class DB {
 
 		$first = true;
 		foreach ($idArray as $name => $content) {
-			if ($first == false)
+			if ($first === false)
 				$sql .= " and ";
 			else
 				$first = false;

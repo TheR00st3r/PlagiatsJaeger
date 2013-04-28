@@ -27,20 +27,19 @@ if ($page == 'public') {
 	require_once '../classes/Folder.php';
 	$folder = Folder::getFolderFromHash($_GET['id']);
 	if ($folder['fID']) {
-		
-		if($folder['fLinkExpireDatetime'] > date("Y-m-d H:i:s")) {
 
-		if (isset($_POST['dAddSubmit'])) {
-			require_once '../classes/Upload.php';
-			if (Upload::fileUpload($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'])) {
-				$contentTpl = 'vielen Dank!';
-			} else
-				$contentTpl = 'upload Error';
+		if ($folder['fLinkExpireDatetime'] > date("Y-m-d H:i:s")) {
+
+			if (isset($_POST['dAddSubmit'])) {
+				require_once '../classes/Upload.php';
+				if (Upload::fileUpload($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'])) {
+					$contentTpl = 'vielen Dank!';
+				} else
+					$contentTpl = 'upload Error';
+			} else {
+				$contentTpl = $smarty -> fetch('public.tpl');
+			}
 		} else {
-			$contentTpl = $smarty -> fetch('public.tpl');
-		}
-		}
-		else {
 			$contentTpl = 'Link ist abgelaufen....';
 		}
 	} else
@@ -140,7 +139,7 @@ if ($page == 'public') {
 						$return = User::deleteUser($_POST['uID']);
 						break;
 				}
-				
+
 				$smarty -> assign('messages', $return['messages']);
 
 				$smarty -> assign('user', User::getAllUser());
@@ -159,11 +158,46 @@ if ($page == 'public') {
 				case 'uRegistrate' :
 					require_once '../classes/User.php';
 					$return = User::registrateUser($_POST['uName'], $_POST['uLastname'], $_POST['uEMailAdress'], $_POST['uPassword'], $_POST['uPassword2'], $_POST['cID']);
-					//print_array($return);
 					$smarty -> assign('messages', $return['messages']);
 					break;
 			}
 			$contentTpl = $smarty -> fetch('registrate.tpl');
+			break;
+
+		case 'reset-password' :
+		require_once '../classes/User.php';
+			$uIDCheck = User::checkRestoreKey($_GET['key']);
+
+			if ($uIDCheck['state']) {
+				$userCheck = User::getUser($uIDCheck['uID']);
+				$smarty -> assign('user', $userCheck['user']);
+
+				if ($userCheck['state']) {
+					if ($_POST['uPasswordReset']) {
+						$pwCheck = User::setUserPassword($_POST['uPassword1'], $_POST['uPassword2'], $uIDCheck['uID']);
+						if($pwCheck['state']) {
+							$state = true;
+						}
+						$messages = $pwCheck['messages'];
+					}
+				} else
+					$messages = $userCheck['messages'];
+					
+				$contentTpl = $smarty -> fetch('reset-password.tpl');
+
+			} else
+				$messages = $uIDCheck['messages'];
+
+			$smarty -> assign('messages', $messages);
+			break;
+
+		case 'forgot-password' :
+			if ($_POST['getIdFromEmail']) {
+				require_once '../classes/User.php';
+				$check = User::setRestoreKey($_POST['password_email']);
+				$smarty -> assign('messages', $check['messages']);
+			} else
+				$contentTpl = $smarty -> fetch('forgot-password.tpl');
 			break;
 
 		default :
