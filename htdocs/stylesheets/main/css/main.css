@@ -3,7 +3,7 @@
   font-family: Arial;
 }
 body {
-  margin: 0px;
+  margin: 20px;
   background: url(../../../images/background.jpg);
 }
 a {
@@ -32,6 +32,10 @@ textarea {
   width: 900px;
   margin: auto;
   background: #fff;
+  -moz-box-shadow: 6px 6px 6px #666;
+  -webkit-box-shadow: 6px 6px 6px #666;
+  box-shadow: 6px 6px 6px #666;
+  border: solid 1px #666;
 }
 #header {
   position: relative;
