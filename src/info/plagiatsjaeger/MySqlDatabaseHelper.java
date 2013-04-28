@@ -10,11 +10,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
-/***
- * Stellt Methoden zur Kommunikation mit der MySqlDatenbank zur Verfügung.
+/**
+ * Stellt Methoden zur Kommunikation mit der MySqlDatenbank zur Verfuegung.
  * 
  * @author Michael
- * 
  */
 public class MySqlDatabaseHelper
 {
@@ -22,7 +21,7 @@ public class MySqlDatabaseHelper
 	private Statement	_statement	= null;
 
 	/**
-	 * Description of the method connect.
+	 * Stellt eine Verbindung mit der SQL Datenbank her.
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -35,7 +34,9 @@ public class MySqlDatabaseHelper
 		Class.forName("com.mysql.jdbc.Driver");
 		// Verbindung mit DB herstellen
 		String strPassword = this.readPassword();
-		// _connection = DriverManager.getConnection("jdbc:mysql://192.168.4.28/plagiatsjaeger?" + "user=root&password="
+		// _connection =
+		// DriverManager.getConnection("jdbc:mysql://192.168.4.28/plagiatsjaeger?"
+		// + "user=root&password="
 		// + strPassword);
 		_connection = DriverManager.getConnection("jdbc:mysql://192.168.4.28/plagiatsjaeger?useUnicode=true&characterEncoding=utf-8", "root", strPassword);
 		// Statements erlauben SQL Abfragen
@@ -43,7 +44,7 @@ public class MySqlDatabaseHelper
 	}
 
 	/**
-	 * Description of the method disconnect.
+	 * Trennt eine bestehende Verbindung mit der Datenbank
 	 * 
 	 * @throws SQLException
 	 */
@@ -54,7 +55,7 @@ public class MySqlDatabaseHelper
 	}
 
 	/**
-	 * Description of the method readPassword.
+	 * Ermittelt das Passwort aus dem Passwordfile
 	 * 
 	 * @return result
 	 */
@@ -69,24 +70,24 @@ public class MySqlDatabaseHelper
 	}
 
 	/**
-	 * Description of the method insertSearchResults.
+	 * Fuegt eine Liste von Suchergebnissen, die in einem lokalen Dokument
+	 * gefunden wurden, zu einem Report ein.
 	 * 
-	 * @param searchResults
+	 * @param compareResults
+	 * @param dID
 	 */
-	public void insertSearchResults(ArrayList<SearchResult> searchResults, int dID)
+	public void insertCompareResults(ArrayList<CompareResult> compareResults, int dID)
 	{
 
 		try
 		{
 			String strStatement = "";
 			connect();
-			for (SearchResult result : searchResults)
+			for (CompareResult result : compareResults)
 			{
-				
+
 				DecimalFormat df = new DecimalFormat("###.##");
-				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + result.getPlagiatsText() + "' , '" +
-				"' , '" + dID + "' , '" + result.getStart() + "' , '" +
-				result.getEnd() + "' , '" + df.format(result.getAehnlichkeit()) + "' , '"+ result.getReportID() + "' )";
+				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + result.getSourceText() + "' , '" + "' , '" + dID + "' , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "' , '" + df.format(result.getSimilarity()) + "' , '" + result.getReportID() + "' )";
 				_statement.executeUpdate(strStatement);
 			}
 			disconnect();
@@ -103,24 +104,24 @@ public class MySqlDatabaseHelper
 		}
 
 	}
-	
+
 	/**
+	 * Fuegt eine Liste von Suchergebnissen, die auf einer Internetseite
+	 * gefunden wurden, zu einem Report ein.
 	 * 
-	 * @param searchResults
+	 * @param compareResults
 	 * @param sourceLink
 	 */
-	public void insertSearchResults(ArrayList<SearchResult> searchResults, String sourceLink)
+	public void insertCompareResults(ArrayList<CompareResult> compareResults, String sourceLink)
 	{
 		try
 		{
 			String strStatement = "";
 			connect();
-			for (SearchResult result : searchResults)
+			for (CompareResult result : compareResults)
 			{
 				DecimalFormat df = new DecimalFormat("###.##");
-				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + result.getPlagiatsText() + "','" +
-				sourceLink + "' , " + "null" + " , '" + result.getStart() + "' , '" +
-				result.getEnd() + "','" + df.format(result.getAehnlichkeit()) + "' , '" + result.getReportID() + "' )";
+				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + result.getSourceText() + "','" + sourceLink + "' , " + "null" + " , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "','" + df.format(result.getSimilarity()) + "' , '" + result.getReportID() + "' )";
 				_statement.executeUpdate(strStatement);
 			}
 			disconnect();
@@ -136,9 +137,9 @@ public class MySqlDatabaseHelper
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
-	 * Description of the method getDocumentID.
+	 * Liest die DocumentId aus einem Report aus.
 	 * 
 	 * @param rID
 	 * @return return
@@ -168,11 +169,9 @@ public class MySqlDatabaseHelper
 			e.printStackTrace();
 		}
 		return result;
-	}	
+	}
 
 	/**
-	 * Description of the method startQuery.
-	 * 
 	 * @param query
 	 * @return return
 	 * @throws SQLException
@@ -187,7 +186,7 @@ public class MySqlDatabaseHelper
 	}
 
 	/**
-	 * Description of the method getSettings.
+	 * Laed die Einstellungen zu einem Report aus der Datenbank.
 	 * 
 	 * @param rId
 	 * @return result
@@ -195,7 +194,7 @@ public class MySqlDatabaseHelper
 	public Settings getSettings(int rId)
 	{
 		Settings result = null;
-		
+
 		String strStatement = "SELECT s.sThreshold, sl.slSearchSentenceLength, sl.slSearchJumpLength, sl.slCompareSentenceLength, sl.slCompareJumpLength, s.sCheckWWW FROM report AS r LEFT JOIN setting AS s ON r.sID = s.sID LEFT JOIN settinglevel AS sl on s.sLevel = slID WHERE r.rID = " + rId;
 		ResultSet rstResultSet;
 		try
@@ -204,7 +203,7 @@ public class MySqlDatabaseHelper
 			rstResultSet = _statement.executeQuery(strStatement);
 			if (rstResultSet.next())
 			{
-				result = new Settings(rstResultSet.getInt("s.sThreshold"), rstResultSet.getInt("sl.slSearchSentenceLength"), rstResultSet.getInt("sl.slSearchJumpLength"), rstResultSet.getInt("sl.slCompareSentenceLength"), rstResultSet.getInt("sl.slCompareJumpLength"), rstResultSet.getBoolean("s.sCheckWWW"));		
+				result = new Settings(rstResultSet.getInt("s.sThreshold"), rstResultSet.getInt("sl.slSearchSentenceLength"), rstResultSet.getInt("sl.slSearchJumpLength"), rstResultSet.getInt("sl.slCompareSentenceLength"), rstResultSet.getInt("sl.slCompareJumpLength"), rstResultSet.getBoolean("s.sCheckWWW"));
 			}
 			this.disconnect();
 		}
@@ -216,13 +215,13 @@ public class MySqlDatabaseHelper
 		{
 			e.printStackTrace();
 		}
-		
-		
+
 		return result;
 	}
 
 	/**
-	 * Description of the method setDocumentAsParsed.
+	 * <b>Noch nicht implementiert!</b></br> Setzt ein Document als fertig
+	 * geparst.
 	 * 
 	 * @param docId
 	 */

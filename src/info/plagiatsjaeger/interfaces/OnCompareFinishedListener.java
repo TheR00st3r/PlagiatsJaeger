@@ -1,6 +1,6 @@
 package info.plagiatsjaeger.interfaces;
 
-import info.plagiatsjaeger.SearchResult;
+import info.plagiatsjaeger.CompareResult;
 
 import java.util.ArrayList;
 
@@ -16,17 +16,17 @@ public interface OnCompareFinishedListener
 	/**
 	 * Wird aufgerufen wenn der Vergleich mit einer Webseite beendet wurde.
 	 * 
-	 * @param searchResult
+	 * @param compareResult
 	 * @param link
 	 */
-	public void onLinkFound(ArrayList<SearchResult> searchResult, String link);
+	public void onLinkFound(ArrayList<CompareResult> compareResult, String link);
 
 	/**
-	 * Wird aufgerufen wenn der Vergleich mit einem anderen Dokument beendet
-	 * wurde.
+	 * searchResult Wird aufgerufen wenn der Vergleich mit einem anderen
+	 * Dokument beendet wurde.
 	 * 
-	 * @param searchResult
+	 * @param compareResult
 	 * @param link
 	 */
-	public void onLinkFound(ArrayList<SearchResult> searchResult, int docId);
+	public void onLinkFound(ArrayList<CompareResult> compareResult, int docId);
 }

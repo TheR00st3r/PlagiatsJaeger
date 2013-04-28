@@ -6,183 +6,204 @@ import info.plagiatsjaeger.interfaces.OnCompareFinishedListener;
 import java.util.ArrayList;
 
 
+/**
+ * Die klasse stellt Funktionen zum Vergleichen von Texten zur Verfuegung. Als
+ * Schnittstelle dient dass Interface {@link IComparer}.
+ * 
+ * @author Andreas
+ */
 public class MyComparer implements IComparer
 {
 
-	private static final int			NUM_WORDS_TO_COMPARE	= 10;
-	private static final double			SCHWELLENWERT			= 0.9;
+	private static final int			NUM_WORDS_TO_COMPARE		= 10;
+	private static final double			SCHWELLENWERT				= 0.9;
+	private static final int			MAX_WORDS_BETWEEN_RESULTS	= 4;
 
-	private String[]					_words1;
-	private String[]					_words2;
+	private String[]					_checkWords;
+	private String[]					_sourceWords;
 
 	private String						_currentLink;
 	private int							_currentDocId;
 
 	private OnCompareFinishedListener	_onCompareFinishedListener;
 
-	private int _rId;
-	
+	private int							_rId;
+
+	/**
+	 * Legt einen neuen Comparer für einen Report an.
+	 * 
+	 * @param rId
+	 */
 	public MyComparer(int rId)
 	{
 		_rId = rId;
 	}
-	
+
 	@Override
-	public void compareText(String originalText, String textToCheck, String link)
+	public void compareText(String checkText, String sourceText, String link)
 	{
 		_currentLink = link;
-		compareText(originalText, textToCheck);
+		compareText(checkText, sourceText);
 	}
 
 	@Override
-	public void compareText(String originalText, String textToCheck, int docId)
+	public void compareText(String checkText, String sourceText, int docId)
 	{
 		_currentDocId = docId;
-		compareText(originalText, textToCheck);
+		compareText(checkText, sourceText);
 	}
 
-	private ArrayList<SearchResult> compareText(String originalText, String textToCheck)
+	/**
+	 * Vergleicht 2 Text miteinander und liefert die Uebereinstimmungen als
+	 * ArrayList von {@link CompareResult CompareResults} zurueck.
+	 * 
+	 * @param checkText
+	 * @param sourceText
+	 * @return
+	 */
+	private ArrayList<CompareResult> compareText(String checkText, String sourceText)
 	{
-		ArrayList<SearchResult> result = new ArrayList<SearchResult>();
-		ArrayList<SearchResult> searchResults = new ArrayList<SearchResult>();
+		ArrayList<CompareResult> result = new ArrayList<CompareResult>();
+		ArrayList<CompareResult> unmergedCompareResults = new ArrayList<CompareResult>();
 
 		WordProcessing wordProcessing = new WordProcessing();
 
-		_words1 = wordProcessing.splitToWords(originalText);
-		_words2 = wordProcessing.splitToWords(textToCheck);
+		_checkWords = wordProcessing.splitToWords(checkText);
+		_sourceWords = wordProcessing.splitToWords(sourceText);
 
-		int resultStart1 = -1;
-		int resultEnd1 = -1;
-		int resultStart2 = -1;
-		int resultEnd2 = -1;
+		int checkResultStart = -1;
+		int checkResultEnd = -1;
+		int sourceResultStart = -1;
+		int sourceResultEnd = -1;
 
-		StringBuilder sb1 = new StringBuilder();
-		StringBuilder sb2 = new StringBuilder();
+		StringBuilder sbCheckText = new StringBuilder();
+		StringBuilder sbSourceText = new StringBuilder();
 
-		for (int i1 = 0; i1 < _words1.length; i1++)
+		for (int iCheck = 0; iCheck < _checkWords.length; iCheck++)
 		{
-			sb1.delete(0, sb1.length());
-			int j1 = 0;
-			for (; (j1 < NUM_WORDS_TO_COMPARE) && ((i1 + j1) < _words1.length); j1++)
+			sbCheckText.delete(0, sbCheckText.length());
+			int jCheck = 0;
+			for (; (jCheck < NUM_WORDS_TO_COMPARE) && ((iCheck + jCheck) < _checkWords.length); jCheck++)
 			{
-				sb1.append(_words1[i1 + j1]).append(" ");
+				sbCheckText.append(_checkWords[iCheck + jCheck]).append(" ");
 			}
 
-			double aehnlichkeit = 0.0;
-			for (int i2 = 0; i2 < _words2.length; i2++)
+			double similarity = 0.0;
+			for (int iSource = 0; iSource < _sourceWords.length; iSource++)
 			{
-				sb2.delete(0, sb2.length());
-				int j2 = 0;
-				for (; (j2 < NUM_WORDS_TO_COMPARE) && ((i2 + j2) < _words2.length); j2++)
+				sbSourceText.delete(0, sbSourceText.length());
+				int jSource = 0;
+				for (; (jSource < NUM_WORDS_TO_COMPARE) && ((iSource + jSource) < _sourceWords.length); jSource++)
 				{
-					sb2.append(_words2[i2 + j2]).append(" ");
+					sbSourceText.append(_sourceWords[iSource + jSource]).append(" ");
 				}
 
 				boolean resultFound = false;
-				double sumAehnlichkeit = 0.0;
-				int countAehnlichkeit = 0;
-				while ((aehnlichkeit = compareStrings(sb1.toString(), sb2.toString())) >= SCHWELLENWERT)
+				double sumSimilarity = 0.0;
+				int countSimilarity = 0;
+				while ((similarity = compareStrings(sbCheckText.toString(), sbSourceText.toString())) >= SCHWELLENWERT)
 				{
 					resultFound = true;
-					if (resultStart1 < 0)
+					if (checkResultStart < 0)
 					{
-						resultStart1 = i1;
+						checkResultStart = iCheck;
 					}
-					if (resultStart2 < 0)
+					if (sourceResultStart < 0)
 					{
-						resultStart2 = i2;
+						sourceResultStart = iSource;
 					}
-					resultEnd1 = i1 + j1 + 1;
-					resultEnd2 = i2 + j2 + 1;
-					sumAehnlichkeit += aehnlichkeit;
-					countAehnlichkeit++;
+					checkResultEnd = iCheck + jCheck + 1;
+					sourceResultEnd = iSource + jSource + 1;
+					sumSimilarity += similarity;
+					countSimilarity++;
 
-					sb1.delete(0, _words1[i1].length() + 1);
-					sb2.delete(0, _words2[i2].length() + 1);
-					if (_words1.length > (i1 + NUM_WORDS_TO_COMPARE) && _words2.length > (i2 + NUM_WORDS_TO_COMPARE))
+					sbCheckText.delete(0, _checkWords[iCheck].length() + 1);
+					sbSourceText.delete(0, _sourceWords[iSource].length() + 1);
+					if (_checkWords.length > (iCheck + NUM_WORDS_TO_COMPARE) && _sourceWords.length > (iSource + NUM_WORDS_TO_COMPARE))
 					{
-						sb1.append(_words1[i1 + NUM_WORDS_TO_COMPARE]).append(" ");
-						sb2.append(_words2[i2 + NUM_WORDS_TO_COMPARE]).append(" ");
+						sbCheckText.append(_checkWords[iCheck + NUM_WORDS_TO_COMPARE]).append(" ");
+						sbSourceText.append(_sourceWords[iSource + NUM_WORDS_TO_COMPARE]).append(" ");
 					}
 					else
 					{
 						break;
 					}
-					i1++;
-					i2++;
+					iCheck++;
+					iSource++;
 				}
 				if (resultFound)
 				{
-					// TODO: rID eintragen
-					SearchResult searchResult = new SearchResult(_rId, resultStart1, resultEnd1, resultStart2, resultEnd2, sumAehnlichkeit / countAehnlichkeit);
-					searchResults.add(searchResult);
+					CompareResult compareResult = new CompareResult(_rId, checkResultStart, checkResultEnd, sourceResultStart, sourceResultEnd, sumSimilarity / countSimilarity);
+					unmergedCompareResults.add(compareResult);
 
-					resultStart1 = -1;
-					resultStart2 = -1;
-					resultEnd1 = -1;
-					resultEnd2 = -1;
+					checkResultStart = -1;
+					sourceResultStart = -1;
+					checkResultEnd = -1;
+					sourceResultEnd = -1;
 					break;
-					// i2 += NUM_WORDS_TO_COMPARE - 1;
 				}
 			}
-			i1 += NUM_WORDS_TO_COMPARE - 1;
+			iCheck += NUM_WORDS_TO_COMPARE - 1;
 		}
 
-		// Searchresults zusammenfügen und Trefferlinks schreiben.
-		for (int i = 0; i < searchResults.size() - 1; i++)
+		//Compareresults zusammenfuegen und Trefferlinks schreiben.
+		for (int resultCounter = 0; resultCounter < unmergedCompareResults.size() - 1; resultCounter++)
 		{
-			SearchResult searchResult1 = searchResults.get(i);
-			SearchResult searchResult2 = searchResults.get(i + 1);
-			// TODO: plagiatsposition ebenfalls merken (zum zusammenfÃ¼hren)
+			CompareResult compareResult1 = unmergedCompareResults.get(resultCounter);
+			CompareResult compareResult2 = unmergedCompareResults.get(resultCounter + 1);
 
 			// Zusammenhängende Text erkennen und start/end aktualisieren
-			int missingWords = 4;
-			double sumAehnlichkeit = searchResult1.getAehnlichkeit();
-			int countAehnlichkeit = 1;
-			while ((searchResult1.getEnd() >= (searchResult2.getStart() - missingWords)) && (searchResult1.getPlagEnd() >= (searchResult2.getPlagStart() - missingWords)))
+
+			double sumSimilarity = compareResult1.getSimilarity();
+			int countSimilarity = 1;
+			while ((compareResult1.getCheckEnd() >= (compareResult2.getCheckStart() - MAX_WORDS_BETWEEN_RESULTS)) && (compareResult1.getSourceEnd() >= (compareResult2.getSourceStart() - MAX_WORDS_BETWEEN_RESULTS)))
 			{
-				sumAehnlichkeit += searchResult2.getAehnlichkeit();
-				countAehnlichkeit++;
-				searchResult1.setEnd(searchResult2.getEnd());
-				searchResult1.setPlagEnd(searchResult2.getPlagEnd());
-				i++;
-				if (i < searchResults.size() - 1)
+				sumSimilarity += compareResult2.getSimilarity();
+				countSimilarity++;
+				compareResult1.setCheckEnd(compareResult2.getCheckEnd());
+				compareResult1.setSourceEnd(compareResult2.getSourceEnd());
+				resultCounter++;
+				if (resultCounter < unmergedCompareResults.size() - 1)
 				{
-					searchResult2 = searchResults.get(i + 1);
+					compareResult2 = unmergedCompareResults.get(resultCounter + 1);
 				}
 				else
 				{
 					break;
 				}
 			}
-			searchResult1.setAehnlichkeit(sumAehnlichkeit / countAehnlichkeit);
+			compareResult1.setSimilarity(sumSimilarity / countSimilarity);
 			// plagiatsText für plagStart/plagEnd setzen.
 			StringBuilder resultText = new StringBuilder();
-			for (int j = searchResult1.getPlagStart(); j < searchResult1.getPlagEnd(); j++)
+			for (int wordCounter = compareResult1.getSourceStart(); wordCounter < compareResult1.getSourceEnd(); wordCounter++)
 			{
-				resultText.append(_words2[j]).append(" ");
+				resultText.append(_sourceWords[wordCounter]).append(" ");
 			}
-			searchResult1.setPlagiatsText(resultText.toString());
+			compareResult1.setSourceText(resultText.toString());
 
 			System.out.println("### TREFFER #######################");
 			System.out.println("Source:       " + _currentLink);
-			System.out.println("Start-Ende:   " + searchResult1.getStart() + "-" + searchResult1.getEnd());
-			System.out.println("Text:         " + searchResult1.getPlagiatsText());
-			System.out.println("Aehnlichkeit: " + searchResult1.getAehnlichkeit());
+			System.out.println("Start-Ende:   " + compareResult1.getCheckStart() + "-" + compareResult1.getCheckEnd());
+			System.out.println("Text:         " + compareResult1.getSourceText());
+			System.out.println("Aehnlichkeit: " + compareResult1.getSimilarity());
 			System.out.println("###################################");
 
-			result.add(searchResult1);
+			result.add(compareResult1);
 		}
 		_onCompareFinishedListener.onLinkFound(result, _currentLink);
 		_onCompareFinishedListener.onLinkFound(result, _currentDocId);
 		return result;
 	}
 
-	/** @return lexical similarity value in the range [0,1] */
-	public double compareStrings(String str1, String str2)
+	/**
+	 * Vergleicht zwei eingebene Texte und berechnet deren Uebereinstimmg.
+	 * 
+	 * @return Aehnlichkeit der zwei eingegebenen Texte 0.0-1.0
+	 */
+	public double compareStrings(String text1, String text2)
 	{
-		ArrayList<String> pairs1 = wordLetterPairs(str1.toUpperCase());
-		ArrayList<String> pairs2 = wordLetterPairs(str2.toUpperCase());
+		ArrayList<String> pairs1 = wordLetterPairs(text1.toUpperCase());
+		ArrayList<String> pairs2 = wordLetterPairs(text2.toUpperCase());
 		int intersection = 0;
 		int union = pairs1.size() + pairs2.size();
 		for (int i = 0; i < pairs1.size(); i++)
@@ -202,39 +223,51 @@ public class MyComparer implements IComparer
 		return (2.0 * intersection) / union;
 	}
 
-	/** @return an ArrayList of 2-character Strings. */
-	private ArrayList<String> wordLetterPairs(String str)
+	/**
+	 * Trennt den kompletten Text in Zeichenpaare auf. (Leerzeichen werden
+	 * entfernt)
+	 * 
+	 * @param text
+	 * @return ArrayList<String> mit je 2 Zeichen
+	 */
+	private ArrayList<String> wordLetterPairs(String text)
 	{
-		ArrayList<String> allPairs = new ArrayList<String>();
+		ArrayList<String> result = new ArrayList<String>();
 		// Tokenize the string and put the tokens/words into an array
-		String[] words = str.split("\\s");
+		String[] words = text.split("\\s");
 		// For each word
-		for (int w = 0; w < words.length; w++)
+		for (int wordCounter = 0; wordCounter < words.length; wordCounter++)
 		{
 			// Find the pairs of characters
-			String[] pairsInWord = letterPairs(words[w]);
+			String[] pairsInWord = letterPairs(words[wordCounter]);
 			for (int p = 0; p < pairsInWord.length; p++)
 			{
-				allPairs.add(pairsInWord[p]);
+				result.add(pairsInWord[p]);
 			}
 		}
-		return allPairs;
+		return result;
 	}
 
-	/** @return an array of adjacent letter pairs contained in the input string */
-	private String[] letterPairs(String str)
+	/**
+	 * Trennt ein eingebenen Text(Wort) in Zeichenpaare auf(Alle Zeichen werden
+	 * gleich behandelt)
+	 * 
+	 * @param word
+	 * @return
+	 */
+	private String[] letterPairs(String word)
 	{
-		String[] pairs = new String[0];
-		int numPairs = str.length() - 1;
+		String[] result = new String[0];
+		int numPairs = word.length() - 1;
 		if (numPairs > 0)
 		{
-			pairs = new String[numPairs];
-			for (int i = 0; i < numPairs; i++)
+			result = new String[numPairs];
+			for (int letterCounter = 0; letterCounter < numPairs; letterCounter++)
 			{
-				pairs[i] = str.substring(i, i + 2);
+				result[letterCounter] = word.substring(letterCounter, letterCounter + 2);
 			}
 		}
-		return pairs;
+		return result;
 	}
 
 	@Override

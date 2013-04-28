@@ -9,86 +9,113 @@ import info.plagiatsjaeger.onlinesearch.BlekkoSearch;
 import java.util.ArrayList;
 
 
+/**
+ * Steuerung für den gesammten Ablauf.
+ * 
+ * @author Andreas
+ */
 public class Control
 {
-
-	private MySqlDatabaseHelper	mySqlDatabaseHelper;
 	private Settings			_settings;
 
+	/**
+	 * Dateipfad für die Dateien auf dem Server.
+	 */
 	private static final String	ROOT_FILES	= "/srv/www/uploads/";
 
-	public Control()
-	{
-		mySqlDatabaseHelper = new MySqlDatabaseHelper();
-	}
-
+	/**
+	 * <b>Noch nicht implementiert!</b></br> Konvertiert eine Datei in das
+	 * normalisierte txt-Format.
+	 * 
+	 * @param documentHash
+	 */
 	public void startParsing(int documentHash)
 	{
-
 	}
 
+	/**
+	 * Startet eine Plagiatssuche zu dem übergebenen Report.
+	 * 
+	 * @param rId
+	 */
 	public void startPlagiatsSearch(int rId)
 	{
-		int documentId = mySqlDatabaseHelper.getDocumentID(rId);
+		MySqlDatabaseHelper mySqlDatabaseHelper = new MySqlDatabaseHelper();
+		int intDocumentId = mySqlDatabaseHelper.getDocumentID(rId);
 		_settings = mySqlDatabaseHelper.getSettings(rId);
-		startPlagiatsSearch(ROOT_FILES + documentId + ".txt", rId);
+		startPlagiatsSearch(ROOT_FILES + intDocumentId + ".txt", rId);
 	}
 
+	/**
+	 * Führt eine Plagiatssuche zu dem übergebenen Dokument durch.
+	 * 
+	 * @param filePath
+	 * @param rId
+	 */
 	public void startPlagiatsSearch(String filePath, final int rId)
 	{
-		final String orginalText = SourceLoader.loadFile(filePath);
+		final String strSourceText = SourceLoader.loadFile(filePath);
 		if (_settings.getCheckWWW())
 		{
 			IOnlineSearch iOnlineSearch = new BlekkoSearch();
 			iOnlineSearch.setOnLinkFoundListener(new OnLinkFoundListener()
 			{
-
 				@Override
 				public void onLinkFound(final String link)
 				{
 					new Thread(new Runnable()
 					{
-
 						@Override
 						public void run()
 						{
-							compare(rId, orginalText, link, 0);
+							compare(rId, strSourceText, link, 0);
 						}
 					}).start();
 				}
 			});
-			iOnlineSearch.searchAsync(orginalText, 8);
+			iOnlineSearch.searchAsync(strSourceText, 8);
 		}
-		for(int i : _settings.getLocalFolders())
+		for (int i : _settings.getLocalFolders())
 		{
-			//TODO: Compare local Files
+			// TODO: Compare local Files
 		}
 	}
 
-	private void compare(int rId, String sourceText, String link, int docId)
+	/**
+	 * Vergleicht den sourceText entweder mit einer Internetseite oder einem
+	 * lokalen Dokument.
+	 * 
+	 * @param rId
+	 * @param checkText
+	 * @param link
+	 * @param docId
+	 */
+	private void compare(int rId, String checkText, String link, int docId)
 	{
 		IComparer comparer = new MyComparer(rId);
 		comparer.setOnCompareFinishedListener(new OnCompareFinishedListener()
 		{
 			@Override
-			public void onLinkFound(ArrayList<SearchResult> searchResult, int docId)
+			public void onLinkFound(ArrayList<CompareResult> compareResult, int docId)
 			{
-
+				MySqlDatabaseHelper mySqlDatabaseHelper = new MySqlDatabaseHelper();
+				mySqlDatabaseHelper.insertCompareResults(compareResult, docId);
 			}
 
 			@Override
-			public void onLinkFound(ArrayList<SearchResult> searchResult, String link)
+			public void onLinkFound(ArrayList<CompareResult> compareResult, String link)
 			{
-
+				MySqlDatabaseHelper mySqlDatabaseHelper = new MySqlDatabaseHelper();
+				mySqlDatabaseHelper.insertCompareResults(compareResult, link);
 			}
 		});
-		if (link.length() <= 0)
+		if (docId <= 0)
 		{
-			comparer.compareText(sourceText, SourceLoader.loadFile(ROOT_FILES + docId + ".txt"), docId);
+			comparer.compareText(checkText, SourceLoader.loadFile(ROOT_FILES + docId + ".txt"), docId);
 		}
 		else
 		{
-			comparer.compareText(sourceText, SourceLoader.loadURL(link), link);
+			comparer.compareText(checkText, SourceLoader.loadURL(link), link);
 		}
 	}
 }

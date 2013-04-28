@@ -18,6 +18,12 @@ import info.plagiatsjaeger.interfaces.IOnlineSearch;
 import info.plagiatsjaeger.interfaces.OnLinkFoundListener;
 
 
+/**
+ * Stellt Methoden zur Kommunikation mit der Faroo Suchmaschine zur verfuegung.
+ * Dabei ist die Schnittstelle {@link IOnlineSearch} implementiert.
+ * 
+ * @author Andreas
+ */
 public class FarooSearch implements IOnlineSearch
 {
 
@@ -42,7 +48,7 @@ public class FarooSearch implements IOnlineSearch
 		{
 			searchString = URLEncoder.encode(searchString, CHARSET).replaceAll("[ \t\n\f\r]", " ");
 
-			URL url = new URL(URL + URL_ARG_SEARCH + searchString + "&" + URL_ARG_ATTRS + "&"+  URL_ARG_JSON);
+			URL url = new URL(URL + URL_ARG_SEARCH + searchString + "&" + URL_ARG_ATTRS + "&" + URL_ARG_JSON);
 			InputStreamReader reader = new InputStreamReader(url.openStream(), CHARSET);
 
 			BufferedReader bufferedReader = new BufferedReader(reader);
@@ -102,7 +108,7 @@ public class FarooSearch implements IOnlineSearch
 	/**
 	 * Extrahiert die Links aus dem eingegebenen String. Wenn ein
 	 * {@link OnLinkFoundListener} registriert ist werden diesem die Links
-	 * übermittelt.
+	 * Uebermittelt.
 	 * 
 	 * @param searchResult
 	 * @return result
@@ -168,7 +174,7 @@ public class FarooSearch implements IOnlineSearch
 	}
 
 	/**
-	 * Description of the method cleanUrl.
+	 * Bereinigt eine Url, sodass sie immer vollstaendig ist
 	 * 
 	 * @param dirtyUrl
 	 * @return result

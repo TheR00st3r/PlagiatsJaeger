@@ -5,15 +5,19 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 
+/**
+ * @deprecated Nicht mehr verwendet.
+ * @author Andreas
+ */
 public class SyncedSearchResults
 {
-	private final ReentrantReadWriteLock	      _readWriteLock	= new ReentrantReadWriteLock();
-	private final Lock	                          _read	           = _readWriteLock.readLock();
-	private final Lock	                          _write	       = _readWriteLock.writeLock();
+	private final ReentrantReadWriteLock			_readWriteLock	= new ReentrantReadWriteLock();
+	private final Lock								_read			= _readWriteLock.readLock();
+	private final Lock								_write			= _readWriteLock.writeLock();
 
-	private static HashMap<Integer, SearchResult>	_searchResults	= new HashMap<Integer, SearchResult>();
+	private static HashMap<Integer, CompareResult>	_searchResults	= new HashMap<Integer, CompareResult>();
 
-	public void put(int key, SearchResult value)
+	public void put(int key, CompareResult value)
 	{
 		_write.lock();
 		try
@@ -26,7 +30,7 @@ public class SyncedSearchResults
 		}
 	}
 
-	public SearchResult get(int key)
+	public CompareResult get(int key)
 	{
 		_read.lock();
 		try
@@ -38,8 +42,8 @@ public class SyncedSearchResults
 			_read.unlock();
 		}
 	}
-	
-	public HashMap<Integer, SearchResult> getAll()
+
+	public HashMap<Integer, CompareResult> getAll()
 	{
 		_read.lock();
 		try
@@ -51,7 +55,7 @@ public class SyncedSearchResults
 			_read.unlock();
 		}
 	}
-	
+
 	public Integer[] getKeys()
 	{
 		_read.lock();
@@ -65,6 +69,5 @@ public class SyncedSearchResults
 			_read.lock();
 		}
 	}
-	
-	
+
 }

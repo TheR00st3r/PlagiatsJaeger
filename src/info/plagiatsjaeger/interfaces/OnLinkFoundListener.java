@@ -1,11 +1,10 @@
 package info.plagiatsjaeger.interfaces;
 
 /**
- * Callbackhandler für die Rückmeldung bei gefundenen Links.
+ * Callbackhandler fuer die Rueckmeldung bei gefundenen Links.
  * 
  * @see IOnlineSearch
  * @author Andreas
- * 
  */
 public interface OnLinkFoundListener
 {

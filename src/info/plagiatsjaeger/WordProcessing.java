@@ -5,10 +5,9 @@ import java.util.HashSet;
 
 
 /**
- * Stellt Funktionen zum bearbeiten/aufbereiten von Texten zur Verfügung.
+ * Stellt Funktionen zum bearbeiten/aufbereiten von Texten zur Verfuegung.
  * 
  * @author Andreas
- * 
  */
 public class WordProcessing
 {

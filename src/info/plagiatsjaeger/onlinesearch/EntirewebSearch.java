@@ -16,6 +16,12 @@ import info.plagiatsjaeger.interfaces.IOnlineSearch;
 import info.plagiatsjaeger.interfaces.OnLinkFoundListener;
 
 
+/**
+ * Stellt Methoden zur Kommunikation mit der Suchmaschine EntireWeb zur
+ * verfuegung. Dabei ist die Schnittstelle {@link IOnlineSearch} implementiert.
+ * 
+ * @author Christian
+ */
 public class EntirewebSearch implements IOnlineSearch
 {
 
@@ -24,13 +30,11 @@ public class EntirewebSearch implements IOnlineSearch
 	// pz=01234567012345670123456701234567&ip=1.2.3.4&n=10&of=0&sc=9&
 	// format=json&q=entireweb+search+engine
 	private static final String	URL								= "http://www.entireweb.com/xmlquery?";
-	private static final String	APIKEY							= "pz=";								// hier
-																										// Key
-																										// einfügen
-	private static final String	IP								= "&ip=";								// IP
-																										// des
-																										// Clients
-																										// (nötig)
+	// hier Key einfügen
+	private static final String	APIKEY							= "pz=";
+
+	// IP des Clients (nötig)
+	private static final String	IP								= "&ip=";
 	private static final String	RESULTS							= "&n=";								// n=5,
 	private static int			MAX_URLS						= 5;
 	private static final String	FORMAT							= "&of=0&format=json&q=";				// of=Seite1
@@ -80,7 +84,7 @@ public class EntirewebSearch implements IOnlineSearch
 	/**
 	 * Extrahiert die Links aus dem eingegebenen String. Wenn ein
 	 * {@link OnLinkFoundListener} registriert ist werden diesem die Links
-	 * übermittelt.
+	 * Uebermittelt.
 	 * 
 	 * @param searchResult
 	 * @return result

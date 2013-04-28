@@ -13,9 +13,20 @@ import java.net.URL;
 import org.jsoup.Jsoup;
 
 
+/**
+ * Klasse zum Laden von Daten.
+ * 
+ * @author Andreas
+ */
 public class SourceLoader
 {
 
+	/**
+	 * Laed den Text einer Webseite.
+	 * 
+	 * @param strUrl
+	 * @return
+	 */
 	public static String loadURL(String strUrl)
 	{
 		StringBuilder result = new StringBuilder();
@@ -31,7 +42,6 @@ public class SourceLoader
 			{
 				result.append(line).append("\n");
 			}
-
 		}
 		catch (MalformedURLException e)
 		{
@@ -43,13 +53,18 @@ public class SourceLoader
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-				
+
 		return Jsoup.parse(result.toString()).text();
 	}
 
+	/**
+	 * Laed eine Datei.
+	 * 
+	 * @param filePath
+	 * @return
+	 */
 	public static String loadFile(String filePath)
 	{
 		String result = "";

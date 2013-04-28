@@ -19,24 +19,23 @@ import org.jsoup.Jsoup;
 
 
 /**
- * Stellt Methoden zur Kommunikation mit der Blekko Suchmaschine zur verfügung. Dabei ist die Schnittstelle
- * {@link IOnlineSearch} implementiert.
+ * Stellt Methoden zur Kommunikation mit der Blekko Suchmaschine zur verfuegung.
+ * Dabei ist die Schnittstelle {@link IOnlineSearch} implementiert.
  * 
  * @author Andreas
- * 
  */
 public class BlekkoSearch implements IOnlineSearch
 {
-	private static final String	APIKEY_CHRISTOPH	         = "4e04dc3e";
-	public static final int	    NUM_WORDS_FOR_SEARCH_DEFAULT	= 10;
+	private static final String	APIKEY_CHRISTOPH				= "4e04dc3e";
+	public static final int		NUM_WORDS_FOR_SEARCH_DEFAULT	= 10;
 
-	private static final String	URL	                         = "http://blekko.com/ws/?";
-	private static final String	URL_ARG_JSON	             = "+%2Fjson";
-	private static final String	URL_ARG_AUTH	             = "auth=";
-	private static final String	URL_ARG_SEARCH	             = "q=";
-	private static int	        MAX_URLS	                 = 5;
-	static String	            CHARSET	                     = "UTF-8";
-	private ArrayList<String>	_allSearchResults	         = new ArrayList<String>();
+	private static final String	URL								= "http://blekko.com/ws/?";
+	private static final String	URL_ARG_JSON					= "+%2Fjson";
+	private static final String	URL_ARG_AUTH					= "auth=";
+	private static final String	URL_ARG_SEARCH					= "q=";
+	private static int			MAX_URLS						= 5;
+	static String				CHARSET							= "UTF-8";
+	private ArrayList<String>	_allSearchResults				= new ArrayList<String>();
 
 	private OnLinkFoundListener	_onLinkFoundListener;
 
@@ -48,8 +47,7 @@ public class BlekkoSearch implements IOnlineSearch
 		{
 			searchString = URLEncoder.encode(searchString, CHARSET).replaceAll("[ \t\n\f\r]", "+");
 
-			URL url = new URL(URL + URL_ARG_SEARCH + searchString + URL_ARG_JSON);// + "&" + URL_ARG_AUTH +
-			                                                                      // APIKEY_CHRISTOPH);
+			URL url = new URL(URL + URL_ARG_SEARCH + searchString + URL_ARG_JSON);
 			InputStreamReader reader = new InputStreamReader(url.openStream(), CHARSET);
 
 			BufferedReader bufferedReader = new BufferedReader(reader);
@@ -107,8 +105,9 @@ public class BlekkoSearch implements IOnlineSearch
 	}
 
 	/**
-	 * Extrahiert die Links aus dem eingegebenen String. Wenn ein {@link OnLinkFoundListener} registriert ist werden
-	 * diesem die Links übermittelt.
+	 * Extrahiert die Links aus dem eingegebenen String. Wenn ein
+	 * {@link OnLinkFoundListener} registriert ist werden diesem die Links
+	 * Uebermittelt.
 	 * 
 	 * @param searchResult
 	 * @return result
@@ -142,7 +141,7 @@ public class BlekkoSearch implements IOnlineSearch
 				if (!_allSearchResults.contains(strLink))
 				{
 					alUrlList.add(strLink);
-//					System.out.println(strLink);
+					// System.out.println(strLink);
 					// TODO: eventuell direkt in neuem Thread zurückgeben
 					if (_onLinkFoundListener != null) _onLinkFoundListener.onLinkFound(strLink);
 				}
@@ -162,18 +161,17 @@ public class BlekkoSearch implements IOnlineSearch
 				if (!_allSearchResults.contains(strLink))
 				{
 					alUrlList.add(strLink);
-//					System.out.println(strLink);
+					// System.out.println(strLink);
 				}
 			}
 
 		}
 		_allSearchResults.addAll(alUrlList);
 		return alUrlList;
-
 	}
 
 	/**
-	 * Description of the method cleanUrl.
+	 * Bereinigt eine Url, sodass sie immer vollstaendig ist
 	 * 
 	 * @param dirtyUrl
 	 * @return result

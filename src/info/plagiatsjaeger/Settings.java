@@ -2,7 +2,11 @@ package info.plagiatsjaeger;
 
 import java.util.ArrayList;
 
-
+/**
+ * Datentyp fuer die Einstellungen.
+ * @author Andreas
+ *
+ */
 public class Settings
 {
 

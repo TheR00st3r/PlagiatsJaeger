@@ -1,6 +1,6 @@
 package info.plagiatsjaeger.interfaces;
 
-import info.plagiatsjaeger.SearchResult;
+import info.plagiatsjaeger.CompareResult;
 
 import java.util.HashMap;
 
@@ -14,22 +14,22 @@ public interface IComparer
 {
 
 	/**
-	 * Vergleicht zwei eingegebene Texte und schreibt die {@link SearchResult
-	 * SearchResults} in eine {@link HashMap}.
+	 * Vergleicht zwei eingegebene Texte und schreibt die {@link CompareResult
+	 * CompareResults} in eine {@link HashMap}.
 	 * 
-	 * @param originalText
-	 * @param textToCheck
+	 * @param checkText
+	 * @param sourceText
 	 */
-	public void compareText(String originalText, String textToCheck, String link);
+	public void compareText(String checkText, String sourceText, String link);
 
 	/**
-	 * Vergleicht zwei eingegebene Texte und schreibt die {@link SearchResult
-	 * SearchResults} in eine {@link HashMap}.
+	 * Vergleicht zwei eingegebene Texte und schreibt die {@link CompareResult
+	 * CompareResults} in eine {@link HashMap}.
 	 * 
-	 * @param originalText
-	 * @param textToCheck
+	 * @param checkText
+	 * @param sourceText
 	 */
-	public void compareText(String originalText, String textToCheck, int docId);
+	public void compareText(String checkText, String sourceText, int docId);
 
 	/**
 	 * Registriert einen {@link OnCompareFinishedListener} um auf gefundene

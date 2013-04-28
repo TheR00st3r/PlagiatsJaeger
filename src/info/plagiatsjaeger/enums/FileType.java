@@ -1,7 +1,7 @@
 package info.plagiatsjaeger.enums;
 
 /**
- * Liste von unterstützten Dateiformaten.
+ * Liste von unterstuetzten Dateiformaten.
  * 
  * @author Andreas
  * 
