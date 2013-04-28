@@ -62,8 +62,8 @@ class MyMailer extends PHPMailer {
 		global $logData;
 		
 		// Set mailer to use SMTP
-		$this -> IsSMTP();
-		// $this -> IsSendmail(); //1und1 only!!!
+		//$this -> IsSMTP();
+		$this -> IsSendmail(); //1und1 only!!!
 		// Specify main and backup server
 		$this -> Host = 'smtp.plagiatsjaeger.info';
 		// Enable SMTP authentication
