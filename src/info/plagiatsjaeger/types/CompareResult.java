@@ -1,4 +1,4 @@
-package info.plagiatsjaeger;
+package info.plagiatsjaeger.types;
 
 /**
  * Datentyp fuer Vergleichsergebnisse

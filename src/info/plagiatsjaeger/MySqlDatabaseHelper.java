@@ -1,5 +1,7 @@
 package info.plagiatsjaeger;
 
+import info.plagiatsjaeger.types.CompareResult;
+
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 
 /**
@@ -19,6 +22,8 @@ public class MySqlDatabaseHelper
 {
 	private Connection	_connection	= null;
 	private Statement	_statement	= null;
+
+	private static final Logger	log				= Logger.getLogger(MySqlDatabaseHelper.class.getName());
 
 	/**
 	 * Stellt eine Verbindung mit der SQL Datenbank her.

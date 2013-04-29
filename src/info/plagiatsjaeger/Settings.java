@@ -1,6 +1,7 @@
 package info.plagiatsjaeger;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 /**
  * Datentyp fuer die Einstellungen.
@@ -18,6 +19,8 @@ public class Settings
 	private int							_compareJumpLength;
 	private boolean						_checkWWW;
 	private static ArrayList<Integer>	_localFolders;
+
+	private static final Logger	log				= Logger.getLogger(Settings.class.getName());
 
 	public Settings(int threshold, int searchSentenceLength, int searchJumpLength, int compareSentenceLength, int compareJumpLength, boolean checkWWW)
 	{

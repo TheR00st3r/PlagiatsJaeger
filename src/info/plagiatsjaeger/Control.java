@@ -5,8 +5,13 @@ import info.plagiatsjaeger.interfaces.IOnlineSearch;
 import info.plagiatsjaeger.interfaces.OnCompareFinishedListener;
 import info.plagiatsjaeger.interfaces.OnLinkFoundListener;
 import info.plagiatsjaeger.onlinesearch.BlekkoSearch;
+import info.plagiatsjaeger.types.CompareResult;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Logger;
 
 
 /**
@@ -21,7 +26,30 @@ public class Control
 	/**
 	 * Dateipfad für die Dateien auf dem Server.
 	 */
-	private static final String	ROOT_FILES	= "/srv/www/uploads/";
+	private static final String	ROOT_FILES		= "/srv/www/uploads/";
+
+	public static final String	LOGGING_FOLDER	= "/srv/www/log/";
+	private static final Logger	log				= Logger.getLogger(Control.class.getName());
+
+	public Control()
+	{
+		Handler handler;
+		try
+		{
+			handler = new FileHandler(LOGGING_FOLDER + "log.txt");
+			log.addHandler(handler);
+		}
+		catch (SecurityException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * <b>Noch nicht implementiert!</b></br> Konvertiert eine Datei in das
@@ -46,7 +74,7 @@ public class Control
 		{
 			new Thread(new Runnable()
 			{
-				
+
 				@Override
 				public void run()
 				{
@@ -55,7 +83,7 @@ public class Control
 
 				}
 			}).start();
-			
+
 			return true;
 		}
 		return false;
@@ -90,10 +118,10 @@ public class Control
 			});
 			iOnlineSearch.searchAsync(strSourceText, 8);
 		}
-//		for (int i : _settings.getLocalFolders())
-//		{
-//			// TODO: Compare local Files
-//		}
+		// for (int i : _settings.getLocalFolders())
+		// {
+		// // TODO: Compare local Files
+		// }
 	}
 
 	/**

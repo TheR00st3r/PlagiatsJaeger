@@ -2,6 +2,7 @@ package info.plagiatsjaeger;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.logging.Logger;
 
 
 /**
@@ -11,6 +12,8 @@ import java.util.HashSet;
  */
 public class WordProcessing
 {
+
+	private static final Logger	log				= Logger.getLogger(WordProcessing.class.getName());
 
 	/**
 	 * Teilt den gegebenen Text in einzelne Woerter auf.

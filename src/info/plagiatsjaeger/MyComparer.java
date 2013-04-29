@@ -2,8 +2,10 @@ package info.plagiatsjaeger;
 
 import info.plagiatsjaeger.interfaces.IComparer;
 import info.plagiatsjaeger.interfaces.OnCompareFinishedListener;
+import info.plagiatsjaeger.types.CompareResult;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 
 /**
@@ -28,6 +30,8 @@ public class MyComparer implements IComparer
 	private OnCompareFinishedListener	_onCompareFinishedListener;
 
 	private int							_rId;
+
+	private static final Logger			log							= Logger.getLogger(MyComparer.class.getName());
 
 	/**
 	 * Legt einen neuen Comparer für einen Report an.
@@ -146,7 +150,7 @@ public class MyComparer implements IComparer
 			iCheck += NUM_WORDS_TO_COMPARE - 1;
 		}
 
-		//Compareresults zusammenfuegen und Trefferlinks schreiben.
+		// Compareresults zusammenfuegen und Trefferlinks schreiben.
 		for (int resultCounter = 0; resultCounter < unmergedCompareResults.size() - 1; resultCounter++)
 		{
 			CompareResult compareResult1 = unmergedCompareResults.get(resultCounter);

@@ -1,6 +1,6 @@
 package info.plagiatsjaeger.interfaces;
 
-import info.plagiatsjaeger.CompareResult;
+import info.plagiatsjaeger.types.CompareResult;
 
 import java.util.HashMap;
 

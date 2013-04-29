@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Writer;
+import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -37,6 +38,8 @@ import org.w3c.dom.NodeList;
 public class FileParser
 {
 	private File	_file;
+
+	private static final Logger	log				= Logger.getLogger(FileParser.class.getName());
 
 	/**
 	 * startet die Konvertierung der Datei
