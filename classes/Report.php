@@ -13,7 +13,7 @@ class Report {
 			$db = new db();
 			if ($db -> insert('report', array('dID' => $dID, 'rDatetime' => date('Y-m-d H:m:s'), 'rTreshold' => $rTreshold, 'rLevel' => $rLevel))) {
 				$lastReportID = $db -> lastInsertId();
-				$result = file("http://192.168.4.28:8080/PlagiatsSoftware/TestServlet?rID=" . $lastReportID);
+				$result = file("http://192.168.4.28:8080/PlagiatsSoftware/ReportServlet?rID=" . $lastReportID);
 				print_array($result);
 				if ($result) {
 					return true;
