@@ -34,7 +34,7 @@ public class MyComparer implements IComparer
 	private static final Logger			log							= Logger.getLogger(MyComparer.class.getName());
 
 	/**
-	 * Legt einen neuen Comparer für einen Report an.
+	 * Legt einen neuen Comparer fuer einen Report an.
 	 * 
 	 * @param rId
 	 */
@@ -156,7 +156,7 @@ public class MyComparer implements IComparer
 			CompareResult compareResult1 = unmergedCompareResults.get(resultCounter);
 			CompareResult compareResult2 = unmergedCompareResults.get(resultCounter + 1);
 
-			// Zusammenhängende Text erkennen und start/end aktualisieren
+			// Zusammenhaengende Text erkennen und start/end aktualisieren
 
 			double sumSimilarity = compareResult1.getSimilarity();
 			int countSimilarity = 1;
@@ -177,7 +177,7 @@ public class MyComparer implements IComparer
 				}
 			}
 			compareResult1.setSimilarity(sumSimilarity / countSimilarity);
-			// plagiatsText für plagStart/plagEnd setzen.
+			// plagiatsText fuer plagStart/plagEnd setzen.
 			StringBuilder resultText = new StringBuilder();
 			for (int wordCounter = compareResult1.getSourceStart(); wordCounter < compareResult1.getSourceEnd(); wordCounter++)
 			{

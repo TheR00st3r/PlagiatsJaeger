@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 
 /**
- * Steuerung für den gesammten Ablauf.
+ * Steuerung fuer den gesammten Ablauf.
  * 
  * @author Andreas
  */
@@ -24,7 +24,7 @@ public class Control
 	private Settings			_settings;
 
 	/**
-	 * Dateipfad für die Dateien auf dem Server.
+	 * Dateipfad fuer die Dateien auf dem Server.
 	 */
 	private static final String	ROOT_FILES		= "/srv/www/uploads/";
 
@@ -62,7 +62,7 @@ public class Control
 	}
 
 	/**
-	 * Startet eine Plagiatssuche zu dem übergebenen Report.
+	 * Startet eine Plagiatssuche zu dem uebergebenen Report.
 	 * 
 	 * @param rId
 	 */
@@ -90,7 +90,7 @@ public class Control
 	}
 
 	/**
-	 * Führt eine Plagiatssuche zu dem übergebenen Dokument durch.
+	 * Fuehrt eine Plagiatssuche zu dem uebergebenen Dokument durch.
 	 * 
 	 * @param filePath
 	 * @param rId

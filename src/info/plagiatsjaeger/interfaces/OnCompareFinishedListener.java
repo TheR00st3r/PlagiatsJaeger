@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 
 /**
- * Callbackhandler für die Rückmeldung bei gefundenen Suchergebnissen.
+ * Callbackhandler fuer die Rueckmeldung bei gefundenen Suchergebnissen.
  * 
  * @see IComparer
  * @author Andreas
