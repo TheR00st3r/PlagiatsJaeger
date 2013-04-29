@@ -1,6 +1,8 @@
 package info.plagiatsjaeger.onlinesearch;
 
 import info.plagiatsjaeger.Control;
+import info.plagiatsjaeger.interfaces.IOnlineSearch;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -18,7 +20,7 @@ import java.util.logging.Logger;
  * 
  * @author Andreas
  */
-public class BlekkoSearch extends OnlineSearch
+public class BlekkoSearch extends OnlineSearch implements IOnlineSearch
 {
 	private static final String	APIKEY_CHRISTOPH	= "4e04dc3e";
 	private static final String	URL					= "http://blekko.com/ws/?";
@@ -74,5 +76,12 @@ public class BlekkoSearch extends OnlineSearch
 		result = search(searchString, url);
 
 		return result;
+	}
+
+	@Override
+	public ArrayList<String> search(String searchString)
+	{
+		// TODO Auto-generated method stub
+		return buildSearchString(searchString);
 	}
 }
