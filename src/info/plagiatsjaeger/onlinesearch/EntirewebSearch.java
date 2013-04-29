@@ -11,6 +11,7 @@ import java.util.logging.Handler;
 import java.util.logging.Logger;
 
 import info.plagiatsjaeger.Control;
+import info.plagiatsjaeger.interfaces.IOnlineSearch;
 
 
 /**
@@ -19,7 +20,7 @@ import info.plagiatsjaeger.Control;
  * 
  * @author Christian
  */
-public class EntirewebSearch extends OnlineSearch
+public class EntirewebSearch extends OnlineSearch implements IOnlineSearch
 {
 
 	// http://www.entireweb.com/xmlquery?pz=<yourPartnerId>&ip=<clientsIp>&q=<query>[&<param>=<value>...]
@@ -34,9 +35,6 @@ public class EntirewebSearch extends OnlineSearch
 	private static final String	RESULTS							= "&n=";												// n=5,
 	private static int			MAX_URLS						= 5;
 	private static final String	FORMAT							= "&of=0&format=json&q=";								// of=Seite1
-	//static String				CHARSET							= "UTF-8";
-	// private ArrayList<String> _allSearchResults = new ArrayList<String>();
-	// private OnLinkFoundListener _onLinkFoundListener;
 	public static final int		NUM_WORDS_FOR_SEARCH_DEFAULT	= 10;
 
 	private static final Logger	log								= Logger.getLogger(EntirewebSearch.class.getName());
@@ -89,6 +87,13 @@ public class EntirewebSearch extends OnlineSearch
 		result = search(searchString, url);
 
 		return result;
+	}
+
+	@Override
+	public ArrayList<String> search(String searchString)
+	{
+		// TODO Auto-generated method stub
+		return buildSearchString(searchString);
 	}
 
 }

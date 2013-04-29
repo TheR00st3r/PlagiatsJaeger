@@ -20,7 +20,7 @@ import info.plagiatsjaeger.interfaces.IOnlineSearch;
  * 
  * @author Andreas
  */
-public class FarooSearch extends OnlineSearch
+public class FarooSearch extends OnlineSearch implements IOnlineSearch
 {
 
 	public static final int		NUM_WORDS_FOR_SEARCH_DEFAULT	= 10;
@@ -80,6 +80,14 @@ public class FarooSearch extends OnlineSearch
 		result = search(searchString, url);
 
 		return result;
+	}
+
+	@Override
+	public ArrayList<String> search(String searchString)
+	{
+		
+		// TODO Auto-generated method stub
+		return buildSearchString(searchString);
 	}
 
 }
