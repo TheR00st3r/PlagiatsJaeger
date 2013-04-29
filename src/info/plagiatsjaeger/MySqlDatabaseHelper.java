@@ -1,8 +1,10 @@
 package info.plagiatsjaeger;
 
 import info.plagiatsjaeger.types.CompareResult;
+import info.plagiatsjaeger.types.Settings;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -10,6 +12,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -25,6 +30,26 @@ public class MySqlDatabaseHelper
 
 	private static final Logger	log				= Logger.getLogger(MySqlDatabaseHelper.class.getName());
 
+	public MySqlDatabaseHelper()
+	{
+		Handler handler;
+		try
+		{
+			handler = new FileHandler(Control.LOGGING_FOLDER + "log.txt");
+			log.addHandler(handler);
+		}
+		catch (SecurityException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Stellt eine Verbindung mit der SQL Datenbank her.
 	 * 
@@ -39,10 +64,6 @@ public class MySqlDatabaseHelper
 		Class.forName("com.mysql.jdbc.Driver");
 		// Verbindung mit DB herstellen
 		String strPassword = this.readPassword();
-		// _connection =
-		// DriverManager.getConnection("jdbc:mysql://192.168.4.28/plagiatsjaeger?"
-		// + "user=root&password="
-		// + strPassword);
 		_connection = DriverManager.getConnection("jdbc:mysql://192.168.4.28/plagiatsjaeger?useUnicode=true&characterEncoding=utf-8", "root", strPassword);
 		// Statements erlauben SQL Abfragen
 		_statement = _connection.createStatement();
@@ -83,14 +104,12 @@ public class MySqlDatabaseHelper
 	 */
 	public void insertCompareResults(ArrayList<CompareResult> compareResults, int dID)
 	{
-
 		try
 		{
 			String strStatement = "";
 			connect();
 			for (CompareResult result : compareResults)
 			{
-
 				DecimalFormat df = new DecimalFormat("###.##");
 				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + result.getSourceText() + "' , '" + "' , '" + dID + "' , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "' , '" + df.format(result.getSimilarity()) + "' , '" + result.getReportID() + "' )";
 				_statement.executeUpdate(strStatement);
@@ -99,13 +118,13 @@ public class MySqlDatabaseHelper
 		}
 		catch (ClassNotFoundException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			log.log(Level.SEVERE, e.getMessage());
 		}
 		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			log.log(Level.SEVERE, e.getMessage());
 		}
 
 	}
@@ -133,13 +152,13 @@ public class MySqlDatabaseHelper
 		}
 		catch (ClassNotFoundException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			log.log(Level.SEVERE, e.getMessage());
 		}
 		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			log.log(Level.SEVERE, e.getMessage());
 		}
 	}
 
@@ -168,10 +187,12 @@ public class MySqlDatabaseHelper
 		catch (SQLException e)
 		{
 			e.printStackTrace();
+			log.log(Level.SEVERE, e.getMessage());
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
+			log.log(Level.SEVERE, e.getMessage());
 		}
 		return result;
 	}
@@ -215,10 +236,12 @@ public class MySqlDatabaseHelper
 		catch (SQLException e)
 		{
 			e.printStackTrace();
+			log.log(Level.SEVERE, e.getMessage());
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
+			log.log(Level.SEVERE, e.getMessage());
 		}
 
 		return result;

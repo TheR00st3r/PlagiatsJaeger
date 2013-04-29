@@ -4,7 +4,10 @@ import info.plagiatsjaeger.interfaces.IComparer;
 import info.plagiatsjaeger.interfaces.OnCompareFinishedListener;
 import info.plagiatsjaeger.types.CompareResult;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
 import java.util.logging.Logger;
 
 
@@ -41,6 +44,22 @@ public class MyComparer implements IComparer
 	public MyComparer(int rId)
 	{
 		_rId = rId;
+		Handler handler;
+		try
+		{
+			handler = new FileHandler(Control.LOGGING_FOLDER + "log.txt");
+			log.addHandler(handler);
+		}
+		catch (SecurityException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -157,7 +176,6 @@ public class MyComparer implements IComparer
 			CompareResult compareResult2 = unmergedCompareResults.get(resultCounter + 1);
 
 			// Zusammenhaengende Text erkennen und start/end aktualisieren
-
 			double sumSimilarity = compareResult1.getSimilarity();
 			int countSimilarity = 1;
 			while ((compareResult1.getCheckEnd() >= (compareResult2.getCheckStart() - MAX_WORDS_BETWEEN_RESULTS)) && (compareResult1.getSourceEnd() >= (compareResult2.getSourceStart() - MAX_WORDS_BETWEEN_RESULTS)))

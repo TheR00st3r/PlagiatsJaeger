@@ -1,7 +1,10 @@
 package info.plagiatsjaeger;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
 import java.util.logging.Logger;
 
 
@@ -15,6 +18,26 @@ public class WordProcessing
 
 	private static final Logger	log				= Logger.getLogger(WordProcessing.class.getName());
 
+	public WordProcessing()
+	{
+		Handler handler;
+		try
+		{
+			handler = new FileHandler(Control.LOGGING_FOLDER + "log.txt");
+			log.addHandler(handler);
+		}
+		catch (SecurityException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Teilt den gegebenen Text in einzelne Woerter auf.
 	 * 

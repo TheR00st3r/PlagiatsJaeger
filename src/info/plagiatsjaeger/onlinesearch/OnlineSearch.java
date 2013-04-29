@@ -5,18 +5,25 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import org.jsoup.Jsoup;
 
+import info.plagiatsjaeger.Control;
 import info.plagiatsjaeger.WordProcessing;
 import info.plagiatsjaeger.interfaces.OnLinkFoundListener;
 
+
 /**
- * Diese Abstrakte Klasse stellt den Klassen für die einzelnen Suchmaschinen entsprechende 
- * Methoden zur Verfügung
+ * Diese Abstrakte Klasse stellt den Klassen fuer die einzelnen Suchmaschinen
+ * entsprechende Methoden zur Verfuegung
+ * 
  * @author FischerC
- *
  */
 public abstract class OnlineSearch
 {
@@ -26,7 +33,28 @@ public abstract class OnlineSearch
 	private OnLinkFoundListener		_onLinkFoundListener;
 	private static int				MAX_URLS						= 5;
 	protected static final String	CHARSET							= "UTF-8";
+	private static final Logger		log								= Logger.getLogger(OnlineSearch.class.getName());
 
+	protected OnlineSearch()
+	{
+		Handler handler;
+		try
+		{
+			handler = new FileHandler(Control.LOGGING_FOLDER + "log.txt");
+			log.addHandler(handler);
+		}
+		catch (SecurityException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public ArrayList<String> search(String searchString, URL _URL)
 	{
 		ArrayList<String> result = null;
@@ -49,6 +77,7 @@ public abstract class OnlineSearch
 		catch (IOException e)
 		{
 			e.printStackTrace();
+			log.log(Level.SEVERE, e.getMessage());
 		}
 
 		return result;
@@ -143,7 +172,6 @@ public abstract class OnlineSearch
 					// System.out.println(strLink);
 				}
 			}
-
 		}
 		_allSearchResults.addAll(alUrlList);
 		return alUrlList;

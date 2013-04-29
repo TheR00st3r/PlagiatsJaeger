@@ -3,11 +3,11 @@ package info.plagiatsjaeger.test;
 
 import info.plagiatsjaeger.MyComparer;
 import info.plagiatsjaeger.MySqlDatabaseHelper;
-import info.plagiatsjaeger.Settings;
 import info.plagiatsjaeger.SourceLoader;
 import info.plagiatsjaeger.interfaces.IComparer;
 import info.plagiatsjaeger.interfaces.OnCompareFinishedListener;
 import info.plagiatsjaeger.types.CompareResult;
+import info.plagiatsjaeger.types.Settings;
 
 import java.util.ArrayList;
 

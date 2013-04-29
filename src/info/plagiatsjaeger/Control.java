@@ -6,6 +6,7 @@ import info.plagiatsjaeger.interfaces.OnCompareFinishedListener;
 import info.plagiatsjaeger.interfaces.OnLinkFoundListener;
 import info.plagiatsjaeger.onlinesearch.BlekkoSearch;
 import info.plagiatsjaeger.types.CompareResult;
+import info.plagiatsjaeger.types.Settings;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -72,6 +73,7 @@ public class Control
 		final int intDocumentId = mySqlDatabaseHelper.getDocumentID(rId);
 		if (intDocumentId != 0)
 		{
+			log.info("Document " + intDocumentId + ".txt gets checked.");
 			new Thread(new Runnable()
 			{
 
@@ -80,10 +82,8 @@ public class Control
 				{
 					_settings = mySqlDatabaseHelper.getSettings(rId);
 					startPlagiatsSearch(ROOT_FILES + intDocumentId + ".txt", rId);
-
 				}
 			}).start();
-
 			return true;
 		}
 		return false;

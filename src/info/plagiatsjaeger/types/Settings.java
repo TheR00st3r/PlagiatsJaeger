@@ -1,6 +1,11 @@
-package info.plagiatsjaeger;
+package info.plagiatsjaeger.types;
 
+import info.plagiatsjaeger.Control;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
 import java.util.logging.Logger;
 
 /**
@@ -30,6 +35,24 @@ public class Settings
 		_compareSentenceLength = compareSentenceLength;
 		_compareJumpLength = compareJumpLength;
 		_checkWWW = checkWWW;
+		
+		Handler handler;
+		try
+		{
+			handler = new FileHandler(Control.LOGGING_FOLDER + "log.txt");
+			log.addHandler(handler);
+		}
+		catch (SecurityException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	public Settings(int threshold, int searchSentenceLength, int searchJumpLength, int compareSentenceLength, int compareJumpLength, boolean checkWWW, ArrayList<Integer> localFolders)

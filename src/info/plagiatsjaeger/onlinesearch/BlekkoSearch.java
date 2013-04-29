@@ -11,6 +11,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -31,6 +32,7 @@ public class BlekkoSearch extends OnlineSearch implements IOnlineSearch
 
 	public BlekkoSearch()
 	{
+		super();
 		Handler handler;
 		try
 		{
@@ -59,8 +61,8 @@ public class BlekkoSearch extends OnlineSearch implements IOnlineSearch
 		}
 		catch (UnsupportedEncodingException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			log.log(Level.SEVERE, e.getMessage());
 		}
 
 		URL url = null;
@@ -70,8 +72,8 @@ public class BlekkoSearch extends OnlineSearch implements IOnlineSearch
 		}
 		catch (MalformedURLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			log.log(Level.SEVERE, e.getMessage());
 		}
 		result = search(searchString, url);
 
@@ -81,7 +83,6 @@ public class BlekkoSearch extends OnlineSearch implements IOnlineSearch
 	@Override
 	public ArrayList<String> search(String searchString)
 	{
-		// TODO Auto-generated method stub
 		return buildSearchString(searchString);
 	}
 }

@@ -9,7 +9,6 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.logging.Logger;
 
 import org.jsoup.Jsoup;
 
@@ -21,9 +20,6 @@ import org.jsoup.Jsoup;
  */
 public class SourceLoader
 {
-
-	private static final Logger	log				= Logger.getLogger(SourceLoader.class.getName());
-
 	/**
 	 * Laed den Text einer Webseite.
 	 * 
