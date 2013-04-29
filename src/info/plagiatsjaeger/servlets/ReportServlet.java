@@ -37,18 +37,16 @@ public class ReportServlet extends HttpServlet
 	{
 		response.setContentType("text/html");
 		final int rID = Integer.parseInt(request.getParameter("rID"));
-		new Thread(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-
-				new Control().startPlagiatsSearch(rID);
-			}
-		}).start();
 
 		PrintWriter out = response.getWriter();
-		out.print("true");
+		if (new Control().startPlagiatsSearch(rID))
+		{
+			out.print("true");
+		}
+		else
+		{
+			out.print("false");
+		}
 		out.close();
 	}
 

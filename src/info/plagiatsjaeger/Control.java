@@ -38,12 +38,27 @@ public class Control
 	 * 
 	 * @param rId
 	 */
-	public void startPlagiatsSearch(int rId)
+	public boolean startPlagiatsSearch(final int rId)
 	{
-		MySqlDatabaseHelper mySqlDatabaseHelper = new MySqlDatabaseHelper();
-		int intDocumentId = mySqlDatabaseHelper.getDocumentID(rId);
-		_settings = mySqlDatabaseHelper.getSettings(rId);
-		startPlagiatsSearch(ROOT_FILES + intDocumentId + ".txt", rId);
+		final MySqlDatabaseHelper mySqlDatabaseHelper = new MySqlDatabaseHelper();
+		final int intDocumentId = mySqlDatabaseHelper.getDocumentID(rId);
+		if (intDocumentId != 0)
+		{
+			new Thread(new Runnable()
+			{
+				
+				@Override
+				public void run()
+				{
+					_settings = mySqlDatabaseHelper.getSettings(rId);
+					startPlagiatsSearch(ROOT_FILES + intDocumentId + ".txt", rId);
+
+				}
+			}).start();
+			
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -75,10 +90,10 @@ public class Control
 			});
 			iOnlineSearch.searchAsync(strSourceText, 8);
 		}
-		for (int i : _settings.getLocalFolders())
-		{
-			// TODO: Compare local Files
-		}
+//		for (int i : _settings.getLocalFolders())
+//		{
+//			// TODO: Compare local Files
+//		}
 	}
 
 	/**
