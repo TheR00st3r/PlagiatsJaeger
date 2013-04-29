@@ -96,6 +96,6 @@
         <antcall target="build"/>
     </target>
 	<target name="doc" depends="init" description="Generates Documentation">
-		<javadoc sourcepath="${source.dir}" destdir="${doc.dir}"/>
+		<javadoc sourcepath="src" destdir="build/javadoc"/>
 	</target>
 </project>
