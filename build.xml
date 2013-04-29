@@ -97,7 +97,7 @@
 		<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter" />
 		<antcall target="build" />
 	</target>
-	<target name="javadocs" depends="build">
+	<target name="javadocs">
 		<mkdir dir="build/docs" />
 		<echo message="build/docs created" />
 		<javadoc packagenames="info.plagiatsjaeger" sourcepath="." destdir="build/javadoc" classpath="." author="true" version="true" use="true" windowtitle="PlagiatsJaeger" doctitle="&lt;h1&gt;PlagiatsJaeger&lt;/h1&gt;" />
