@@ -100,7 +100,7 @@
 	<target name="javadocs">
 		<mkdir dir="build/docs" />
 		<echo message="build/docs created" />
-		<javadoc sourcepath="src" destdir="build/javadoc" author="true" version="true" use="true" windowtitle="PlagiatsJaeger" doctitle="&lt;h1&gt;PlagiatsJaeger&lt;/h1&gt;" />
+		<javadoc packagenames="info.plagiatsjaeger" sourcepath="src" destdir="build/javadoc" author="true" version="true" use="true" windowtitle="PlagiatsJaeger" doctitle="&lt;h1&gt;PlagiatsJaeger&lt;/h1&gt;" />
 
 		<echo message="JavaDoc created created" />
 	</target>
