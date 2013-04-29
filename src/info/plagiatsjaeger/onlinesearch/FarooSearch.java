@@ -8,11 +8,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.jsoup.Jsoup;
 
+import info.plagiatsjaeger.Control;
 import info.plagiatsjaeger.WordProcessing;
 import info.plagiatsjaeger.interfaces.IOnlineSearch;
 import info.plagiatsjaeger.interfaces.OnLinkFoundListener;
@@ -39,6 +43,28 @@ public class FarooSearch implements IOnlineSearch
 	private ArrayList<String>	_allSearchResults				= new ArrayList<String>();
 
 	private OnLinkFoundListener	_onLinkFoundListener;
+
+	private static final Logger	log								= Logger.getLogger(FarooSearch.class.getName());
+
+	public FarooSearch()
+	{
+		Handler handler;
+		try
+		{
+			handler = new FileHandler(Control.LOGGING_FOLDER + "log.txt");
+			log.addHandler(handler);
+		}
+		catch (SecurityException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public ArrayList<String> search(String searchString)

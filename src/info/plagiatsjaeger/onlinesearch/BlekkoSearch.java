@@ -1,5 +1,6 @@
 package info.plagiatsjaeger.onlinesearch;
 
+import info.plagiatsjaeger.Control;
 import info.plagiatsjaeger.WordProcessing;
 import info.plagiatsjaeger.interfaces.IOnlineSearch;
 import info.plagiatsjaeger.interfaces.OnLinkFoundListener;
@@ -12,6 +13,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,6 +43,28 @@ public class BlekkoSearch implements IOnlineSearch
 
 	private OnLinkFoundListener	_onLinkFoundListener;
 
+	private static final Logger	log				= Logger.getLogger(BlekkoSearch.class.getName());
+
+	public BlekkoSearch()
+	{
+		Handler handler;
+		try
+		{
+			handler = new FileHandler(Control.LOGGING_FOLDER + "log.txt");
+			log.addHandler(handler);
+		}
+		catch (SecurityException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	public ArrayList<String> search(String searchString)
 	{
