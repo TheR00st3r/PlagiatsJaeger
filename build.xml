@@ -97,10 +97,10 @@
     </target>
 	<target name="javadocs">
 	   <mkdir dir="build/docs"/>
-
-	   <javadoc packagenames="info.plagiatsjaeger"
+		<echo message="build/docs created"/>
+	    <javadoc packagenames="info.plagiatsjaeger"
 	            sourcepath="."
-	            destdir="javadocs"
+	            destdir="build/javadoc"
 	            classpath="."
 	            author="true"
 	            version="true"
@@ -109,5 +109,6 @@
 	            doctitle="&lt;h1&gt;PlagiatsJaeger&lt;/h1&gt;"
 	   />
 
+		<echo message="JavaDoc created created"/>
 	</target>
 </project>
