@@ -95,7 +95,19 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
-	<target name="doc" depends="init" description="Generates Documentation">
-		<javadoc sourcepath="src" destdir="build/javadoc"/>
+	<target name="javadocs">
+	   <mkdir dir="build/docs"/>
+
+	   <javadoc packagenames="info.plagiatsjaeger"
+	            sourcepath="."
+	            destdir="javadocs"
+	            classpath="."
+	            author="true"
+	            version="true"
+	            use="true"
+	            windowtitle="PlagiatsJaeger"
+	            doctitle="&lt;h1&gt;PlagiatsJaeger&lt;/h1&gt;"
+	   />
+
 	</target>
 </project>
