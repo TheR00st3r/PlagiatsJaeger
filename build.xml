@@ -18,31 +18,10 @@
         <pathelement location="WebContent/WEB-INF/lib/stanford-postagger.jar"/>
     </path>
     <path id="EAR Libraries.libraryclasspath"/>
-    <path id="Apache Tomcat v7.0 [Apache Tomcat v7.0].libraryclasspath">
-        <pathelement location="../../../../lib/annotations-api.jar"/>
-        <pathelement location="../../../../lib/catalina-ant.jar"/>
-        <pathelement location="../../../../lib/catalina-ha.jar"/>
-        <pathelement location="../../../../lib/catalina-tribes.jar"/>
-        <pathelement location="../../../../lib/catalina.jar"/>
-        <pathelement location="../../../../lib/ecj-3.6.2.jar"/>
-        <pathelement location="../../../../lib/el-api.jar"/>
-        <pathelement location="../../../../lib/jasper-el.jar"/>
-        <pathelement location="../../../../lib/jasper.jar"/>
-        <pathelement location="../../../../lib/jsp-api.jar"/>
-        <pathelement location="../../../../lib/servlet-api.jar"/>
-        <pathelement location="../../../../lib/tomcat-api.jar"/>
-        <pathelement location="../../../../lib/tomcat-coyote.jar"/>
-        <pathelement location="../../../../lib/tomcat-dbcp.jar"/>
-        <pathelement location="../../../../lib/tomcat-i18n-es.jar"/>
-        <pathelement location="../../../../lib/tomcat-i18n-fr.jar"/>
-        <pathelement location="../../../../lib/tomcat-i18n-ja.jar"/>
-        <pathelement location="../../../../lib/tomcat-util.jar"/>
-    </path>
     <path id="PlagiatsSoftware.classpath">
         <pathelement location="build/classes"/>
         <path refid="Web App Libraries.libraryclasspath"/>
         <path refid="EAR Libraries.libraryclasspath"/>
-        <path refid="Apache Tomcat v7.0 [Apache Tomcat v7.0].libraryclasspath"/>
         <pathelement location="lib/commons-codec-1.6.jar"/>
         <pathelement location="lib/fluent-hc-4.2.3.jar"/>
         <pathelement location="lib/gson-2.2.2-javadoc.jar"/>
@@ -62,6 +41,24 @@
         <pathelement location="lib/poi-ooxml-3.9-20121203.jar"/>
         <pathelement location="lib/poi-scratchpad-3.9-20121203.jar"/>
         <pathelement location="lib/xmlbeans-2.3.0.jar"/>
+        <pathelement location="lib/Tomcat/annotations-api.jar"/>
+        <pathelement location="lib/Tomcat/catalina-ant.jar"/>
+        <pathelement location="lib/Tomcat/catalina-ha.jar"/>
+        <pathelement location="lib/Tomcat/catalina-tribes.jar"/>
+        <pathelement location="lib/Tomcat/catalina.jar"/>
+        <pathelement location="lib/Tomcat/ecj-3.6.2.jar"/>
+        <pathelement location="lib/Tomcat/el-api.jar"/>
+        <pathelement location="lib/Tomcat/jasper-el.jar"/>
+        <pathelement location="lib/Tomcat/jasper.jar"/>
+        <pathelement location="lib/Tomcat/jsp-api.jar"/>
+        <pathelement location="lib/Tomcat/servlet-api.jar"/>
+        <pathelement location="lib/Tomcat/tomcat-api.jar"/>
+        <pathelement location="lib/Tomcat/tomcat-coyote.jar"/>
+        <pathelement location="lib/Tomcat/tomcat-dbcp.jar"/>
+        <pathelement location="lib/Tomcat/tomcat-i18n-es.jar"/>
+        <pathelement location="lib/Tomcat/tomcat-i18n-fr.jar"/>
+        <pathelement location="lib/Tomcat/tomcat-i18n-ja.jar"/>
+        <pathelement location="lib/Tomcat/tomcat-util.jar"/>
     </path>
     <target name="init">
         <mkdir dir="build/classes"/>
