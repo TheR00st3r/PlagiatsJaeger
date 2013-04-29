@@ -7,8 +7,8 @@
 	<property name="war-file-name" value="${project-name}.war" />
 	<property name="source-directory" value="src" />
 	<property name="classes-directory" value="bin" />
-	<property name="web-directory" value="web" />
-	<property name="web-xml-file" value="web/WEB-INF/web.xml" />
+	<property name="web-directory" value="WebContent" />
+	<property name="web-xml-file" value="WebContent/WEB-INF/web.xml" />
 	<tstamp prefix="build-info">
 		<format property="current-date" pattern="d-MMMM-yyyy" locale="en" />
 		<format property="current-time" pattern="hh:mm:ss a z" locale="en" />
