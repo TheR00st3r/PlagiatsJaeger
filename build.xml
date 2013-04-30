@@ -81,7 +81,9 @@
 	<target depends="init" name="build-project">
 		<echo message="${ant.project.name}: ${ant.file}" />
 		<javac debug="true" debuglevel="${debuglevel}" destdir="${destdir}" includeantruntime="false" source="${source}" target="${target}">
-			<src path="src" />
+			<src path="src" >
+				<exclude name="*Test*"/>
+			</src>
 			<classpath refid="PlagiatsSoftware.classpath" />
 		</javac>
 	</target>
