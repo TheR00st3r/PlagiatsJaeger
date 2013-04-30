@@ -15,6 +15,7 @@ import java.util.zip.ZipFile;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.log4j.Logger;
 import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -39,6 +40,9 @@ public class FileParser
 	private File				_file;
 
 
+	private static final Logger	_logger		= Logger.getLogger(File.class.getName());
+	
+	
 	public FileParser()
 	{
 	}
@@ -60,18 +64,22 @@ public class FileParser
 		}
 		catch (InvalidFormatException e)
 		{
+			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
 		catch (OpenXML4JException e)
 		{
+			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
 		catch (XmlException e)
 		{
+			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
 		catch (IOException e)
 		{
+			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
 		return result;
@@ -215,10 +223,12 @@ public class FileParser
 				}
 				catch (FileNotFoundException e)
 				{
+					_logger.fatal(e.getMessage());
 					e.printStackTrace();
 				}
 				catch (IOException e)
 				{
+					_logger.fatal(e.getMessage());
 					e.printStackTrace();
 					System.out.println("Unable to open PDF Parser.");
 				}
@@ -233,6 +243,7 @@ public class FileParser
 				}
 				catch (IOException e)
 				{
+					_logger.fatal(e.getMessage());
 					System.out.println("An exception occured in parsing the PDF Document.");
 					e.printStackTrace();
 					try
@@ -242,6 +253,7 @@ public class FileParser
 					}
 					catch (IOException e1)
 					{
+						_logger.fatal(e.getMessage());
 						e.printStackTrace();
 					}
 				}

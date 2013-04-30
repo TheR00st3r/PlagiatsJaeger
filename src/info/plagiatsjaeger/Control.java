@@ -13,9 +13,6 @@ import java.util.ArrayList;
 import org.apache.log4j.Logger;
 
 
-
-
-
 /**
  * Steuerung fuer den gesammten Ablauf.
  * 
@@ -28,9 +25,9 @@ public class Control
 	/**
 	 * Dateipfad fuer die Dateien auf dem Server.
 	 */
-	private static final String	ROOT_FILES		= "/srv/www/uploads/";
+	private static final String	ROOT_FILES	= "/srv/www/uploads/";
 
-	public static final Logger				LOGGER				= Logger.getLogger(Control.class.getName());
+	private static final Logger	_logger		= Logger.getLogger(Control.class.getName());
 
 	/**
 	 * <b>Noch nicht implementiert!</b></br> Konvertiert eine Datei in das
@@ -53,14 +50,14 @@ public class Control
 		final int intDocumentId = mySqlDatabaseHelper.getDocumentID(rId);
 		if (intDocumentId != 0)
 		{
-			LOGGER.info("Check started");
+			_logger.info("Check started");
 			new Thread(new Runnable()
 			{
 
 				@Override
 				public void run()
 				{
-					LOGGER.info("Thread started!");
+					_logger.info("Thread started!");
 					_settings = mySqlDatabaseHelper.getSettings(rId);
 					startPlagiatsSearch(ROOT_FILES + intDocumentId + ".txt", rId);
 				}
@@ -92,7 +89,7 @@ public class Control
 						@Override
 						public void run()
 						{
-							LOGGER.info("Thread for Link started: " + link);
+							_logger.info("Thread for Link started: " + link);
 							compare(rId, strSourceText, link, 0);
 						}
 					}).start();

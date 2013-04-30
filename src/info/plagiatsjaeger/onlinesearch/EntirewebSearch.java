@@ -8,6 +8,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 
 /**
  * Stellt Methoden zur Kommunikation mit der Suchmaschine EntireWeb zur
@@ -33,6 +35,8 @@ public class EntirewebSearch extends OnlineSearch implements IOnlineSearch
 	private static final String	FORMAT							= "&of=0&format=json&q=";				// of=Seite1
 	public static final int		NUM_WORDS_FOR_SEARCH_DEFAULT	= 10;
 
+	private static final Logger	_logger				= Logger.getLogger(EntirewebSearch.class.getName());
+	
 	public EntirewebSearch()
 	{
 		super();
@@ -49,6 +53,7 @@ public class EntirewebSearch extends OnlineSearch implements IOnlineSearch
 		}
 		catch (UnsupportedEncodingException e)
 		{
+			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
 
@@ -59,6 +64,7 @@ public class EntirewebSearch extends OnlineSearch implements IOnlineSearch
 		}
 		catch (MalformedURLException e)
 		{
+			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
 		result = search(searchString, url);

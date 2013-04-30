@@ -8,6 +8,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 
 /**
  * Stellt Methoden zur Kommunikation mit der Blekko Suchmaschine zur verfuegung.
@@ -22,6 +24,8 @@ public class BlekkoSearch extends OnlineSearch implements IOnlineSearch
 	private static final String	URL_ARG_JSON		= "+%2Fjson";
 	private static final String	URL_ARG_AUTH		= "auth=";
 	private static final String	URL_ARG_SEARCH		= "q=";
+
+	private static final Logger	_logger				= Logger.getLogger(BlekkoSearch.class.getName());
 
 	public BlekkoSearch()
 	{
@@ -38,6 +42,7 @@ public class BlekkoSearch extends OnlineSearch implements IOnlineSearch
 		}
 		catch (UnsupportedEncodingException e)
 		{
+			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
 
@@ -48,6 +53,7 @@ public class BlekkoSearch extends OnlineSearch implements IOnlineSearch
 		}
 		catch (MalformedURLException e)
 		{
+			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
 		result = search(searchString, url);

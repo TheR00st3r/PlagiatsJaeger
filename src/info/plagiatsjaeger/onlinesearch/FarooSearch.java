@@ -8,6 +8,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 
 /**
  * Stellt Methoden zur Kommunikation mit der Faroo Suchmaschine zur verfuegung.
@@ -26,6 +28,8 @@ public class FarooSearch extends OnlineSearch implements IOnlineSearch
 	private static final String	URL_ARG_ATTRS					= "start=1&length=10&l=de&src=web";
 	private static final String	URL_ARG_SEARCH					= "q=";
 
+	private static final Logger	_logger				= Logger.getLogger(FarooSearch.class.getName());
+	
 	public FarooSearch()
 	{
 		super();
@@ -42,6 +46,7 @@ public class FarooSearch extends OnlineSearch implements IOnlineSearch
 		}
 		catch (UnsupportedEncodingException e)
 		{
+			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
 
@@ -52,6 +57,7 @@ public class FarooSearch extends OnlineSearch implements IOnlineSearch
 		}
 		catch (MalformedURLException e)
 		{
+			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
 		result = search(searchString, url);
