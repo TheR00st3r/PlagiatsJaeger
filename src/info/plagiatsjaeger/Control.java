@@ -48,6 +48,7 @@ public class Control
 	{
 		final MySqlDatabaseHelper mySqlDatabaseHelper = new MySqlDatabaseHelper();
 		final int intDocumentId = mySqlDatabaseHelper.getDocumentID(rId);
+		_logger.info("Document: " + intDocumentId);
 		if (intDocumentId != 0)
 		{
 			_logger.info("Check started");

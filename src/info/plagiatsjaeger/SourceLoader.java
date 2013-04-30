@@ -21,7 +21,7 @@ import org.jsoup.Jsoup;
  */
 public class SourceLoader
 {
-	public static final Logger				_logger				= Logger.getLogger(MySqlDatabaseHelper.class.getName());
+	public static final Logger				_logger				= Logger.getLogger(SourceLoader.class.getName());
 	
 	/**
 	 * Laed den Text einer Webseite.
