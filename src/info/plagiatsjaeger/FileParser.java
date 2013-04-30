@@ -10,10 +10,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Writer;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -42,26 +38,9 @@ public class FileParser
 {
 	private File				_file;
 
-	private static final Logger	log	= Logger.getLogger(FileParser.class.getName());
 
 	public FileParser()
 	{
-		Handler handler;
-		try
-		{
-			handler = new FileHandler(Control.LOGGING_FOLDER + "log.txt");
-			log.addHandler(handler);
-		}
-		catch (SecurityException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -82,22 +61,18 @@ public class FileParser
 		catch (InvalidFormatException e)
 		{
 			e.printStackTrace();
-			log.log(Level.SEVERE, e.getMessage());
 		}
 		catch (OpenXML4JException e)
 		{
 			e.printStackTrace();
-			log.log(Level.SEVERE, e.getMessage());
 		}
 		catch (XmlException e)
 		{
 			e.printStackTrace();
-			log.log(Level.SEVERE, e.getMessage());
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
-			log.log(Level.SEVERE, e.getMessage());
 		}
 		return result;
 	}
@@ -208,7 +183,6 @@ public class FileParser
 				catch (Exception e)
 				{
 					e.printStackTrace();
-					log.log(Level.SEVERE, e.getMessage());		
 				}
 				finally
 				{
@@ -242,13 +216,11 @@ public class FileParser
 				catch (FileNotFoundException e)
 				{
 					e.printStackTrace();
-					log.log(Level.SEVERE, e.getMessage());
 				}
 				catch (IOException e)
 				{
 					e.printStackTrace();
 					System.out.println("Unable to open PDF Parser.");
-					log.log(Level.SEVERE, e.getMessage());
 				}
 				try
 				{
@@ -271,7 +243,6 @@ public class FileParser
 					catch (IOException e1)
 					{
 						e.printStackTrace();
-						log.log(Level.SEVERE, e.getMessage());
 					}
 				}
 				finally

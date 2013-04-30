@@ -1,18 +1,12 @@
 package info.plagiatsjaeger.onlinesearch;
 
-import info.plagiatsjaeger.Control;
 import info.plagiatsjaeger.interfaces.IOnlineSearch;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 /**
@@ -28,27 +22,10 @@ public class BlekkoSearch extends OnlineSearch implements IOnlineSearch
 	private static final String	URL_ARG_JSON		= "+%2Fjson";
 	private static final String	URL_ARG_AUTH		= "auth=";
 	private static final String	URL_ARG_SEARCH		= "q=";
-	private static final Logger	log					= Logger.getLogger(BlekkoSearch.class.getName());
 
 	public BlekkoSearch()
 	{
 		super();
-		Handler handler;
-		try
-		{
-			handler = new FileHandler(Control.LOGGING_FOLDER + "log.txt");
-			log.addHandler(handler);
-		}
-		catch (SecurityException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	@Override
@@ -62,7 +39,6 @@ public class BlekkoSearch extends OnlineSearch implements IOnlineSearch
 		catch (UnsupportedEncodingException e)
 		{
 			e.printStackTrace();
-			log.log(Level.SEVERE, e.getMessage());
 		}
 
 		URL url = null;
@@ -73,7 +49,6 @@ public class BlekkoSearch extends OnlineSearch implements IOnlineSearch
 		catch (MalformedURLException e)
 		{
 			e.printStackTrace();
-			log.log(Level.SEVERE, e.getMessage());
 		}
 		result = search(searchString, url);
 

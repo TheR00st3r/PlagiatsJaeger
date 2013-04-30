@@ -4,7 +4,6 @@ import info.plagiatsjaeger.types.CompareResult;
 import info.plagiatsjaeger.types.Settings;
 
 import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -12,10 +11,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 /**
@@ -28,28 +23,10 @@ public class MySqlDatabaseHelper
 	private Connection	_connection	= null;
 	private Statement	_statement	= null;
 
-	private static final Logger	log				= Logger.getLogger(MySqlDatabaseHelper.class.getName());
-
 	public MySqlDatabaseHelper()
 	{
-		Handler handler;
-		try
-		{
-			handler = new FileHandler(Control.LOGGING_FOLDER + "log.txt");
-			log.addHandler(handler);
-		}
-		catch (SecurityException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
-	
+
 	/**
 	 * Stellt eine Verbindung mit der SQL Datenbank her.
 	 * 
@@ -119,12 +96,10 @@ public class MySqlDatabaseHelper
 		catch (ClassNotFoundException e)
 		{
 			e.printStackTrace();
-			log.log(Level.SEVERE, e.getMessage());
 		}
 		catch (SQLException e)
 		{
 			e.printStackTrace();
-			log.log(Level.SEVERE, e.getMessage());
 		}
 
 	}
@@ -153,12 +128,10 @@ public class MySqlDatabaseHelper
 		catch (ClassNotFoundException e)
 		{
 			e.printStackTrace();
-			log.log(Level.SEVERE, e.getMessage());
 		}
 		catch (SQLException e)
 		{
 			e.printStackTrace();
-			log.log(Level.SEVERE, e.getMessage());
 		}
 	}
 
@@ -187,12 +160,10 @@ public class MySqlDatabaseHelper
 		catch (SQLException e)
 		{
 			e.printStackTrace();
-			log.log(Level.SEVERE, e.getMessage());
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			log.log(Level.SEVERE, e.getMessage());
 		}
 		return result;
 	}
@@ -236,12 +207,10 @@ public class MySqlDatabaseHelper
 		catch (SQLException e)
 		{
 			e.printStackTrace();
-			log.log(Level.SEVERE, e.getMessage());
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			log.log(Level.SEVERE, e.getMessage());
 		}
 
 		return result;

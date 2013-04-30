@@ -1,23 +1,18 @@
 package info.plagiatsjaeger.onlinesearch;
 
-import java.io.IOException;
+import info.plagiatsjaeger.interfaces.IOnlineSearch;
+
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import info.plagiatsjaeger.Control;
-import info.plagiatsjaeger.interfaces.IOnlineSearch;
 
 
 /**
  * Stellt Methoden zur Kommunikation mit der Suchmaschine EntireWeb zur
- * verfuegung. Dabei werden auf die Methoden der Oberklasse OnlineSearch zugegriffen.
+ * verfuegung. Dabei werden auf die Methoden der Oberklasse OnlineSearch
+ * zugegriffen.
  * 
  * @author Christian
  */
@@ -33,32 +28,14 @@ public class EntirewebSearch extends OnlineSearch implements IOnlineSearch
 	private static final String	APIKEY							= "pz=";
 	// IP des Clients (nötig)
 	private static final String	IP								= "&ip=";
-	private static final String	RESULTS							= "&n=";												// n=5,
+	private static final String	RESULTS							= "&n=";								// n=5,
 	private static int			MAX_URLS						= 5;
-	private static final String	FORMAT							= "&of=0&format=json&q=";								// of=Seite1
+	private static final String	FORMAT							= "&of=0&format=json&q=";				// of=Seite1
 	public static final int		NUM_WORDS_FOR_SEARCH_DEFAULT	= 10;
-
-	private static final Logger	log								= Logger.getLogger(EntirewebSearch.class.getName());
 
 	public EntirewebSearch()
 	{
 		super();
-		Handler handler;
-		try
-		{
-			handler = new FileHandler(Control.LOGGING_FOLDER + "log.txt");
-			log.addHandler(handler);
-		}
-		catch (SecurityException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	@Override
@@ -73,7 +50,6 @@ public class EntirewebSearch extends OnlineSearch implements IOnlineSearch
 		catch (UnsupportedEncodingException e)
 		{
 			e.printStackTrace();
-			log.log(Level.SEVERE, e.getMessage());
 		}
 
 		URL url = null;
@@ -84,7 +60,6 @@ public class EntirewebSearch extends OnlineSearch implements IOnlineSearch
 		catch (MalformedURLException e)
 		{
 			e.printStackTrace();
-			log.log(Level.SEVERE, e.getMessage());
 		}
 		result = search(searchString, url);
 
