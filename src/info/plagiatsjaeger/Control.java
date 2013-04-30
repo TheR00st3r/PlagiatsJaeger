@@ -94,7 +94,7 @@ public class Control
 						@Override
 						public void run()
 						{
-							LOGGER.info("Thread für Link started: " + link);
+							LOGGER.info("Thread for Link started: " + link);
 							compare(rId, strSourceText, link, 0);
 						}
 					}).start();
