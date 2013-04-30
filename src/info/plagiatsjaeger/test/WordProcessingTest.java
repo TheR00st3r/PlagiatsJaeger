@@ -41,7 +41,7 @@ public class WordProcessingTest {
 		assertArrayEquals(testarray5, testword.splitToWords(teststring5));
 		
 		
-		fail("SplitToWords l‰uft nicht ordnungsgem‰ﬂ.");
+		fail("SplitToWords laeuft nicht ordnungsgemaess.");
 	}
 
 	@Test
