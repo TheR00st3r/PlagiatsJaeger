@@ -10,6 +10,8 @@
 	<property name="debuglevel" value="source,lines,vars" />
 	<property name="target" value="1.6" />
 	<property name="source" value="1.6" />
+	<property name="destdir" value="build"/>
+	<property name="javadoc" value="build"/>
 	<path id="Web App Libraries.libraryclasspath">
 		<pathelement location="WebContent/WEB-INF/lib/commons-fileupload-1.2.2.jar" />
 		<pathelement location="WebContent/WEB-INF/lib/commons-io-2.4.jar" />
@@ -61,15 +63,15 @@
 		<pathelement location="lib/Tomcat/tomcat-util.jar" />
 	</path>
 	<target name="init">
-		<mkdir dir="build/classes" />
-		<copy includeemptydirs="false" todir="build/classes">
+		<mkdir dir="${destdir}" />
+		<copy includeemptydirs="false" todir="${destdir}">
 			<fileset dir="src">
 				<exclude name="**/*.java" />
 			</fileset>
 		</copy>
 	</target>
 	<target name="clean">
-		<delete dir="build/classes" />
+		<delete dir="${destdir}" />
 	</target>
 	<target depends="clean" name="cleanall" />
 	<target depends="build-subprojects,build-project" name="build">
@@ -78,7 +80,7 @@
 	<target name="build-subprojects" />
 	<target depends="init" name="build-project">
 		<echo message="${ant.project.name}: ${ant.file}" />
-		<javac debug="true" debuglevel="${debuglevel}" destdir="build/classes" includeantruntime="false" source="${source}" target="${target}">
+		<javac debug="true" debuglevel="${debuglevel}" destdir="${destdir}" includeantruntime="false" source="${source}" target="${target}">
 			<src path="src" />
 			<classpath refid="PlagiatsSoftware.classpath" />
 		</javac>
@@ -98,7 +100,7 @@
 		<antcall target="build" />
 	</target>
 	<target name="javadocs">
-		<javadoc packagenames="info.plagiatsjaeger.*" sourcepath="src" destdir="build/javadoc" author="true" version="true" use="true" windowtitle="PlagiatsJaeger" doctitle="&lt;h1&gt;PlagiatsJaeger&lt;/h1&gt;" />
+		<javadoc packagenames="info.plagiatsjaeger.*" sourcepath="src" destdir="${javadoc}" author="true" version="true" use="true" windowtitle="PlagiatsJaeger" doctitle="&lt;h1&gt;PlagiatsJaeger&lt;/h1&gt;" />
 		<echo message="JavaDoc created created" />
 	</target>
 </project>
