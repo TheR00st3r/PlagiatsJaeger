@@ -1,4 +1,4 @@
-package info.plagiatsjaeger.test;
+package test.info.plagiatsjaeger;
 
 import info.plagiatsjaeger.interfaces.IOnlineSearch;
 import info.plagiatsjaeger.interfaces.OnLinkFoundListener;

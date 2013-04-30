@@ -1,4 +1,4 @@
-package info.plagiatsjaeger.test;
+package test.info.plagiatsjaeger;
 
 import static org.junit.Assert.*;
 import info.plagiatsjaeger.WordProcessing;
