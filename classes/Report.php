@@ -8,12 +8,12 @@ class Report {
 	 * @param int $rLevel
 	 * @return boolean
 	 */
-	public static function createReport($dID, $rTreshold = 0, $rLevel = 0) {
+	public static function createReport($dID, $rTreshold = 50, $rLevel = 1, $sID = 1, $rErrorCode = 100) {
 		if (Validator::validate(VAL_INTEGER, $dID, true)) {
 			$db = new db();
-			if ($db -> insert('report', array('dID' => $dID, 'rDatetime' => date('Y-m-d H:m:s'), 'rTreshold' => $rTreshold, 'rLevel' => $rLevel))) {
+			if ($db -> insert('report', array('dID' => $dID, 'rDatetime' => date('Y-m-d H:m:s'), 'rTreshold' => $rTreshold, 'rLevel' => $rLevel, 'sID' => $sID, 'rErrorCode' => $rErrorCode))) {
 				$lastReportID = $db -> lastInsertId();
-				$result = file("http://192.168.4.28:8080/PlagiatsSoftware/ReportServlet?rID=" . $lastReportID);
+				$result = file("http://192.168.4.28:8080/PlagiatsJaeger/ReportServlet?rID=" . $lastReportID);
 				print_array($result);
 				if ($result) {
 					return true;

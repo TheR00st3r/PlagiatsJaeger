@@ -1,4 +1,5 @@
 <?php
+require_once '../classes/Mail.php';
 class User {
 
 	/**
@@ -103,18 +104,21 @@ class User {
 			$cIDCheck = self::getClientIDfromClientNumber($cNumber);
 			if ($cIDCheck['state'] == true) {
 				$userCheck = self::newUser($uName, $uLastname, $uEMailAdress, $uPassword, 1, $cIDCheck['cID']);
-				if ($userCheck['sate']) {
+				if ($userCheck['state']) {
 					$state = true;
-					$messages[] = array('type' => 'error', 'text' => 'Erfolgreich registiertier, sie werden nach der Freischaltung durch Ihren Administrator benachrichtigt.');
-					//TODO: MAIL send an $cIDCheck['uEMailAdress'];
-				} else {
+					$mail = new Mail();
+					$mailCheck = $mail -> registrate($cIDCheck['cAdmin'], $uName, $uLastname, $uEMailAdress);
+					if ($mailCheck['state'] == true) {
+						$state = true;
+					}
+					$messages = $mailCheck['messages'];
+					$messages[] = array('type' => 'save', 'text' => 'Erfolgreich registiertier, sie werden nach der Freischaltung durch Ihren Administrator benachrichtigt.');
+				} else
 					$messages = $userCheck['messages'];
-				}
 			} else
 				$messages = $cIDCheck['messages'];
-		} else {
+		} else
 			$messages = $pwCheck['messages'];
-		}
 
 		$return['uID'] = $uID;
 		$return['state'] = $state;
@@ -133,8 +137,6 @@ class User {
 	 */
 	public static function setRestoreKey($uEMailAdress) {
 
-		global $root;
-
 		$uIDCheck = self::getIdFromEmail($uEMailAdress);
 
 		if ($uIDCheck['state'] == true) {
@@ -142,9 +144,8 @@ class User {
 			$uRestoreEndDate = date("Y-m-d", mktime(0, 0, 0, date("m"), date("d") + 1, date("Y")));
 			$db = new db();
 			if ($db -> update('user', array('uRestoreKey' => md5($uRestoreKey), 'uRestoreEndDate' => $uRestoreEndDate), array('uID' => $uIDCheck['uID']))) {
-				require_once '../classes/Mail.php';
 				$mail = new Mail();
-				$mailCheck = $mail -> forgotPasswordMailSend($root, $uRestoreKey, $uIDCheck['uID']);
+				$mailCheck = $mail -> forgotPasswordMailSend($uRestoreKey, $uIDCheck['uID']);
 				if ($mailCheck['state'] == true) {
 					$state = true;
 				}
@@ -175,7 +176,7 @@ class User {
 			$db -> read("SELECT uID FROM user WHERE `uRestoreKey` = '$uRestoreKey' and uRestoreEndDate >= '$today' LIMIT 1");
 			$row = $db -> lines();
 			if (Validator::validate(VAL_INTEGER, $row['uID'], true)) {
-				$uID = $row['uID']; 
+				$uID = $row['uID'];
 				$state = true;
 			} else
 				$messages[] = array('type' => 'error', 'text' => 'Der Key ist falsch oder nicht mehr gültig, Bitte fordnern Sie einen neuen Key an!');
@@ -298,11 +299,11 @@ class User {
 		$state = false;
 		if (Validator::validate(VAL_INTEGER, $cNumber)) {
 			$db = new DB();
-			$db -> read("SELECT c.cID, (SELECT u.uEMailAdress FROM user AS u WHERE u.uID = c.cAdmin) AS uEMailAdress FROM client AS c WHERE c.cNumber = '$cNumber'");
+			$db -> read("SELECT c.cID, c.cAdmin FROM client AS c WHERE c.cNumber = '$cNumber'");
 			$row = $db -> lines();
 			if (Validator::validate(VAL_INTEGER, $row['cID'], true)) {
 				$cID = $row['cID'];
-				$uEMailAdress = $row['uEMailAdress'];
+				$cAdmin = $row['cAdmin'];
 				$state = true;
 				$messages[] = array('type' => 'save', 'text' => 'Mandantenummer ist gültig.');
 			} else {
@@ -313,7 +314,7 @@ class User {
 		}
 
 		$return['cID'] = $cID;
-		$return['uEMailAdress'] = $uEMailAdress;
+		$return['cAdmin'] = $cAdmin;
 		$return['state'] = $state;
 		$return['messages'] = $messages;
 		return $return;
