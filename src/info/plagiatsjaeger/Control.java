@@ -10,6 +10,11 @@ import info.plagiatsjaeger.types.Settings;
 
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
+
+
+
 
 /**
  * Steuerung fuer den gesammten Ablauf.
@@ -27,6 +32,7 @@ public class Control
 
 	public static final String	LOGGING_FOLDER	= "/srv/www/log/";
 
+	public static final Logger				LOGGER				= Logger.getLogger(Control.class.getName());
 
 	/**
 	 * <b>Noch nicht implementiert!</b></br> Konvertiert eine Datei in das
@@ -49,12 +55,14 @@ public class Control
 		final int intDocumentId = mySqlDatabaseHelper.getDocumentID(rId);
 		if (intDocumentId != 0)
 		{
+			LOGGER.info("Check started");
 			new Thread(new Runnable()
 			{
 
 				@Override
 				public void run()
 				{
+					LOGGER.info("Thread started!");
 					_settings = mySqlDatabaseHelper.getSettings(rId);
 					startPlagiatsSearch(ROOT_FILES + intDocumentId + ".txt", rId);
 				}
@@ -86,6 +94,7 @@ public class Control
 						@Override
 						public void run()
 						{
+							LOGGER.info("Thread für Link started: " + link);
 							compare(rId, strSourceText, link, 0);
 						}
 					}).start();
