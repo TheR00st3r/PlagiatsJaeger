@@ -12,6 +12,8 @@ import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 
 /**
  * Stellt Methoden zur Kommunikation mit der MySqlDatenbank zur Verfuegung.
@@ -22,6 +24,8 @@ public class MySqlDatabaseHelper
 {
 	private Connection	_connection	= null;
 	private Statement	_statement	= null;
+	
+	public static final Logger				_logger				= Logger.getLogger(MySqlDatabaseHelper.class.getName());
 
 	public MySqlDatabaseHelper()
 	{
@@ -95,10 +99,12 @@ public class MySqlDatabaseHelper
 		}
 		catch (ClassNotFoundException e)
 		{
+			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
 		catch (SQLException e)
 		{
+			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
 
@@ -127,10 +133,12 @@ public class MySqlDatabaseHelper
 		}
 		catch (ClassNotFoundException e)
 		{
+			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
 		catch (SQLException e)
 		{
+			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -159,10 +167,12 @@ public class MySqlDatabaseHelper
 		}
 		catch (SQLException e)
 		{
+			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
 		catch (Exception e)
 		{
+			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
 		return result;
@@ -206,10 +216,12 @@ public class MySqlDatabaseHelper
 		}
 		catch (SQLException e)
 		{
+			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
 		catch (Exception e)
 		{
+			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
 

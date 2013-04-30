@@ -6,6 +6,8 @@ import info.plagiatsjaeger.types.CompareResult;
 
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 
 /**
  * Die klasse stellt Funktionen zum Vergleichen von Texten zur Verfuegung. Als
@@ -29,6 +31,8 @@ public class MyComparer implements IComparer
 	private OnCompareFinishedListener	_onCompareFinishedListener;
 
 	private int							_rId;
+	
+	private static final Logger				_logger				= Logger.getLogger(MyComparer.class.getName());
 
 
 	/**
@@ -188,7 +192,7 @@ public class MyComparer implements IComparer
 			System.out.println("Text:         " + compareResult1.getSourceText());
 			System.out.println("Aehnlichkeit: " + compareResult1.getSimilarity());
 			System.out.println("###################################");
-
+			_logger.info("Found link: "+_currentLink +"with Similarity " + compareResult1.getSimilarity());
 			result.add(compareResult1);
 		}
 		_onCompareFinishedListener.onLinkFound(result, _currentLink);

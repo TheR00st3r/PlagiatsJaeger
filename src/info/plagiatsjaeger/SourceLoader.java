@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 
 
@@ -20,6 +21,8 @@ import org.jsoup.Jsoup;
  */
 public class SourceLoader
 {
+	public static final Logger				_logger				= Logger.getLogger(MySqlDatabaseHelper.class.getName());
+	
 	/**
 	 * Laed den Text einer Webseite.
 	 * 
@@ -44,14 +47,17 @@ public class SourceLoader
 		}
 		catch (MalformedURLException e)
 		{
+			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
 		catch (UnsupportedEncodingException e)
 		{
+			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
 		catch (IOException e)
 		{
+			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
 
@@ -88,10 +94,12 @@ public class SourceLoader
 		}
 		catch (FileNotFoundException e)
 		{
+			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
 		catch (IOException e)
 		{
+			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
 		finally
