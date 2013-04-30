@@ -10,7 +10,7 @@
 	<property name="debuglevel" value="source,lines,vars" />
 	<property name="target" value="1.6" />
 	<property name="source" value="1.6" />
-	<property name="destdir" value="build/classes"/>
+	<property name="destdir" value="build"/>
 	<property name="javadoc" value="javadoc"/>
 	<path id="Web App Libraries.libraryclasspath">
 		<pathelement location="WebContent/WEB-INF/lib/commons-fileupload-1.2.2.jar" />
