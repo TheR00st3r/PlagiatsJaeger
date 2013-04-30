@@ -134,11 +134,11 @@ public class Control
 		});
 		if (docId <= 0)
 		{
-			comparer.compareText(checkText, SourceLoader.loadFile(ROOT_FILES + docId + ".txt"), docId);
+			comparer.compareText(checkText, SourceLoader.loadURL(link), link);
 		}
 		else
 		{
-			comparer.compareText(checkText, SourceLoader.loadURL(link), link);
+			comparer.compareText(checkText, SourceLoader.loadFile(ROOT_FILES + docId + ".txt"), docId);
 		}
 	}
 }
