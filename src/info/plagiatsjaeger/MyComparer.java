@@ -195,8 +195,14 @@ public class MyComparer implements IComparer
 			_logger.info("Found link: "+_currentLink +"with Similarity " + compareResult1.getSimilarity());
 			result.add(compareResult1);
 		}
-		_onCompareFinishedListener.onLinkFound(result, _currentLink);
-		_onCompareFinishedListener.onLinkFound(result, _currentDocId);
+		if(_currentDocId == 0)
+		{
+			_onCompareFinishedListener.onLinkFound(result, _currentLink);
+		}
+		else
+		{
+			_onCompareFinishedListener.onLinkFound(result, _currentDocId);
+		}
 		return result;
 	}
 
