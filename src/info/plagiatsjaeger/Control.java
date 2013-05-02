@@ -37,6 +37,15 @@ public class Control
 	 */
 	public void startParsing(int documentHash)
 	{
+		try
+		{
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			_logger.fatal(e.getMessage());
+		}
+
 	}
 
 	/**
@@ -46,24 +55,32 @@ public class Control
 	 */
 	public boolean startPlagiatsSearch(final int rId)
 	{
-		final MySqlDatabaseHelper mySqlDatabaseHelper = new MySqlDatabaseHelper();
-		final int intDocumentId = mySqlDatabaseHelper.getDocumentID(rId);
-		_logger.info("Document: " + intDocumentId);
-		if (intDocumentId != 0)
+		try
 		{
-			_logger.info("Check started");
-			new Thread(new Runnable()
+			final MySqlDatabaseHelper mySqlDatabaseHelper = new MySqlDatabaseHelper();
+			final int intDocumentId = mySqlDatabaseHelper.getDocumentID(rId);
+			_logger.info("Document: " + intDocumentId);
+			if (intDocumentId != 0)
 			{
-
-				@Override
-				public void run()
+				_logger.info("Check started");
+				new Thread(new Runnable()
 				{
-					_logger.info("Thread started!");
-					_settings = mySqlDatabaseHelper.getSettings(rId);
-					startPlagiatsSearch(ROOT_FILES + intDocumentId + ".txt", rId);
-				}
-			}).start();
-			return true;
+
+					@Override
+					public void run()
+					{
+						_logger.info("Thread started!");
+						_settings = mySqlDatabaseHelper.getSettings(rId);
+						startPlagiatsSearch(ROOT_FILES + intDocumentId + ".txt", rId);
+					}
+				}).start();
+				return true;
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			_logger.fatal(e.getMessage());
 		}
 		return false;
 	}
