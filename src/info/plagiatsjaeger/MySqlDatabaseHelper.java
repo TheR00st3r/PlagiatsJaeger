@@ -10,7 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import org.apache.log4j.Logger;
 
@@ -89,10 +91,12 @@ public class MySqlDatabaseHelper
 		{
 			String strStatement = "";
 			connect();
+			DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.GERMAN);
+			otherSymbols.setDecimalSeparator('.');
+			DecimalFormat df = new DecimalFormat("###.##", otherSymbols);
 			for (CompareResult result : compareResults)
 			{
-				DecimalFormat df = new DecimalFormat("###.##");
-				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + result.getSourceText() + "' , '" + "' , '" + dID + "' , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "' , '" + df.format(result.getSimilarity()) + "' , '" + result.getReportID() + "' )";
+				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + result.getSourceText() + "' , '" + "' , '" + dID + "' , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "' , '" + df.format(result.getSimilarity()*100) + "' , '" + result.getReportID() + "' )";
 				_statement.executeUpdate(strStatement);
 			}
 			disconnect();
@@ -123,10 +127,12 @@ public class MySqlDatabaseHelper
 		{
 			String strStatement = "";
 			connect();
+			DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.GERMAN);
+			otherSymbols.setDecimalSeparator('.');
+			DecimalFormat df = new DecimalFormat("###.##", otherSymbols);
 			for (CompareResult result : compareResults)
 			{
-				DecimalFormat df = new DecimalFormat("###.##");
-				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + result.getSourceText() + "','" + sourceLink + "' , " + "null" + " , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "','" + df.format(result.getSimilarity()) + "' , '" + result.getReportID() + "' )";
+				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + result.getSourceText() + "','" + sourceLink + "' , " + "null" + " , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "','" + df.format(result.getSimilarity()*100) + "' , '" + result.getReportID() + "' )";
 				_statement.executeUpdate(strStatement);
 			}
 			disconnect();
