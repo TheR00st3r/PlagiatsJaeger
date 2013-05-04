@@ -40,13 +40,11 @@ public class WordProcessingTest {
 		assertArrayEquals(testarray4, testword.splitToWords(teststring4));
 		assertArrayEquals(testarray5, testword.splitToWords(teststring5));
 		
-		
-		fail("SplitToWords laeuft nicht ordnungsgemaess.");
 	}
 
-	@Test
-	public void testGetVerbsAndNouns() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	public void testGetVerbsAndNouns() {
+//		fail("Not yet implemented");
+//	}
 
 }

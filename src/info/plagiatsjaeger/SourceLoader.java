@@ -49,16 +49,19 @@ public class SourceLoader
 		{
 			_logger.fatal(e.getMessage());
 			e.printStackTrace();
+			return "FAIL MalformedURLException";
 		}
 		catch (UnsupportedEncodingException e)
 		{
 			_logger.fatal(e.getMessage());
 			e.printStackTrace();
+			return "FAIL UnsupportedEncodingException";
 		}
 		catch (IOException e)
 		{
 			_logger.fatal(e.getMessage());
 			e.printStackTrace();
+			return "FAIL IOException";
 		}
 
 		return Jsoup.parse(result.toString()).text();
