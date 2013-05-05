@@ -9,6 +9,12 @@ import info.plagiatsjaeger.types.CompareResult;
 import info.plagiatsjaeger.types.Settings;
 
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.apache.log4j.Logger;
 
@@ -20,14 +26,16 @@ import org.apache.log4j.Logger;
  */
 public class Control
 {
-	private Settings			_settings;
-
 	/**
 	 * Dateipfad fuer die Dateien auf dem Server.
 	 */
-	private static final String	ROOT_FILES	= "/srv/www/uploads/";
+	private static final String		ROOT_FILES		= "/srv/www/uploads/";
+	private static final Logger		_logger			= Logger.getLogger(Control.class.getName());
+	private static final int		SIZE_THREADPOOL	= 20;
 
-	private static final Logger	_logger		= Logger.getLogger(Control.class.getName());
+	private Settings				_settings;
+	private ExecutorService			_threadPool		= Executors.newFixedThreadPool(SIZE_THREADPOOL);
+	private ArrayList<Future<Void>>	_futures		= new ArrayList<Future<Void>>();
 
 	/**
 	 * <b>Noch nicht implementiert!</b></br> Konvertiert eine Datei in das
@@ -60,6 +68,7 @@ public class Control
 			final MySqlDatabaseHelper mySqlDatabaseHelper = new MySqlDatabaseHelper();
 			final int intDocumentId = mySqlDatabaseHelper.getDocumentID(rId);
 			_logger.info("Document: " + intDocumentId);
+
 			if (intDocumentId != 0)
 			{
 				_logger.info("Check started");
@@ -93,6 +102,7 @@ public class Control
 	 */
 	public void startPlagiatsSearch(String filePath, final int rId)
 	{
+
 		final String strSourceText = SourceLoader.loadFile(filePath);
 		if (_settings.getCheckWWW())
 		{
@@ -102,15 +112,16 @@ public class Control
 				@Override
 				public void onLinkFound(final String link)
 				{
-					new Thread(new Runnable()
+					_futures.add(_threadPool.submit(new Callable<Void>()
 					{
 						@Override
-						public void run()
+						public Void call()
 						{
 							_logger.info("Thread for Link started: " + link);
 							compare(rId, strSourceText, link, 0);
+							return null;
 						}
-					}).start();
+					}));
 				}
 			});
 			iOnlineSearch.searchAsync(strSourceText, 8);
@@ -120,17 +131,41 @@ public class Control
 		{
 			for (final int i : _settings.getLocalFolders())
 			{
-				new Thread(new Runnable()
+				_futures.add(_threadPool.submit(new Callable<Void>()
 				{
 					@Override
-					public void run()
+					public Void call()
 					{
 						_logger.info("Thread for File started: " + i + ".txt");
 						compare(rId, strSourceText, "", i);
+						return null;
 					}
-				}).start();
+				}));
 			}
 		}
+		for (Future<Void> future : _futures)
+		{
+			try
+			{
+				future.get();
+			}
+			catch (CancellationException e)
+			{
+				_logger.fatal(e.getMessage());
+				e.printStackTrace();
+			}
+			catch (InterruptedException e)
+			{
+				_logger.fatal(e.getMessage());
+				e.printStackTrace();
+			}
+			catch (ExecutionException e)
+			{
+				_logger.fatal(e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		// TODO: Fertigstellung in DB schreiben.
 	}
 
 	/**
