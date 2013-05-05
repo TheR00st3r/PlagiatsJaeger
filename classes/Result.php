@@ -11,13 +11,13 @@ class Result {
 			$db = new db();
 			$db -> read("
 				SELECT
-					rt.rtID, rt.rtSequence, rt.rtText, rt.rtSourceLink, rt.rtSourceText, rt.rID
+					rt.rtID, rt.rtSourceText, rt.rtSourceLink, rt.rtSourcedID, rt.rtStartWord, rt.rtEndWord, rt.rtSimilarity, rt.rID
 				FROM
 					result AS rt
 				WHERE
 					rt.rID = '$rID'
 				ORDER BY
-					rt.rtSequence ASC");
+					rt.rtStartWord ASC");
 
 			return $db -> linesAsArray();
 		}

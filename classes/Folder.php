@@ -237,9 +237,49 @@ class Folder {
 	 * @return boolean
 	 */
 	public static function saveFolderPermission($fpPermissionLevel, $fID, $uID) {
-		//TODO Check Values;
-		$db = new db();
-		return $db -> insert('folderpermission', array('fpPermissionLevel' => $fpPermissionLevel, 'fID' => $fID, 'uID' => $uID));
+		$state = false;
+		if (Validator::validate(VAL_INTEGER, $fpPermissionLevel, true) and Validator::validate(VAL_INTEGER, $fID, true) and Validator::validate(VAL_INTEGER, $uID, true)) {
+			$db = new db();
+			if ($db -> insert('folderpermission', array('fpPermissionLevel' => $fpPermissionLevel, 'fID' => $fID, 'uID' => $uID))) {
+				$state = true;
+				$messages[] = array('type' => 'save', 'text' => 'Ordner Einstellung gespeichert.');
+			} else {
+				$messages[] = array('type' => 'error', 'text' => 'Ordner Einstellung konnte nicht gespeichert werden.');
+			}
+		} else
+			$messages[] = array('type' => 'error', 'text' => 'Parameter nicht korrekt.');
+
+		$return['state'] = $state;
+		$return['messages'] = $messages;
+
+		return $return;
+	}
+
+	/**
+	 * Saves the folder permission for the given folder id und user ids.
+	 * @param int $fpPermissionLevel
+	 * @param int $fID
+	 * @param int array $uIDs
+	 * @return boolean
+	 */
+	public static function saveMultibleFolderPermissions($fpPermissionLevel, $fID, $uIDs) {
+		print_array($uIDs);
+		$state = true;
+		foreach ($uIDs as $uID) {
+			$saveCheck = self::saveFolderPermission($fpPermissionLevel, $fID, $uID);
+			if (!$saveCheck['state']) {
+				$state = false;
+				$messages = $saveCheck['messages'];
+			}
+		}
+
+		if ($state)
+			$messages[] = array('type' => 'save', 'text' => 'Einstellungen gespeichert.');
+
+		$return['state'] = $state;
+		$return['messages'] = $messages;
+
+		return $return;
 	}
 
 }

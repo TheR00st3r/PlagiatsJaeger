@@ -7,13 +7,17 @@ class User {
 	 * @return array
 	 */
 	public static function getAllUser() {
+		
+		$cID = LoginAccess::getClientID();
 
 		$db = new db();
 		$db -> read("
 				SELECT
-					u.uID, u.uName, u.uLastname, u.uEMailAdress, u.uPassword, u.uPermissonLevel, u.uSentenceLength, u.uJumpLength, u.uTreshold
+					u.uID, u.uName, u.uLastname, u.uEMailAdress, u.uPermissonLevel, u.cID, c.cName, s.sThreshold, s.sCheckWWW, sl.slTitle, sl.slSearchSentenceLength, sl.slSearchJumpLength, sl.slCompareSentenceLength, sl.slCompareJumpLength
 				FROM
-					user AS u
+					user AS u LEFT JOIN setting AS s ON u.sID = s.sID LEFT JOIN settinglevel AS sl ON s.sLevel = sl.slID LEFT JOIN client AS c ON u.cID = c.cID
+				WHERE
+					u.cID = '$cID'
 				ORDER BY
 					 u.uLastname ASC, u.uName ASC");
 
@@ -297,7 +301,7 @@ class User {
 
 	private static function getClientIDfromClientNumber($cNumber) {
 		$state = false;
-		if (Validator::validate(VAL_INTEGER, $cNumber)) {
+		if (Validator::validate(VAL_INTEGER, $cNumber, true)) {
 			$db = new DB();
 			$db -> read("SELECT c.cID, c.cAdmin FROM client AS c WHERE c.cNumber = '$cNumber'");
 			$row = $db -> lines();
@@ -328,7 +332,7 @@ class User {
 	 */
 	private static function getIdFromEmail($uEMailAdress) {
 		$state = false;
-		if (Validator::validate(VAL_EMAIL, $uEMailAdress)) {
+		if (Validator::validate(VAL_EMAIL, $uEMailAdress, true)) {
 			$db = new db();
 			$db -> read("SELECT uID FROM user WHERE uEMailAdress = '$uEMailAdress' and uEMailAdress != ''");
 			$row = $db -> lines();

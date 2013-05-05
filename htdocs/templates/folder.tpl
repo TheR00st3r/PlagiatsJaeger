@@ -100,7 +100,7 @@
 		<tr>
 			<th colspan="2">Filename</th>
 			<th>Autor</th>
-			<th colspan="2">Optionen</th>
+			<th colspan="3">Optionen</th>
 		</tr>
 		{$color = ''}
 		{foreach from=$folders item=item}
@@ -111,6 +111,23 @@
 				{$item.fName}
 			</div></td>
 			<td class="borderright">&nbsp;</td>
+			<td class="smal">
+				<div id="chareFolderForm{$item.fID}" style="display: none">
+					<form method="post" action="{$root}{$page}" enctype="multipart/form-data">
+						<input type="hidden" name="fID" value="{$item.fID}" />
+						<h2>Ordner Kollegen freigeben</h2>
+						<label for="fLinkExpireDatetime">Kollege auswählen:</label>
+						<select multiple="multiple" size="10" name="uIDs[]">
+							{foreach $users as $user}
+							<option value="{$user.uID}">{$user.uName} {$user.uLastname}</option>
+							{/foreach}
+						</select>
+						<br />
+						<input type="submit" name="button[dAddFolderShareSubmit]" value="teilen" />
+					</form>
+				</div>
+				<a class="create" href="#chareFolderForm{$item.fID}">[teilen]</a>
+			</td>
 			<td class="smal">
 				{if $item.fHashLink != ''}
 					<a target="_blank" href="{$root}public?id={$item.fHashLink}">[Link] bis {$item.fLinkExpireDatetime}</a>

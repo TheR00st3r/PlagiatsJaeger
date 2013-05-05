@@ -5,6 +5,7 @@ $smarty = new MySmarty();
 //echo $_SERVER['DOCUMENT_ROOT'];
 
 $smarty -> assign('root', $root);
+$smarty -> assign('mySQL', $logData['host']);
 
 $get_array = $_GET;
 
@@ -59,6 +60,10 @@ if ($page == 'public') {
 			require_once '../classes/Folder.php';
 			require_once '../classes/Upload.php';
 			require_once '../classes/Report.php';
+			require_once '../classes/User.php';
+			
+			$users = User::getAllUser();
+			$smarty -> assign('users', $users);
 
 			$folderUrl = deleteItem($url, 0);
 			$folderLink = implode('/', $folderUrl);
@@ -105,8 +110,14 @@ if ($page == 'public') {
 				case 'dAddShortSubmit' :
 					Upload::shortTextUpload($folder['fID'], $_POST['dAddAutor'], $_POST['dAddShortText']);
 					break;
+				case 'dAddFolderShareSubmit' :
+					$saveCheck = Folder::saveMultibleFolderPermissions(700, $_POST['fID'], $_POST['uIDs']);
+					$messages = $saveCheck['messages'];
+					break;
 			}
 
+
+			$smarty -> assign('messages', $messages);
 			$smarty -> assign('documents', Document::getDocumentsFromFolderID($folder['fID']));
 			$smarty -> assign('folders', Folder::getFolderArray($folder['fID']));
 			$smarty -> assign('folderNav', Folder::getFolderArray());

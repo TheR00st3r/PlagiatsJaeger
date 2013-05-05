@@ -6,9 +6,10 @@
 			<th>Vorname</th>
 			<th>eMail</th>
 			<th>Rechte</th>
-			<th>uSentenceLength</th>
-			<th>uJumpLength</th>
-			<th>uTreshold</th>
+			<th>slTitle</th>
+			<th>sCheckWWW</th>
+			<th>sThreshold</th>
+			<th>Client</th>
 			<th></th>
 		</tr>
 		{$color = ''}
@@ -18,9 +19,10 @@
 			<td>{$item.uName}</td>
 			<td>{$item.uEMailAdress}</td>
 			<td>{$item.uPermissonLevel}</td>
-			<td>{$item.uSentenceLength}</td>
-			<td>{$item.uJumpLength}</td>
-			<td>{$item.uTreshold}</td>
+			<td>{$item.slTitle}</td>
+			<td>{$item.sCheckWWW}</td>
+			<td>{$item.sThreshold}</td>
+			<td>{$item.cName}</td>
 			<td> {if $item.uPermissonLevel == 1}
 			<div id="activateUserForm{$item.uID}" style="display: none">
 				<form method="post" action="{$root}{$page}">
