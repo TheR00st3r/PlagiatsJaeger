@@ -1,5 +1,6 @@
 package info.plagiatsjaeger;
 
+import info.plagiatsjaeger.enums.ErrorCode;
 import info.plagiatsjaeger.types.CompareResult;
 import info.plagiatsjaeger.types.Settings;
 
@@ -234,6 +235,11 @@ public class MySqlDatabaseHelper
 		return result;
 	}
 
+	public void setReportState(int rId, ErrorCode state)
+	{
+		//TODO: Michael Volz
+	}
+	
 	/**
 	 * <b>Noch nicht implementiert!</b></br> Setzt ein Document als fertig
 	 * geparst.
