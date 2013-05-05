@@ -1,5 +1,6 @@
 package info.plagiatsjaeger;
 
+import info.plagiatsjaeger.enums.ErrorCode;
 import info.plagiatsjaeger.interfaces.IComparer;
 import info.plagiatsjaeger.interfaces.IOnlineSearch;
 import info.plagiatsjaeger.interfaces.OnCompareFinishedListener;
@@ -118,6 +119,7 @@ public class Control
 						public Void call()
 						{
 							_logger.info("Thread for Link started: " + link);
+							new MySqlDatabaseHelper().setReportState(rId, ErrorCode.Started);
 							compare(rId, strSourceText, link, 0);
 							return null;
 						}
@@ -143,6 +145,7 @@ public class Control
 				}));
 			}
 		}
+		boolean succesful = true;
 		for (Future<Void> future : _futures)
 		{
 			try
@@ -153,19 +156,25 @@ public class Control
 			{
 				_logger.fatal(e.getMessage());
 				e.printStackTrace();
+				succesful = false;
 			}
 			catch (InterruptedException e)
 			{
 				_logger.fatal(e.getMessage());
 				e.printStackTrace();
+				succesful = false;
 			}
 			catch (ExecutionException e)
 			{
 				_logger.fatal(e.getMessage());
 				e.printStackTrace();
+				succesful = false;
 			}
 		}
-		// TODO: Fertigstellung in DB schreiben.
+		if (succesful)
+		{
+			new MySqlDatabaseHelper().setReportState(rId, ErrorCode.Succesful);
+		}
 	}
 
 	/**
