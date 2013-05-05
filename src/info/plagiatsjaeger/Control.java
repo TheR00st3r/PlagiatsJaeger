@@ -115,10 +115,22 @@ public class Control
 			});
 			iOnlineSearch.searchAsync(strSourceText, 8);
 		}
-		// for (int i : _settings.getLocalFolders())
-		// {
-		// // TODO: Compare local Files
-		// }
+		ArrayList<Integer> localFolders = _settings.getLocalFolders();
+		if (localFolders != null)
+		{
+			for (final int i : _settings.getLocalFolders())
+			{
+				new Thread(new Runnable()
+				{
+					@Override
+					public void run()
+					{
+						_logger.info("Thread for File started: " + i + ".txt");
+						compare(rId, strSourceText, "", i);
+					}
+				}).start();
+			}
+		}
 	}
 
 	/**
