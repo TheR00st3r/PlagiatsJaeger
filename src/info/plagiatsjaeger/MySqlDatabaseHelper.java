@@ -5,6 +5,7 @@ import info.plagiatsjaeger.types.CompareResult;
 import info.plagiatsjaeger.types.Settings;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -97,7 +98,9 @@ public class MySqlDatabaseHelper
 			DecimalFormat df = new DecimalFormat("###.##", otherSymbols);
 			for (CompareResult result : compareResults)
 			{
-				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + result.getSourceText() + "' , '" + "' , '" + dID + "' , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "' , '" + df.format(result.getSimilarity()*100) + "' , '" + result.getReportID() + "' )";
+				String text = new String(result.getSourceText().getBytes("UTF-8"), "UTF-8");
+				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + text  + "' , '" + "' , '" + dID + "' , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "' , '" + df.format(result.getSimilarity()*100) + "' , '" + result.getReportID() + "' )";
+				//strStatement = "INSERT INTO result VALUES(DEFAULT, '" + result.getSourceText() + "' , '" + "' , '" + dID + "' , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "' , '" + df.format(result.getSimilarity()*100) + "' , '" + result.getReportID() + "' )";
 				_statement.executeUpdate(strStatement);
 			}
 			disconnect();
@@ -108,6 +111,11 @@ public class MySqlDatabaseHelper
 			e.printStackTrace();
 		}
 		catch (SQLException e)
+		{
+			_logger.fatal(e.getMessage());
+			e.printStackTrace();
+		}
+		catch (UnsupportedEncodingException e)
 		{
 			_logger.fatal(e.getMessage());
 			e.printStackTrace();
@@ -133,7 +141,8 @@ public class MySqlDatabaseHelper
 			DecimalFormat df = new DecimalFormat("###.##", otherSymbols);
 			for (CompareResult result : compareResults)
 			{
-				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + result.getSourceText() + "','" + sourceLink + "' , " + "null" + " , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "','" + df.format(result.getSimilarity()*100) + "' , '" + result.getReportID() + "' )";
+				String text = new String(result.getSourceText().getBytes("UTF-8"), "UTF-8");
+				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + text + "','" + sourceLink + "' , " + "null" + " , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "','" + df.format(result.getSimilarity()*100) + "' , '" + result.getReportID() + "' )";
 				_statement.executeUpdate(strStatement);
 			}
 			disconnect();
@@ -146,6 +155,11 @@ public class MySqlDatabaseHelper
 		catch (SQLException e)
 		{
 			_logger.fatal(e.getMessage());
+			e.printStackTrace();
+		}
+		catch (UnsupportedEncodingException e)
+		{
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
