@@ -9,6 +9,7 @@ class User {
 	public static function getAllUser() {
 		
 		$cID = LoginAccess::getClientID();
+		$uID = LoginAccess::getUserID();
 
 		$db = new db();
 		$db -> read("
@@ -19,7 +20,7 @@ class User {
 					user AS u LEFT JOIN settinglevel AS sl ON u.slID = sl.slID
 					LEFT JOIN client AS c ON u.cID = c.cID
 				WHERE
-					u.cID = '$cID'
+					u.cID = '$cID' and u.uID != '$uID'
 				ORDER BY
 					 u.uLastname ASC, u.uName ASC");
 
