@@ -4,10 +4,12 @@
 	<property name="source" value="*" />
 	<property name="deldir" value="/srv/www/htdocs"/>
 	<target name="deploy" depends="build">
+		<echo message="Start deploy"/>
 		<delete dir="${deldir}" />
 		<copy todir="${webroot}/${project}">
 			<fileset dir="${destdir}" />
 		</copy>
+		<echo message="Finish deploy"/>
 	</target>
 	<target name="build" />
 </project>
