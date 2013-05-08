@@ -2,7 +2,9 @@
 	<property name="webroot" value="/srv/www" />
 	<property name="source" value="/usr/share/tomcat6/.jenkins/jobs/PlagiatsJaegerPHPTest/workspace" />
 	<target name="deploy">
-		<copydir src="${source}" dest="${webroot}"/>
+		<copydir src="${source}" dest="${webroot}">
+			<exclude name=".htaccess"/>	
+		</copydir>
 	</target>
 	<target name="build" >
 		<antcall target="deploy"/>
