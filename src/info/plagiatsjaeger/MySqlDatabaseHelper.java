@@ -251,7 +251,24 @@ public class MySqlDatabaseHelper
 
 	public void setReportState(int rId, ErrorCode state)
 	{
-		//TODO: Michael Volz
+		try
+		{
+			connect();
+			String strStatement = "UPDATE report SET rID="+rId;
+			_statement.executeUpdate(strStatement);
+			disconnect();
+			_logger.info("State changed for: "+rId+"to "+state);
+		}
+		catch (ClassNotFoundException e)
+		{
+			_logger.fatal(e.getMessage());
+			e.printStackTrace();
+		}
+		catch (SQLException e)
+		{
+			_logger.fatal(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -262,7 +279,24 @@ public class MySqlDatabaseHelper
 	 */
 	public void setDocumentAsParsed(int docId)
 	{
-
+		try
+		{
+			connect();
+			String strStatement = "UPDATE document SET dIsParsed=1 WHERE dID="+docId;
+			_statement.executeUpdate(strStatement);
+			disconnect();
+			_logger.info("Setting document parsed in DB: "+docId);
+		}
+		catch (ClassNotFoundException e)
+		{
+			_logger.fatal(e.getMessage());
+			e.printStackTrace();
+		}
+		catch (SQLException e)
+		{
+			_logger.fatal(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 }
