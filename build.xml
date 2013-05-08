@@ -2,7 +2,7 @@
 
 	<!--<property name="webroot" value="../../../../../../../srv/test" />-->
 	<property name="webroot" value="/srv/test" />
-	<property name="source" value="/htdocs" />
+	<property name="source" value="/usr/share/tomcat6/.jenkins/jobs/PlagiatsJaegerPHPTest/workspace" />
 	<target name="deploy">
 		<echo message="Start deploy"/>
 		<!--<delete dir="${webroot}/*" />-->
