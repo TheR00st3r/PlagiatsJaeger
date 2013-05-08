@@ -223,11 +223,11 @@ class Folder {
 	 * @param int $uID
 	 * @return boolean
 	 */
-	public static function saveFolderPermission($fpPermissionLevel, $fID, $uID) {
+	private static function saveFolderPermission($fpPermissionLevel, $fID, $uID) {
 		$state = false;
 		if (Validator::validate(VAL_INTEGER, $fpPermissionLevel, true) and Validator::validate(VAL_INTEGER, $fID, true) and Validator::validate(VAL_INTEGER, $uID, true)) {
 			$db = new db();
-			if ($db -> insert('folderpermission', array('fpPermissionLevel' => $fpPermissionLevel, 'fID' => $fID, 'uID' => $uID))) {
+			if ($db -> insert('folderpermission', array('fpPermissionLevel' => $fpPermissionLevel, 'fID' => $fID, 'uID' => $uID), true)) {
 				$state = true;
 				$messages[] = array('type' => 'save', 'text' => 'Ordner Einstellung gespeichert.');
 			} else {
@@ -250,7 +250,7 @@ class Folder {
 	 * @return boolean
 	 */
 	public static function saveMultibleFolderPermissions($fpPermissionLevel, $fID, $uIDs) {
-		print_array($uIDs);
+		self::deleteFolderPermissionsFromFolderId($fID);
 		$state = true;
 		foreach ($uIDs as $uID) {
 			$saveCheck = self::saveFolderPermission($fpPermissionLevel, $fID, $uID);
@@ -269,7 +269,7 @@ class Folder {
 		return $return;
 	}
 	
-	public static function getFolderPermissions($fID) {
+	private static function getFolderPermissions($fID) {
 		$db = new db();
 		$db -> read("
 				SELECT
@@ -285,6 +285,11 @@ class Folder {
 		}
 		return $return;
 		// return $db -> linesAsArray();
+	}
+	
+	private static function deleteFolderPermissionsFromFolderId($fID) {
+		$db = new db();
+		$db -> deleteWithWhereArray('folderpermission', array('fID' => $fID, 'fpPermissionLevel' => '700'), 99);
 	}
 
 }

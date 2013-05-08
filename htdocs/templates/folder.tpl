@@ -117,11 +117,11 @@
 					<input type="hidden" name="fID" value="{$item.fID}" />
 					<h2>Ordner Kollegen freigeben</h2>
 					<label for="uIDs">Kollege auswählen:</label>
-					<select multiple="multiple" size="10" name="uIDs[]" id="uIDs">
-						{foreach $users as $user}
-						<option value="{$user.uID}">{$user.uName} {$user.uLastname}</option>
-						{/foreach}
-					</select>
+					
+					{foreach $users as $user}
+						<input {if {$user.uID}|in_array:$item.user}checked="checked"{/if} type="checkbox" name="uIDs[]" value="{$user.uID}" /> {$user.uName} {$user.uLastname}<br />
+					{/foreach}
+					
 					<br />
 					<input type="submit" name="button[dAddFolderShareSubmit]" value="teilen" />
 				</form>
