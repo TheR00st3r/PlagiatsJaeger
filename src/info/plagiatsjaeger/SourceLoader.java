@@ -99,11 +99,13 @@ public class SourceLoader
 		{
 			_logger.fatal(e.getMessage());
 			e.printStackTrace();
+			return "FAIL FileNotFoundException";
 		}
 		catch (IOException e)
 		{
 			_logger.fatal(e.getMessage());
 			e.printStackTrace();
+			return "FAIL IOException";
 		}
 		finally
 		{

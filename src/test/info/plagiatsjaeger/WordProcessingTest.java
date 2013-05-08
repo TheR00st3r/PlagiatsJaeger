@@ -41,10 +41,4 @@ public class WordProcessingTest {
 		assertArrayEquals(testarray5, testword.splitToWords(teststring5));
 		
 	}
-
-//	@Test
-//	public void testGetVerbsAndNouns() {
-//		fail("Not yet implemented");
-//	}
-
 }
