@@ -17,7 +17,7 @@ require_once '../configs/setup.php';
 // if (in_array($extension, $allowedExtensions)) {
 	// echo $extension;
 // }
-
+  
 require_once '../classes/Folder.php';
 
 print_array(Folder::getFolderArray());
