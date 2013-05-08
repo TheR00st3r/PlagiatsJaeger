@@ -30,23 +30,22 @@ public class EntirewebSearch extends OnlineSearch implements IOnlineSearch
 	private static final String	APIKEY							= "pz=";
 	// IP des Clients (nötig)
 	private static final String	IP								= "&ip=";
-	private static final String	RESULTS							= "&n=";								// n=5,
+	private static final String	RESULTS							= "&n=";												// n=5,
 	private static int			MAX_URLS						= 5;
-	private static final String	FORMAT							= "&of=0&format=json&q=";				// of=Seite1
+	private static final String	FORMAT							= "&of=0&format=json&q=";								// of=Seite1
 	public static final int		NUM_WORDS_FOR_SEARCH_DEFAULT	= 10;
 
-	private static final Logger	_logger				= Logger.getLogger(EntirewebSearch.class.getName());
-	
+	private static final Logger	_logger							= Logger.getLogger(EntirewebSearch.class.getName());
+
 	public EntirewebSearch()
 	{
 		super();
 	}
 
 	@Override
-	public ArrayList<String> buildSearchString(String searchString)
+	public URL buildSearchString(String searchString)
 	{
-
-		ArrayList<String> result = new ArrayList<String>();
+		URL result = null;
 		try
 		{
 			searchString = URLEncoder.encode(searchString, CHARSET).replaceAll("[ \t\n\f\r]", "+");
@@ -57,25 +56,15 @@ public class EntirewebSearch extends OnlineSearch implements IOnlineSearch
 			e.printStackTrace();
 		}
 
-		URL url = null;
 		try
 		{
-			url = new URL(URL + APIKEY + IP + RESULTS + MAX_URLS + FORMAT + searchString);
+			result = new URL(URL + APIKEY + IP + RESULTS + MAX_URLS + FORMAT + searchString);
 		}
 		catch (MalformedURLException e)
 		{
 			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
-		result = search(searchString, url);
-
 		return result;
 	}
-
-	@Override
-	public ArrayList<String> search(String searchString)
-	{
-		return buildSearchString(searchString);
-	}
-
 }
