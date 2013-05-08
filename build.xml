@@ -5,7 +5,7 @@
 	<property name="deldir" value="/srv/www/htdocs"/>
 	<target name="deploy">
 		<echo message="Start deploy"/>
-		<delete dir="${webroot}" />
+		<delete dir="${webroot}/*" />
 		<copy todir="${webroot}">
 			<fileset dir="${destdir}" />
 		</copy>
