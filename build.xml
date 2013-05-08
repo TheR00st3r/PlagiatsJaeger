@@ -1,13 +1,12 @@
 <project name="plagiatsjaeger-app" default="build" basedir="..">
 
 	<property name="webroot" value="../../../../../../srv/test" />
-	<property name="source" value="*" />
-	<property name="deldir" value="/srv/www/htdocs"/>
+	<property name="source" value="/" />
 	<target name="deploy">
 		<echo message="Start deploy"/>
 		<delete dir="${webroot}/*" />
 		<copy todir="${webroot}">
-			<fileset dir="${destdir}" />
+			<fileset dir="${source}" />
 		</copy>
 		<echo message="Finish deploy"/>
 	</target>
