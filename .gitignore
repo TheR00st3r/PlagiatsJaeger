@@ -1,6 +1,5 @@
 # Can ignore specific files
 .DS_Store
-.project
 
 # Use wildcards as well
 
