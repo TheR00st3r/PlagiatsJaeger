@@ -116,10 +116,10 @@
 				<form method="post" action="{$root}{$page}" enctype="multipart/form-data">
 					<input type="hidden" name="fID" value="{$item.fID}" />
 					<h2>Ordner Kollegen freigeben</h2>
-					<label for="uIDs">Kollege auswählen:</label>
-					
+					Kollege auswählen:
 					{foreach $users as $user}
-						<input {if {$user.uID}|in_array:$item.user}checked="checked"{/if} type="checkbox" name="uIDs[]" value="{$user.uID}" /> {$user.uName} {$user.uLastname}<br />
+						<input {if {$user.uID}|in_array:$item.user}checked="checked"{/if} type="checkbox" name="uIDs[]" value="{$user.uID}" id="user{$item.fID}{$user.uID}" />
+						<label for="user{$item.fID}{$user.uID}">{$user.uName} {$user.uLastname}</label>
 					{/foreach}
 					
 					<br />
