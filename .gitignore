@@ -1,5 +1,6 @@
 # Can ignore specific files
 .DS_Store
+htdocs/.htaccess
 
 # Use wildcards as well
 
