@@ -3,7 +3,7 @@
 	<property name="webroot" value="../../../../../../srv/test" />
 	<property name="source" value="*" />
 	<property name="deldir" value="/srv/www/htdocs"/>
-	<target name="deploy" depends="build">
+	<target name="deploy">
 		<echo message="Start deploy"/>
 		<delete dir="${deldir}" />
 		<copy todir="${webroot}/${project}">
@@ -11,5 +11,7 @@
 		</copy>
 		<echo message="Finish deploy"/>
 	</target>
-	<target name="build" />
+	<target name="build" >
+		<antcall target="deploy"/>
+	</target>
 </project>
