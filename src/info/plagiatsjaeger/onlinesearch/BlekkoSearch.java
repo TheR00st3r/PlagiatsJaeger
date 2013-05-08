@@ -33,9 +33,9 @@ public class BlekkoSearch extends OnlineSearch implements IOnlineSearch
 	}
 
 	@Override
-	public ArrayList<String> buildSearchString(String searchString)
+	public URL buildSearchString(String searchString)
 	{
-		ArrayList<String> result = new ArrayList<String>();
+		URL result = null;
 		try
 		{
 			searchString = URLEncoder.encode(searchString, CHARSET).replaceAll("[ \t\n\f\r]", "+");
@@ -46,24 +46,16 @@ public class BlekkoSearch extends OnlineSearch implements IOnlineSearch
 			e.printStackTrace();
 		}
 
-		URL url = null;
+		
 		try
 		{
-			url = new URL(URL + URL_ARG_SEARCH + searchString + URL_ARG_JSON);
+			result = new URL(URL + URL_ARG_SEARCH + searchString + URL_ARG_JSON);
 		}
 		catch (MalformedURLException e)
 		{
 			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
-		result = search(searchString, url);
-
 		return result;
-	}
-
-	@Override
-	public ArrayList<String> search(String searchString)
-	{
-		return buildSearchString(searchString);
 	}
 }

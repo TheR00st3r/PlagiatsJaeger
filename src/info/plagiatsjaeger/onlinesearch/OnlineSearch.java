@@ -1,6 +1,7 @@
 package info.plagiatsjaeger.onlinesearch;
 
 import info.plagiatsjaeger.WordProcessing;
+import info.plagiatsjaeger.interfaces.IOnlineSearch;
 import info.plagiatsjaeger.interfaces.OnLinkFoundListener;
 
 import java.io.BufferedReader;
@@ -20,7 +21,7 @@ import org.jsoup.Jsoup;
  * 
  * @author FischerC
  */
-public abstract class OnlineSearch
+public abstract class OnlineSearch implements IOnlineSearch
 {
 
 	private ArrayList<String>		_allSearchResults				= new ArrayList<String>();
@@ -32,7 +33,7 @@ public abstract class OnlineSearch
 	protected OnlineSearch()
 	{
 	}
-	
+
 	public ArrayList<String> search(String searchString, URL _URL)
 	{
 		ArrayList<String> result = null;
@@ -60,6 +61,7 @@ public abstract class OnlineSearch
 		return result;
 	}
 
+	@Override
 	public void searchAsync(final String searchString, final int numWordsToSearchFor)
 	{
 		new Thread(new Runnable()
@@ -80,14 +82,14 @@ public abstract class OnlineSearch
 						}
 						searchString += words[i + j];
 					}
-					buildSearchString(searchString);
+					search(searchString, buildSearchString(searchString));
 				}
 			}
 		}).start();
 
 	}
 
-	protected abstract ArrayList<String> buildSearchString(String searchString);
+	protected abstract URL buildSearchString(String searchString);
 
 	/**
 	 * Extrahiert die Links aus dem eingegebenen String. Wenn ein
@@ -127,7 +129,6 @@ public abstract class OnlineSearch
 				{
 					alUrlList.add(strLink);
 					// System.out.println(strLink);
-					// TODO: eventuell direkt in neuem Thread zurückgeben
 					if (_onLinkFoundListener != null) _onLinkFoundListener.onLinkFound(strLink);
 				}
 			}
@@ -153,6 +154,12 @@ public abstract class OnlineSearch
 		_allSearchResults.addAll(alUrlList);
 		return alUrlList;
 	}
+	
+	@Override
+	public ArrayList<String> search(String searchString)
+	{
+		return search(searchString, buildSearchString(searchString));
+	}
 
 	/**
 	 * Bereinigt eine Url, sodass sie immer vollstaendig ist
@@ -169,6 +176,7 @@ public abstract class OnlineSearch
 		return result;
 	}
 
+	@Override
 	public void setOnLinkFoundListener(OnLinkFoundListener listener)
 	{
 		_onLinkFoundListener = listener;
