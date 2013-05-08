@@ -107,12 +107,14 @@ if ($page == 'public') {
 					$messages = $saveCheck['messages'];
 					break;
 				case 'rAdd' :
-					Report::createReport($_GET['dID'], $_POST['sID']);
+					// print_array($_POST);
+					$reportCheck = Report::createReport($_POST['dID'], $_POST['slID'], $_POST['rThreshold'], $_POST['rCheckWWW']);
+					$messages = $reportCheck['messages'];
 					break;
 			}
 
-
 			$smarty -> assign('messages', $messages);
+
 			$smarty -> assign('documents', Document::getDocumentsFromFolderID($folder['fID']));
 			$smarty -> assign('folders', Folder::getFolderArray($folder['fID']));
 			$smarty -> assign('folderNav', Folder::getFolderArray());

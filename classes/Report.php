@@ -7,19 +7,31 @@ class Report {
 	 * @param int $rLevel
 	 * @return boolean
 	 */
-	public static function createReport($dID, $sID, $rErrorCode = 100) {
-		if (Validator::validate(VAL_INTEGER, $dID, true)) {
+	public static function createReport($dID, $slID, $rThreshold, $rCheckWWW = 0, $rErrorCode = 100) {
+		$state = false;
+		if (Validator::validate(VAL_INTEGER, $dID, true) and Validator::validate(VAL_INTEGER, $slID, true) and Validator::validate(VAL_INTEGER, $rThreshold, true) and Validator::validate(VAL_INTEGER, $rCheckWWW, true)) {
 			$db = new db();
-			if ($db -> insert('report', array('rDatetime' => date('Y-m-d H:m:s'), 'rErrorCode' => $rErrorCode, 'dID' => $dID, 'sID' => $sID))) {
+			if ($db -> insert('report', array('rDatetime' => date('Y-m-d H:m:s'), 'rErrorCode' => $rErrorCode, 'dID' => $dID, 'slID' => $slID, 'rThreshold' => $rThreshold, 'rCheckWWW' => $rCheckWWW))) {
 				$lastReportID = $db -> lastInsertId();
 				$result = file("http://192.168.4.28:8080/PlagiatsJaeger/ReportServlet?rID=" . $lastReportID);
 				print_array($result);
 				if ($result) {
-					return true;
+					$state = true;
+					$messages[] = array('type' => 'save', 'text' => 'Report wurde erfolgreich angelegt!');
 				}
+				else 
+					$messages[] = array('type' => 'error', 'text' => 'Report konnte nicht angestoßen werden!');
 			}
+			else
+				$messages[] = array('type' => 'error', 'text' => 'Report wurde nicht angelegt!');
 		}
-		return false;
+		else 
+			$messages[] = array('type' => 'error', 'text' => 'Parameter haben kein gültiges Format!');
+		
+		$return['state'] = $state;
+		$return['messages'] = $messages;
+		print_array($return);
+		return $return;
 	}
 
 	/**
@@ -55,17 +67,16 @@ class Report {
 			$db = new db();
 			$db -> read("
 				SELECT
-					r.rID, r.rDatetime, r.rErrorCode, r.dID, r.sID,
+					r.rID, r.rDatetime, r.rErrorCode, r.dID,
 					d.dOriginalName, d.dAuthor, d.dIsParsed,
 					e.eName, e.eDescription,
-					s.sThreshold, s.sCheckWWW,
+					r.rThreshold, r.rCheckWWW,
 					sl.slTitle
 				FROM
 					report AS r
 					LEFT JOIN document AS d			ON r.dID = d.dID
 					LEFT JOIN errorcode as e		ON r.rErrorCode = e.eID
-					LEFT JOIN setting AS s			ON r.sID = s.sID
-					LEFT JOIN settinglevel AS sl	ON s.sLevel = sl.slID
+					LEFT JOIN settinglevel AS sl	ON r.slID = sl.slID
 				WHERE
 					r.rID = '$rID'
 				");

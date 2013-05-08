@@ -13,9 +13,11 @@ class User {
 		$db = new db();
 		$db -> read("
 				SELECT
-					u.uID, u.uName, u.uLastname, u.uEMailAdress, u.uPermissonLevel, u.cID, c.cName, s.sThreshold, s.sCheckWWW, sl.slTitle, sl.slSearchSentenceLength, sl.slSearchJumpLength, sl.slCompareSentenceLength, sl.slCompareJumpLength
+					u.uID, u.uName, u.uLastname, u.uEMailAdress, u.uPermissonLevel, u.cID, c.cName,
+					u.uThreshold, u.uCheckWWW, sl.slTitle, sl.slSearchSentenceLength, sl.slSearchJumpLength, sl.slCompareSentenceLength, sl.slCompareJumpLength
 				FROM
-					user AS u LEFT JOIN setting AS s ON u.sID = s.sID LEFT JOIN settinglevel AS sl ON s.sLevel = sl.slID LEFT JOIN client AS c ON u.cID = c.cID
+					user AS u LEFT JOIN settinglevel AS sl ON u.slID = sl.slID
+					LEFT JOIN client AS c ON u.cID = c.cID
 				WHERE
 					u.cID = '$cID'
 				ORDER BY

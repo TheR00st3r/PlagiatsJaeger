@@ -160,13 +160,15 @@
 					<h2>Prüfung starten</h2>
 					<label>Intensität:</label>
 					{foreach $settings as $setting}
-						<input type="radio" name="sLevel[]" value="{$setting.slID}" /> {$setting.slTitle}<br />
+						<input type="radio" name="slID" value="{$setting.slID}" /> {$setting.slTitle}<br />
 					{/foreach}
 					<br />
+					<label for="rThreshold">Schwellenwert:</label>
+					<input type="text" name="rThreshold" id="rThreshold" value="" /><br />
 					<br />
-					<label for="sThreshold">Schwellenwert:</label>
+					<label for="rCheckWWW">Check WWW:</label>
+					<input type="checkbox" name="rCheckWWW" id="rCheckWWW" value="1" />
 					<br />
-					<input name="sThreshold" id="sThreshold" value="" />
 					<br />
 					<input type="submit" name="button[rAdd]" value="prüfen" />
 				</form>
