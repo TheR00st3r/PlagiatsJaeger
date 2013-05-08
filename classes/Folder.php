@@ -59,6 +59,7 @@ class Folder {
 			$folder[$row['fID']]['fName'] = $row['fName'];
 			$folder[$row['fID']]['fHashLink'] = $row['fHashLink'];
 			$folder[$row['fID']]['fLinkExpireDatetime'] = $row['fLinkExpireDatetime'];
+			$folder[$row['fID']]['user'] = self::getFolderPermissions($row['fID']);
 
 			$back = self::getFolderArray($row['fID'], $depth, $level + 1, $path . $alias . '/', $pathName . $row['fName'] . ' / ');
 			if (count($back) > 0) {
@@ -123,6 +124,7 @@ class Folder {
 			$folder[$path . $alias]['fName'] = $row['fName'];
 			$folder[$path . $alias]['fHashLink'] = $row['fHashLink'];
 			$folder[$path . $alias]['fLinkExpireDatetime'] = $row['fLinkExpireDatetime'];
+			$folder[$path . $alias]['user'] = self::getFolderPermissions($row['fID']);
 
 			if ($row['fID'] > 1) {
 				$back = self::getFolder($row['fID'], $depth, $level + 1, $path . $alias . '/', $pathName . $row['fName'] . ' / ');
@@ -132,21 +134,6 @@ class Folder {
 			}
 		}
 		return $folder;
-	}
-
-	/**
-	 * Returns folders from given folder id as single array for example dropdowns (old)
-	 * @deprecated
-	 * @param id $fParentID
-	 * @return array
-	 */
-	public static function getFolderParents($fParentID = null) {
-		$parents = self::getFolder($fParentID);
-		$tempParents = null;
-		foreach ($parents as $parent) {
-			$tempParents[$parent['fID']] = $parent['root'] . $parent['alias'];
-		}
-		return $tempParents;
 	}
 
 	/**
@@ -280,6 +267,24 @@ class Folder {
 		$return['messages'] = $messages;
 
 		return $return;
+	}
+	
+	public static function getFolderPermissions($fID) {
+		$db = new db();
+		$db -> read("
+				SELECT
+					fp.fpPermissionLevel, fp.uID
+				FROM
+					folderpermission AS fp
+				WHERE
+					fp.fpPermissionLevel <= 700 and fp.fID = $fID
+				");
+		$return = array();
+		while ($row = $db -> lines()) {
+			$return[] = $row['uID'];
+		}
+		return $return;
+		// return $db -> linesAsArray();
 	}
 
 }
