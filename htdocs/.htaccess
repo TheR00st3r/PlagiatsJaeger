@@ -8,6 +8,6 @@
 Options -MultiViews +FollowSymLinks
 RewriteEngine On
 RewriteBase /
-#RewriteBase /webseiten/plagiatsjaeger-app/htdocs/
+RewriteBase /webseiten/plagiatsjaeger-app/htdocs/
 RewriteCond %{REQUEST_URI} !^/(application|phpMyAdmin)(/.*)?
 RewriteRule ^([0-9a-zA-Z_/-]+)$ index.php?url=$1 [QSA]
