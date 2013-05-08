@@ -7,10 +7,10 @@ class Report {
 	 * @param int $rLevel
 	 * @return boolean
 	 */
-	public static function createReport($dID, $rLevel = 1, $sID = 1, $rErrorCode = 100) {
+	public static function createReport($dID, $sID, $rErrorCode = 100) {
 		if (Validator::validate(VAL_INTEGER, $dID, true)) {
 			$db = new db();
-			if ($db -> insert('report', array('dID' => $dID, 'rDatetime' => date('Y-m-d H:m:s'), 'rLevel' => $rLevel, 'sID' => $sID, 'rErrorCode' => $rErrorCode))) {
+			if ($db -> insert('report', array('rDatetime' => date('Y-m-d H:m:s'), 'rErrorCode' => $rErrorCode, 'dID' => $dID, 'sID' => $sID))) {
 				$lastReportID = $db -> lastInsertId();
 				$result = file("http://192.168.4.28:8080/PlagiatsJaeger/ReportServlet?rID=" . $lastReportID);
 				print_array($result);
@@ -32,7 +32,7 @@ class Report {
 			$db = new db();
 			$db -> read("
 				SELECT
-					r.rID, r.rDatetime, r.rLevel, r.dID
+					r.rID, r.rDatetime, r.dID
 				FROM
 					report AS r
 				WHERE
@@ -55,7 +55,7 @@ class Report {
 			$db = new db();
 			$db -> read("
 				SELECT
-					r.rID, r.rDatetime, r.rLevel, r.rErrorCode, r.dID, r.sID,
+					r.rID, r.rDatetime, r.rErrorCode, r.dID, r.sID,
 					d.dOriginalName, d.dAuthor, d.dIsParsed,
 					e.eName, e.eDescription,
 					s.sThreshold, s.sCheckWWW,

@@ -1,5 +1,5 @@
 <?php
-class SearchProperties {
+class Setting {
 
 	/**
 	 * Saves the given Properties to the individual tables.
@@ -13,6 +13,19 @@ class SearchProperties {
 		// Lokale Quellen ja/nein/array
 		// Deitailgrad der Prüfung
 		throw new Exception('Not implemented');
+	}
+
+	public static function getAllSettings() {
+		$db = new db();
+		$db -> read("
+				SELECT
+					sl.slID, sl.slTitle
+				FROM
+					settinglevel AS sl
+				ORDER BY
+					 sl.slTitle ASC");
+
+		return $db -> linesAsArray();
 	}
 
 }

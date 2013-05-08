@@ -112,44 +112,35 @@
 			</div></td>
 			<td class="borderright">&nbsp;</td>
 			<td class="smal">
-				<div id="chareFolderForm{$item.fID}" style="display: none">
-					<form method="post" action="{$root}{$page}" enctype="multipart/form-data">
-						<input type="hidden" name="fID" value="{$item.fID}" />
-						<h2>Ordner Kollegen freigeben</h2>
-						<label for="fLinkExpireDatetime">Kollege auswählen:</label>
-						<select multiple="multiple" size="10" name="uIDs[]">
-							{foreach $users as $user}
-							<option value="{$user.uID}">{$user.uName} {$user.uLastname}</option>
-							{/foreach}
-						</select>
-						<br />
-						<input type="submit" name="button[dAddFolderShareSubmit]" value="teilen" />
-					</form>
-				</div>
-				<a class="create" href="#chareFolderForm{$item.fID}">[teilen]</a>
-			</td>
-			<td class="smal">
-				{if $item.fHashLink != ''}
-					<a target="_blank" href="{$root}public?id={$item.fHashLink}">[Link] bis {$item.fLinkExpireDatetime}</a>
-				{else}
-					<div id="createLinkForm{$item.fID}" style="display: none">
-						<form method="post" action="{$root}{$page}" enctype="multipart/form-data">
-							<input type="hidden" name="fID" value="{$item.fID}" />
-							<h2>Link für Studenten freigeben</h2>
-							<label for="fLinkExpireDatetime">Link freigeben bis:</label>
-							<input type="text" name="fLinkExpireDatetime" id="fLinkExpireDatetime" value="2013-12-12 23:59:59" />
-							<br />
-							<br />
-							<label for="">Settings:</label>
-							<br />
-							<br />
-							<input type="submit" name="button[dAddFolderLinkSubmit]" value="freigeben" />
-						</form>
-					</div>
-					<a class="create" href="#createLinkForm{$item.fID}">[hash]</a>
-					<!-- <a href="{$root}{$page}?action=hash&amp;fID={$item.fID}">[hash]</a> -->
-				{/if}
-			</td>
+			<div id="shareFolderForm{$item.fID}" style="display: none">
+				<form method="post" action="{$root}{$page}" enctype="multipart/form-data">
+					<input type="hidden" name="fID" value="{$item.fID}" />
+					<h2>Ordner Kollegen freigeben</h2>
+					<label for="uIDs">Kollege auswählen:</label>
+					<select multiple="multiple" size="10" name="uIDs[]" id="uIDs">
+						{foreach $users as $user}
+						<option value="{$user.uID}">{$user.uName} {$user.uLastname}</option>
+						{/foreach}
+					</select>
+					<br />
+					<input type="submit" name="button[dAddFolderShareSubmit]" value="teilen" />
+				</form>
+			</div><a class="create" href="#shareFolderForm{$item.fID}">[teilen]</a></td>
+			<td class="smal"> {if $item.fHashLink != ''} <a target="_blank" href="{$root}public?id={$item.fHashLink}">[Link] bis {$item.fLinkExpireDatetime}</a> {else}
+			<div id="createLinkForm{$item.fID}" style="display: none">
+				<form method="post" action="{$root}{$page}" enctype="multipart/form-data">
+					<input type="hidden" name="fID" value="{$item.fID}" />
+					<h2>Link für Studenten freigeben</h2>
+					<label for="fLinkExpireDatetime">Link freigeben bis:</label>
+					<input type="text" name="fLinkExpireDatetime" id="fLinkExpireDatetime" value="2013-12-12 23:59:59" />
+					<br />
+					<br />
+					<label for="">Settings:</label>
+					<br />
+					<br />
+					<input type="submit" name="button[dAddFolderLinkSubmit]" value="freigeben" />
+				</form>
+			</div><a class="create" href="#createLinkForm{$item.fID}">[hash]</a> {/if} </td>
 			<td class="smal"><a href="{$root}{$page}?action=deleteFolder&amp;fID={$item.fID}">[delete]</a></td>
 		</tr>
 		{if $color == ''}{$color = 'bgcolor'}{else}{$color = ''}{/if}
@@ -159,10 +150,27 @@
 			<td class="image"><img src="{$root}images/file.gif" alt="" /></td>
 			<td class="borderright"><a href="document.php?dID={$item.dID}" class="iframeviewer fancybox.iframe">{$item.dOriginalName}</a> {foreach from=$item.reports item=report}
 			<li>
-				<a href="report.php?rID={$report.rID}" class="iframeviewer fancybox.iframe">{$report.rDatetime}</a> rID={$report.rID} <!-- <a href="{$root}report?rID={$report.rID}">{$report.rDate} -->
+				<a href="report.php?rID={$report.rID}" class="iframeviewer fancybox.iframe">{$report.rDatetime}</a> rID={$report.rID}
 			</li> {/foreach} </td>
 			<td class="borderright">{$item.dAuthor}</td>
-			<td class="smal"><a href="{$root}{$page}?action=check&amp;dID={$item.dID}">[prüfen]</a></td>
+			<td class="smal">
+			<div id="addReport{$item.dID}" style="display: none">
+				<form method="post" action="{$root}{$page}" enctype="multipart/form-data">
+					<input type="hidden" name="dID" value="{$item.dID}" />
+					<h2>Prüfung starten</h2>
+					<label>Intensität:</label>
+					{foreach $settings as $setting}
+						<input type="radio" name="sLevel[]" value="{$setting.slID}" /> {$setting.slTitle}<br />
+					{/foreach}
+					<br />
+					<br />
+					<label for="sThreshold">Schwellenwert:</label>
+					<br />
+					<input name="sThreshold" id="sThreshold" value="" />
+					<br />
+					<input type="submit" name="button[rAdd]" value="prüfen" />
+				</form>
+			</div><a class="create" href="#addReport{$item.dID}">[prüfen]</a></td>
 			<td class="smal">[delete]</td>
 		</tr>
 		{if $color == ''}{$color = 'bgcolor'}{else}{$color = ''}{/if}

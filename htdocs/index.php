@@ -61,9 +61,13 @@ if ($page == 'public') {
 			require_once '../classes/Upload.php';
 			require_once '../classes/Report.php';
 			require_once '../classes/User.php';
+			require_once '../classes/Setting.php';
 			
 			$users = User::getAllUser();
 			$smarty -> assign('users', $users);
+
+			$settings = Setting::getAllSettings();
+			$smarty -> assign('settings', $settings);
 
 			$folderUrl = deleteItem($url, 0);
 			$folderLink = implode('/', $folderUrl);
@@ -78,18 +82,6 @@ if ($page == 'public') {
 						break;
 					case 'hash' :
 						Folder::addFolderLink($_POST['fID'], $_POST['fLinkExpireDatetime']);
-						break;
-					default :
-						break;
-				}
-			}
-
-			if (Validator::validate(VAL_INTEGER, $_GET['dID'], true)) {
-				switch ($_GET['action']) {
-					case 'deleteDoc' :
-						break;
-					case 'check' :
-						Report::createReport($_GET['dID']);
 						break;
 					default :
 						break;
@@ -113,6 +105,9 @@ if ($page == 'public') {
 				case 'dAddFolderShareSubmit' :
 					$saveCheck = Folder::saveMultibleFolderPermissions(700, $_POST['fID'], $_POST['uIDs']);
 					$messages = $saveCheck['messages'];
+					break;
+				case 'rAdd' :
+					Report::createReport($_GET['dID'], $_POST['sID']);
 					break;
 			}
 

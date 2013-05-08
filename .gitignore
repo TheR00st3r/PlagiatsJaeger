@@ -6,4 +6,5 @@
 
 # Can also ignore all directories and files in a directory.
 htdocs/templates_c/*
-uploads/* 
+uploads/*
+log/*
