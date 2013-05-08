@@ -1,0 +1,12 @@
+<project name="plagiatsjaeger-app" default="build" basedir="..">
+
+	<!--<property name="webroot" value="../../../../../../../srv/test" />-->
+	<property name="webroot" value="/srv/test" />
+	<property name="source" value="/usr/share/tomcat6/.jenkins/jobs/PlagiatsJaegerPHPTest/workspace" />
+	<target name="deploy">
+		<copydir src="${source}" dest="${webroot}"/>
+	</target>
+	<target name="build" >
+		<antcall target="deploy"/>
+	</target>
+</project>
