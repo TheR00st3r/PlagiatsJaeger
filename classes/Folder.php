@@ -20,28 +20,22 @@ class Folder {
 		if ($level > $depth)
 			return;
 
-		$db = new db();
 		if ($fParentID == null) {
-			$db -> read("
-				SELECT
-					f.fID, f.fName, f.fParentID, f.fHashLink, f.fLinkExpireDatetime
-				FROM
-					folder AS f LEFT JOIN folderpermission AS p ON f.fID = p.fID
-				WHERE
-					f.fParentID IS NULL and p.uID = '$uID'
-				ORDER BY
-					f.fName ASC");
+			$checkParent = "f.fParentID IS NULL";
 		} else {
-			$db -> read("
-				SELECT
-					f.fID, f.fName, f.fParentID, f.fHashLink, fLinkExpireDatetime
-				FROM
-					folder AS f LEFT JOIN folderpermission AS p ON f.fID = p.fID
-				WHERE
-					f.fParentID = '$fParentID' and p.uID = '$uID'
-				ORDER BY
-					f.fName ASC");
+			$checkParent = "f.fParentID = '$fParentID'";
 		}
+		
+		$db = new db();
+		$db -> read("
+			SELECT
+				f.fID, f.fName, f.fParentID, f.fHashLink, fLinkExpireDatetime
+			FROM
+				folder AS f LEFT JOIN folderpermission AS p ON f.fID = p.fID
+			WHERE
+				$checkParent and p.uID = '$uID' and p.fpPermissionLevel = 900
+			ORDER BY
+				f.fName ASC");
 
 		if ($db -> valueCount() == 0) {
 			return;
@@ -85,28 +79,26 @@ class Folder {
 
 		$uID = LoginAccess::getUserID();
 
-		$db = new db();
 		if ($fParentID == null) {
-			$db -> read("
-				SELECT
-					f.fID, f.fName, f.fParentID, f.fHashLink, fLinkExpireDatetime
-				FROM
-					folder AS f LEFT JOIN folderpermission AS p ON f.fID = p.fID
-				WHERE
-					f.fParentID IS NULL and p.uID = '$uID'
-				ORDER BY
-					f.fName ASC");
+			$checkParent = "f.fParentID IS NULL";
 		} else {
-			$db -> read("
-				SELECT
-					f.fID, f.fName, f.fParentID, f.fHashLink, fLinkExpireDatetime
-				FROM
-					folder AS f LEFT JOIN folderpermission AS p ON f.fID = p.fID
-				WHERE
-					f.fParentID = '$fParentID' and p.uID = '$uID'
-				ORDER BY
-					f.fName ASC");
+			$checkParent = "f.fParentID = '$fParentID'";
 		}
+		
+		// self::recursive($uID, $fParentID);
+
+		$db = new db();
+		$db -> read("
+			SELECT
+				f.fID, f.fName, f.fParentID, f.fHashLink, fLinkExpireDatetime
+			FROM
+				folder AS f LEFT JOIN folderpermission AS p ON f.fID = p.fID
+			WHERE
+				$checkParent and p.uID = '$uID' and p.fpPermissionLevel = 900
+			ORDER BY
+				f.fName ASC");
+		
+		
 
 		if ($db -> valueCount() == 0) {
 			return;
