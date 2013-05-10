@@ -17,7 +17,7 @@
 			<arg value="--target" />
 			<arg path="${webroot}/phpdoc"/>
 			<arg value="--ignore"/>
-			<arg path="&{source}/libs"/><!--  ,smarty/,testfiles/,htdocs/testfiles/"/>-->
+			<arg path="${source}/libs"/><!--  ,smarty/,testfiles/,htdocs/testfiles/"/>-->
 		</exec>
 	</target>
 	
