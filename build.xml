@@ -1,6 +1,7 @@
 <project name="plagiatsjaeger-app" default="build" basedir="..">
 	<property name="webroot" value="/srv/www" />
-	<property name="source" value="/usr/share/tomcat6/.jenkins/jobs/PlagiatsJaegerPHPTest/workspace" />
+	<property name="source"
+		value="/usr/share/tomcat6/.jenkins/jobs/PlagiatsJaegerPHPTest/workspace" />
 	<target name="deploy">
 		<copy todir="${webroot}">
 			<fileset dir="${source}">
@@ -8,7 +9,18 @@
 			</fileset>
 		</copy>
 	</target>
+	
+	<target name="phpdoc" description="Generate API documentation using PHPDocumentor">
+		<exec executable="phpdoc">
+			<arg value="--directory" />
+			<arg path="${source}" />
+			<arg value="--target" />
+			<arg path="${webroot}/phpdoc" />
+		</exec>
+	</target>
+	
 	<target name="build">
 		<antcall target="deploy" />
+		<antcall target="phpdoc" />
 	</target>
 </project>
