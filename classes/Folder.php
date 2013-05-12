@@ -25,7 +25,7 @@ class Folder {
 		} else {
 			$checkParent = "f.fParentID = '$fParentID'";
 		}
-		
+
 		$db = new db();
 		$db -> read("
 			SELECT
@@ -84,7 +84,7 @@ class Folder {
 		} else {
 			$checkParent = "f.fParentID = '$fParentID'";
 		}
-		
+
 		// self::recursive($uID, $fParentID);
 
 		$db = new db();
@@ -97,8 +97,6 @@ class Folder {
 				$checkParent and p.uID = '$uID' and p.fpPermissionLevel = 900
 			ORDER BY
 				f.fName ASC");
-		
-		
 
 		if ($db -> valueCount() == 0) {
 			return;
@@ -126,6 +124,20 @@ class Folder {
 			}
 		}
 		return $folder;
+	}
+
+	public static function getSharedFolders($uID) {
+		$db = new db();
+		$db -> read("
+				SELECT
+					f.fID, f.fName
+				FROM
+					folder AS f LEFT JOIN folderpermission AS p ON f.fID = p.fID
+				WHERE
+					p.uID = '$uID' and p.fpPermissionLevel = 700
+				ORDER BY
+					f.fName ASC");
+		return $db -> linesAsArray();
 	}
 
 	/**
@@ -260,7 +272,7 @@ class Folder {
 
 		return $return;
 	}
-	
+
 	private static function getFolderPermissions($fID) {
 		$db = new db();
 		$db -> read("
@@ -278,7 +290,7 @@ class Folder {
 		return $return;
 		// return $db -> linesAsArray();
 	}
-	
+
 	private static function deleteFolderPermissionsFromFolderId($fID) {
 		$db = new db();
 		$db -> deleteWithWhereArray('folderpermission', array('fID' => $fID, 'fpPermissionLevel' => '700'), 99);
