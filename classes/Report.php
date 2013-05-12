@@ -14,12 +14,14 @@ class Report {
 			if ($db -> insert('report', array('rDatetime' => date('Y-m-d H:m:s'), 'rErrorCode' => $rErrorCode, 'dID' => $dID, 'slID' => $slID, 'rThreshold' => $rThreshold, 'rCheckWWW' => $rCheckWWW))) {
 				$lastReportID = $db -> lastInsertId();
 				$result = file("http://192.168.4.28:8080/PlagiatsJaeger/ReportServlet?rID=" . $lastReportID);
-				if ($result) {
+				if ($result == true) {
 					$state = true;
 					$messages[] = array('type' => 'save', 'text' => 'Report wurde erfolgreich angelegt!');
 				}
-				else 
+				else {
+					print_array($result);
 					$messages[] = array('type' => 'error', 'text' => 'Report konnte nicht angestoßen werden!');
+				}
 			}
 			else
 				$messages[] = array('type' => 'error', 'text' => 'Report wurde nicht angelegt!');
@@ -29,7 +31,6 @@ class Report {
 		
 		$return['state'] = $state;
 		$return['messages'] = $messages;
-		print_array($return);
 		return $return;
 	}
 
