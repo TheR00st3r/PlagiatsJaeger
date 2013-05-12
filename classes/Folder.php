@@ -9,11 +9,10 @@ class Folder {
 	 * @param string $pathName
 	 * @return array
 	 */
-	public static function getFolderArray($fParentID = null, $depth = 999, $level = 0, $path = '', $pathName = '') {
+	public static function getFolderArray($fpLevel, $fParentID, $depth = 999, $level = 0, $path = '', $pathName = '') {
 
-		if (!isset($fParentID) or $fParentID == '') {
-			$fParentID = null;
-		}
+		if (!is_numeric($fpLevel))
+			$fpLevel = 900;
 
 		$uID = LoginAccess::getUserID();
 
@@ -29,11 +28,12 @@ class Folder {
 		$db = new db();
 		$db -> read("
 			SELECT
-				f.fID, f.fName, f.fParentID, f.fHashLink, fLinkExpireDatetime
+				f.fID, f.fName, f.fParentID, f.fHashLink, fLinkExpireDatetime,
+				(SELECT CONCAT(u.uName, ' ', u.uLastname) FROM folderpermission AS fp LEFT JOIN user AS u ON fp.uID = u.uID WHERE fp.fpPermissionLevel = 900 and fp.fID = f.fID) AS uName
 			FROM
 				folder AS f LEFT JOIN folderpermission AS p ON f.fID = p.fID
 			WHERE
-				$checkParent and p.uID = '$uID' and p.fpPermissionLevel = 900
+				$checkParent and p.uID = '$uID' and p.fpPermissionLevel = '$fpLevel'
 			ORDER BY
 				f.fName ASC");
 
@@ -51,16 +51,15 @@ class Folder {
 			$folder[$row['fID']]['fParentID'] = $fParentID;
 			$folder[$row['fID']]['fID'] = $row['fID'];
 			$folder[$row['fID']]['fName'] = $row['fName'];
+			$folder[$row['fID']]['uName'] = $row['uName'];
 			$folder[$row['fID']]['fHashLink'] = $row['fHashLink'];
 			$folder[$row['fID']]['fLinkExpireDatetime'] = $row['fLinkExpireDatetime'];
 			$folder[$row['fID']]['user'] = self::getFolderPermissions($row['fID']);
 
-			$back = self::getFolderArray($row['fID'], $depth, $level + 1, $path . $alias . '/', $pathName . $row['fName'] . ' / ');
+			$back = self::getFolderArray($fpLevel, $row['fID'], $depth, $level + 1, $path . $alias . '/', $pathName . $row['fName'] . ' / ');
 			if (count($back) > 0) {
 				$folder[$row['fID']]['sub'] = $back;
 			}
-
-			//print_array($back);
 
 		}
 		return $folder;
@@ -75,7 +74,7 @@ class Folder {
 	 * @param string $pathName
 	 * @return array
 	 */
-	public static function getFolder($fParentID = null, $depth = 999, $level = 0, $path = '', $pathName = '') {
+	public static function getFolders($fpLevel, $fParentID, $depth = 999, $level = 0, $path = '', $pathName = '') {
 
 		$uID = LoginAccess::getUserID();
 
@@ -85,16 +84,15 @@ class Folder {
 			$checkParent = "f.fParentID = '$fParentID'";
 		}
 
-		// self::recursive($uID, $fParentID);
-
 		$db = new db();
 		$db -> read("
 			SELECT
-				f.fID, f.fName, f.fParentID, f.fHashLink, fLinkExpireDatetime
+				f.fID, f.fName, f.fParentID, f.fHashLink, fLinkExpireDatetime,
+				(SELECT u.uName FROM folderpermission AS fp LEFT JOIN user AS u ON fp.uID = u.uID WHERE fp.fpPermissionLevel = 900 and fp.fID = f.fID) AS uName
 			FROM
 				folder AS f LEFT JOIN folderpermission AS p ON f.fID = p.fID
 			WHERE
-				$checkParent and p.uID = '$uID' and p.fpPermissionLevel = 900
+				$checkParent and p.uID = '$uID' and p.fpPermissionLevel = '$fpLevel'
 			ORDER BY
 				f.fName ASC");
 
@@ -112,32 +110,17 @@ class Folder {
 			$folder[$path . $alias]['fParentID'] = $fParentID;
 			$folder[$path . $alias]['fID'] = $row['fID'];
 			$folder[$path . $alias]['fName'] = $row['fName'];
+			$folder[$path . $alias]['uName'] = $row['uName'];
 			$folder[$path . $alias]['fHashLink'] = $row['fHashLink'];
 			$folder[$path . $alias]['fLinkExpireDatetime'] = $row['fLinkExpireDatetime'];
 			$folder[$path . $alias]['user'] = self::getFolderPermissions($row['fID']);
 
-			if ($row['fID'] > 1) {
-				$back = self::getFolder($row['fID'], $depth, $level + 1, $path . $alias . '/', $pathName . $row['fName'] . ' / ');
-				if (count($back) > 0) {
-					$folder = array_merge($folder, $back);
-				}
+			$back = self::getFolders($fpLevel, $row['fID'], $depth, $level + 1, $path . $alias . '/', $pathName . $row['fName'] . ' / ');
+			if (count($back) > 0) {
+				$folder = array_merge($folder, $back);
 			}
 		}
 		return $folder;
-	}
-
-	public static function getSharedFolders($uID) {
-		$db = new db();
-		$db -> read("
-				SELECT
-					f.fID, f.fName
-				FROM
-					folder AS f LEFT JOIN folderpermission AS p ON f.fID = p.fID
-				WHERE
-					p.uID = '$uID' and p.fpPermissionLevel = 700
-				ORDER BY
-					f.fName ASC");
-		return $db -> linesAsArray();
 	}
 
 	/**

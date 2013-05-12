@@ -20,7 +20,7 @@ require_once '../configs/setup.php';
   
 require_once '../classes/Folder.php';
 
-print_array(Folder::getFolderArray());
+// print_array(Folder::getFolderArray());
 
 // echo str_word_count(File::readFile('test.txt'));
 

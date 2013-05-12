@@ -18,7 +18,7 @@ textarea{border:solid 1px #cccccc;}
 .floatclear{clear:both;}
 .folderMenue{text-align:right;padding:0 0 20px 0;}
 .button{border:solid 1px #000;padding:2px;background:#f9f9f9;}
-.folders{overflow:auto;margin:0px;width:250px;border-right:dotted 1px #000;min-height:400px;}
+.folders{overflow:auto;margin:0px;width:250px;border-right:dotted 1px #000;min-height:400px;}.folders .selected{font-weight:bold;}
 .files{width:540px;margin:0;}.files .documents{width:100%;border-collapse:collapse;}.files .documents .borderright{border-right:solid 1px #eee;}
 .files .documents td{padding:1px 5px 1px 5px;vertical-align:top;}
 .files .documents .image{width:15px;}

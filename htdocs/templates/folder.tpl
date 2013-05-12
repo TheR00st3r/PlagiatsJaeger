@@ -4,10 +4,13 @@
 	<ul>
 		{/if}
 		{foreach $items as $item}
-		<li id="foo_{$item.fID}">
-			<span class="folder"><a href="{$root}folder/{$item.root}{$item.alias}">{$item.fName}</a></span>
+		<li id="foo_{$item.fID}" {if $item.fID == $folder.fID}class="open"{/if} >
+			<span class="folder">
+				<a href="{$root}{$type}/{$item.root}{$item.alias}">{$item.fName}</a> 
+				{if $type == 'shared'}({$item.uName}){/if}
+			</span>
 			{if $item['sub']}
-			{call name=printFolders items=$item.sub level=$level+1}
+			{call name=printFolders items=$item.sub level=$level+1 type=$type}
 			{/if}
 		</li>
 		{/foreach}
@@ -15,35 +18,16 @@
 	{/function}
 	<ul id="filetree1" class="filetree">
 		<li class="open">
-			<span class="folder"><a href="{$root}folder/">Meine Dateien</a></span>
+			<span class="folder"><a href="{$root}folder">Meine Dateien</a></span>
 			<ul>
-				{call name=printFolders items=$folderNav level=0}
+				{call name=printFolders items=$folderNav level=0 type='folder'}
 		</li>
 		<li class="open">
-			<span class="folder"><a href="{$root}folder/">Freigegebene Ordner (not impl.)</a></span>
+			<span class="folder"><a href="{$root}shared">Freigegebene Ordner</a></span>
 			<ul>
-				<li>
-					<span class="folder">AVH</span>
-					<ul>
-						<li>
-							<span class="folder">Vorlesung Logic</span>
-						</li>
-						<li>
-							<span class="folder">Volesung Test</span>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<span class="folder">PL</span>
-					<ul>
-						<li>
-							<span class="folder">Vorlesung Compilerbau</span>
-						</li>
-					</ul>
-				</li>
-
-			</ul>
+				{call name=printFolders items=$sharedFolders level=0 type='shared'}
 		</li>
+	</ul>
 
 </div>
 <div class="floatright files">
@@ -100,7 +84,6 @@
 		<tr>
 			<th colspan="2">Filename</th>
 			<th>Autor</th>
-			<th colspan="3">Optionen</th>
 		</tr>
 		{$color = ''}
 		{foreach from=$folders item=item}
@@ -111,6 +94,7 @@
 				{$item.fName}
 			</div></td>
 			<td class="borderright">&nbsp;</td>
+			{if $fpLevel == 900}
 			<td class="smal">
 			<div id="shareFolderForm{$item.fID}" style="display: none">
 				<form method="post" action="{$root}{$page}" enctype="multipart/form-data">
@@ -143,6 +127,7 @@
 				</form>
 			</div><a class="create" href="#createLinkForm{$item.fID}">[hash]</a> {/if} </td>
 			<td class="smal"><a href="{$root}{$page}?action=deleteFolder&amp;fID={$item.fID}">[delete]</a></td>
+			{/if}
 		</tr>
 		{if $color == ''}{$color = 'bgcolor'}{else}{$color = ''}{/if}
 		{/foreach}
@@ -154,6 +139,7 @@
 				<a href="report.php?rID={$report.rID}" class="iframeviewer fancybox.iframe">{$report.rDatetime}</a> rID={$report.rID}
 			</li> {/foreach} </td>
 			<td class="borderright">{$item.dAuthor}</td>
+			{if $fpLevel == 900}
 			<td class="smal">
 			<div id="addReport{$item.dID}" style="display: none">
 				<form method="post" action="{$root}{$page}" enctype="multipart/form-data">
@@ -175,6 +161,7 @@
 				</form>
 			</div><a class="create" href="#addReport{$item.dID}">[prüfen]</a></td>
 			<td class="smal">[delete]</td>
+			{/if}
 		</tr>
 		{if $color == ''}{$color = 'bgcolor'}{else}{$color = ''}{/if}
 		{/foreach}

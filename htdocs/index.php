@@ -55,36 +55,46 @@ if ($page == 'public') {
 
 	switch ($url[0]) {
 		case '' :
+		case 'shared' :
 		case 'folder' :
+
+			switch ($url[0]) {
+				case 'shared':
+					$fpLevel = 700;
+					break;
+				default:
+					$fpLevel = 900;
+					break;
+			}
+			$smarty -> assign('fpLevel', $fpLevel);
+
 			require_once '../classes/Document.php';
 			require_once '../classes/Folder.php';
 			require_once '../classes/Upload.php';
 			require_once '../classes/Report.php';
 			require_once '../classes/User.php';
 			require_once '../classes/Setting.php';
-			
+
+			// get users
 			$users = User::getAllUser();
 			$smarty -> assign('users', $users);
 
+			// get settings
 			$settings = Setting::getAllSettings();
 			$smarty -> assign('settings', $settings);
 
+			// get selected folder
 			$folderUrl = deleteItem($url, 0);
 			$folderLink = implode('/', $folderUrl);
-			$allFolders = Folder::getFolder();
+			$allFolders = Folder::getFolders($fpLevel, null);
 			$folder = $allFolders[$folderLink];
+
 			$smarty -> assign('folder', $folder);
 
 			if (Validator::validate(VAL_INTEGER, $_GET['fID'], true)) {
 				switch ($_GET['action']) {
 					case 'deleteFolder' :
 						Folder::deleteFolder($_GET['fID']);
-						break;
-					case 'hash' :
-						Folder::addFolderLink($_POST['fID'], $_POST['fLinkExpireDatetime']);
-						break;
-					default :
-						break;
 				}
 			}
 
@@ -107,7 +117,6 @@ if ($page == 'public') {
 					$messages = $saveCheck['messages'];
 					break;
 				case 'rAdd' :
-					// print_array($_POST);
 					$reportCheck = Report::createReport($_POST['dID'], $_POST['slID'], $_POST['rThreshold'], $_POST['rCheckWWW']);
 					$messages = $reportCheck['messages'];
 					break;
@@ -115,9 +124,16 @@ if ($page == 'public') {
 
 			$smarty -> assign('messages', $messages);
 
+			//get documents from selected folder
 			$smarty -> assign('documents', Document::getDocumentsFromFolderID($folder['fID']));
-			$smarty -> assign('folders', Folder::getFolderArray($folder['fID']));
-			$smarty -> assign('folderNav', Folder::getFolderArray());
+			// get all sub folders from selected folder
+			$smarty -> assign('folders', Folder::getFolderArray($fpLevel, $folder['fID']));
+			//get all folders for navigation overview
+			$smarty -> assign('folderNav', Folder::getFolderArray(900, null));
+			//get all shared folders from user
+			$smarty -> assign('sharedFolders', Folder::getFolderArray(700, null));
+			// $smarty -> assign('sharedFolders', Folder::getSharedFolders(LoginAccess::getUserID()));
+
 			$contentTpl = $smarty -> fetch('folder.tpl');
 			break;
 
@@ -173,7 +189,7 @@ if ($page == 'public') {
 			break;
 
 		case 'reset-password' :
-		require_once '../classes/User.php';
+			require_once '../classes/User.php';
 			$uIDCheck = User::checkRestoreKey($_GET['key']);
 
 			if ($uIDCheck['state']) {
@@ -183,14 +199,14 @@ if ($page == 'public') {
 				if ($userCheck['state']) {
 					if ($_POST['uPasswordReset']) {
 						$pwCheck = User::setUserPassword($_POST['uPassword1'], $_POST['uPassword2'], $uIDCheck['uID']);
-						if($pwCheck['state']) {
+						if ($pwCheck['state']) {
 							$state = true;
 						}
 						$messages = $pwCheck['messages'];
 					}
 				} else
 					$messages = $userCheck['messages'];
-					
+
 				$contentTpl = $smarty -> fetch('reset-password.tpl');
 
 			} else
