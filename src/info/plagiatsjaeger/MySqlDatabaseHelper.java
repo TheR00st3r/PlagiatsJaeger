@@ -49,7 +49,7 @@ public class MySqlDatabaseHelper
 		Class.forName("com.mysql.jdbc.Driver");
 		// Verbindung mit DB herstellen
 		String strPassword = this.readPassword();
-		_connection = DriverManager.getConnection("jdbc:mysql://192.168.4.28/plagiatsjaeger?useUnicode=true&characterEncoding=utf-8", "root", strPassword);
+		_connection = DriverManager.getConnection("jdbc:mysql://localhost/plagiatsjaeger?useUnicode=true&characterEncoding=utf-8", "root", strPassword);
 		// Statements erlauben SQL Abfragen
 		_statement = _connection.createStatement();
 	}
