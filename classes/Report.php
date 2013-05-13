@@ -13,7 +13,7 @@ class Report {
 			$db = new db();
 			if ($db -> insert('report', array('rDatetime' => date('Y-m-d H:m:s'), 'rErrorCode' => $rErrorCode, 'dID' => $dID, 'slID' => $slID, 'rThreshold' => $rThreshold, 'rCheckWWW' => $rCheckWWW))) {
 				$lastReportID = $db -> lastInsertId();
-				$result = file("http://192.168.4.28:8080/PlagiatsJaeger/ReportServlet?rID=" . $lastReportID);
+				$result = file("http://localhost:8080/PlagiatsJaeger/ReportServlet?rID=" . $lastReportID);
 				if ($result == true) {
 					$state = true;
 					$messages[] = array('type' => 'save', 'text' => 'Report wurde erfolgreich angelegt!');
