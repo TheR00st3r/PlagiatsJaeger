@@ -26,11 +26,16 @@ import org.apache.log4j.Logger;
  */
 public class MySqlDatabaseHelper
 {
-	private Connection	_connection	= null;
-	private Statement	_statement	= null;
-	
-	public static final Logger				_logger				= Logger.getLogger(MySqlDatabaseHelper.class.getName());
+	private static final String	SERVERNAME	= "jdbc:mysql://localhost/plagiatsjaeger?useUnicode=true&characterEncoding=utf-8";
+	private static final String	DBDRIVER	= "com.mysql.jdbc.Driver";
 
+	private Connection			_connection	= null;
+	private Statement			_statement	= null;
+	public static final Logger	_logger		= Logger.getLogger(MySqlDatabaseHelper.class.getName());
+
+	/**
+	 * Konstruktor wird noch nicht verwendet
+	 */
 	public MySqlDatabaseHelper()
 	{
 	}
@@ -43,15 +48,28 @@ public class MySqlDatabaseHelper
 	 */
 	private void connect() throws ClassNotFoundException, SQLException
 	{
-		_connection = null;
-		_statement = null;
-		// Laedt den MySQL Treiber
-		Class.forName("com.mysql.jdbc.Driver");
-		// Verbindung mit DB herstellen
-		String strPassword = this.readPassword();
-		_connection = DriverManager.getConnection("jdbc:mysql://localhost/plagiatsjaeger?useUnicode=true&characterEncoding=utf-8", "root", strPassword);
-		// Statements erlauben SQL Abfragen
-		_statement = _connection.createStatement();
+		try
+		{
+			_connection = null;
+			_statement = null;
+			// Laedt den MySQL Treiber
+			Class.forName(DBDRIVER);
+			// Verbindung mit DB herstellen
+			String strPassword = this.readPassword();
+			_connection = DriverManager.getConnection(SERVERNAME, "root", strPassword);
+			// Statements erlauben SQL Abfragen
+			_statement = _connection.createStatement();
+		}
+		catch (ClassNotFoundException e)
+		{
+			_logger.fatal(e.getMessage());
+			e.printStackTrace();
+		}
+		catch (SQLException e)
+		{
+			_logger.fatal(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -59,22 +77,28 @@ public class MySqlDatabaseHelper
 	 * 
 	 * @throws SQLException
 	 */
-	private void disconnect() throws SQLException
+	private void disconnect()
 	{
-		if (!_statement.isClosed()) _statement.close();
-		if (!_connection.isClosed()) _connection.close();
+		try
+		{
+			if (!_statement.isClosed()) _statement.close();
+			if (!_connection.isClosed()) _connection.close();
+		}
+		catch (SQLException e)
+		{
+			_logger.fatal(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	/**
 	 * Ermittelt das Passwort aus dem Passwordfile
 	 * 
-	 * @return result
+	 * @return result Passwort als String
 	 */
 	public String readPassword()
 	{
 		String result = "";
-		// Open the file that is the first
-		// command line parameter
 		String strFilepath = System.getProperty("user.home") + File.separator + "password.txt";
 		result = SourceLoader.loadFile(strFilepath).trim();
 		return result;
@@ -85,7 +109,9 @@ public class MySqlDatabaseHelper
 	 * gefunden wurden, zu einem Report ein.
 	 * 
 	 * @param compareResults
+	 *            Gefundene Resultate
 	 * @param dID
+	 *            Zu Resultat gehoerende DocId
 	 */
 	public void insertCompareResults(ArrayList<CompareResult> compareResults, int dID)
 	{
@@ -99,8 +125,7 @@ public class MySqlDatabaseHelper
 			for (CompareResult result : compareResults)
 			{
 				String text = new String(result.getSourceText().getBytes("UTF-8"), "UTF-8");
-				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + text  + "' , '" + "' , '" + dID + "' , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "' , '" + df.format(result.getSimilarity()*100) + "' , '" + result.getReportID() + "' )";
-				//strStatement = "INSERT INTO result VALUES(DEFAULT, '" + result.getSourceText() + "' , '" + "' , '" + dID + "' , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "' , '" + df.format(result.getSimilarity()*100) + "' , '" + result.getReportID() + "' )";
+				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + text + "' , '" + "' , '" + dID + "' , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "' , '" + df.format(result.getSimilarity() * 100) + "' , '" + result.getReportID() + "' )";
 				_statement.executeUpdate(strStatement);
 			}
 			disconnect();
@@ -128,7 +153,9 @@ public class MySqlDatabaseHelper
 	 * gefunden wurden, zu einem Report ein.
 	 * 
 	 * @param compareResults
+	 *            gefundene Resultate
 	 * @param sourceLink
+	 *            zu Resultaten gehoerender Link
 	 */
 	public void insertCompareResults(ArrayList<CompareResult> compareResults, String sourceLink)
 	{
@@ -142,7 +169,7 @@ public class MySqlDatabaseHelper
 			for (CompareResult result : compareResults)
 			{
 				String text = new String(result.getSourceText().getBytes("UTF-8"), "UTF-8");
-				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + text + "','" + sourceLink + "' , " + "null" + " , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "','" + df.format(result.getSimilarity()*100) + "' , '" + result.getReportID() + "' )";
+				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + text + "','" + sourceLink + "' , " + "null" + " , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "','" + df.format(result.getSimilarity() * 100) + "' , '" + result.getReportID() + "' )";
 				_statement.executeUpdate(strStatement);
 			}
 			disconnect();
@@ -175,23 +202,20 @@ public class MySqlDatabaseHelper
 		int result = 0;
 
 		String strStatement = "SELECT dID FROM report WHERE rID = " + rID;
-		ResultSet rstResultSet;
 		try
 		{
-			connect();
-			rstResultSet = _statement.executeQuery(strStatement);
+			ResultSet rstResultSet = startQuery(strStatement);
 			if (rstResultSet.next())
 			{
 				result = rstResultSet.getInt("dID");
 			}
-			this.disconnect();
 		}
-		catch (SQLException e)
+		catch (ClassNotFoundException e)
 		{
 			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
-		catch (Exception e)
+		catch (SQLException e)
 		{
 			_logger.fatal(e.getMessage());
 			e.printStackTrace();
@@ -207,33 +231,45 @@ public class MySqlDatabaseHelper
 	 */
 	public ResultSet startQuery(String query) throws ClassNotFoundException, SQLException
 	{
-		connect();
-		ResultSet rstResultSet = _statement.executeQuery(query);
-		disconnect();
+		ResultSet rstResultSet = null;
+		try
+		{
+			connect();
+			rstResultSet = _statement.executeQuery(query);
+			disconnect();
+		}
+		catch (SQLException e)
+		{
+			_logger.fatal(e.getMessage());
+			e.printStackTrace();
+		}
+		catch (ClassNotFoundException e)
+		{
+			_logger.fatal(e.getMessage());
+			e.printStackTrace();
+		}
 		return rstResultSet;
 	}
 
 	/**
-	 * Laed die Einstellungen zu einem Report aus der Datenbank.
+	 * Laedt die Einstellungen zu einem Report aus der Datenbank.
 	 * 
 	 * @param rId
-	 * @return result
+	 *            DocumentId des aktuellen Reports
+	 * @return result Gibt Settingsobjekt zurueck
 	 */
 	public Settings getSettings(int rId)
 	{
 		Settings result = null;
-
-		String strStatement = "SELECT s.sThreshold, sl.slSearchSentenceLength, sl.slSearchJumpLength, sl.slCompareSentenceLength, sl.slCompareJumpLength, s.sCheckWWW FROM report AS r LEFT JOIN setting AS s ON r.sID = s.sID LEFT JOIN settinglevel AS sl on s.sLevel = slID WHERE r.rID = " + rId;
-		ResultSet rstResultSet;
+		String strStatement = "SELECT r.rThreshold, sl.slSearchSentenceLength, sl.slSearchJumpLength, sl.slCompareSentenceLength, sl.slCompareJumpLength, r.rCheckWWW FROM report AS r LEFT JOIN settinglevel AS sl ON r.slID = sl.sID WHERE r.rID = " + rId;
+		ResultSet rstResultSet = null;
 		try
 		{
-			connect();
-			rstResultSet = _statement.executeQuery(strStatement);
+			rstResultSet = startQuery(strStatement);
 			if (rstResultSet.next())
 			{
-				result = new Settings(rstResultSet.getInt("s.sThreshold"), rstResultSet.getInt("sl.slSearchSentenceLength"), rstResultSet.getInt("sl.slSearchJumpLength"), rstResultSet.getInt("sl.slCompareSentenceLength"), rstResultSet.getInt("sl.slCompareJumpLength"), rstResultSet.getBoolean("s.sCheckWWW"));
+				result = new Settings(rstResultSet.getInt("r.Threshold"), rstResultSet.getInt("sl.slSearchSentenceLength"), rstResultSet.getInt("sl.slSearchJumpLength"), rstResultSet.getInt("sl.slCompareSentenceLength"), rstResultSet.getInt("sl.slCompareJumpLength"), rstResultSet.getBoolean("r.rCheckWWW"));
 			}
-			this.disconnect();
 		}
 		catch (SQLException e)
 		{
@@ -249,15 +285,18 @@ public class MySqlDatabaseHelper
 		return result;
 	}
 
+	/**
+	 * 
+	 */
 	public void setReportState(int rId, ErrorCode state)
 	{
 		try
 		{
 			connect();
-			String strStatement = "UPDATE report SET rID="+rId;
+			String strStatement = "UPDATE report SET rID=" + rId;
 			_statement.executeUpdate(strStatement);
 			disconnect();
-			_logger.info("State changed for: "+rId+"to "+state);
+			_logger.info("State changed for: " + rId + "to " + state);
 		}
 		catch (ClassNotFoundException e)
 		{
@@ -270,10 +309,9 @@ public class MySqlDatabaseHelper
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
-	 * <b>Noch nicht implementiert!</b></br> Setzt ein Document als fertig
-	 * geparst.
+	 * Noch nicht implementiert! Setzt ein Document als fertig geparst.
 	 * 
 	 * @param docId
 	 */
@@ -282,10 +320,10 @@ public class MySqlDatabaseHelper
 		try
 		{
 			connect();
-			String strStatement = "UPDATE document SET dIsParsed=1 WHERE dID="+docId;
+			String strStatement = "UPDATE document SET dIsParsed=1 WHERE dID=" + docId;
 			_statement.executeUpdate(strStatement);
 			disconnect();
-			_logger.info("Setting document parsed in DB: "+docId);
+			_logger.info("Setting document parsed in DB: " + docId);
 		}
 		catch (ClassNotFoundException e)
 		{
