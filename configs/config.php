@@ -8,7 +8,8 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
 	$logData['debug'] = true;
 	require_once '../../database.php';
 	require_once '../../mail.php';
-
+	
+	$backendUrl = 'http://localhost:8080/PlagiatsJaeger/';
 	$root = 'http://localhost:8888/webseiten/plagiatsjaeger-app/htdocs/';
 
 } else {
@@ -17,6 +18,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
 	
 	$logData['debug'] = true;
 	
+	$backendUrl = 'http://localhost:8080/PlagiatsJaeger/';
 	$root = 'http://192.168.4.28/';
 }
 

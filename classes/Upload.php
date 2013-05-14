@@ -33,16 +33,7 @@ class Upload {
 	 * @return boolean
 	 */
 	public static function fileUpload($dID, $file) {
-
-		if (Validator::validate(VAL_INTEGER, $dID, true)) {
-			require_once 'File.php';
-			echo 'ok2';
-			if (File::copyTempFile($dID, $file)) {
-				echo 'ok1';
-				return true;
-			}
-		}
-		return false;
+		return File::copyTempFile($dID, $file);
 	}
 
 	/**

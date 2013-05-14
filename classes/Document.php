@@ -37,18 +37,25 @@ class Document {
 	 * @return string
 	 */
 	public static function fileUpload($fID, $dAuthor, $file) {
-
+		$state = false;
 		if (Validator::validate(VAL_INTEGER, $fID, true) and Validator::validate(VAL_STRING, $dAuthor)) {
 			require_once 'Upload.php';
 			$db = new db();
 			if ($db -> insert('document', array('dOriginalName' => $file["name"], 'dAuthor' => $dAuthor, 'fID' => $fID))) {
 				$lastID = $db -> lastInsertId();
-				if (Upload::fileUpload($lastID, $file)) {
-					return true;
-				}
-			}
-		}
-		return false;
+				$uploadCheck = Upload::fileUpload($lastID, $file);
+				if ($uploadCheck['state']) {
+					$state = true;
+				} else
+					$messages = $uploadCheck['messages'];
+			} else
+				$messages[] = array('type' => 'error', 'text' => 'Report wurde nicht angelegt!');
+		} else
+			$messages[] = array('type' => 'error', 'text' => 'Parameter haben kein gültiges Format!');
+			
+		$return['state'] = $state;
+		$return['messages'] = $messages;
+		return $return;
 	}
 
 	/**
