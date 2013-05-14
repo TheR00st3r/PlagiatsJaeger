@@ -30,7 +30,7 @@ public class Control
 	/**
 	 * Dateipfad fuer die Dateien auf dem Server.
 	 */
-	private static final String		ROOT_FILES		= "/srv/www/uploads/";
+	private static final String		ROOT_FILES		= "/var/www/uploads";
 	private static final Logger		_logger			= Logger.getLogger(Control.class.getName());
 	private static final int		SIZE_THREADPOOL	= 20;
 
