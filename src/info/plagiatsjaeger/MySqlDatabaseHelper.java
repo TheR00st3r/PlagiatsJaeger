@@ -220,6 +220,11 @@ public class MySqlDatabaseHelper
 			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
+		finally
+		{
+			disconnect();
+		}
+		
 		return result;
 	}
 
@@ -236,7 +241,7 @@ public class MySqlDatabaseHelper
 		{
 			connect();
 			rstResultSet = _statement.executeQuery(query);
-			disconnect();
+			
 		}
 		catch (SQLException e)
 		{
@@ -247,6 +252,10 @@ public class MySqlDatabaseHelper
 		{
 			_logger.fatal(e.getMessage());
 			e.printStackTrace();
+		}
+		finally
+		{
+			disconnect();
 		}
 		return rstResultSet;
 	}
@@ -280,6 +289,10 @@ public class MySqlDatabaseHelper
 		{
 			_logger.fatal(e.getMessage());
 			e.printStackTrace();
+		}
+		finally
+		{
+			disconnect();
 		}
 
 		return result;
