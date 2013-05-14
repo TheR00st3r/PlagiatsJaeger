@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 
 
@@ -30,6 +31,8 @@ public abstract class OnlineSearch implements IOnlineSearch
 	private static int				MAX_URLS						= 5;
 	protected static final String	CHARSET							= "UTF-8";
 
+	private static final Logger	_logger				= Logger.getLogger(BlekkoSearch.class.getName());
+	
 	protected OnlineSearch()
 	{
 	}
@@ -62,31 +65,24 @@ public abstract class OnlineSearch implements IOnlineSearch
 	}
 
 	@Override
-	public void searchAsync(final String searchString, final int numWordsToSearchFor)
+	public void searchAsync(final String completeString, final int numWordsToSearchFor)
 	{
-		new Thread(new Runnable()
+		WordProcessing wordProcessing = new WordProcessing();
+		String[] words = wordProcessing.splitToWords(completeString);
+		for (int i = 0; i < words.length - numWordsToSearchFor; i += numWordsToSearchFor)
 		{
-			@Override
-			public void run()
+			String searchString = "";
+			for (int j = 0; j < numWordsToSearchFor; j++)
 			{
-				WordProcessing wordProcessing = new WordProcessing();
-				String[] words = wordProcessing.splitToWords(searchString);
-				for (int i = 0; i < words.length - numWordsToSearchFor; i += numWordsToSearchFor)
+				if (searchString.length() > 0)
 				{
-					String searchString = "";
-					for (int j = 0; j < numWordsToSearchFor; j++)
-					{
-						if (searchString.length() > 0)
-						{
-							searchString += " ";
-						}
-						searchString += words[i + j];
-					}
-					search(searchString, buildSearchString(searchString));
+					searchString += " ";
 				}
+				searchString += words[i + j];
 			}
-		}).start();
-
+			_logger.info(i + "/" +  (words.length - numWordsToSearchFor)  + " Suche nach: " + searchString);
+			search(searchString, buildSearchString(searchString));
+		}
 	}
 
 	protected abstract URL buildSearchString(String searchString);
@@ -154,7 +150,7 @@ public abstract class OnlineSearch implements IOnlineSearch
 		_allSearchResults.addAll(alUrlList);
 		return alUrlList;
 	}
-	
+
 	@Override
 	public ArrayList<String> search(String searchString)
 	{

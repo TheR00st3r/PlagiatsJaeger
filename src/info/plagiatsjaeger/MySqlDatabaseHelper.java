@@ -253,10 +253,6 @@ public class MySqlDatabaseHelper
 			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
-		finally
-		{
-			disconnect();
-		}
 		return rstResultSet;
 	}
 
@@ -306,10 +302,10 @@ public class MySqlDatabaseHelper
 		try
 		{
 			connect();
-			String strStatement = "UPDATE report SET rID=" + rId;
+			String strStatement = "UPDATE report SET rErrorCode=" + state.value() + " WHERE rId=" + rId;
 			_statement.executeUpdate(strStatement);
 			disconnect();
-			_logger.info("State changed for: " + rId + "to " + state);
+			_logger.info("State changed for: " + rId + "to " + state.value());
 		}
 		catch (ClassNotFoundException e)
 		{

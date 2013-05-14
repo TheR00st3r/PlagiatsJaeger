@@ -30,20 +30,23 @@ public class Control
 	/**
 	 * Dateipfad fuer die Dateien auf dem Server.
 	 */
-	private static final String		ROOT_FILES		= "/var/www/uploads";
-	private static final Logger		_logger			= Logger.getLogger(Control.class.getName());
-	private static final int		SIZE_THREADPOOL	= 20;
+	private static final String		ROOT_FILES			= "/var/www/uploads/";
+	private static final Logger		_logger				= Logger.getLogger(Control.class.getName());
+	private static final int		SIZE_THREADPOOL		= 20;
 
 	private Settings				_settings;
-	private ExecutorService			_threadPool		= Executors.newFixedThreadPool(SIZE_THREADPOOL);
-	private ArrayList<Future<Void>>	_futures		= new ArrayList<Future<Void>>();
+	private ExecutorService			_threadPool			= Executors.newFixedThreadPool(SIZE_THREADPOOL);
+	private ArrayList<Future<Void>>	_futures			= new ArrayList<Future<Void>>();
+
+	private ExecutorService			_threadPoolSearch	= Executors.newFixedThreadPool(SIZE_THREADPOOL);
+	private ArrayList<Future<Void>>	_futuresSearch		= new ArrayList<Future<Void>>();
 
 	/**
 	 * <b>Noch nicht implementiert!</b></br> Konvertiert eine Datei in das
 	 * normalisierte txt-Format.
 	 * 
 	 * @param documentHash
-	 * @return 
+	 * @return
 	 */
 	public boolean startParsing(int documentHash)
 	{
@@ -110,7 +113,7 @@ public class Control
 		final String strSourceText = SourceLoader.loadFile(filePath);
 		if (_settings.getCheckWWW())
 		{
-			IOnlineSearch iOnlineSearch = new BlekkoSearch();
+			final IOnlineSearch iOnlineSearch = new BlekkoSearch();
 			iOnlineSearch.setOnLinkFoundListener(new OnLinkFoundListener()
 			{
 				@Override
@@ -128,7 +131,15 @@ public class Control
 					}));
 				}
 			});
-			iOnlineSearch.searchAsync(strSourceText, 8);
+			_futuresSearch.add(_threadPoolSearch.submit(new Callable<Void>()
+			{
+				@Override
+				public Void call()
+				{
+					iOnlineSearch.searchAsync(strSourceText, _settings.getSearchSentenceLength());
+					return null;
+				}
+			}));
 		}
 		ArrayList<Integer> localFolders = _settings.getLocalFolders();
 		if (localFolders != null)
@@ -148,11 +159,45 @@ public class Control
 			}
 		}
 		boolean succesful = true;
+		int numThreadsFinished = 0;
+		// Sicherstellen dass die Suche beendet ist.
+		for (Future<Void> future : _futuresSearch)
+		{
+			try
+			{
+				future.get();
+				numThreadsFinished++;
+				_logger.info(numThreadsFinished + "/" + _futuresSearch.size() + " searches finished");
+			}
+			catch (CancellationException e)
+			{
+				_logger.fatal(e.getMessage());
+				e.printStackTrace();
+				succesful = false;
+			}
+			catch (InterruptedException e)
+			{
+				_logger.fatal(e.getMessage());
+				e.printStackTrace();
+				succesful = false;
+			}
+			catch (ExecutionException e)
+			{
+				_logger.fatal(e.getMessage());
+				e.printStackTrace();
+				succesful = false;
+			}
+		}
+
+		// Sicherstellen, dass alle Vergleiche fertiggestellt sind
+		numThreadsFinished = 0;
 		for (Future<Void> future : _futures)
 		{
 			try
 			{
 				future.get();
+				numThreadsFinished++;
+				_logger.info(numThreadsFinished + "/" + _futures.size() + " compare finished");
 			}
 			catch (CancellationException e)
 			{
@@ -177,8 +222,9 @@ public class Control
 		if (succesful)
 		{
 			mySqlDatabaseHelper.setReportState(rId, ErrorCode.Succesful);
+			_logger.info("Report " + rId + " fertiggestellt!");
 		}
-		if(!succesful || ( localFolders == null && !_settings.getCheckWWW()))
+		if (!succesful || (localFolders == null && !_settings.getCheckWWW()))
 		{
 			mySqlDatabaseHelper.setReportState(rId, ErrorCode.Error);
 		}
