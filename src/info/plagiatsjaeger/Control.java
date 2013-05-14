@@ -171,9 +171,14 @@ public class Control
 				succesful = false;
 			}
 		}
+		MySqlDatabaseHelper mySqlDatabaseHelper = new MySqlDatabaseHelper();
 		if (succesful)
 		{
-			new MySqlDatabaseHelper().setReportState(rId, ErrorCode.Succesful);
+			mySqlDatabaseHelper.setReportState(rId, ErrorCode.Succesful);
+		}
+		if(!succesful || ( _futures.size()<=0 && !_settings.getCheckWWW()))
+		{
+			mySqlDatabaseHelper.setReportState(rId, ErrorCode.Error);
 		}
 	}
 
