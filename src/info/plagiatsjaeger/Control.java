@@ -131,7 +131,7 @@ public class Control
 		ArrayList<Integer> localFolders = _settings.getLocalFolders();
 		if (localFolders != null)
 		{
-			for (final int i : _settings.getLocalFolders())
+			for (final int i : localFolders)
 			{
 				_futures.add(_threadPool.submit(new Callable<Void>()
 				{
@@ -176,7 +176,7 @@ public class Control
 		{
 			mySqlDatabaseHelper.setReportState(rId, ErrorCode.Succesful);
 		}
-		if(!succesful || ( _futures.size()<=0 && !_settings.getCheckWWW()))
+		if(!succesful || ( localFolders == null && !_settings.getCheckWWW()))
 		{
 			mySqlDatabaseHelper.setReportState(rId, ErrorCode.Error);
 		}
