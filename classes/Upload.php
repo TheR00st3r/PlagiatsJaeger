@@ -36,7 +36,9 @@ class Upload {
 
 		if (Validator::validate(VAL_INTEGER, $dID, true)) {
 			require_once 'File.php';
+			echo 'ok2';
 			if (File::copyTempFile($dID, $file)) {
+				echo 'ok1';
 				return true;
 			}
 		}

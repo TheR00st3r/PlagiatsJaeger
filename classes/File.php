@@ -39,10 +39,15 @@ class File {
 
 			$pos = strripos($file["name"], '.');
 			$extension = strtolower(substr($file["name"], $pos));
+			echo '--'.$extension.'--';
 
 			if (in_array($extension, $allowedExtensions)) {
 
 				if (copy($file["tmp_name"], self::path . $dID . $extension)) {
+					$result = file("http://localhost:8080/PlagiatsJaeger/ParseServlet?dID=" . $dID."&dFileEndling=".$extension);
+					if ($result == true) {
+						// $messages[] = array('type' => 'save', 'text' => 'Report wurde erfolgreich angelegt!');
+					}
 					return true;
 				}
 				// else $messages[] = array('type' => 'error', 'text' => 'PDF ' . $file["name"] . ' nicht gesichert.');
