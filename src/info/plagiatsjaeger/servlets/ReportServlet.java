@@ -37,7 +37,6 @@ public class ReportServlet extends HttpServlet
 	{
 		response.setContentType("text/html");
 		final int rID = Integer.parseInt(request.getParameter("rID"));
-
 		PrintWriter out = response.getWriter();
 		if (new Control().startPlagiatsSearch(rID))
 		{
