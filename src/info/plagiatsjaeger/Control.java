@@ -43,8 +43,9 @@ public class Control
 	 * normalisierte txt-Format.
 	 * 
 	 * @param documentHash
+	 * @return 
 	 */
-	public void startParsing(int documentHash)
+	public boolean startParsing(int documentHash)
 	{
 		try
 		{
@@ -54,6 +55,7 @@ public class Control
 			e.printStackTrace();
 			_logger.fatal(e.getMessage());
 		}
+		return false;
 
 	}
 
