@@ -30,7 +30,7 @@ public class Control
 	/**
 	 * Dateipfad fuer die Dateien auf dem Server.
 	 */
-	private static final String		ROOT_FILES		= "/srv/www/uploads/";
+	private static final String		ROOT_FILES		= "/var/www/uploads";
 	private static final Logger		_logger			= Logger.getLogger(Control.class.getName());
 	private static final int		SIZE_THREADPOOL	= 20;
 
@@ -43,8 +43,9 @@ public class Control
 	 * normalisierte txt-Format.
 	 * 
 	 * @param documentHash
+	 * @return 
 	 */
-	public void startParsing(int documentHash)
+	public boolean startParsing(int documentHash)
 	{
 		try
 		{
@@ -54,6 +55,7 @@ public class Control
 			e.printStackTrace();
 			_logger.fatal(e.getMessage());
 		}
+		return false;
 
 	}
 

@@ -13,17 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * Servlet implementation class ReportServlet
+ * Servlet implementation class ParseServlet
  */
-@WebServlet("/ReportServlet")
-public class ReportServlet extends HttpServlet
+@WebServlet("/ParseServlet")
+public class ParseServlet extends HttpServlet
 {
 	private static final long	serialVersionUID	= 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ReportServlet()
+	public ParseServlet()
 	{
 		super();
 		// TODO Auto-generated constructor stub
@@ -36,9 +36,10 @@ public class ReportServlet extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		response.setContentType("text/html");
-		final int rID = Integer.parseInt(request.getParameter("rID"));
+		final int dID = Integer.parseInt(request.getParameter("dID"));
+
 		PrintWriter out = response.getWriter();
-		if (new Control().startPlagiatsSearch(rID))
+		if (new Control().startParsing(dID))
 		{
 			out.print("true");
 		}
