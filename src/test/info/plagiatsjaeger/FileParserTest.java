@@ -27,25 +27,25 @@ public class FileParserTest {
 		String ergebnisstring2 = "Ich bin eine doc";
 		String ergebnisstring3 = "Ich bin eine docx";
 		
-		assertTrue(fparser.parseFile("/srv/www/testfiles/testfileparser1.txt"));		//TXT-Datei mit Leerstring
-		assertTrue(fparser.parseFile("/srv/www/testfiles/testfileparser2.txt"));		//TXT-Datei mit Inhalt
-		assertTrue(fparser.parseFile("/srv/www/testfiles/testfileparser3.pdf"));		//PDF-Datei mit Leerstring
-		assertTrue(fparser.parseFile("/srv/www/testfiles/testfileparser4.pdf"));		//PDF-Datei mit Inhalt
-		assertTrue(fparser.parseFile("/srv/www/testfiles/testfileparser5.docx"));		//DOCX-Datei mit Leerstring
-		assertTrue(fparser.parseFile("/srv/www/testfiles/testfileparser6.docx"));		//DOCX-Datei mit Inhalt
-		assertTrue(fparser.parseFile("/srv/www/testfiles/testfileparser7.doc"));		//DOC-Datei mit Leerstring
-		assertTrue(fparser.parseFile("/srv/www/testfiles/testfileparser8.doc"));		//DOC-Datei mit Inhalt
+		assertTrue(fparser.parseFile("/var/www/testfiles/testfileparser1.txt"));		//TXT-Datei mit Leerstring
+		assertTrue(fparser.parseFile("/var/www/testfiles/testfileparser2.txt"));		//TXT-Datei mit Inhalt
+		assertTrue(fparser.parseFile("/var/www/testfiles/testfileparser3.pdf"));		//PDF-Datei mit Leerstring
+		assertTrue(fparser.parseFile("/var/www/testfiles/testfileparser4.pdf"));		//PDF-Datei mit Inhalt
+		assertTrue(fparser.parseFile("/var/www/testfiles/testfileparser5.docx"));		//DOCX-Datei mit Leerstring
+		assertTrue(fparser.parseFile("/var/www/testfiles/testfileparser6.docx"));		//DOCX-Datei mit Inhalt
+		assertTrue(fparser.parseFile("/var/www/testfiles/testfileparser7.doc"));		//DOC-Datei mit Leerstring
+		assertTrue(fparser.parseFile("/var/www/testfiles/testfileparser8.doc"));		//DOC-Datei mit Inhalt
 		
-		assertFalse(fparser.parseFile("/srv/www/testfiles/dateifehlt"));
-		assertFalse(fparser.parseFile("/srv/www/testfiles/dateifehlt.txt"));
-		assertFalse(fparser.parseFile("/srv/www/testfiles/testfileparser9.pdf"));
+		assertFalse(fparser.parseFile("/var/www/testfiles/dateifehlt"));
+		assertFalse(fparser.parseFile("/var/www/testfiles/dateifehlt.txt"));
+		assertFalse(fparser.parseFile("/var/www/testfiles/testfileparser9.pdf"));
 		
-		assertEquals(ergebnisstring1, sloader.loadFile("/srv/www/testfiles/testfileparser3.txt"));
-		assertEquals(ergebnisstring1, sloader.loadFile("/srv/www/testfiles/testfileparser4.txt"));
-		assertEquals(ergebnisstring3, sloader.loadFile("/srv/www/testfiles/testfileparser5.txt"));
-		assertEquals(ergebnisstring3, sloader.loadFile("/srv/www/testfiles/testfileparser6.txt"));
-		assertEquals(ergebnisstring2, sloader.loadFile("/srv/www/testfiles/testfileparser7.txt"));
-		assertEquals(ergebnisstring2, sloader.loadFile("/srv/www/testfiles/testfileparser8.txt"));
+		assertEquals(ergebnisstring1, sloader.loadFile("/var/www/testfiles/testfileparser3.txt"));
+		assertEquals(ergebnisstring1, sloader.loadFile("/var/www/testfiles/testfileparser4.txt"));
+		assertEquals(ergebnisstring3, sloader.loadFile("/var/www/testfiles/testfileparser5.txt"));
+		assertEquals(ergebnisstring3, sloader.loadFile("/var/www/testfiles/testfileparser6.txt"));
+		assertEquals(ergebnisstring2, sloader.loadFile("/var/www/testfiles/testfileparser7.txt"));
+		assertEquals(ergebnisstring2, sloader.loadFile("/var/www/testfiles/testfileparser8.txt"));
 		
 		
 		
