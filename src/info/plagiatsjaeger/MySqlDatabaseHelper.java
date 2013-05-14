@@ -261,14 +261,14 @@ public class MySqlDatabaseHelper
 	public Settings getSettings(int rId)
 	{
 		Settings result = null;
-		String strStatement = "SELECT r.rThreshold, sl.slSearchSentenceLength, sl.slSearchJumpLength, sl.slCompareSentenceLength, sl.slCompareJumpLength, r.rCheckWWW FROM report AS r LEFT JOIN settinglevel AS sl ON r.slID = sl.sID WHERE r.rID = " + rId;
+		String strStatement = "SELECT r.rThreshold, sl.slSearchSentenceLength, sl.slSearchJumpLength, sl.slCompareSentenceLength, sl.slCompareJumpLength, r.rCheckWWW FROM report AS r LEFT JOIN settinglevel AS sl ON r.slID = sl.slID WHERE r.rID = " + rId;
 		ResultSet rstResultSet = null;
 		try
 		{
 			rstResultSet = startQuery(strStatement);
 			if (rstResultSet.next())
 			{
-				result = new Settings(rstResultSet.getInt("r.Threshold"), rstResultSet.getInt("sl.slSearchSentenceLength"), rstResultSet.getInt("sl.slSearchJumpLength"), rstResultSet.getInt("sl.slCompareSentenceLength"), rstResultSet.getInt("sl.slCompareJumpLength"), rstResultSet.getBoolean("r.rCheckWWW"));
+				result = new Settings(rstResultSet.getInt("r.rThreshold"), rstResultSet.getInt("sl.slSearchSentenceLength"), rstResultSet.getInt("sl.slSearchJumpLength"), rstResultSet.getInt("sl.slCompareSentenceLength"), rstResultSet.getInt("sl.slCompareJumpLength"), rstResultSet.getBoolean("r.rCheckWWW"));
 			}
 		}
 		catch (SQLException e)
