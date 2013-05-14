@@ -4,7 +4,7 @@ class User {
 
 	/**
 	 * Returns all users from database.
-	 * @return array
+	 * @return array with usrs
 	 */
 	public static function getAllUser() {
 		
@@ -29,7 +29,7 @@ class User {
 
 	/**
 	 * Returns the user infos from the given user id.
-	 * @return array
+	 * @return array with users details
 	 */
 	public static function getUser($uID) {
 		$state = false;
@@ -172,7 +172,7 @@ class User {
 	/**
 	 * Checks if the given restore key is valide and returns the usere id.
 	 * @param string $uRestoreKey
-	 * @return int $uID
+	 * @return int $uID the user id
 	 */
 	public static function checkRestoreKey($uRestoreKey) {
 		$state = false;
@@ -202,7 +202,7 @@ class User {
 	 * @param string $password1
 	 * @param string $password2
 	 * @param int $uID
-	 * @return int $uID
+	 * @return int $uID the user id
 	 */
 	public static function setUserPassword($password1, $password2, $uID) {
 		$state = false;
@@ -234,6 +234,12 @@ class User {
 		throw new Exception('Not implemented');
 	}
 
+	/**
+	 * Activate the user with the given user id and set the permission level
+	 * @param int $uID
+	 * @param int $uPermissonLevel
+	 * @return boolean
+	 */
 	public static function activateUser($uID, $uPermissonLevel) {
 		$state = false;
 		if (Validator::validate(VAL_INTEGER, $uPermissonLevel, true) and Validator::validate(VAL_INTEGER, $uID, true)) {
@@ -257,6 +263,11 @@ class User {
 		return $return;
 	}
 
+	/**
+	 * Deletes the user from the given user id.
+	 * @param int $uID
+	 * @return boolean
+	 */
 	public static function deleteUser($uID) {
 		$state = false;
 		if (Validator::validate(VAL_INTEGER, $uID, true)) {
@@ -280,6 +291,12 @@ class User {
 		return $return;
 	}
 
+	/**
+	 * Validate check for the passwords
+	 * @param string $password1
+	 * @param string $password2
+	 * @return boolean
+	 */
 	private static function checkNewPassword($password1, $password2) {
 		$state = false;
 		if (Validator::validate(VAL_PASSWORD, $password1, true) and Validator::validate(VAL_PASSWORD, $password2, true)) {
@@ -302,6 +319,11 @@ class User {
 		return $return;
 	}
 
+	/**
+	 * Returns the client id from client number
+	 * @param int $cNumber
+	 * @return int $cID
+	 */
 	private static function getClientIDfromClientNumber($cNumber) {
 		$state = false;
 		if (Validator::validate(VAL_INTEGER, $cNumber, true)) {
@@ -329,7 +351,6 @@ class User {
 
 	/**
 	 * Returns the user id from the given emailaddress
-
 	 * @param string $uEMailAdress
 	 * @return int $cID
 	 */

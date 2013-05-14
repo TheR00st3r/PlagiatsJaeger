@@ -2,6 +2,7 @@
 
 class File {
 
+	// TODO: Path in configs auslagern
 	const path = '../uploads/';
 
 	/**
