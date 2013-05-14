@@ -81,6 +81,7 @@ public class Control
 					{
 						_logger.info("Thread started!");
 						_settings = mySqlDatabaseHelper.getSettings(rId);
+						mySqlDatabaseHelper.setReportState(rId, ErrorCode.Started);
 						startPlagiatsSearch(ROOT_FILES + intDocumentId + ".txt", rId);
 					}
 				}).start();
@@ -119,7 +120,6 @@ public class Control
 						public Void call()
 						{
 							_logger.info("Thread for Link started: " + link);
-							new MySqlDatabaseHelper().setReportState(rId, ErrorCode.Started);
 							compare(rId, strSourceText, link, 0);
 							return null;
 						}
