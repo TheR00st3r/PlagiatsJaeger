@@ -49,7 +49,7 @@ class Document {
 				}
 				$messages = $uploadCheck['messages'];
 			} else
-				$messages[] = array('type' => 'error', 'text' => 'Report wurde nicht angelegt!');
+				$messages[] = array('type' => 'error', 'text' => 'Dokument wurde nicht angelegt!');
 		} else
 			$messages[] = array('type' => 'error', 'text' => 'Parameter haben kein gültiges Format!');
 			
