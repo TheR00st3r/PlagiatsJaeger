@@ -8,7 +8,7 @@
 		<copy todir="${webroot}">
 			<fileset dir="${source}">
 				<exclude name=".htaccess" />
-				<exclude name="phpdoc" />
+				<exclude name="phpdoc/*.*" />
 			</fileset>
 		</copy>
 	</target>
