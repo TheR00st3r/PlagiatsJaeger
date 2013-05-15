@@ -59,7 +59,8 @@ public class Control
 				@Override
 				public void run()
 				{
-
+					try
+					{
 					_logger.info("Thread started: " + dId + fileEnding);
 					FileParser fileParser = new FileParser();
 					if (fileParser.parseFile(ROOT_FILES + "documentHash" + fileEnding))
@@ -69,6 +70,11 @@ public class Control
 					else
 					{
 						// TODO: parseerror erfassen
+					}}
+					catch(Exception e)
+					{
+						_logger.info(e.getMessage());
+						_logger.info(e.getStackTrace());
 					}
 				}
 			}).start();
