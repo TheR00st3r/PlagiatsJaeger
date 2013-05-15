@@ -20,7 +20,7 @@
 			<arg value="--directory" />
 			<arg path="${source}" />
 			<arg value="--ignore"/>
-        	<arg path="*smarty*,*libs*,*log*,*mysql*,*testfiles*,*tests*,*uploads*,*htdocs/testfiles*,*htdocs/template_c*"/>
+        	<arg path="*smarty*,*libs*,*log*,*mysql*,*testfiles*,*tests*,*uploads*"/>
 			<arg value="--target" />
 			<arg path="${docsdir}/phpdoc"/>		
 		</exec>
