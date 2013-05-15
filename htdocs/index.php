@@ -6,7 +6,7 @@ $smarty = new MySmarty();
 
 $smarty -> assign('root', $root);
 $smarty -> assign('mySQL', $logData['host']);
-$smarty -> assign('version', '1.5.1');
+$smarty -> assign('version', '1.5.2');
 
 $get_array = $_GET;
 
