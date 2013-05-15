@@ -55,10 +55,10 @@ public class FileParser
 	public boolean parseFile(String filePath)
 	{
 		boolean result = false;
+		_logger.info("Start parsing: " + filePath);
 		_file = new File(filePath);
 		try
 		{
-			_logger.info("Start parsing: " + filePath);
 			result = fileToTxt();
 		}
 		catch (InvalidFormatException e)
