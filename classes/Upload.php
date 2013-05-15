@@ -33,6 +33,7 @@ class Upload {
 	 * @return boolean
 	 */
 	public static function fileUpload($dID, $file) {
+		require_once 'File.php';
 		return File::copyTempFile($dID, $file);
 	}
 
