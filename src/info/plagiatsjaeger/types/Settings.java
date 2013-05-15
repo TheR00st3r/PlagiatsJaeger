@@ -1,73 +1,153 @@
 package info.plagiatsjaeger.types;
 
 import java.util.ArrayList;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 
 /**
  * Datentyp fuer die Einstellungen.
+ * 
  * @author Andreas
- *
  */
 public class Settings
 {
 
-	private int							_threshold;
+	private int								_threshold;
+    //TODO: Default Settings setzen eventuell über Config File
+	private int								_searchSentenceLength	= 0;
+	private int								_searchJumpLength		= 0;
+	private int								_compareSentenceLength	= 0;
+	private int								_compareJumpLength		= 0;
+	private boolean							_checkWWW				= false;
+	private ArrayList<Integer>				_localFolders			= new ArrayList<Integer>();
 
-	private int							_searchSentenceLength;
-	private int							_searchJumpLength;
-	private int							_compareSentenceLength;
-	private int							_compareJumpLength;
-	private boolean						_checkWWW;
-	private static ArrayList<Integer>	_localFolders;
+	private static Settings						_Instance				= new Settings();
 
-	public Settings(int threshold, int searchSentenceLength, int searchJumpLength, int compareSentenceLength, int compareJumpLength, boolean checkWWW)
+	private final ReentrantReadWriteLock	_readWriteLock			= new ReentrantReadWriteLock();
+	private final Lock						_read					= _readWriteLock.readLock();
+	private final Lock						_write					= _readWriteLock.writeLock();
+
+	public static Settings getInstance()
 	{
-		_threshold = threshold;
-		_searchSentenceLength = searchSentenceLength;
-		_searchJumpLength = searchJumpLength;
-		_compareSentenceLength = compareSentenceLength;
-		_compareJumpLength = compareJumpLength;
-		_checkWWW = checkWWW;
+		return _Instance;
 	}
 
-	public Settings(int threshold, int searchSentenceLength, int searchJumpLength, int compareSentenceLength, int compareJumpLength, boolean checkWWW, ArrayList<Integer> localFolders)
+	private Settings()
 	{
-		this(threshold, searchSentenceLength, searchJumpLength, compareSentenceLength, compareJumpLength, checkWWW);
-		_localFolders = localFolders;
+	}
+
+	public void putSettings(int threshold, int searchSentenceLength, int searchJumpLength, int compareSentenceLength, int compareJumpLength, boolean checkWWW, ArrayList<Integer> localFolders)
+	{
+		_write.lock();
+		try
+		{
+			_threshold = threshold;
+			_searchSentenceLength = searchSentenceLength;
+			_searchJumpLength = searchJumpLength;
+			_compareSentenceLength = compareSentenceLength;
+			_compareJumpLength = compareJumpLength;
+			_checkWWW = checkWWW;
+			if (localFolders != null)
+			{
+				_localFolders = localFolders;
+			}
+		}
+		finally
+		{
+			_write.unlock();
+		}
 	}
 
 	public int getThreshold()
 	{
-		return _threshold;
+		_read.lock();
+		try
+		{
+			return _threshold;
+		}
+		finally
+		{
+			_read.unlock();
+		}
 	}
 
 	public int getSearchSentenceLength()
 	{
-		return _searchSentenceLength;
+		_read.lock();
+		try
+		{
+			return _searchSentenceLength;
+		}
+		finally
+		{
+			_read.unlock();
+		}
 	}
 
 	public int getSearchJumpLength()
 	{
-		return _searchJumpLength;
+		_read.lock();
+		try
+		{
+			return _searchJumpLength;
+		}
+		finally
+		{
+			_read.unlock();
+		}
 	}
 
 	public int getCompareSentenceLength()
 	{
-		return _compareSentenceLength;
+		_read.lock();
+		try
+		{
+			return _compareSentenceLength;
+		}
+		finally
+		{
+			_read.unlock();
+		}
 	}
 
 	public int getCompareJumpLength()
 	{
-		return _compareJumpLength;
+		_read.lock();
+		try
+		{
+			return _compareJumpLength;
+		}
+		finally
+		{
+			_read.unlock();
+		}
 	}
 
 	public boolean getCheckWWW()
 	{
-		return _checkWWW;
+		_read.lock();
+		try
+		{
+			return _checkWWW;
+		}
+		finally
+		{
+			_read.unlock();
+		}
 	}
 
 	public ArrayList<Integer> getLocalFolders()
 	{
-		return _localFolders;
+		_read.lock();
+		try
+		{
+			return _localFolders;
+		}
+		finally
+		{
+			_read.unlock();
+		}
 	}
 
 }

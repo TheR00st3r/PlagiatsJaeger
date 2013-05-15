@@ -273,7 +273,8 @@ public class MySqlDatabaseHelper
 			rstResultSet = startQuery(strStatement);
 			if (rstResultSet.next())
 			{
-				result = new Settings(rstResultSet.getInt("r.rThreshold"), rstResultSet.getInt("sl.slSearchSentenceLength"), rstResultSet.getInt("sl.slSearchJumpLength"), rstResultSet.getInt("sl.slCompareSentenceLength"), rstResultSet.getInt("sl.slCompareJumpLength"), rstResultSet.getBoolean("r.rCheckWWW"));
+				result = Settings.getInstance();
+				result.putSettings(rstResultSet.getInt("r.rThreshold"), rstResultSet.getInt("sl.slSearchSentenceLength"), rstResultSet.getInt("sl.slSearchJumpLength"), rstResultSet.getInt("sl.slCompareSentenceLength"), rstResultSet.getInt("sl.slCompareJumpLength"), rstResultSet.getBoolean("r.rCheckWWW"), null);
 			}
 		}
 		catch (SQLException e)
