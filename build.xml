@@ -14,10 +14,19 @@
 		<exec executable="phpdoc">
 			<arg value="--directory" />
 			<arg path="${source}" />
-			<arg value="--target" />
+			<arg value="--ignore"/>
+			<arg path="${source}/libs"/>
+			<arg value="--ignore"/>
+			<arg path="${source}/smarty"/>
+			<arg value="--ignore"/>
 			<arg path="${source}/phpdoc"/>
 			<arg value="--ignore"/>
-			<arg path="${source}/libs"/><!--  ,smarty/,testfiles/,htdocs/testfiles/"/>-->
+			<arg path="${source}/testfiles"/>
+			<arg value="--ignore"/>
+			<arg path="${source}/htdocs"/>
+			<arg value="--target" />
+			<arg path="${source}/phpdoc"/>
+			<!--  ,smarty/,testfiles/,htdocs/testfiles/"/>-->
 		</exec>
 	</target>
 	
