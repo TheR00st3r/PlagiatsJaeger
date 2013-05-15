@@ -39,10 +39,8 @@ public class FileParser
 {
 	private File				_file;
 
+	private static final Logger	_logger	= Logger.getLogger(File.class.getName());
 
-	private static final Logger	_logger		= Logger.getLogger(File.class.getName());
-	
-	
 	public FileParser()
 	{
 	}
@@ -60,6 +58,7 @@ public class FileParser
 		_file = new File(filePath);
 		try
 		{
+			_logger.info("Start parsing: " + filePath);
 			result = fileToTxt();
 		}
 		catch (InvalidFormatException e)
@@ -146,6 +145,7 @@ public class FileParser
 		{
 			case DOC:
 			{
+				_logger.info("Filetype = DOC");
 				POIFSFileSystem poifsFileSystem = new POIFSFileSystem(fileInputStream);
 				HWPFDocument hwpfDoc = new HWPFDocument(poifsFileSystem);
 				WordExtractor we = new WordExtractor(hwpfDoc);
@@ -164,6 +164,7 @@ public class FileParser
 			}
 			case DOCX:
 			{
+				_logger.info("Filetype = DOCX");
 				ZipFile zipFile = null;
 				try
 				{
@@ -207,6 +208,7 @@ public class FileParser
 			}
 			case PDF:
 			{
+				_logger.info("Filetype = PDF");
 				PDFParser pdfParser = null;
 
 				PDFTextStripper pdfStripper;
@@ -266,6 +268,8 @@ public class FileParser
 			}
 			case TXT:
 			{
+				_logger.info("Filetype = TXT");
+				// TODO: txt auf gültigkeit überprüfen.
 				result = true;
 				break;
 			}
@@ -275,7 +279,7 @@ public class FileParser
 			}
 		}
 
-		System.out.println("fertig");
+		_logger.info("Fileparsed:" + _file.getName());
 		return result;
 	}
 }
