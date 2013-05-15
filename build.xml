@@ -20,8 +20,7 @@
 			<arg value="--directory" />
 			<arg path="${source}" />
 			<arg value="--ignore"/>
-        	<arg value="${source}/libs/"/>
-			<arg path="*libs*"/>
+        	<arg path="${source}/libs"/>
 			<arg value="--target" />
 			<arg path="${docsdir}/phpdoc"/>
 			
