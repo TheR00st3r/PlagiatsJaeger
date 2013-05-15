@@ -53,11 +53,14 @@ public class Control
 		boolean result = false;
 		try
 		{
+			_logger.info("Servlet called: " + dId + fileEnding);
 			new Thread(new Runnable()
 			{
 				@Override
 				public void run()
 				{
+
+					_logger.info("Thread started: " + dId + fileEnding);
 					FileParser fileParser = new FileParser();
 					if (fileParser.parseFile(ROOT_FILES + "documentHash" + fileEnding))
 					{
