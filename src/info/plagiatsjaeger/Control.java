@@ -274,14 +274,14 @@ public class Control
 		comparer.setOnCompareFinishedListener(new OnCompareFinishedListener()
 		{
 			@Override
-			public void onLinkFound(ArrayList<CompareResult> compareResult, int docId)
+			public void onCompareResultFound(ArrayList<CompareResult> compareResult, int docId)
 			{
 				MySqlDatabaseHelper mySqlDatabaseHelper = new MySqlDatabaseHelper();
 				mySqlDatabaseHelper.insertCompareResults(compareResult, docId);
 			}
 
 			@Override
-			public void onLinkFound(ArrayList<CompareResult> compareResult, String link)
+			public void onCompareResultFound(ArrayList<CompareResult> compareResult, String link)
 			{
 				MySqlDatabaseHelper mySqlDatabaseHelper = new MySqlDatabaseHelper();
 				mySqlDatabaseHelper.insertCompareResults(compareResult, link);

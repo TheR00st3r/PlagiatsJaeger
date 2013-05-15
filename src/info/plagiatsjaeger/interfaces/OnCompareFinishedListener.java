@@ -19,7 +19,7 @@ public interface OnCompareFinishedListener
 	 * @param compareResult
 	 * @param link
 	 */
-	public void onLinkFound(ArrayList<CompareResult> compareResult, String link);
+	public void onCompareResultFound(ArrayList<CompareResult> compareResult, String link);
 
 	/**
 	 * searchResult Wird aufgerufen wenn der Vergleich mit einem anderen
@@ -28,5 +28,5 @@ public interface OnCompareFinishedListener
 	 * @param compareResult
 	 * @param link
 	 */
-	public void onLinkFound(ArrayList<CompareResult> compareResult, int docId);
+	public void onCompareResultFound(ArrayList<CompareResult> compareResult, int docId);
 }

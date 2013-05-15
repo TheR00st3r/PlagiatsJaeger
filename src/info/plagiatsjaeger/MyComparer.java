@@ -197,11 +197,11 @@ public class MyComparer implements IComparer
 		}
 		if(_currentDocId == 0)
 		{
-			_onCompareFinishedListener.onLinkFound(result, _currentLink);
+			_onCompareFinishedListener.onCompareResultFound(result, _currentLink);
 		}
 		else
 		{
-			_onCompareFinishedListener.onLinkFound(result, _currentDocId);
+			_onCompareFinishedListener.onCompareResultFound(result, _currentDocId);
 		}
 		return result;
 	}
