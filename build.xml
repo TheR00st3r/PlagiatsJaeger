@@ -14,22 +14,15 @@
 	</target>
 	
 	<target name="phpdoc" description="Generate API documentation using PHPDocumentor">
-		<exec executable="phpdoc">
+		<delete dir="${docsdir}/phpdoc" />
+		<mkdir dir="${docsdir}/phpdoc" />
+	    <exec executable="phpdoc">
 			<arg value="--directory" />
 			<arg path="${source}" />
-			<arg value="--ignore"/>
-			<arg path="${source}/libs"/>
-			<arg value="--ignore"/>
-			<arg path="${source}/smarty"/>
-			<arg value="--ignore"/>
-			<arg path="${source}/phpdoc"/>
-			<arg value="--ignore"/>
-			<arg path="${source}/testfiles"/>
-			<arg value="--ignore"/>
-			<arg path="${source}/htdocs"/>
+			<arg value="--ignore *libs*"/>
 			<arg value="--target" />
 			<arg path="${docsdir}/phpdoc"/>
-			<!--  ,smarty/,testfiles/,htdocs/testfiles/"/>-->
+			
 		</exec>
 	</target>
 	
