@@ -19,7 +19,7 @@
 	    <exec executable="phpdoc">
 			<arg value="--directory" />
 			<arg path="${source}" />
-			<arg value="--exclude"/>
+			<arg value="--ignore"/>
         	<arg value="${source}/libs/"/>
 			<arg path="*libs*"/>
 			<arg value="--target" />
