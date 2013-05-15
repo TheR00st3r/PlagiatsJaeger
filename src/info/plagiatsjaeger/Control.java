@@ -62,7 +62,9 @@ public class Control
 					try
 					{
 						_logger.info("Thread started: " + dId + fileEnding);
-						if (new FileParser().parseFile(ROOT_FILES + "documentHash" + fileEnding))
+						FileParser fileParser = new FileParser();
+						_logger.info("FileParser-Objekt angelegt");
+						if (fileParser.parseFile(ROOT_FILES + "documentHash" + fileEnding))
 						{
 							new MySqlDatabaseHelper().setDocumentAsParsed(dId);
 						}
