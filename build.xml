@@ -1,6 +1,8 @@
 <project name="plagiatsjaeger-app" default="build" basedir="..">
-	<property name="webroot" value="/usr/share/tomcat7/.jenkins/jobs/PlagiatsJaegerPHP/workspace" />
+	<property name="webroot" value="/var/www" />
 	<property name="source"
+		value="/usr/share/tomcat7/.jenkins/jobs/PlagiatsJaegerPHP/workspace" />
+	<property name="docsdir"
 		value="/usr/share/tomcat7/.jenkins/jobs/PlagiatsJaegerPHP/workspace" />
 	<target name="deploy">
 		<copy todir="${webroot}">
@@ -14,10 +16,19 @@
 		<exec executable="phpdoc">
 			<arg value="--directory" />
 			<arg path="${source}" />
-			<arg value="--target" />
-			<arg path="${webroot}/phpdoc"/>
 			<arg value="--ignore"/>
-			<arg path="${source}/libs"/><!--  ,smarty/,testfiles/,htdocs/testfiles/"/>-->
+			<arg path="${source}/libs"/>
+			<arg value="--ignore"/>
+			<arg path="${source}/smarty"/>
+			<arg value="--ignore"/>
+			<arg path="${source}/phpdoc"/>
+			<arg value="--ignore"/>
+			<arg path="${source}/testfiles"/>
+			<arg value="--ignore"/>
+			<arg path="${source}/htdocs"/>
+			<arg value="--target" />
+			<arg path="${docsdir}/phpdoc"/>
+			<!--  ,smarty/,testfiles/,htdocs/testfiles/"/>-->
 		</exec>
 	</target>
 	
