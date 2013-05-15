@@ -1,5 +1,7 @@
 package info.plagiatsjaeger.types;
 
+import info.plagiatsjaeger.MySqlDatabaseHelper;
+
 import java.util.ArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -13,7 +15,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class Settings
 {
 
-	private int								_threshold;
+	private double								_threshold;
     //TODO: Default Settings setzen eventuell über Config File
 	private int								_searchSentenceLength	= 0;
 	private int								_searchJumpLength		= 0;
@@ -22,7 +24,7 @@ public class Settings
 	private boolean							_checkWWW				= false;
 	private ArrayList<Integer>				_localFolders			= new ArrayList<Integer>();
 
-	private static Settings						_Instance				= new Settings();
+	private static Settings						_Instance = new Settings();
 
 	private final ReentrantReadWriteLock	_readWriteLock			= new ReentrantReadWriteLock();
 	private final Lock						_read					= _readWriteLock.readLock();
@@ -59,7 +61,7 @@ public class Settings
 		}
 	}
 
-	public int getThreshold()
+	public double getThreshold()
 	{
 		_read.lock();
 		try

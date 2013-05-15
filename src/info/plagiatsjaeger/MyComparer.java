@@ -3,6 +3,7 @@ package info.plagiatsjaeger;
 import info.plagiatsjaeger.interfaces.IComparer;
 import info.plagiatsjaeger.interfaces.OnCompareFinishedListener;
 import info.plagiatsjaeger.types.CompareResult;
+import info.plagiatsjaeger.types.Settings;
 
 import java.util.ArrayList;
 
@@ -17,9 +18,9 @@ import org.apache.log4j.Logger;
  */
 public class MyComparer implements IComparer
 {
-
-	private static final int			NUM_WORDS_TO_COMPARE		= 10;
-	private static final double			SCHWELLENWERT				= 0.9;
+	// TODO: default Werte eintragen
+	private static int					NUM_WORDS_TO_COMPARE		= 10;
+	private static double			SCHWELLENWERT				= 0.9;
 	private static final int			MAX_WORDS_BETWEEN_RESULTS	= 4;
 
 	private String[]					_checkWords;
@@ -31,9 +32,8 @@ public class MyComparer implements IComparer
 	private OnCompareFinishedListener	_onCompareFinishedListener;
 
 	private int							_rId;
-	
-	private static final Logger				_logger				= Logger.getLogger(MyComparer.class.getName());
 
+	private static final Logger			_logger						= Logger.getLogger(MyComparer.class.getName());
 
 	/**
 	 * Legt einen neuen Comparer fuer einen Report an.
@@ -43,6 +43,9 @@ public class MyComparer implements IComparer
 	public MyComparer(int rId)
 	{
 		_rId = rId;
+		Settings settings = Settings.getInstance();
+		NUM_WORDS_TO_COMPARE = settings.getCompareSentenceLength();
+		SCHWELLENWERT = settings.getThreshold();
 	}
 
 	@Override
@@ -192,10 +195,10 @@ public class MyComparer implements IComparer
 			System.out.println("Text:         " + compareResult1.getSourceText());
 			System.out.println("Aehnlichkeit: " + compareResult1.getSimilarity());
 			System.out.println("###################################");
-			_logger.info("Found link: "+_currentLink +"with Similarity " + compareResult1.getSimilarity());
+			_logger.info("Found link: " + _currentLink + "with Similarity " + compareResult1.getSimilarity());
 			result.add(compareResult1);
 		}
-		if(_currentDocId == 0)
+		if (_currentDocId == 0)
 		{
 			_onCompareFinishedListener.onCompareResultFound(result, _currentLink);
 		}

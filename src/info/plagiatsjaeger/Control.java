@@ -41,6 +41,15 @@ public class Control
 	private ExecutorService			_threadPoolSearch	= Executors.newFixedThreadPool(SIZE_THREADPOOL);
 	private ArrayList<Future<Void>>	_futuresSearch		= new ArrayList<Future<Void>>();
 
+	public Control(int rId)
+	{
+		if (rId != 0)
+		{
+			// Settings zu beginn laden
+			_settings = new MySqlDatabaseHelper().getSettings(rId);
+		}
+	}
+
 	/**
 	 * <b>Noch nicht implementiert!</b></br> Konvertiert eine Datei in das
 	 * normalisierte txt-Format.
@@ -114,7 +123,6 @@ public class Control
 					public void run()
 					{
 						_logger.info("Thread started!");
-						_settings = mySqlDatabaseHelper.getSettings(rId);
 						mySqlDatabaseHelper.setReportState(rId, ErrorCode.Started);
 						startPlagiatsSearch(ROOT_FILES + intDocumentId + ".txt", rId);
 					}
