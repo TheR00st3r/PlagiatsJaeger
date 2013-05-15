@@ -45,14 +45,14 @@ class File {
 				if (in_array($extension, $allowedExtensions)) {
 
 					if (copy($file["tmp_name"], self::path . $dID . $extension)) {
-						$link = $backendUrl."ParseServlet?dID=" . $dID . "&dFileEndling=" . $extension;
+						$link = $backendUrl."ParseServlet?dID=" . $dID . "&dFileEnding=" . $extension;
 						$result = file($link);
 						if ($result == true) {
 							$state = true;
-							$messages[] = array('type' => 'save', 'text' => 'Report wurde erfolgreich angelegt!');
+							$messages[] = array('type' => 'save', 'text' => 'Dokument wurde erfolgreich gespeichert!');
 						} else {
 							print_array($result);
-							$messages[] = array('type' => 'error', 'text' => 'Report konnte nicht angestoßen werden!<br />'.$link);
+							$messages[] = array('type' => 'error', 'text' => 'Dokumentparsing konnte nicht angestoßen werden!<br />'.$link);
 						}
 					} else
 						$messages[] = array('type' => 'error', 'text' => 'Originaldokument konnte nicht gespeichert werden.');
