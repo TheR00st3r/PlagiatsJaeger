@@ -1,7 +1,5 @@
 package info.plagiatsjaeger.types;
 
-import info.plagiatsjaeger.MySqlDatabaseHelper;
-
 import java.util.ArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -16,7 +14,7 @@ public class Settings
 {
 
 	private double								_threshold;
-    //TODO: Default Settings setzen eventuell über Config File
+    //TODO: Default Settings setzen eventuell ueber Config File
 	private int								_searchSentenceLength	= 0;
 	private int								_searchJumpLength		= 0;
 	private int								_compareSentenceLength	= 0;
