@@ -269,7 +269,7 @@ public class FileParser
 			case TXT:
 			{
 				_logger.info("Filetype = TXT");
-				// TODO: txt auf gültigkeit überprüfen.
+				// TODO: txt auf gueltigkeit ueberpruefen.
 				result = true;
 				break;
 			}
