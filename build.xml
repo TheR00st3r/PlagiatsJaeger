@@ -2,6 +2,8 @@
 	<property name="webroot" value="/var/www" />
 	<property name="source"
 		value="/usr/share/tomcat7/.jenkins/jobs/PlagiatsJaegerPHP/workspace" />
+	<property name="docsdir"
+		value="/usr/share/tomcat7/.jenkins/jobs/PlagiatsJaegerPHP/workspace" />
 	<target name="deploy">
 		<copy todir="${webroot}">
 			<fileset dir="${source}">
@@ -25,7 +27,7 @@
 			<arg value="--ignore"/>
 			<arg path="${source}/htdocs"/>
 			<arg value="--target" />
-			<arg path="${source}/phpdoc"/>
+			<arg path="${docsdir}/phpdoc"/>
 			<!--  ,smarty/,testfiles/,htdocs/testfiles/"/>-->
 		</exec>
 	</target>
