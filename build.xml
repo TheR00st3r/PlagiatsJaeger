@@ -20,7 +20,7 @@
 			<arg value="--directory" />
 			<arg path="${source}" />
 			<arg value="--ignore"/>
-        	<arg path="*libs*"/>
+        	<arg path="*smarty*,*libs*"/>
 			<arg value="--target" />
 			<arg path="${docsdir}/phpdoc"/>
 			
