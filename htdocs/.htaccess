@@ -9,5 +9,5 @@ Options -MultiViews +FollowSymLinks
 RewriteEngine On
 RewriteBase /
 RewriteBase /webseiten/plagiatsjaeger-app/htdocs/
-RewriteCond %{REQUEST_URI} !^/(application|phpMyAdmin)(/.*)?
+RewriteCond %{REQUEST_URI} !^/(application|phpmyadmin)(/.*)?
 RewriteRule ^([0-9a-zA-Z_/-]+)$ index.php?url=$1 [QSA]

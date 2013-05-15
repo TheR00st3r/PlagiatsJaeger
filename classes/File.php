@@ -2,6 +2,7 @@
 
 class File {
 
+	// TODO: Path in configs auslagern
 	const path = '../uploads/';
 
 	/**
@@ -30,26 +31,40 @@ class File {
 	 * @return boolean
 	 */
 	public static function copyTempFile($dID, $file) {
+		global $backendUrl;
+		$state = false;
+		if (Validator::validate(VAL_INTEGER, $dID, true)) {
 
-		$db = new db();
-		$allowedExtensions = array('.pdf', '.doc', '.docx', '.txt', '.html');
+			$allowedExtensions = array('.pdf', '.doc', '.docx', '.txt', '.html');
 
-		if ($file["tmp_name"] != '') {
+			if ($file["tmp_name"] != '') {
 
-			$pos = strripos($file["name"], '.');
-			$extension = strtolower(substr($file["name"], $pos));
+				$pos = strripos($file["name"], '.');
+				$extension = strtolower(substr($file["name"], $pos));
 
-			if (in_array($extension, $allowedExtensions)) {
+				if (in_array($extension, $allowedExtensions)) {
 
-				if (copy($file["tmp_name"], self::path . $dID . $extension)) {
-					return true;
-				}
-				// else $messages[] = array('type' => 'error', 'text' => 'PDF ' . $file["name"] . ' nicht gesichert.');
+					if (copy($file["tmp_name"], self::path . $dID . $extension)) {
+						$link = $backendUrl."ParseServlet?dID=" . $dID . "&dFileEndling=" . $extension;
+						$result = file($link);
+						if ($result == true) {
+							$state = true;
+							$messages[] = array('type' => 'save', 'text' => 'Report wurde erfolgreich angelegt!');
+						} else {
+							print_array($result);
+							$messages[] = array('type' => 'error', 'text' => 'Report konnte nicht angestoßen werden!<br />'.$link);
+						}
+					} else
+						$messages[] = array('type' => 'error', 'text' => 'Originaldokument konnte nicht gespeichert werden.');
+				} else
+					$messages[] = array('type' => 'error', 'text' => 'Ungültiges Dateiformat (' . implode($allowedExtensions, ',') . ')');
 			}
-			//else $messages[] = array('type' => 'error', 'text' => 'Es sind nur pdf Dateien erlaubt!');
-		}
-		// else $messages[] = array('type' => 'error', 'text' => 'ID und/oder Datei leer!');
-		return false;
+		} else
+			$messages[] = array('type' => 'error', 'text' => 'Parameter haben kein gültiges Format!');
+
+		$return['state'] = $state;
+		$return['messages'] = $messages;
+		return $return;
 	}
 
 	/**

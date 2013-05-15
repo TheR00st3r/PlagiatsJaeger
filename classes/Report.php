@@ -8,19 +8,21 @@ class Report {
 	 * @return boolean
 	 */
 	public static function createReport($dID, $slID, $rThreshold, $rCheckWWW = 0, $rErrorCode = 100) {
+		global $backendUrl;
 		$state = false;
 		if (Validator::validate(VAL_INTEGER, $dID, true) and Validator::validate(VAL_INTEGER, $slID, true) and Validator::validate(VAL_INTEGER, $rThreshold, true) and Validator::validate(VAL_INTEGER, $rCheckWWW, true)) {
 			$db = new db();
 			if ($db -> insert('report', array('rDatetime' => date('Y-m-d H:m:s'), 'rErrorCode' => $rErrorCode, 'dID' => $dID, 'slID' => $slID, 'rThreshold' => $rThreshold, 'rCheckWWW' => $rCheckWWW))) {
 				$lastReportID = $db -> lastInsertId();
-				$result = file("http://localhost:8080/PlagiatsJaeger/ReportServlet?rID=" . $lastReportID);
+				$link = $backendUrl."ReportServlet?rID=" . $lastReportID;
+				$result = file($link);
 				if ($result == true) {
 					$state = true;
 					$messages[] = array('type' => 'save', 'text' => 'Report wurde erfolgreich angelegt!');
 				}
 				else {
 					print_array($result);
-					$messages[] = array('type' => 'error', 'text' => 'Report konnte nicht angestoßen werden!');
+					$messages[] = array('type' => 'error', 'text' => 'Report konnte nicht angestoßen werden!<br />'.$link);
 				}
 			}
 			else

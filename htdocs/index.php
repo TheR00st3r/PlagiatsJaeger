@@ -15,15 +15,18 @@ $page = implode('/', $url);
 
 $smarty -> assign('page', $page);
 
+// Lgout
 if ($page == 'logout') {
 	LoginAccess::logout();
 }
 
+//Login check
 if (isset($_POST['lSubmit'])) {
 	$loginResult = LoginAccess::login($_POST['lEMailAdress'], $_POST['lPassword']);
 	$smarty -> assign('message', $loginResult);
 }
 
+// Public student Upload
 if ($page == 'public') {
 	require_once '../classes/Folder.php';
 	$folder = Folder::getFolderFromHash($_GET['id']);
@@ -46,6 +49,7 @@ if ($page == 'public') {
 	} else
 		$contentTpl = 'error';
 
+//Is loggedin
 } else if (LoginAccess::check()) {
 
 	$smarty -> assign('isLogin', true);
@@ -57,6 +61,7 @@ if ($page == 'public') {
 		case '' :
 		case 'shared' :
 		case 'folder' :
+			// Folder Overview
 
 			switch ($url[0]) {
 				case 'shared':
@@ -98,6 +103,7 @@ if ($page == 'public') {
 				}
 			}
 
+			// POST FUNCTIONS
 			$post = key($_POST['button']);
 			switch ($post) {
 				case 'dAddFolderLinkSubmit' :
@@ -107,7 +113,8 @@ if ($page == 'public') {
 					Folder::addFolder($_POST['fAddName'], $folder['fID'], LoginAccess::getUserID());
 					break;
 				case 'dAddSubmit' :
-					Document::fileUpload($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile']);
+					$uploadCheck = Document::fileUpload($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile']);
+					$messages = $uploadCheck['messages'];
 					break;
 				case 'dAddShortSubmit' :
 					Upload::shortTextUpload($folder['fID'], $_POST['dAddAutor'], $_POST['dAddShortText']);
@@ -151,6 +158,7 @@ if ($page == 'public') {
 			if (LoginAccess::check(500)) {
 				require_once '../classes/User.php';
 
+				// POST FUNCTIONS
 				$post = key($_POST['button']);
 				switch ($post) {
 					case 'uAddSubmit' :
@@ -174,6 +182,7 @@ if ($page == 'public') {
 			$contentTpl = '<h2>404</h2>';
 			break;
 	}
+// NOT loggedin
 } else {
 	switch ($url[0]) {
 		case 'registrate' :
