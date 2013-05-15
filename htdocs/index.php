@@ -74,7 +74,7 @@ if ($page == 'public') {
 			}
 			$smarty -> assign('fpLevel', $fpLevel);
 
-			require_once '../classes/Document.php';
+			// require_once '../classes/Document.php';
 			require_once '../classes/Folder.php';
 			require_once '../classes/Upload.php';
 			require_once '../classes/Report.php';
