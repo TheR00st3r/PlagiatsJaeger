@@ -46,8 +46,8 @@ class Document {
 				$uploadCheck = Upload::fileUpload($lastID, $file);
 				if ($uploadCheck['state']) {
 					$state = true;
-				} else
-					$messages = $uploadCheck['messages'];
+				}
+				$messages = $uploadCheck['messages'];
 			} else
 				$messages[] = array('type' => 'error', 'text' => 'Report wurde nicht angelegt!');
 		} else
