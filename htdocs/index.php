@@ -6,7 +6,7 @@ $smarty = new MySmarty();
 
 $smarty -> assign('root', $root);
 $smarty -> assign('mySQL', $logData['host']);
-$smarty -> assign('version', '1.5.1');
+$smarty -> assign('version', '1.5.2');
 
 $get_array = $_GET;
 
@@ -74,7 +74,7 @@ if ($page == 'public') {
 			}
 			$smarty -> assign('fpLevel', $fpLevel);
 
-			require_once '../classes/Document.php';
+			// require_once '../classes/Document.php';
 			require_once '../classes/Folder.php';
 			require_once '../classes/Upload.php';
 			require_once '../classes/Report.php';

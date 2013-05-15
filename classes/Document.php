@@ -65,17 +65,17 @@ class Document {
 	 */
 	public static function getDocumentOriginalContent($dID) {
 
-		$db = new db();
-		$db -> read("
-				SELECT
-					d.dID, d.dOriginalName, d.dAuthor, d.fID, d.dIsParsed
-				FROM
-					document AS d
-				WHERE
-					d.dID = '$dID'
-				");
-
-		$row = $db -> lines();
+		// $db = new db();
+		// $db -> read("
+				// SELECT
+					// d.dID, d.dOriginalName, d.dAuthor, d.fID, d.dIsParsed
+				// FROM
+					// document AS d
+				// WHERE
+					// d.dID = '$dID'
+				// ");
+// 
+		// $row = $db -> lines();
 
 		if ($row['dIsParsed']) {
 			require_once 'File.php';
