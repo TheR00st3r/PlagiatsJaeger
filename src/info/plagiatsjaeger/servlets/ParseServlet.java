@@ -37,9 +37,9 @@ public class ParseServlet extends HttpServlet
 	{
 		response.setContentType("text/html");
 		final int dID = Integer.parseInt(request.getParameter("dID"));
-
+		final String dFileEndign = request.getParameter("dFileEnding");
 		PrintWriter out = response.getWriter();
-		if (new Control().startParsing(dID))
+		if (new Control().startParsing(dID, dFileEndign))
 		{
 			out.print("true");
 		}

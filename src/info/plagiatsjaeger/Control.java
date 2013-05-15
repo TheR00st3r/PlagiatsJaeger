@@ -45,20 +45,38 @@ public class Control
 	 * <b>Noch nicht implementiert!</b></br> Konvertiert eine Datei in das
 	 * normalisierte txt-Format.
 	 * 
-	 * @param documentHash
+	 * @param dId
 	 * @return
 	 */
-	public boolean startParsing(int documentHash)
+	public boolean startParsing(final int dId, final String fileEnding)
 	{
+		boolean result = false;
 		try
 		{
+			new Thread(new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					FileParser fileParser = new FileParser();
+					if (fileParser.parseFile(ROOT_FILES + "documentHash." + fileEnding))
+					{
+						new MySqlDatabaseHelper().setDocumentAsParsed(dId);
+					}
+					else
+					{
+						// TODO: parseerror erfassen
+					}
+				}
+			}).start();
+			result = true;
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 			_logger.fatal(e.getMessage());
 		}
-		return false;
+		return result;
 
 	}
 
