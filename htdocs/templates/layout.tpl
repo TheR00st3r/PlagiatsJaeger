@@ -42,6 +42,6 @@
 	</div>
 
 	<div id="foot">
-		Änderungen vorbehalten &copy; Copyright {$smarty.now|date_format: "%Y"} by plagiatsjaeger.info | mySQL {$mySQL} | v{$verion}
+		Änderungen vorbehalten &copy; Copyright {$smarty.now|date_format: "%Y"} by plagiatsjaeger.info | mySQL {$mySQL} | v{$version}
 	</div>
 </div>

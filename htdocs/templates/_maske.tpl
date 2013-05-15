@@ -18,9 +18,9 @@
 
 		<link rel="stylesheet" href="{$root}thirdparty/jquery-treeview/jquery.treeview.css" />
 
-		<script type="text/javascript" src="{$root}javascript/jeditable.js"></script>
-		<script type="text/javascript" src="{$root}javascript/fancybox.js"></script>
-		<script type="text/javascript" src="{$root}javascript/treeview.js"></script>
+		<script type="text/javascript" src="{$root}js/jeditable.js"></script>
+		<script type="text/javascript" src="{$root}js/fancybox.js"></script>
+		<script type="text/javascript" src="{$root}js/treeview.js"></script>
 
 		<link rel="stylesheet" href="{$root}thirdparty/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
 		<script type="text/javascript" src="{$root}thirdparty/fancybox/jquery.fancybox.pack.js"></script>
