@@ -14,7 +14,9 @@
 	</target>
 	
 	<target name="phpdoc" description="Generate API documentation using PHPDocumentor">
-		<exec executable="phpdoc">
+		<delete dir="${docsdir}/phpdoc" />
+		<mkdir dir="${docsdir}/phpdoc" />
+	    <exec executable="phpdoc">
 			<arg value="--directory" />
 			<arg path="${source}" />
 			<arg value="--ignore"/>
