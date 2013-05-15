@@ -113,7 +113,8 @@ if ($page == 'public') {
 					Folder::addFolder($_POST['fAddName'], $folder['fID'], LoginAccess::getUserID());
 					break;
 				case 'dAddSubmit' :
-					Document::fileUpload($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile']);
+					$uploadCheck = Document::fileUpload($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile']);
+					$messages = $uploadCheck['messages'];
 					break;
 				case 'dAddShortSubmit' :
 					Upload::shortTextUpload($folder['fID'], $_POST['dAddAutor'], $_POST['dAddShortText']);
