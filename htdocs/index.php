@@ -115,7 +115,6 @@ if ($page == 'public') {
 					break;
 				case 'dAddSubmit' :
 					$uploadCheck = Document::fileUpload($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile']);
-					echo 'test';
 					$messages = $uploadCheck['messages'];
 					break;
 				case 'dAddShortSubmit' :
