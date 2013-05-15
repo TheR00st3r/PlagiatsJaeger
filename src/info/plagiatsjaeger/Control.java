@@ -59,7 +59,7 @@ public class Control
 				public void run()
 				{
 					FileParser fileParser = new FileParser();
-					if (fileParser.parseFile(ROOT_FILES + "documentHash." + fileEnding))
+					if (fileParser.parseFile(ROOT_FILES + "documentHash" + fileEnding))
 					{
 						new MySqlDatabaseHelper().setDocumentAsParsed(dId);
 					}
