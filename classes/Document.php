@@ -11,7 +11,7 @@ class Document {
 		$db = new db();
 		$db -> read("
 				SELECT
-					d.dID, d.dOriginalName, d.dAuthor, d.fID
+					d.dID, d.dOriginalName, d.dAuthor, d.fID, d.dIsParsed
 				FROM
 					document AS d
 				WHERE
@@ -52,7 +52,7 @@ class Document {
 				$messages[] = array('type' => 'error', 'text' => 'Dokument wurde nicht angelegt!');
 		} else
 			$messages[] = array('type' => 'error', 'text' => 'Parameter haben kein gültiges Format!');
-			
+
 		$return['state'] = $state;
 		$return['messages'] = $messages;
 		return $return;
@@ -64,8 +64,24 @@ class Document {
 	 * @return string
 	 */
 	public static function getDocumentOriginalContent($dID) {
-		require_once 'File.php';
-		return File::readFile($dID . '.txt');
+
+		$db = new db();
+		$db -> read("
+				SELECT
+					d.dID, d.dOriginalName, d.dAuthor, d.fID, d.dIsParsed
+				FROM
+					document AS d
+				WHERE
+					d.dID = '$dID'
+				");
+
+		$row = $db -> lines();
+
+		if ($row['dIsParsed']) {
+			require_once 'File.php';
+			return File::readFile($dID . '.txt');
+		} else
+			return 'Datei wurde noch nicht geparst....';
 	}
 
 }
