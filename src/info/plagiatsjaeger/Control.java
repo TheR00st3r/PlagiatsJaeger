@@ -61,20 +61,22 @@ public class Control
 				{
 					try
 					{
-					_logger.info("Thread started: " + dId + fileEnding);
-					FileParser fileParser = new FileParser();
-					if (fileParser.parseFile(ROOT_FILES + "documentHash" + fileEnding))
-					{
-						new MySqlDatabaseHelper().setDocumentAsParsed(dId);
+						_logger.info("Thread started: " + dId + fileEnding);
+						FileParser fileParser = new FileParser();
+						_logger.info("FileParser-Objekt angelegt");
+						if (fileParser.parseFile(ROOT_FILES + "documentHash" + fileEnding))
+						{
+							new MySqlDatabaseHelper().setDocumentAsParsed(dId);
+						}
+						else
+						{
+							// TODO: parseerror erfassen
+						}
 					}
-					else
+					catch (Exception e)
 					{
-						// TODO: parseerror erfassen
-					}}
-					catch(Exception e)
-					{
-						_logger.info(e.getMessage());
-						_logger.info(e.getStackTrace());
+						_logger.fatal(e.getMessage());
+						_logger.fatal(e.getStackTrace());
 					}
 				}
 			}).start();

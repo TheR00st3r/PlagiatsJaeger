@@ -54,9 +54,10 @@ public class FileParser
 	 */
 	public boolean parseFile(String filePath)
 	{
-		boolean result = false;
 		_logger.info("Start parsing: " + filePath);
+		boolean result = false;
 		_file = new File(filePath);
+		_logger.info("New File angelegt");
 		try
 		{
 			result = fileToTxt();
