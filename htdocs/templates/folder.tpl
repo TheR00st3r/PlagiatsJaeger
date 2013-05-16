@@ -15,7 +15,7 @@
 	{/function}
 	<ul id="filetree1" class="filetree">
 		<li class="open">
-			<span class="folder"><a href="{$root}folder">Meine Dateien</a></span>
+			<span class="folder"><a href="{$root}folder">Meine Ordner</a></span>
 			<ul>
 				{call name=printFolders items=$folderNav level=0 type='folder'}
 		</li>
@@ -62,21 +62,17 @@
 				&nbsp;
 			</td>
 			{if $fpLevel == 900}
-			<td class="smal">
+			<td class="edit">
 				{include 'popups/shareFolderForm.tpl'}
-				<a class="create" href="#shareFolderForm{$item.fID}">[teilen]</a>
-			</td>
-			<td class="smal">
+				<a class="create" href="#shareFolderForm{$item.fID}">[Teilen]</a>
 				{if $item.fHashLink != ''}
 				<a target="_blank" href="{$root}public?id={$item.fHashLink}">[Link] bis {$item.fLinkExpireDatetime}</a>
 				{else}
 				{include 'popups/createLinkForm.tpl'}
-				<a class="create" href="#createLinkForm{$item.fID}">[hash]</a>
+				<a class="create" href="#createLinkForm{$item.fID}">[Link]</a>
 				{/if}
-			</td>
-			<td class="smal">
 				{include 'popups/deleteFolderForm.tpl'}
-				<a class="create" href="#deleteFolderForm{$item.fID}">[delete]</a>
+				<a class="create" href="#deleteFolderForm{$item.fID}">[Löschen]</a>
 			</td>
 			{/if}
 		</tr>
@@ -97,14 +93,12 @@
 			<td class="borderright">
 				{$item.dAuthor}
 			</td>
+			<td class="edit">
 			{if $fpLevel == 900}
-			<td class="smal">
 				{include 'popups/addReportForm.tpl'}
-				<a class="create" href="#addReportForm{$item.dID}">[prüfen]</a>
-			</td>
-			<td class="smal">
+				<a class="create" href="#addReportForm{$item.dID}">[Prüfen]</a>
 				{include 'popups/deleteDocumentForm.tpl'}
-				<a class="create" href="#deleteDocumentForm{$item.dID}">[delete]</a>
+				<a class="create" href="#deleteDocumentForm{$item.dID}">[Löschen]</a>
 			</td>
 			{/if}
 		</tr>

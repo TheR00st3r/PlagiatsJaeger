@@ -24,6 +24,7 @@ textarea{border:solid 1px #cccccc;}
 .files .documents .image{width:15px;}
 .files .documents .smal{width:50px;}
 .files .documents .bgcolor{background:#f3f6fa;}
+.files .documents .edit{text-align:right;}
 .files .documents .jeditable input{width:50px;}
 .files .documents .jeditable button{border:solid 1px #cccccc;}
 .admin .user{width:100%;border-collapse:collapse;}.admin .user .borderright{border-right:solid 1px #eee;}
