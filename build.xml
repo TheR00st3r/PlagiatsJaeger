@@ -19,10 +19,10 @@
 	    <exec executable="phpdoc">
 			<arg value="--directory" />
 			<arg path="${source}" />
-			<arg value="--ignore *libs*"/>
+			<arg value="--ignore"/>
+        	<arg path="*smarty*,*libs*,*log*,*mysql*,*testfiles*,*tests*,*uploads*"/>
 			<arg value="--target" />
-			<arg path="${docsdir}/phpdoc"/>
-			
+			<arg path="${docsdir}/phpdoc"/>		
 		</exec>
 	</target>
 	
