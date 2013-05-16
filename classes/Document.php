@@ -81,7 +81,7 @@ class Document {
 			require_once 'File.php';
 			return File::readFile($dID . '.txt');
 		} else
-			return 'Datei wurde noch nicht geparst....';
+			return 'Datei wurde noch nicht geparsed....';
 	}
 
 }

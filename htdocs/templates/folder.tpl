@@ -33,6 +33,7 @@
 <div class="floatright files">
 	<div class="folderMenue">
 
+		{if $fpLevel == 900}
 		<div id="newFolderForm" style="display: none">
 			<form method="post" action="{$root}{$page}">
 				<h2>Neuer Ordner</h2>
@@ -76,6 +77,7 @@
 		</div>
 		<a class="create button" href="#newShortTestForm"><img src="{$root}images/file.gif" alt="" /> Schnelltest</a>
 		{/if}
+		{/if}
 	</div>
 	{$folder.pathName}
 	<br />
@@ -90,9 +92,7 @@
 		<tr class="{$color}">
 			<td class="image"><img src="{$root}images/folder-closed.gif" alt="" /></td>
 			<td class="borderright">
-			<div class="jeditable" id="fName_{$item.fID}">
-				{$item.fName}
-			</div></td>
+			<div class="jeditable" id="fName_{$item.fID}">{$item.fName}</div></td>
 			<td class="borderright">&nbsp;</td>
 			{if $fpLevel == 900}
 			<td class="smal">
@@ -145,16 +145,16 @@
 				<form method="post" action="{$root}{$page}" enctype="multipart/form-data">
 					<input type="hidden" name="dID" value="{$item.dID}" />
 					<h2>Prüfung starten</h2>
-					<label>Intensität:</label>
+					<label>Detailgrad der Prüfung:</label>
 					{foreach $settings as $setting}
-						<input type="radio" name="slID" value="{$setting.slID}" /> {$setting.slTitle}<br />
+						<input {if $userSettings.slID == $setting.slID}checked="checked"{/if} type="radio" name="slID" value="{$setting.slID}" /> {$setting.slTitle}<br />
 					{/foreach}
 					<br />
-					<label for="rThreshold">Schwellenwert:</label>
-					<input type="text" name="rThreshold" id="rThreshold" value="" /><br />
+					<label for="rThreshold">Schwellenwert einstellen:</label>
+					<input type="text" name="rThreshold" id="rThreshold" value="{$userSettings.uThreshold}" /> %<br />
 					<br />
-					<label for="rCheckWWW">Check WWW:</label>
-					<input type="checkbox" name="rCheckWWW" id="rCheckWWW" value="1" />
+					<label for="rCheckWWW">Internetquellen ein-/ausschalten:</label>
+					<input {if $userSettings.uCheckWWW == '1'}checked="checked"{/if} type="checkbox" name="rCheckWWW" id="rCheckWWW" value="1" /> einschalten
 					<br />
 					<br />
 					<input type="submit" name="button[rAdd]" value="prüfen" />

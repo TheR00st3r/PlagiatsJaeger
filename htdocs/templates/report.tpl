@@ -7,26 +7,27 @@
 	<h1>Report</h1>
 	<table>
 		<tr>
-			<th>dOriginalName</th>
+			<th>Dokumentname</th>
 			<td>{$report.dOriginalName}</td>
-			<th>dAuthor</td>
+			<th>Author</td>
 			<td>{$report.dAuthor}</th>
-			<th>rDatetime</th>
+
+		</tr>
+		<tr>
+			<th>Datum</th>
 			<td>{$report.rDatetime}</td>
+			<th>Datei geparsed?</th>
+			<td>{if $report.dIsParsed == '1'}ja{else}nein{/if}</td>
 		</tr>
 		<tr>
-			<th>dIsParsed</th>
-			<td>{$report.dIsParsed}</td>
-		</tr>
-		<tr>
-			<th>sThreshold</th>
-			<td>{$report.sThreshold}</td>
-			<th>slTitle</th>
+			<th>Schwellenwert</th>
+			<td>{$report.rThreshold} %</td>
+			<th>Detailgrad</th>
 			<td>{$report.slTitle}</td>
-			<th>sCheckWWW</th>
-			<td>{$report.sCheckWWW}</td>
 		</tr>
 		<tr>
+			<th>Internetquellen prüfen?</th>
+			<td>{if $report.rCheckWWW == '1'}ja{else}nein{/if}</td>
 			<th>Status der Prüfung</th>
 			<td>{$report.eName} ({$report.eDescription})</td>
 		</tr>

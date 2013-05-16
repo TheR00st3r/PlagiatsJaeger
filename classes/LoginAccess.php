@@ -1,6 +1,6 @@
 <?php
 class LoginAccess {
-	
+
 	const suffix = 'plagiat';
 
 	/**
@@ -17,7 +17,7 @@ class LoginAccess {
 
 			$dbLogin = new db();
 			$dbLogin -> read("SELECT
-								uID, uName, uLastname, uEMailAdress, uPassword, uPermissonLevel, cID
+								uID, uName, uLastname, uEMailAdress, uPassword, uPermissonLevel, cID, uThreshold, uCheckWWW, slID
 							FROM 
 								user
 							WHERE
@@ -33,6 +33,8 @@ class LoginAccess {
 				$_SESSION[self::suffix . '_name'] = $row['uName'] . ' ' . $row['uLastname'];
 				$_SESSION[self::suffix . '_email'] = $row['uEMailAdress'];
 				$_SESSION[self::suffix . '_level'] = $row['uPermissonLevel'];
+				
+				self::saveSettingsSession($row['uThreshold'], $row['uCheckWWW'], $row['slID']);
 
 				return true;
 			} else
@@ -51,6 +53,7 @@ class LoginAccess {
 		unset($_SESSION[self::suffix . '_name']);
 		unset($_SESSION[self::suffix . '_email']);
 		unset($_SESSION[self::suffix . '_level']);
+		unset($_SESSION[self::suffix . '_settings']);
 	}
 
 	/**
@@ -73,7 +76,7 @@ class LoginAccess {
 		return $_SESSION[self::suffix . '_name'];
 		// (' . $_SESSION[self::suffix . '_id'] . ')';
 	}
-	
+
 	/**
 	 * Returns the user id from the set sessions.
 	 * @return int
@@ -96,6 +99,28 @@ class LoginAccess {
 	 */
 	public static function getUserLevel() {
 		return $_SESSION[self::suffix . '_level'];
+	}
+
+	/**
+	 * Returns the user settings from the set sessions.
+	 * @return int
+	 */
+	public static function getUserSettings() {
+		return $_SESSION[self::suffix . '_settings'];
+	}
+	
+	/**
+	 * Saves the Sessions 
+	 * @param int $uThreshold
+	 * @param int $uCheckWWW
+	 * @param int $slID
+	 * @return void
+	 */
+	public static function saveSettingsSession($slID, $uThreshold, $uCheckWWW) {
+		$settings['uThreshold'] = $uThreshold;
+		$settings['uCheckWWW'] = $uCheckWWW;
+		$settings['slID'] = $slID;
+		$_SESSION[self::suffix . '_settings'] = $settings;
 	}
 
 }

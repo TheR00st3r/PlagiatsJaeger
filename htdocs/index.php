@@ -2,6 +2,8 @@
 require_once '../configs/setup.php';
 $smarty = new MySmarty();
 
+require_once '../classes/User.php';
+
 //echo $_SERVER['DOCUMENT_ROOT'];
 
 $smarty -> assign('root', $root);
@@ -9,6 +11,7 @@ $smarty -> assign('mySQL', $logData['host']);
 $smarty -> assign('version', '1.5.2');
 
 $get_array = $_GET;
+$post = key($_POST['button']);
 
 $url = explode("/", $get_array['url']);
 $url = deleteEmptyItems($url);
@@ -50,13 +53,22 @@ if ($page == 'public') {
 	} else
 		$contentTpl = 'error';
 
-//Is loggedin
+	//Is loggedin
 } else if (LoginAccess::check()) {
+	
+	require_once '../classes/Setting.php';
 
 	$smarty -> assign('isLogin', true);
 	$smarty -> assign('userLevel', LoginAccess::getUserLevel());
 
 	$smarty -> assign('userinfo', LoginAccess::getUserInfo());
+
+	// get settings
+	$settings = Setting::getAllSettings();
+	$smarty -> assign('settings', $settings);
+
+	$userSettings = LoginAccess::getUserSettings();
+	$smarty -> assign('userSettings', $userSettings);
 
 	switch ($url[0]) {
 		case '' :
@@ -65,10 +77,10 @@ if ($page == 'public') {
 			// Folder Overview
 
 			switch ($url[0]) {
-				case 'shared':
+				case 'shared' :
 					$fpLevel = 700;
 					break;
-				default:
+				default :
 					$fpLevel = 900;
 					break;
 			}
@@ -78,16 +90,11 @@ if ($page == 'public') {
 			require_once '../classes/Folder.php';
 			require_once '../classes/Upload.php';
 			require_once '../classes/Report.php';
-			require_once '../classes/User.php';
-			require_once '../classes/Setting.php';
+			
 
 			// get users
 			$users = User::getAllUser();
 			$smarty -> assign('users', $users);
-
-			// get settings
-			$settings = Setting::getAllSettings();
-			$smarty -> assign('settings', $settings);
 
 			// get selected folder
 			$folderUrl = deleteItem($url, 0);
@@ -105,7 +112,6 @@ if ($page == 'public') {
 			}
 
 			// POST FUNCTIONS
-			$post = key($_POST['button']);
 			switch ($post) {
 				case 'dAddFolderLinkSubmit' :
 					Folder::addFolderLink($_POST['fID'], $_POST['fLinkExpireDatetime']);
@@ -152,15 +158,27 @@ if ($page == 'public') {
 			break;
 
 		case 'settings' :
+
+			// POST FUNCTIONS
+			switch ($post) {
+				case 'uChangeSettings' :
+					$checkSettings = User::saveUserSettings(LoginAccess::getUserID(), $_POST['slID'], $_POST['uThreshold'], $_POST['uCheckWWW']);
+					if($checkSettings['state']) {
+						LoginAccess::saveSettingsSession($_POST['slID'], $_POST['uThreshold'], $_POST['uCheckWWW']);
+						$page = $root.$page;
+						header("Refresh: 1; url=$page");
+					}
+					$smarty -> assign('messages', $checkSettings['messages']);
+					break;
+			}
+
+			
 			$contentTpl = $smarty -> fetch('settings.tpl');
 			break;
 
 		case 'admin' :
 			if (LoginAccess::check(500)) {
-				require_once '../classes/User.php';
-
 				// POST FUNCTIONS
-				$post = key($_POST['button']);
 				switch ($post) {
 					case 'uAddSubmit' :
 						$return = User::newUser($_POST['uName'], $_POST['uLastname'], $_POST['uEMailAdress'], $_POST['uPassword'], $_POST['uPermissonLevel']);
@@ -183,14 +201,12 @@ if ($page == 'public') {
 			$contentTpl = '<h2>404</h2>';
 			break;
 	}
-// NOT loggedin
+	// NOT loggedin
 } else {
 	switch ($url[0]) {
 		case 'registrate' :
-			$post = key($_POST['button']);
 			switch ($post) {
 				case 'uRegistrate' :
-					require_once '../classes/User.php';
 					$return = User::registrateUser($_POST['uName'], $_POST['uLastname'], $_POST['uEMailAdress'], $_POST['uPassword'], $_POST['uPassword2'], $_POST['cID']);
 					$smarty -> assign('messages', $return['messages']);
 					break;
@@ -199,7 +215,6 @@ if ($page == 'public') {
 			break;
 
 		case 'reset-password' :
-			require_once '../classes/User.php';
 			$uIDCheck = User::checkRestoreKey($_GET['key']);
 
 			if ($uIDCheck['state']) {
@@ -227,7 +242,6 @@ if ($page == 'public') {
 
 		case 'forgot-password' :
 			if ($_POST['getIdFromEmail']) {
-				require_once '../classes/User.php';
 				$check = User::setRestoreKey($_POST['password_email']);
 				$smarty -> assign('messages', $check['messages']);
 			} else

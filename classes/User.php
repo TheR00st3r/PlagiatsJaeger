@@ -7,7 +7,7 @@ class User {
 	 * @return array with usrs
 	 */
 	public static function getAllUser() {
-		
+
 		$cID = LoginAccess::getClientID();
 		$uID = LoginAccess::getUserID();
 
@@ -78,15 +78,19 @@ class User {
 		}
 		if (Validator::validate(VAL_STRING, $uName, true) and Validator::validate(VAL_STRING, $uLastname, true) and Validator::validate(VAL_EMAIL, $uEMailAdress, true) and Validator::validate(VAL_PASSWORD, $uPassword, true) and Validator::validate(VAL_INTEGER, $uPermissonLevel, true) and Validator::validate(VAL_INTEGER, $cID, true)) {
 			$db = new db();
-			if ($db -> insert('user', array('uName' => $uName, 'uLastname' => $uLastname, 'uEMailAdress' => $uEMailAdress, 'uPassword' => md5($uPassword), 'uPermissonLevel' => $uPermissonLevel, 'uSentenceLength' => '0', 'uJumpLength' => '0', 'uTreshold' => '0', 'cID' => $cID))) {
-				$state = true;
-				$messages[] = array('type' => 'save', 'text' => 'Benutzer erfolgreich angelegt.');
-			} else {
+			if ($db -> insert('user', array('uName' => $uName, 'uLastname' => $uLastname, 'uEMailAdress' => $uEMailAdress, 'uPassword' => md5($uPassword), 'uPermissonLevel' => $uPermissonLevel, 'cID' => $cID))) {
+				$lastId = $db -> lastInsertId();
+				$checkSettings = self::saveUserSettings($lastId);
+				if ($checkSettings['state']) {
+					$state = true;
+					$messages[] = array('type' => 'save', 'text' => 'Benutzer erfolgreich angelegt.');
+				}
+				else
+					$messages = $checkSettings['messages'];
+			} else
 				$messages[] = array('type' => 'error', 'text' => 'Benuter konnte nicht gespeichert werden.');
-			}
-		} else {
+		} else
 			$messages[] = array('type' => 'error', 'text' => 'Bitte füllen Sie alle Felder aus.');
-		}
 		$return['state'] = $state;
 		$return['messages'] = $messages;
 
@@ -229,9 +233,24 @@ class User {
 		return $return;
 	}
 
-	public static function setMailNotofication() {
-		// TODO: setMailNotofication not imp.
-		throw new Exception('Not implemented');
+	public static function saveUserSettings($uID, $slID = 1, $uThreshold = 50, $uCheckWWW = 1) {
+		$state = false;
+		if (Validator::validate(VAL_INTEGER, $uID, true) and Validator::validate(VAL_INTEGER, $slID, true) and Validator::validate(VAL_INTEGER, $uThreshold, true) and Validator::validate(VAL_INTEGER, $uCheckWWW)) {
+
+			$db = new db();
+			if ($db -> insertUpdate('user', array('slID' => $slID, 'uThreshold' => $uThreshold, 'uCheckWWW' => $uCheckWWW), array('uID' => $uID))) {
+				$messages[] = array('type' => 'save', 'text' => 'Einstellungen wurden gespeichert.');
+				$state = true;
+			} else {
+				$messages[] = array('type' => 'error', 'text' => 'Einstellungen wurden gespeichert.');
+			}
+
+		} else {
+			$messages[] = array('type' => 'error', 'text' => 'Parameter fehlerhaft.');
+		}
+		$return['state'] = $state;
+		$return['messages'] = $messages;
+		return $return;
 	}
 
 	/**

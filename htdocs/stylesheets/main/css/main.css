@@ -29,7 +29,7 @@ textarea{border:solid 1px #cccccc;}
 .admin .user{width:100%;border-collapse:collapse;}.admin .user .borderright{border-right:solid 1px #eee;}
 .admin .user td{padding:1px 5px 1px 5px;}
 .admin .user .bgcolor{background:#f3f6fa;}
-.report{background:#FFF;}.report table th{text-align:right;min-width:180px;padding:0 20px 0 0;}
+.report{background:#FFF;}.report table th{text-align:right;min-width:120px;padding:0 20px 0 0;}
 .report table .reports td{width:50%;}
 .document{background:#FFF;}
 h2{font-size:20px;}
