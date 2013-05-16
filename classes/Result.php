@@ -22,5 +22,6 @@ class Result {
 			return $db -> linesAsArray();
 		}
 	}
+
 }
 ?>

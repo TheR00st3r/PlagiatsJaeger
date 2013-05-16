@@ -38,9 +38,15 @@ class Mail {
 
 			if ($mail -> Send()) {
 				$state = true;
-				$messages[] = array('type' => 'save', 'text' => 'Mail versendet.');
+				$messages[] = array(
+					'type' => 'save',
+					'text' => 'Mail versendet.'
+				);
 			} else
-				$messages[] = array('type' => 'error', 'text' => $mail -> ErrorInfo);
+				$messages[] = array(
+					'type' => 'error',
+					'text' => $mail -> ErrorInfo
+				);
 
 		} else
 			$messages = $uIDCheck['messages'];
@@ -52,7 +58,7 @@ class Mail {
 	}
 
 	public function forgotPasswordMailSend($key, $uID) {
-		
+
 		global $root;
 
 		require_once '../classes/User.php';
@@ -77,9 +83,15 @@ class Mail {
 
 			if ($mail -> Send()) {
 				$state = true;
-				$messages[] = array('type' => 'save', 'text' => 'Mail versendet.');
+				$messages[] = array(
+					'type' => 'save',
+					'text' => 'Mail versendet.'
+				);
 			} else
-				$messages[] = array('type' => 'error', 'text' => $mail -> ErrorInfo);
+				$messages[] = array(
+					'type' => 'error',
+					'text' => $mail -> ErrorInfo
+				);
 		} else
 			$messages = $uIDCheck['messages'];
 

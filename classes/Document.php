@@ -41,7 +41,11 @@ class Document {
 		if (Validator::validate(VAL_INTEGER, $fID, true) and Validator::validate(VAL_STRING, $dAuthor)) {
 			require_once 'Upload.php';
 			$db = new db();
-			if ($db -> insert('document', array('dOriginalName' => $file["name"], 'dAuthor' => $dAuthor, 'fID' => $fID))) {
+			if ($db -> insert('document', array(
+				'dOriginalName' => $file["name"],
+				'dAuthor' => $dAuthor,
+				'fID' => $fID
+			))) {
 				$lastID = $db -> lastInsertId();
 				$uploadCheck = Upload::fileUpload($lastID, $file);
 				if ($uploadCheck['state']) {
@@ -49,12 +53,45 @@ class Document {
 				}
 				$messages = $uploadCheck['messages'];
 			} else
-				$messages[] = array('type' => 'error', 'text' => 'Dokument wurde nicht angelegt!');
+				$messages[] = array(
+					'type' => 'error',
+					'text' => 'Dokument wurde nicht angelegt!'
+				);
 		} else
-			$messages[] = array('type' => 'error', 'text' => 'Parameter haben kein gültiges Format!');
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'Parameter haben kein gültiges Format!'
+			);
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;
+		return $return;
+	}
+
+	public static function deleteDocument($dID) {
+		$state = false;
+		if (Validator::validate(VAL_INTEGER, $dID, true)) {
+			$db = new db();
+			if ($db -> deleteWithWhereArray('document', array('dID' => $dID))) {
+				$state = true;
+				$messages[] = array(
+					'type' => 'save',
+					'text' => 'Dokument erfolgreich gelöscht.'
+				);
+			} else
+				$messages[] = array(
+					'type' => 'error',
+					'text' => 'Dokument konnte nicht gelöscht werden.'
+				);
+		} else
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'Die Dokument Id ist nicht gültig.'
+			);
+
+		$return['state'] = $state;
+		$return['messages'] = $messages;
+
 		return $return;
 	}
 
@@ -67,14 +104,14 @@ class Document {
 
 		// $db = new db();
 		// $db -> read("
-				// SELECT
-					// d.dID, d.dOriginalName, d.dAuthor, d.fID, d.dIsParsed
-				// FROM
-					// document AS d
-				// WHERE
-					// d.dID = '$dID'
-				// ");
-// 
+		// SELECT
+		// d.dID, d.dOriginalName, d.dAuthor, d.fID, d.dIsParsed
+		// FROM
+		// document AS d
+		// WHERE
+		// d.dID = '$dID'
+		// ");
+		//
 		// $row = $db -> lines();
 
 		if ($row['dIsParsed']) {

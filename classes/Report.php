@@ -12,25 +12,41 @@ class Report {
 		$state = false;
 		if (Validator::validate(VAL_INTEGER, $dID, true) and Validator::validate(VAL_INTEGER, $slID, true) and Validator::validate(VAL_INTEGER, $rThreshold, true) and Validator::validate(VAL_INTEGER, $rCheckWWW, true)) {
 			$db = new db();
-			if ($db -> insert('report', array('rDatetime' => date('Y-m-d H:m:s'), 'rErrorCode' => $rErrorCode, 'dID' => $dID, 'slID' => $slID, 'rThreshold' => $rThreshold, 'rCheckWWW' => $rCheckWWW))) {
+			if ($db -> insert('report', array(
+				'rDatetime' => date('Y-m-d H:m:s'),
+				'rErrorCode' => $rErrorCode,
+				'dID' => $dID,
+				'slID' => $slID,
+				'rThreshold' => $rThreshold,
+				'rCheckWWW' => $rCheckWWW
+			))) {
 				$lastReportID = $db -> lastInsertId();
-				$link = $backendUrl."ReportServlet?rID=" . $lastReportID;
+				$link = $backendUrl . "ReportServlet?rID=" . $lastReportID;
 				$result = file($link);
 				if ($result == true) {
 					$state = true;
-					$messages[] = array('type' => 'save', 'text' => 'Report wurde erfolgreich angelegt!');
-				}
-				else {
+					$messages[] = array(
+						'type' => 'save',
+						'text' => 'Report wurde erfolgreich angelegt!'
+					);
+				} else {
 					print_array($result);
-					$messages[] = array('type' => 'error', 'text' => 'Report konnte nicht angestoßen werden!<br />'.$link);
+					$messages[] = array(
+						'type' => 'error',
+						'text' => 'Report konnte nicht angestoßen werden!<br />' . $link
+					);
 				}
-			}
-			else
-				$messages[] = array('type' => 'error', 'text' => 'Report wurde nicht angelegt!');
-		}
-		else 
-			$messages[] = array('type' => 'error', 'text' => 'Parameter haben kein gültiges Format!');
-		
+			} else
+				$messages[] = array(
+					'type' => 'error',
+					'text' => 'Report wurde nicht angelegt!'
+				);
+		} else
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'Parameter haben kein gültiges Format!'
+			);
+
 		$return['state'] = $state;
 		$return['messages'] = $messages;
 		return $return;
@@ -87,9 +103,15 @@ class Report {
 				$report = $row;
 				$state = true;
 			} else
-				$messages[] = array('type' => 'error', 'text' => 'rID ist nicht gültig.');
+				$messages[] = array(
+					'type' => 'error',
+					'text' => 'rID ist nicht gültig.'
+				);
 		} else
-			$messages[] = array('type' => 'error', 'text' => 'rID hat kein gültiges Format.');
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'rID hat kein gültiges Format.'
+			);
 
 		$return['report'] = $report;
 		$return['state'] = $state;

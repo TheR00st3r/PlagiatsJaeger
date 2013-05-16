@@ -138,7 +138,10 @@ class Folder {
 
 		if (Validator::validate(VAL_STRING, $fName, true) and Validator::validate(VAL_INTEGER, $uID, true)) {
 			$db = new db();
-			if ($db -> insert('folder', array('fName' => $fName, 'fParentID' => $fParentID))) {
+			if ($db -> insert('folder', array(
+				'fName' => $fName,
+				'fParentID' => $fParentID
+			))) {
 				$lastID = $db -> lastInsertId();
 				if (self::saveFolderPermission('900', $lastID, $uID)) {
 					return true;
@@ -154,8 +157,30 @@ class Folder {
 	 * @return boolean
 	 */
 	public static function deleteFolder($fID) {
-		$db = new db();
-		return $db -> deleteWithWhereArray('folder', array('fID' => $fID));
+		$state = false;
+		if (Validator::validate(VAL_INTEGER, $fID, true)) {
+			$db = new db();
+			if ($db -> deleteWithWhereArray('folder', array('fID' => $fID))) {
+				$state = true;
+				$messages[] = array(
+					'type' => 'save',
+					'text' => 'Ordner erfolgreich gelöscht.'
+				);
+			} else
+				$messages[] = array(
+					'type' => 'error',
+					'text' => 'Ordner konnte nicht gelöscht werden.'
+				);
+		} else
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'Die Ordner Id ist nicht gültig.'
+			);
+
+		$return['state'] = $state;
+		$return['messages'] = $messages;
+
+		return $return;
 	}
 
 	/**
@@ -167,7 +192,10 @@ class Folder {
 		$hash = md5(uniqid());
 		$db = new db();
 		// TODO: add expire date
-		if ($db -> update('folder', array('fHashLink' => $hash, 'fLinkExpireDatetime' => $fLinkExpireDatetime), array('fID' => $fID))) {
+		if ($db -> update('folder', array(
+			'fHashLink' => $hash,
+			'fLinkExpireDatetime' => $fLinkExpireDatetime
+		), array('fID' => $fID))) {
 			return $hash;
 		}
 		return false;
@@ -214,14 +242,27 @@ class Folder {
 		$state = false;
 		if (Validator::validate(VAL_INTEGER, $fpPermissionLevel, true) and Validator::validate(VAL_INTEGER, $fID, true) and Validator::validate(VAL_INTEGER, $uID, true)) {
 			$db = new db();
-			if ($db -> insert('folderpermission', array('fpPermissionLevel' => $fpPermissionLevel, 'fID' => $fID, 'uID' => $uID), true)) {
+			if ($db -> insert('folderpermission', array(
+				'fpPermissionLevel' => $fpPermissionLevel,
+				'fID' => $fID,
+				'uID' => $uID
+			), true)) {
 				$state = true;
-				$messages[] = array('type' => 'save', 'text' => 'Ordner Einstellung gespeichert.');
+				$messages[] = array(
+					'type' => 'save',
+					'text' => 'Ordner Einstellung gespeichert.'
+				);
 			} else {
-				$messages[] = array('type' => 'error', 'text' => 'Ordner Einstellung konnte nicht gespeichert werden.');
+				$messages[] = array(
+					'type' => 'error',
+					'text' => 'Ordner Einstellung konnte nicht gespeichert werden.'
+				);
 			}
 		} else
-			$messages[] = array('type' => 'error', 'text' => 'Parameter nicht korrekt.');
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'Parameter nicht korrekt.'
+			);
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;
@@ -248,7 +289,10 @@ class Folder {
 		}
 
 		if ($state)
-			$messages[] = array('type' => 'save', 'text' => 'Einstellungen gespeichert.');
+			$messages[] = array(
+				'type' => 'save',
+				'text' => 'Einstellungen gespeichert.'
+			);
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;
@@ -276,7 +320,10 @@ class Folder {
 
 	private static function deleteFolderPermissionsFromFolderId($fID) {
 		$db = new db();
-		$db -> deleteWithWhereArray('folderpermission', array('fID' => $fID, 'fpPermissionLevel' => '700'), 99);
+		$db -> deleteWithWhereArray('folderpermission', array(
+			'fID' => $fID,
+			'fpPermissionLevel' => '700'
+		), 99);
 	}
 
 }

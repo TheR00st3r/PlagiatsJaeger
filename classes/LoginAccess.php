@@ -34,7 +34,7 @@ class LoginAccess {
 				$_SESSION[self::suffix . '_email'] = $row['uEMailAdress'];
 				$_SESSION[self::suffix . '_level'] = $row['uPermissonLevel'];
 				
-				self::saveSettingsSession($row['uThreshold'], $row['uCheckWWW'], $row['slID']);
+				self::saveSettingsSession($row['slID'], $row['uThreshold'], $row['uCheckWWW']);
 
 				return true;
 			} else
@@ -108,9 +108,9 @@ class LoginAccess {
 	public static function getUserSettings() {
 		return $_SESSION[self::suffix . '_settings'];
 	}
-	
+
 	/**
-	 * Saves the Sessions 
+	 * Saves the Sessions
 	 * @param int $uThreshold
 	 * @param int $uCheckWWW
 	 * @param int $slID

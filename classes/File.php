@@ -35,7 +35,13 @@ class File {
 		$state = false;
 		if (Validator::validate(VAL_INTEGER, $dID, true)) {
 
-			$allowedExtensions = array('.pdf', '.doc', '.docx', '.txt', '.html');
+			$allowedExtensions = array(
+				'.pdf',
+				'.doc',
+				'.docx',
+				'.txt',
+				'.html'
+			);
 
 			if ($file["tmp_name"] != '') {
 
@@ -45,22 +51,37 @@ class File {
 				if (in_array($extension, $allowedExtensions)) {
 
 					if (copy($file["tmp_name"], self::path . $dID . $extension)) {
-						$link = $backendUrl."ParseServlet?dID=" . $dID . "&dFileEnding=" . $extension;
+						$link = $backendUrl . "ParseServlet?dID=" . $dID . "&dFileEnding=" . $extension;
 						$result = file($link);
 						if ($result == true) {
 							$state = true;
-							$messages[] = array('type' => 'save', 'text' => 'Dokument wurde erfolgreich gespeichert!');
+							$messages[] = array(
+								'type' => 'save',
+								'text' => 'Dokument wurde erfolgreich gespeichert!'
+							);
 						} else {
 							print_array($result);
-							$messages[] = array('type' => 'error', 'text' => 'Dokumentparsing konnte nicht angestoßen werden!<br />'.$link);
+							$messages[] = array(
+								'type' => 'error',
+								'text' => 'Dokumentparsing konnte nicht angestoßen werden!<br />' . $link
+							);
 						}
 					} else
-						$messages[] = array('type' => 'error', 'text' => 'Originaldokument konnte nicht gespeichert werden.');
+						$messages[] = array(
+							'type' => 'error',
+							'text' => 'Originaldokument konnte nicht gespeichert werden.'
+						);
 				} else
-					$messages[] = array('type' => 'error', 'text' => 'Ungültiges Dateiformat (' . implode($allowedExtensions, ',') . ')');
+					$messages[] = array(
+						'type' => 'error',
+						'text' => 'Ungültiges Dateiformat (' . implode($allowedExtensions, ',') . ')'
+					);
 			}
 		} else
-			$messages[] = array('type' => 'error', 'text' => 'Parameter haben kein gültiges Format!');
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'Parameter haben kein gültiges Format!'
+			);
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;

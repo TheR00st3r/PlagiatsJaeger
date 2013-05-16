@@ -13,7 +13,11 @@ class Upload {
 	public static function shortTextUpload($fID, $dAuthor, $text) {
 		if (Validator::validate(VAL_INTEGER, $fID, true) and Validator::validate(VAL_STRING, $dAuthor)) {
 			$db = new db();
-			if ($db -> insert('document', array('dOriginalName' => 'Schnelltest Upload', 'dAuthor' => $dAuthor, 'fID' => $fID))) {
+			if ($db -> insert('document', array(
+				'dOriginalName' => 'Schnelltest Upload',
+				'dAuthor' => $dAuthor,
+				'fID' => $fID
+			))) {
 				$lastID = $db -> lastInsertId();
 				require_once 'File.php';
 				if (File::writeFile($lastID, nl2br($text), '.txt')) {

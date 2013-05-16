@@ -50,10 +50,16 @@ class User {
 				$user = $row;
 				$state = true;
 			} else {
-				$messages[] = array('type' => 'error', 'text' => 'Id ist nicht gültig.');
+				$messages[] = array(
+					'type' => 'error',
+					'text' => 'Id ist nicht gültig.'
+				);
 			}
 		} else {
-			$messages[] = array('type' => 'error', 'text' => 'ID hat kein gültiges Format.');
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'ID hat kein gültiges Format.'
+			);
 		}
 		$return['user'] = $user;
 		$return['state'] = $state;
@@ -78,19 +84,34 @@ class User {
 		}
 		if (Validator::validate(VAL_STRING, $uName, true) and Validator::validate(VAL_STRING, $uLastname, true) and Validator::validate(VAL_EMAIL, $uEMailAdress, true) and Validator::validate(VAL_PASSWORD, $uPassword, true) and Validator::validate(VAL_INTEGER, $uPermissonLevel, true) and Validator::validate(VAL_INTEGER, $cID, true)) {
 			$db = new db();
-			if ($db -> insert('user', array('uName' => $uName, 'uLastname' => $uLastname, 'uEMailAdress' => $uEMailAdress, 'uPassword' => md5($uPassword), 'uPermissonLevel' => $uPermissonLevel, 'cID' => $cID))) {
+			if ($db -> insert('user', array(
+				'uName' => $uName,
+				'uLastname' => $uLastname,
+				'uEMailAdress' => $uEMailAdress,
+				'uPassword' => md5($uPassword),
+				'uPermissonLevel' => $uPermissonLevel,
+				'cID' => $cID
+			))) {
 				$lastId = $db -> lastInsertId();
 				$checkSettings = self::saveUserSettings($lastId);
 				if ($checkSettings['state']) {
 					$state = true;
-					$messages[] = array('type' => 'save', 'text' => 'Benutzer erfolgreich angelegt.');
-				}
-				else
+					$messages[] = array(
+						'type' => 'save',
+						'text' => 'Benutzer erfolgreich angelegt.'
+					);
+				} else
 					$messages = $checkSettings['messages'];
 			} else
-				$messages[] = array('type' => 'error', 'text' => 'Benuter konnte nicht gespeichert werden.');
+				$messages[] = array(
+					'type' => 'error',
+					'text' => 'Benuter konnte nicht gespeichert werden.'
+				);
 		} else
-			$messages[] = array('type' => 'error', 'text' => 'Bitte füllen Sie alle Felder aus.');
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'Bitte füllen Sie alle Felder aus.'
+			);
 		$return['state'] = $state;
 		$return['messages'] = $messages;
 
@@ -123,7 +144,10 @@ class User {
 						$state = true;
 					}
 					$messages = $mailCheck['messages'];
-					$messages[] = array('type' => 'save', 'text' => 'Erfolgreich registiertier, sie werden nach der Freischaltung durch Ihren Administrator benachrichtigt.');
+					$messages[] = array(
+						'type' => 'save',
+						'text' => 'Erfolgreich registiertier, sie werden nach der Freischaltung durch Ihren Administrator benachrichtigt.'
+					);
 				} else
 					$messages = $userCheck['messages'];
 			} else
@@ -154,7 +178,10 @@ class User {
 			$uRestoreKey = uniqid();
 			$uRestoreEndDate = date("Y-m-d", mktime(0, 0, 0, date("m"), date("d") + 1, date("Y")));
 			$db = new db();
-			if ($db -> update('user', array('uRestoreKey' => md5($uRestoreKey), 'uRestoreEndDate' => $uRestoreEndDate), array('uID' => $uIDCheck['uID']))) {
+			if ($db -> update('user', array(
+				'uRestoreKey' => md5($uRestoreKey),
+				'uRestoreEndDate' => $uRestoreEndDate
+			), array('uID' => $uIDCheck['uID']))) {
 				$mail = new Mail();
 				$mailCheck = $mail -> forgotPasswordMailSend($uRestoreKey, $uIDCheck['uID']);
 				if ($mailCheck['state'] == true) {
@@ -190,9 +217,15 @@ class User {
 				$uID = $row['uID'];
 				$state = true;
 			} else
-				$messages[] = array('type' => 'error', 'text' => 'Der Key ist falsch oder nicht mehr gültig, Bitte fordnern Sie einen neuen Key an!');
+				$messages[] = array(
+					'type' => 'error',
+					'text' => 'Der Key ist falsch oder nicht mehr gültig, Bitte fordnern Sie einen neuen Key an!'
+				);
 		} else
-			$messages[] = array('type' => 'error', 'text' => 'Der Key hat kein gültiges Format. Bitte fordnern Sie einen neuen Key an!');
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'Der Key hat kein gültiges Format. Bitte fordnern Sie einen neuen Key an!'
+			);
 
 		$return['uID'] = $uID;
 		$return['state'] = $state;
@@ -214,19 +247,32 @@ class User {
 			$pwCheck = self::checkNewPassword($password1, $password2);
 			if ($pwCheck['state'] == true) {
 				$db = new db();
-				if ($db -> insertUpdate('user', array('uPassword' => md5($password1), 'uRestoreKey' => '', 'uRestoreEndDate' => '0000-00-00'), array('uID' => $uID))) {
-					$messages[] = array('type' => 'save', 'text' => 'Neues Passwort wurde gespeichert, bitte loggen Sie sich nun mit Ihrem neuen Passwort ein.');
+				if ($db -> insertUpdate('user', array(
+					'uPassword' => md5($password1),
+					'uRestoreKey' => '',
+					'uRestoreEndDate' => '0000-00-00'
+				), array('uID' => $uID))) {
+					$messages[] = array(
+						'type' => 'save',
+						'text' => 'Neues Passwort wurde gespeichert, bitte loggen Sie sich nun mit Ihrem neuen Passwort ein.'
+					);
 					$state = true;
 					// TODO: Need Logout?
 					LoginAccess::logout();
 				} else {
-					$messages[] = array('type' => 'error', 'text' => 'Passwort konnte nicht gespeichert werden!');
+					$messages[] = array(
+						'type' => 'error',
+						'text' => 'Passwort konnte nicht gespeichert werden!'
+					);
 				}
 			} else {
 				$messages = $pwCheck['messages'];
 			}
 		} else {
-			$messages[] = array('type' => 'error', 'text' => 'uID fehlt.');
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'uID fehlt.'
+			);
 		}
 		$return['state'] = $state;
 		$return['messages'] = $messages;
@@ -238,15 +284,28 @@ class User {
 		if (Validator::validate(VAL_INTEGER, $uID, true) and Validator::validate(VAL_INTEGER, $slID, true) and Validator::validate(VAL_INTEGER, $uThreshold, true) and Validator::validate(VAL_INTEGER, $uCheckWWW)) {
 
 			$db = new db();
-			if ($db -> insertUpdate('user', array('slID' => $slID, 'uThreshold' => $uThreshold, 'uCheckWWW' => $uCheckWWW), array('uID' => $uID))) {
-				$messages[] = array('type' => 'save', 'text' => 'Einstellungen wurden gespeichert.');
+			if ($db -> insertUpdate('user', array(
+				'slID' => $slID,
+				'uThreshold' => $uThreshold,
+				'uCheckWWW' => $uCheckWWW
+			), array('uID' => $uID))) {
+				$messages[] = array(
+					'type' => 'save',
+					'text' => 'Einstellungen wurden gespeichert.'
+				);
 				$state = true;
 			} else {
-				$messages[] = array('type' => 'error', 'text' => 'Einstellungen wurden gespeichert.');
+				$messages[] = array(
+					'type' => 'error',
+					'text' => 'Einstellungen wurden gespeichert.'
+				);
 			}
 
 		} else {
-			$messages[] = array('type' => 'error', 'text' => 'Parameter fehlerhaft.');
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'Parameter fehlerhaft.'
+			);
 		}
 		$return['state'] = $state;
 		$return['messages'] = $messages;
@@ -266,15 +325,27 @@ class User {
 			if ($db -> ifExist('user', array('uID' => $uID))) {
 				if ($db -> update('user', array('uPermissonLevel' => $uPermissonLevel), array('uID' => $uID))) {
 					$state = true;
-					$messages[] = array('type' => 'save', 'text' => 'Benutzer erfolgreich freigeschlaten.');
+					$messages[] = array(
+						'type' => 'save',
+						'text' => 'Benutzer erfolgreich freigeschlaten.'
+					);
 				} else {
-					$messages[] = array('type' => 'error', 'text' => 'Benuter konnte nicht freigeschlaten werden.');
+					$messages[] = array(
+						'type' => 'error',
+						'text' => 'Benuter konnte nicht freigeschlaten werden.'
+					);
 				}
 			} else {
-				$messages[] = array('type' => 'error', 'text' => 'Benutzer existiert nicht.');
+				$messages[] = array(
+					'type' => 'error',
+					'text' => 'Benutzer existiert nicht.'
+				);
 			}
 		} else {
-			$messages[] = array('type' => 'error', 'text' => 'Berechtigung oder Benutzer ID ungültig.');
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'Berechtigung oder Benutzer ID ungültig.'
+			);
 		}
 		$return['state'] = $state;
 		$return['messages'] = $messages;
@@ -294,15 +365,27 @@ class User {
 				$db = new db();
 				if ($db -> deleteWithWhereArray('user', array('uID' => $uID))) {
 					$state = true;
-					$messages[] = array('type' => 'save', 'text' => 'Benutzer erfolgreich gelöscht.');
+					$messages[] = array(
+						'type' => 'save',
+						'text' => 'Benutzer erfolgreich gelöscht.'
+					);
 				} else {
-					$messages[] = array('type' => 'error', 'text' => 'Benuter konnte nicht gelöscht werden.');
+					$messages[] = array(
+						'type' => 'error',
+						'text' => 'Benuter konnte nicht gelöscht werden.'
+					);
 				}
 			} else {
-				$messages[] = array('type' => 'info', 'text' => 'Sie haben versucht sich selber zu löschen :-).');
+				$messages[] = array(
+					'type' => 'info',
+					'text' => 'Sie haben versucht sich selber zu löschen :-).'
+				);
 			}
 		} else {
-			$messages[] = array('type' => 'error', 'text' => 'Benutzer ID ungültig.');
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'Benutzer ID ungültig.'
+			);
 		}
 		$return['state'] = $state;
 		$return['messages'] = $messages;
@@ -322,15 +405,27 @@ class User {
 			if ($password1 == $password2) {
 				if (strlen($password1) >= 8) {
 					$state = true;
-					$messages[] = array('type' => 'save', 'text' => 'Passwörter sind ok.');
+					$messages[] = array(
+						'type' => 'save',
+						'text' => 'Passwörter sind ok.'
+					);
 				} else {
-					$messages[] = array('type' => 'error', 'text' => 'Passwort ist zu kurz, min 8 Zeichen!');
+					$messages[] = array(
+						'type' => 'error',
+						'text' => 'Passwort ist zu kurz, min 8 Zeichen!'
+					);
 				}
 			} else {
-				$messages[] = array('type' => 'error', 'text' => 'Passwörter sind nicht gleich!');
+				$messages[] = array(
+					'type' => 'error',
+					'text' => 'Passwörter sind nicht gleich!'
+				);
 			}
 		} else {
-			$messages[] = array('type' => 'error', 'text' => 'Passwörter haben kein gültiges Format.');
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'Passwörter haben kein gültiges Format.'
+			);
 		}
 
 		$return['state'] = $state;
@@ -353,12 +448,21 @@ class User {
 				$cID = $row['cID'];
 				$cAdmin = $row['cAdmin'];
 				$state = true;
-				$messages[] = array('type' => 'save', 'text' => 'Mandantenummer ist gültig.');
+				$messages[] = array(
+					'type' => 'save',
+					'text' => 'Mandantenummer ist gültig.'
+				);
 			} else {
-				$messages[] = array('type' => 'error', 'text' => 'Mandantenummer ist nicht gültig.');
+				$messages[] = array(
+					'type' => 'error',
+					'text' => 'Mandantenummer ist nicht gültig.'
+				);
 			}
 		} else {
-			$messages[] = array('type' => 'error', 'text' => 'Mandantenummer hat kein gültiges Format.');
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'Mandantenummer hat kein gültiges Format.'
+			);
 		}
 
 		$return['cID'] = $cID;
@@ -383,9 +487,15 @@ class User {
 				$uID = $row['uID'];
 				$state = true;
 			} else
-				$messages[] = array('type' => 'error', 'text' => 'eMail-Adresse ist falsch.');
+				$messages[] = array(
+					'type' => 'error',
+					'text' => 'eMail-Adresse ist falsch.'
+				);
 		} else
-			$messages[] = array('type' => 'error', 'text' => 'Die eMail-Adresse hat kein gültiges Format.');
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'Die eMail-Adresse hat kein gültiges Format.'
+			);
 
 		$return['uID'] = $uID;
 		$return['state'] = $state;

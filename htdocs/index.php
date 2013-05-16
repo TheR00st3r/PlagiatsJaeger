@@ -55,7 +55,7 @@ if ($page == 'public') {
 
 	//Is loggedin
 } else if (LoginAccess::check()) {
-	
+
 	require_once '../classes/Setting.php';
 
 	$smarty -> assign('isLogin', true);
@@ -66,6 +66,7 @@ if ($page == 'public') {
 	// get settings
 	$settings = Setting::getAllSettings();
 	$smarty -> assign('settings', $settings);
+	
 
 	$userSettings = LoginAccess::getUserSettings();
 	$smarty -> assign('userSettings', $userSettings);
@@ -90,7 +91,6 @@ if ($page == 'public') {
 			require_once '../classes/Folder.php';
 			require_once '../classes/Upload.php';
 			require_once '../classes/Report.php';
-			
 
 			// get users
 			$users = User::getAllUser();
@@ -104,39 +104,38 @@ if ($page == 'public') {
 
 			$smarty -> assign('folder', $folder);
 
-			if (Validator::validate(VAL_INTEGER, $_GET['fID'], true)) {
-				switch ($_GET['action']) {
-					case 'deleteFolder' :
-						Folder::deleteFolder($_GET['fID']);
-				}
-			}
-
 			// POST FUNCTIONS
 			switch ($post) {
-				case 'dAddFolderLinkSubmit' :
+				case 'createLink' :
 					Folder::addFolderLink($_POST['fID'], $_POST['fLinkExpireDatetime']);
 					break;
-				case 'fAddSubmit' :
-					Folder::addFolder($_POST['fAddName'], $folder['fID'], LoginAccess::getUserID());
+				case 'newFile' :
+					$check = Document::fileUpload($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile']);
 					break;
-				case 'dAddSubmit' :
-					$uploadCheck = Document::fileUpload($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile']);
-					$messages = $uploadCheck['messages'];
-					break;
-				case 'dAddShortSubmit' :
+				case 'newShortTest' :
 					Upload::shortTextUpload($folder['fID'], $_POST['dAddAutor'], $_POST['dAddShortText']);
 					break;
 				case 'dAddFolderShareSubmit' :
-					$saveCheck = Folder::saveMultibleFolderPermissions(700, $_POST['fID'], $_POST['uIDs']);
-					$messages = $saveCheck['messages'];
+					$check = Folder::saveMultibleFolderPermissions(700, $_POST['fID'], $_POST['uIDs']);
 					break;
-				case 'rAdd' :
-					$reportCheck = Report::createReport($_POST['dID'], $_POST['slID'], $_POST['rThreshold'], $_POST['rCheckWWW']);
-					$messages = $reportCheck['messages'];
+				case 'shareFolder' :
+					$check = Folder::saveMultibleFolderPermissions(700, $_POST['fID'], $_POST['uIDs']);
+					break;
+				case 'newFolder' :
+					Folder::addFolder($_POST['fAddName'], $folder['fID'], LoginAccess::getUserID());
+					break;
+				case 'deleteFolder' :
+					$check = Folder::deleteFolder($_POST['fID']);
+					break;
+				case 'addReport' :
+					$check = Report::createReport($_POST['dID'], $_POST['slID'], $_POST['rThreshold'], $_POST['rCheckWWW']);
+					break;
+				case 'deleteDocument':
+					$check = Document::deleteDocument($_POST['dID']);
 					break;
 			}
 
-			$smarty -> assign('messages', $messages);
+			$smarty -> assign('messages', $check['messages']);
 
 			//get documents from selected folder
 			$smarty -> assign('documents', Document::getDocumentsFromFolderID($folder['fID']));
@@ -163,16 +162,15 @@ if ($page == 'public') {
 			switch ($post) {
 				case 'uChangeSettings' :
 					$checkSettings = User::saveUserSettings(LoginAccess::getUserID(), $_POST['slID'], $_POST['uThreshold'], $_POST['uCheckWWW']);
-					if($checkSettings['state']) {
+					if ($checkSettings['state']) {
 						LoginAccess::saveSettingsSession($_POST['slID'], $_POST['uThreshold'], $_POST['uCheckWWW']);
-						$page = $root.$page;
+						$page = $root . $page;
 						header("Refresh: 1; url=$page");
 					}
 					$smarty -> assign('messages', $checkSettings['messages']);
 					break;
 			}
 
-			
 			$contentTpl = $smarty -> fetch('settings.tpl');
 			break;
 
@@ -183,10 +181,10 @@ if ($page == 'public') {
 					case 'uAddSubmit' :
 						$return = User::newUser($_POST['uName'], $_POST['uLastname'], $_POST['uEMailAdress'], $_POST['uPassword'], $_POST['uPermissonLevel']);
 						break;
-					case 'uActivate' :
+					case 'activateUser' :
 						$return = User::activateUser($_POST['uID'], $_POST['uPermissonLevel']);
 						break;
-					case 'uDelete' :
+					case 'deleteUser' :
 						$return = User::deleteUser($_POST['uID']);
 						break;
 				}
