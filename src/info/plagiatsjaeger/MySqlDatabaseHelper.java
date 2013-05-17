@@ -390,4 +390,9 @@ public class MySqlDatabaseHelper
 		}
 		return isparsed;
 	}
+	
+	public String loadDocumentURL(int docId)
+	{
+		return "";
+	}
 }

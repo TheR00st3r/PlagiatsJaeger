@@ -8,5 +8,5 @@ package info.plagiatsjaeger.enums;
  */
 public enum FileType
 {
-	PDF, DOC, DOCX, TXT;
+	PDF, DOC, DOCX, TXT, HTML;
 }
