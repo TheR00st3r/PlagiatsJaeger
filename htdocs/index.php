@@ -34,13 +34,12 @@ if (isset($_POST['lSubmit'])) {
 if ($page == 'public') {
 	require_once '../classes/Folder.php';
 	$folder = Folder::getFolderFromHash($_GET['id']);
-	print_array($folder);
 	if ($folder['fID']) {
 
 		if ($folder['fLinkExpireDatetime'] > date("Y-m-d H:i:s")) {
 
 			if (isset($_POST['dAddSubmit'])) {
-				require_once '../classes/Upload.php';
+				require_once '../classes/Document.php';
 				$check = Document::addDocument($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'], $slID, $uThreshold, $uCheckWWW);
 				if ($check['state']) {
 					$contentTpl = 'vielen Dank!';
@@ -113,7 +112,6 @@ if ($page == 'public') {
 					break;
 				case 'newFile' :
 					$check = Document::addDocument($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'], $userSettings['slID'], $userSettings['uThreshold'], $userSettings['uCheckWWW']);
-					print_array($check);
 					break;
 				case 'newShortTest' :
 					Upload::shortTextUpload($folder['fID'], $_POST['dAddAutor'], $_POST['dAddShortText']);
