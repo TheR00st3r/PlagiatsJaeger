@@ -31,7 +31,7 @@ public class Control
 	/**
 	 * Dateipfad fuer die Dateien auf dem Server.
 	 */
-	private static final String		ROOT_FILES			= "/var/www/uploads/";
+	public static final String		ROOT_FILES			= "/var/www/uploads/";
 	private static final Logger		_logger				= Logger.getLogger(Control.class.getName());
 	private static final int		SIZE_THREADPOOL		= 20;
 	private static final int		NUM_CHECKS_IF_PARSED = 60;
@@ -76,7 +76,7 @@ public class Control
 					{
 						_logger.info("Thread started: " + dId + fileEnding);
 						FileParser fileParser = new FileParser();
-						if (fileParser.parseFile(ROOT_FILES + dId + fileEnding))
+						if (fileParser.parseFile(dId, fileEnding))
 						{
 							new MySqlDatabaseHelper().setDocumentAsParsed(dId);
 						}
