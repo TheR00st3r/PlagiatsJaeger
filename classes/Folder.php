@@ -210,11 +210,11 @@ class Folder {
 		$db = new db();
 		$db -> read("
 				SELECT
-					f.fID, f.fName, f.fLinkExpireDatetime
+					f.fID, f.fName, f.fLinkExpireDatetime, u.uThreshold, u.uCheckWWW, u.slID
 				FROM
-					folder AS f
+					folder AS f LEFT JOIN folderpermission AS fp ON f.fID = fp.fID LEFT JOIN user AS u ON fp.uID = u.uID
 				WHERE
-					f.fHashLink = '$hash' and f.fHashLink != ''
+					f.fHashLink = '$hash' and f.fHashLink != '' and fp.fpPermissionLevel = 900
 				ORDER BY
 					f.fName ASC");
 		return $db -> lines();

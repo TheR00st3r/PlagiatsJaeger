@@ -7,14 +7,14 @@ class Report {
 	 * @param int $rLevel
 	 * @return boolean
 	 */
-	public static function createReport($dID, $slID, $rThreshold, $rCheckWWW = 1, $rErrorCode = 100) {
+	public static function createReport($dID, $slID, $rThreshold, $rCheckWWW) {
 		global $backendUrl;
 		$state = false;
-		if (Validator::validate(VAL_INTEGER, $dID, true) and Validator::validate(VAL_INTEGER, $slID, true) and Validator::validate(VAL_INTEGER, $rThreshold, true) and Validator::validate(VAL_INTEGER, $rCheckWWW, true)) {
+		if (Validator::validate(VAL_INTEGER, $dID, true) and Validator::validate(VAL_INTEGER, $slID, true) and Validator::validate(VAL_INTEGER, $rThreshold, true) and Validator::validate(VAL_INTEGER, $rCheckWWW)) {
 			$db = new db();
 			if ($db -> insert('report', array(
 				'rDatetime' => date('Y-m-d H:m:s'),
-				'rErrorCode' => $rErrorCode,
+				'rErrorCode' => 100,
 				'dID' => $dID,
 				'slID' => $slID,
 				'rThreshold' => $rThreshold,
