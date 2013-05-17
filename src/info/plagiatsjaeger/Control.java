@@ -33,7 +33,10 @@ public class Control
 	private static final String		ROOT_FILES			= "/var/www/uploads/";
 	private static final Logger		_logger				= Logger.getLogger(Control.class.getName());
 	private static final int		SIZE_THREADPOOL		= 20;
-
+	private static final int		NUM_CHECKS_IF_PARSED = 60;
+	private static final int		TIME_BETWEEN_CHECK = 1; //min
+	
+	
 	private Settings				_settings;
 	private ExecutorService			_threadPool			= Executors.newFixedThreadPool(SIZE_THREADPOOL);
 	private ArrayList<Future<Void>>	_futures			= new ArrayList<Future<Void>>();
@@ -122,12 +125,13 @@ public class Control
 					@Override
 					public void run()
 					{
+						//Kontrolliert ob das Dokument schon geparsed wurde.
 						int numTries = 0;
-						while(numTries < 10 && !mySqlDatabaseHelper.getDocumentParseSatet(intDocumentId))
+						while(numTries < NUM_CHECKS_IF_PARSED && !mySqlDatabaseHelper.getDocumentParseSatet(intDocumentId))
 						{
 									try
 									{
-										Thread.sleep(60000);
+										Thread.sleep(TIME_BETWEEN_CHECK * 60000);
 									}
 									catch (InterruptedException e)
 									{
@@ -136,7 +140,7 @@ public class Control
 									}
 									numTries = 0;
 						}			
-						if(numTries<10)
+						if(numTries<NUM_CHECKS_IF_PARSED)
 						{
 							_logger.info("Thread started!");
 							mySqlDatabaseHelper.setReportState(rId, ErrorCode.Started);
