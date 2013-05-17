@@ -12,13 +12,8 @@ class DBTest extends PHPUnit_Framework_TestCase {
    * set up test environment
    */
   protected function setUp() {
-    // setup configuration
-    /*$this->logData = array('host'     => 'localhost', 
-                           'user'     => 'root',
-                           'pass'     => 'root',
-                           'database' => 'testDB',
-                           'debug'    => true
-                          );*/
+    echo "setUp()";    
+
     global $logData;
   
     // create database
@@ -39,6 +34,8 @@ class DBTest extends PHPUnit_Framework_TestCase {
    * clean up test environment
    */
   protected function tearDown() {
+    echo "tearDown()";
+    
     $sql_befehl = "DROP DATABASE ".$this->database;
     mysql_connect($logData['host'], $logData['user'], $logData['pass'])
       or die(mysql_error()); 
@@ -55,6 +52,8 @@ class DBTest extends PHPUnit_Framework_TestCase {
    * assert if failed
    */
   public function test_connectToLocalhost() {
+    echo "test_connectToLocalhost()";
+    
     $db = new DB($logData);
     $this -> assertFalse($db);
   }
