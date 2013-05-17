@@ -2,6 +2,7 @@ package info.plagiatsjaeger;
 
 import info.plagiatsjaeger.enums.FileType;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,7 +10,10 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.Writer;
+import java.net.URL;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -52,11 +56,11 @@ public class FileParser
 	{
 		_logger.info("Start parsing: " + dId);
 		boolean result = false;
-		_file = new File(Control.ROOT_FILES + dId + "." + fileType);
+		_file = new File(Control.ROOT_FILES + dId + "." + fileType.toString().toLowerCase());
 		_logger.info("New File angelegt");
 		try
 		{
-			result = fileToTxt(fileType);
+			result = fileToTxt(dId, fileType);
 		}
 		catch (InvalidFormatException e)
 		{
@@ -97,7 +101,7 @@ public class FileParser
 	 * @throws IOException
 	 *             ; falls auf die Dateien nicht zugegriffen werden kann
 	 */
-	private boolean fileToTxt(FileType fileTyp) throws InvalidFormatException, OpenXML4JException, XmlException, IOException
+	private boolean fileToTxt(int dId, FileType fileTyp) throws InvalidFormatException, OpenXML4JException, XmlException, IOException
 	{
 		boolean result = false;
 		
@@ -237,8 +241,17 @@ public class FileParser
 				}
 				break;
 			}
-			case HTML:{
+			case HTML:
+			{
+				_logger.info("Filetype = HTML");
+				MySqlDatabaseHelper databaseHelper= new MySqlDatabaseHelper();
+				URL url= new URL(databaseHelper.loadDocumentURL(dId));
 				
+				Reader is = new InputStreamReader( url.openStream() );
+				BufferedReader in = new BufferedReader( is );
+				for ( String s; ( s = in.readLine() ) != null; ) {
+				System.out.println( s );
+				}
 			}
 			case TXT:
 			{
