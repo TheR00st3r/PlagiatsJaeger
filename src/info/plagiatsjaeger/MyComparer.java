@@ -46,6 +46,12 @@ public class MyComparer implements IComparer
 		Settings settings = Settings.getInstance();
 		NUM_WORDS_TO_COMPARE = settings.getCompareSentenceLength();
 		SCHWELLENWERT = settings.getThreshold();
+		_logger.info("#############################################");
+		_logger.info("#############################################");
+		_logger.info(NUM_WORDS_TO_COMPARE);
+		_logger.info(SCHWELLENWERT);
+		_logger.info("#############################################");
+		_logger.info("#############################################");
 	}
 
 	@Override
