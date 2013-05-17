@@ -50,6 +50,7 @@ class Document {
 				$lastID = $db -> lastInsertId();
 				$uploadCheck = Upload::fileUpload($lastID, $file);
 				if ($uploadCheck['state']) {
+					require_once '../classes/Report.php';
 					$checkReport = Report::createReport($lastID, $slID, $uThreshold, $uCheckWWW);
 					if ($checkReport['state']) {
 						$state = true;
