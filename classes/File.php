@@ -19,10 +19,6 @@ class File {
 			$handle = fopen(self::path . $dID . $extension, 'w+');
 			if (fwrite($handle, $text)) {
 				$state = true;
-				$messages[] = array(
-					'type' => 'save',
-					'text' => 'OK'
-				);
 			} else
 				$messages[] = array(
 					'type' => 'error',
