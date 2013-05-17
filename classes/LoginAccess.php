@@ -15,8 +15,8 @@ class LoginAccess {
 
 			$password = md5($password);
 
-			$dbLogin = new db();
-			$dbLogin -> read("SELECT
+			$db = new db();
+			$db -> read("SELECT
 								uID, uName, uLastname, uEMailAdress, uPassword, uPermissonLevel, cID, uThreshold, uCheckWWW, slID
 							FROM 
 								user
@@ -24,7 +24,7 @@ class LoginAccess {
 								uEMailAdress = '$email' AND uPassword = '$password' AND uEMailAdress != '' AND uPassword != ''
 							");
 
-			if ($dbLogin -> valueCount() == 1) {
+			if ($db -> valueCount() == 1) {
 
 				$row = $dbLogin -> lines();
 
