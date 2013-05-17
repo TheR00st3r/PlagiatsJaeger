@@ -387,8 +387,38 @@ public class MySqlDatabaseHelper
 		return isparsed;
 	}
 	
+	/**
+	 * Gibt den Namen/Url fuer eine DocId zurueck.
+	 * @param docId Dokumentnummer fuer passenden Report.
+	 * @return Gibt Name/Url als String zurueck.
+	 */
 	public String loadDocumentURL(int docId)
 	{
-		return "";
+		String docurl = "";
+		String strStatement = "SELECT dOriginalName FROM document AS d WHERE d.dID = " + docId;
+		ResultSet rstResultSet = null;
+		try
+		{
+			rstResultSet = startQuery(strStatement);
+			if (rstResultSet.next())
+			{
+				docurl = rstResultSet.getString("d.dOriginalName");
+			}
+		}
+		catch (SQLException e)
+		{
+			_logger.fatal(e.getMessage());
+			e.printStackTrace();
+		}
+		catch (Exception e)
+		{
+			_logger.fatal(e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			disconnect();
+		}
+		return docurl;
 	}
 }
