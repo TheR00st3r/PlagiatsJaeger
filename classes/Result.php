@@ -17,7 +17,7 @@ class Result {
 				WHERE
 					rt.rID = '$rID'
 				ORDER BY
-					rt.rtStartWord ASC");
+					rt.rtStartWord ASC, rt.rtEndWord ASC");
 
 			return $db -> linesAsArray();
 		}

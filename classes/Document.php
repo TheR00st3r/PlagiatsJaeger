@@ -122,7 +122,6 @@ class Document {
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;
-		print_array($return);
 		return $return;
 	}
 

@@ -8,13 +8,11 @@ require_once '../classes/Report.php';
 require_once '../classes/Result.php';
 require_once '../classes/Document.php';
 
-
 $reportCheck = Report::getReport($_GET['rID']);
 if ($reportCheck['state']) {
 	$smarty -> assign('report', $reportCheck['report']);
 }
 $messages[] = $reportCheck['messages'];
-
 
 $results = Result::getResultsFromReportID($_GET['rID']);
 
@@ -23,24 +21,52 @@ $split = explode(" ", $orgDocument);
 
 $resultsNew = array();
 
+$output = array();
+
 foreach ($results as $result) {
-	$string = '';
-	for ($i=$result['rtStartWord']; $i < $result['rtEndWord']; $i++) { 
-		$string = $string . $split[$i] .' ';
-		// echo $split[$i];
+
+	$key = $result['rtStartWord'];
+	//.$result['rtEndWord'];
+
+	if (array_key_exists($key, $output)) {
+
+		$source['rtSourceText'] = $result['rtSourceText'];
+		$source['rtSourcedID'] = $result['rtSourcedID'];
+		$source['rtSourceLink'] = $result['rtSourceLink'];
+		$source['rtSimilarity'] = $result['rtSimilarity'];
+		$output[$key]['source'][] = $source;
+
+	} else {
+
+		$string = '';
+		for ($i = $result['rtStartWord']; $i < $result['rtEndWord']; $i++) {
+			$string = $string . $split[$i] . ' ';
+			// echo $split[$i];
+		}
+		// $result['rtQuellText'] = $string;
+		//$resultsNew[] = $result;
+
+		$item['rtStartWord'] = $result['rtStartWord'];
+		$item['rtEndWord'] = $result['rtEndWord'];
+		$item['rtQuellText'] = $string;
+		$source['rtSourceText'] = $result['rtSourceText'];
+		$source['rtSourcedID'] = $result['rtSourcedID'];
+		$source['rtSourceLink'] = $result['rtSourceLink'];
+		$source['rtSimilarity'] = $result['rtSimilarity'];
+		$item['source'][] = $source;
+
+		$output[$key] = $item;
 	}
-	$result['rtQuellText'] = $string;
-	$resultsNew[] = $result;
 }
+
+print_array($output);
 
 $smarty -> assign('results', $resultsNew);
 
-// foreach $results as 
-
+// foreach $results as
 
 // echo $orgDocument;
 //$words = (str_word_count($orgDocument, 1, 'äüöÄÜÖß'));
-
 
 // echo implode(" ", $split);
 
@@ -52,5 +78,4 @@ $bodyTpl = $smarty -> fetch('report.tpl');
 $smarty -> assign('body', $bodyTpl);
 
 $smarty -> display('_maske.tpl');
-
 ?>
