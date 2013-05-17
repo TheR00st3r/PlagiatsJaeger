@@ -1,5 +1,6 @@
 package info.plagiatsjaeger.onlinesearch;
 
+import info.plagiatsjaeger.SourceLoader;
 import info.plagiatsjaeger.WordProcessing;
 import info.plagiatsjaeger.interfaces.IOnlineSearch;
 import info.plagiatsjaeger.interfaces.OnLinkFoundListener;
@@ -118,7 +119,7 @@ public abstract class OnlineSearch implements IOnlineSearch
 			while (numURL < MAX_URLS && matMatcher.find())
 			{
 				numURL++;
-				String strLink = cleanUrl(Jsoup.parse(matMatcher.group(1)).text());
+				String strLink = SourceLoader.cleanUrl(Jsoup.parse(matMatcher.group(1)).text());
 				// Falls Link bereits in _serchResults vorhanden nicht nochmal
 				// schicken
 				if (!_allSearchResults.contains(strLink))
@@ -137,7 +138,7 @@ public abstract class OnlineSearch implements IOnlineSearch
 			while (numURL < MAX_URLS && matMatcher.find())
 			{
 				numURL++;
-				String strLink = cleanUrl(Jsoup.parse(matMatcher.group(1)).text());
+				String strLink = SourceLoader.cleanUrl(Jsoup.parse(matMatcher.group(1)).text());
 				// Falls Link bereits in _serchResults vorhanden nicht nochmal
 				// schicken
 				if (!_allSearchResults.contains(strLink))
@@ -155,21 +156,6 @@ public abstract class OnlineSearch implements IOnlineSearch
 	public ArrayList<String> search(String searchString)
 	{
 		return search(searchString, buildSearchString(searchString));
-	}
-
-	/**
-	 * Bereinigt eine Url, sodass sie immer vollstaendig ist
-	 * 
-	 * @param dirtyUrl
-	 * @return result
-	 */
-	protected String cleanUrl(String dirtyUrl)
-	{
-		String result = "";
-		dirtyUrl = dirtyUrl.replaceAll("www.", "");
-		dirtyUrl = dirtyUrl.replaceAll("http://", "");
-		result = "http://" + dirtyUrl;
-		return result;
 	}
 
 	@Override

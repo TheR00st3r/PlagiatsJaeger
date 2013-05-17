@@ -6,9 +6,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
@@ -21,8 +25,10 @@ import org.jsoup.Jsoup;
  */
 public class SourceLoader
 {
-	public static final Logger				_logger				= Logger.getLogger(SourceLoader.class.getName());
-	
+	public static final Logger	_logger				= Logger.getLogger(SourceLoader.class.getName());
+
+	private static final String	DEFAULT_CONTENTTYPE	= "UTF-8";
+
 	/**
 	 * Laed den Text einer Webseite.
 	 * 
@@ -31,19 +37,30 @@ public class SourceLoader
 	 */
 	public static String loadURL(String strUrl)
 	{
-		StringBuilder result = new StringBuilder();
-
 		try
 		{
-			URL url = new URL(strUrl);
-			InputStreamReader reader = new InputStreamReader(url.openStream());
+			URL url = new URL(cleanUrl(strUrl));
+			URLConnection urlConnection = url.openConnection();
+			// Pattern zum auffinden des contenttypes
+			Pattern pattern = Pattern.compile("text/html;\\s+charset=([^\\s]+)\\s*");
+			Matcher matcher = pattern.matcher(urlConnection.getContentType());
+			// Wenn ein Contenttype gefunden wird, wird dieser verwendet, sonst
+			// der defaul wert
+			String charset = DEFAULT_CONTENTTYPE;
+			if (matcher.matches())
+			{
+				charset = matcher.group(1);
+			}
+			Reader inputStreamReader = new InputStreamReader(urlConnection.getInputStream(), charset);
+			StringBuilder stringBuilder = new StringBuilder();
+			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
-			BufferedReader bufferedReader = new BufferedReader(reader);
 			String line = "";
 			while ((line = bufferedReader.readLine()) != null)
 			{
-				result.append(line).append("\n");
+				stringBuilder.append(line).append("\n");
 			}
+			return Jsoup.parse(stringBuilder.toString()).text();
 		}
 		catch (MalformedURLException e)
 		{
@@ -63,8 +80,6 @@ public class SourceLoader
 			e.printStackTrace();
 			return "FAIL IOException";
 		}
-
-		return Jsoup.parse(result.toString()).text();
 	}
 
 	/**
@@ -111,6 +126,21 @@ public class SourceLoader
 		{
 			result = stringBuilder.toString();
 		}
+		return result;
+	}
+	
+	/**
+	 * Bereinigt eine Url, sodass sie immer vollstaendig ist
+	 * 
+	 * @param dirtyUrl
+	 * @return result
+	 */
+	public static String cleanUrl(String dirtyUrl)
+	{
+		String result = "";
+		dirtyUrl = dirtyUrl.replaceAll("www.", "");
+		dirtyUrl = dirtyUrl.replaceAll("http://", "");
+		result = "http://" + dirtyUrl;
 		return result;
 	}
 }
