@@ -19,6 +19,10 @@ class File {
 			$handle = fopen(self::path . $dID . $extension, 'w+');
 			if (fwrite($handle, $text)) {
 				$state = true;
+				$messages[] = array(
+					'type' => 'save',
+					'text' => 'Schnelltest gespeichert.'
+				);
 			} else
 				$messages[] = array(
 					'type' => 'error',

@@ -99,16 +99,14 @@ class Document {
 				require_once '../classes/File.php';
 				$checkWrite = File::writeFile($lastID, nl2br($text), '.txt');
 				if ($checkWrite['state']) {
-					// require_once 'Report.php';
 					$checkReport = Report::createReport($lastID, $slID, $uThreshold, $uCheckWWW);
 					if ($checkReport['state']) {
 						$state = true;
 					}
-					//print_array($checkReport);
 					$messages = $checkReport['messages'];
 				}
-				//$messages = array_merge($messages, $checkWrite['messages']);
-				print_array($checkWrite);
+				$messages = array_merge($messages, $checkWrite['messages']);
+
 			} else
 				$messages[] = array(
 					'type' => 'error',
