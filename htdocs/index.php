@@ -8,7 +8,7 @@ require_once '../classes/User.php';
 
 $smarty -> assign('root', $root);
 $smarty -> assign('mySQL', $logData['host']);
-$smarty -> assign('version', '1.4');
+$smarty -> assign('version', '1.5');
 
 $get_array = $_GET;
 $post = key($_POST['button']);
