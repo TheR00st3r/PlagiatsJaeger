@@ -51,12 +51,12 @@
 	</table>
 
 	{if $results|count > 0}
-	{foreach from=$results item=$result}
+	{foreach from=$results item=result}
 	<p>
-		{result.rtQuellText}
+		{$result.rtQuellText}
 	</p>
 	<div>
-		{foreach from=$result item=$source}
+		{foreach from=$result item=source}
 		{$source.rtSourceText}
 		{$source.rtSourceLink}
 		{/foreach}
