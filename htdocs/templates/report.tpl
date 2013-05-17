@@ -15,7 +15,7 @@
 		</tr>
 		<tr>
 			<th>Datum</th>
-			<td>{$report.rDatetime}</td>
+			<td>{$report.rDatetime|date_format:'%d.%m.%Y %H:%M'}</td>
 			<th>Datei geparsed?</th>
 			<td>{if $report.dIsParsed == '1'}ja{else}nein{/if}</td>
 		</tr>

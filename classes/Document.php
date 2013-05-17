@@ -82,8 +82,7 @@ class Document {
 	public static function addUrl($fID, $dAuthor, $dOriginalName, $slID, $uThreshold, $uCheckWWW) {
 		$state = false;
 		$messages = array();
-		if (Validator::validate(VAL_INTEGER, $fID, true) and Validator::validate(VAL_STRING, $dAuthor)  and Validator::validate(VAL_STRING, $dOriginalName)) {
-			require_once 'Upload.php';
+		if (Validator::validate(VAL_INTEGER, $fID, true) and Validator::validate(VAL_STRING, $dAuthor)) {
 			$db = new db();
 			if ($db -> insert('document', array(
 				'dOriginalName' => $dOriginalName,
@@ -91,12 +90,11 @@ class Document {
 				'fID' => $fID
 			))) {
 				$lastID = $db -> lastInsertId();
-				
-				
-				$uploadCheck = Upload::fileUpload($lastID, $file);
-				
-				
-				if ($uploadCheck['state']) {
+
+				require_once 'File.php';
+				$checkParsing = File::startFileParsing($lastID, '.html');
+
+				if ($checkParsing['state']) {
 					require_once '../classes/Report.php';
 					$checkReport = Report::createReport($lastID, $slID, $uThreshold, $uCheckWWW);
 					if ($checkReport['state']) {
@@ -104,7 +102,7 @@ class Document {
 					}
 					$messages = $checkReport['messages'];
 				}
-				$messages = array_merge($messages, $uploadCheck['messages']);
+				$messages = array_merge($messages, $checkParsing['messages']);
 			} else
 				$messages[] = array(
 					'type' => 'error',
