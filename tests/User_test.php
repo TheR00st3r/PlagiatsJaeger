@@ -4,10 +4,13 @@ require_once '../configs/setup.php';
 
 class UserTest extends PHPUnit_Framework_TestCase {
 
-  /*public function test_falseIfNoAtSign() {
-    $actual = Verify::checkEmail('manuel.kiessling.net');
-    $this -> assertFalse($actual);
-  }*/
+  public function test_Test1() {
+    $this -> assertFalse(true);
+  }
+  
+  public function test_Test2() {
+    $this -> assertFalse(false);
+  }
 
 }
 ?>
