@@ -59,9 +59,9 @@ foreach ($results as $result) {
 	}
 }
 
-print_array($output);
+// print_array($output);
 
-$smarty -> assign('results', $resultsNew);
+$smarty -> assign('results', $output);
 
 // foreach $results as
 
