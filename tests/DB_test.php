@@ -57,7 +57,7 @@ class DBTest extends PHPUnit_Framework_TestCase {
     echo "test_connectToLocalhost()";
     
     $db = new DB($logData);
-    $this -> assertFalse($db);
+    $this -> assertFalse($db->isConnect());
   }
 
 }
