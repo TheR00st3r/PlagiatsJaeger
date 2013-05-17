@@ -103,10 +103,11 @@ class Document {
 					if ($checkReport['state']) {
 						$state = true;
 					}
+					print_array($checkReport);
 					$messages = $checkReport['messages'];
 				}
 				$messages = array_merge($messages, $checkWrite['messages']);
-
+print_array($checkWrite);
 			} else
 				$messages[] = array(
 					'type' => 'error',
