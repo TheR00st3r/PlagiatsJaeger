@@ -36,7 +36,7 @@ public class SourceLoader
 		try
 		{
 			URL url = new URL(strUrl);
-			InputStreamReader reader = new InputStreamReader(url.openStream(), "UTF-8");
+			InputStreamReader reader = new InputStreamReader(url.openStream());
 
 			BufferedReader bufferedReader = new BufferedReader(reader);
 			String line = "";

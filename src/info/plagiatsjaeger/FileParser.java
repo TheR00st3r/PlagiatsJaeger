@@ -56,8 +56,11 @@ public class FileParser
 	{
 		_logger.info("Start parsing: " + dId);
 		boolean result = false;
-		_file = new File(Control.ROOT_FILES + dId + "." + fileType.toString().toLowerCase());
-		_logger.info("New File angelegt");
+		if (fileType != FileType.HTML)
+		{
+			_file = new File(Control.ROOT_FILES + dId + "." + fileType.toString().toLowerCase());
+			_logger.info("File loadet");
+		}
 		try
 		{
 			result = fileToTxt(dId, fileType);
@@ -85,8 +88,6 @@ public class FileParser
 		return result;
 	}
 
-
-
 	/**
 	 * Liesst die gegebende Datei ein und speichert den beinhalteten Text in
 	 * einer txt File unter dem selben Namen und Speicherort ab.
@@ -104,16 +105,21 @@ public class FileParser
 	private boolean fileToTxt(int dId, FileType fileTyp) throws InvalidFormatException, OpenXML4JException, XmlException, IOException
 	{
 		boolean result = false;
-		
+		FileInputStream fileInputStream=null;
+		String strLineSeparator = null;
+		Writer writer = null;
 		// Filename= Selber Dateiname und Speicherort wie orginale Datei, nur
 		// mit txt Endung
-		String strName = _file.getAbsolutePath().toString().substring(0, _file.getAbsolutePath().toString().length() - fileTyp.toString().length()) + "txt";
-		Writer writer = null;
-		File file = new File(strName);
-		writer = new BufferedWriter(new FileWriter(file));
-		String strLineSeparator = System.getProperty("line.separator"); // Zeilenumbruch
-
-		FileInputStream fileInputStream = new FileInputStream(_file);
+		if (fileTyp != FileType.HTML)
+		{
+			String strName = _file.getAbsolutePath().toString().substring(0, _file.getAbsolutePath().toString().length() - fileTyp.toString().length()) + "txt";
+			
+			File file = new File(strName);
+			writer = new BufferedWriter(new FileWriter(file));
+		 // Zeilenumbruch
+			strLineSeparator = System.getProperty("line.separator");
+			fileInputStream = new FileInputStream(_file);
+		}
 		String text = "";
 
 		switch (fileTyp)
@@ -159,7 +165,7 @@ public class FileParser
 						String strLine = nChild.getTextContent();
 						if (strLine != null && !strLine.trim().isEmpty())
 						{
-							writer.write(strLine.trim() + strLineSeparator);
+							writer.write(strLine.trim() + "\n");
 						}
 					}
 					result = true;
@@ -244,13 +250,19 @@ public class FileParser
 			case HTML:
 			{
 				_logger.info("Filetype = HTML");
-				MySqlDatabaseHelper databaseHelper= new MySqlDatabaseHelper();
-				URL url= new URL(databaseHelper.loadDocumentURL(dId));
-				
-				Reader is = new InputStreamReader( url.openStream() );
-				BufferedReader in = new BufferedReader( is );
-				for ( String s; ( s = in.readLine() ) != null; ) {
-				System.out.println( s );
+				try
+				{
+					MySqlDatabaseHelper databaseHelper = new MySqlDatabaseHelper();
+
+					writer.write(SourceLoader.loadURL(databaseHelper.loadDocumentURL(dId)));
+
+				}
+				finally
+				{
+					if (writer != null)
+					{
+						writer.close();
+					}
 				}
 			}
 			case TXT:
