@@ -244,14 +244,9 @@ public class FileParser
 				_logger.info("Filetype = HTML");
 				try{
 				MySqlDatabaseHelper databaseHelper= new MySqlDatabaseHelper();
-				URL url= new URL(databaseHelper.loadDocumentURL(dId));
+
+				writer.write(SourceLoader.loadURL(databaseHelper.loadDocumentURL(dId)));
 				
-				Reader inputStreamReader = new InputStreamReader( url.openStream() );
-				BufferedReader bufferedReader = new BufferedReader( inputStreamReader );
-				for (String content; ( content = bufferedReader.readLine() ) != null; ) {
-				//hier content in txt schreiben, anschließend Zeilenumbruch(?)
-					writer.write(content + "\n");
-				}
 				}
 				finally{
 					if(writer!= null){
