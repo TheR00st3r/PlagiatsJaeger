@@ -34,12 +34,13 @@ if (isset($_POST['lSubmit'])) {
 if ($page == 'public') {
 	require_once '../classes/Folder.php';
 	$folder = Folder::getFolderFromHash($_GET['id']);
-	if (Validator::validate(VAL_STRING, $_POST['dAddAutor'], true) and isset($_FILES['dAddFile'])) {
-		if ($folder['fID']) {
 
-			if ($folder['fLinkExpireDatetime'] > date("Y-m-d H:i:s")) {
+	if ($folder['fID']) {
 
-				if (isset($_POST['dAddSubmit'])) {
+		if ($folder['fLinkExpireDatetime'] > date("Y-m-d H:i:s")) {
+
+			if (isset($_POST['dAddSubmit'])) {
+				if (Validator::validate(VAL_STRING, $_POST['dAddAutor'], true) and isset($_FILES['dAddFile'])) {
 					require_once '../classes/Document.php';
 					$check = Document::addDocument($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'], $folder['slID'], $folder['uThreshold'], $folder['uCheckWWW']);
 					if ($check['state']) {
@@ -47,21 +48,21 @@ if ($page == 'public') {
 					} else
 						$contentTpl = 'upload Error';
 				} else {
+					$messages[] = array(
+						'type' => 'error',
+						'text' => 'Bitte wählen Sie eine Datei aus und geben Ihren Namen an!'
+					);
+					$smarty -> assign('messages', $messages);
 					$contentTpl = $smarty -> fetch('public.tpl');
 				}
 			} else {
-				$contentTpl = 'Link ist abgelaufen....Sie sind zu spät...';
+				$contentTpl = $smarty -> fetch('public.tpl');
 			}
-		} else
-			$contentTpl = 'Ihr Link ist ungültig..';
-	} else {
-		$messages[] = array(
-			'type' => 'error',
-			'text' => 'Bitte wählen Sie eine Datei aus und geben Ihren Namen an!'
-		);
-		$smarty -> assign('messages', $messages);
-		$contentTpl = $smarty -> fetch('public.tpl');
-	}
+		} else {
+			$contentTpl = 'Link ist abgelaufen....Sie sind zu spät...';
+		}
+	} else
+		$contentTpl = 'Ihr Link ist ungültig..';
 
 	//Is loggedin
 } else if (LoginAccess::check()) {
