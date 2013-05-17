@@ -65,19 +65,22 @@
 			</td>
 			{if $fpLevel == 900}
 			<td class="edit">
+				<!-- share -->
 				{include 'popups/shareFolderForm.tpl'}
-
 				{if $item.user|count > 0}
 				<a class="create" href="#shareFolderForm{$item.fID}"><img src="images/share.png" alt="Ordner für Kollegen freigeben" title="Ordner für Kollegen freigeben" /></a>
 				{else}
 				<a class="create" href="#shareFolderForm{$item.fID}"><img src="images/share_off.png" alt="Ordner für Kollegen freigeben" title="Ordner für Kollegen freigeben" /></a>
 				{/if}
-				{if $item.fHashLink != '' and $item.fLinkExpireDatetime > $smarty.now|date_format: "%Y-%m-%d %H:%i:%s"}
-				<a target="_blank" href="{$root}public?id={$item.fHashLink}"><img src="images/link.png" alt="Bis zum {$item.fLinkExpireDatetime} freigegeben" title="Bis zum {$item.fLinkExpireDatetime} freigegeben" /></a>
+				<!-- link -->
+				{if $item.fHashLink != '' and $item.fLinkExpireDatetime > $smarty.now|date_format: "%Y-%m-%d %H:%M:%S"}
+				{include 'popups/showLinkForm.tpl'}
+				<a class="create" href="#showLinkForm{$item.fID}"><img src="images/link.png" alt="Bis zum {$item.fLinkExpireDatetime|date_format:'%d.%m.%y %H:%M'} freigegeben" title="Bis zum {$item.fLinkExpireDatetime|date_format:'%d.%m.%y %H:%M'} freigegeben" /></a>
 				{else}
 				{include 'popups/createLinkForm.tpl'}
 				<a class="create" href="#createLinkForm{$item.fID}"><img src="images/link_off.png" alt="Ordner für Studenten freigeben" title="Ordner für Studenten freigeben" /></a>
 				{/if}
+				<!-- delete -->
 				{include 'popups/deleteFolderForm.tpl'}
 				<a class="create" href="#deleteFolderForm{$item.fID}"><img src="images/remove.png" alt="Ordner löschen" title="Ordner löschen" /></a>
 			</td>
@@ -93,7 +96,7 @@
 				<a href="document.php?dID={$item.dID}" class="iframeviewer fancybox.iframe">{$item.dOriginalName}</a>
 				{foreach from=$item.reports item=report}
 				<li>
-					<a href="report.php?rID={$report.rID}" class="iframeviewer fancybox.iframe">{$report.rDatetime}</a> rID={$report.rID}
+					<a href="report.php?rID={$report.rID}" class="iframeviewer fancybox.iframe">{$report.rDatetime|date_format:'%d.%m.%Y %H:%M'}</a> rID={$report.rID}
 				</li>
 				{/foreach}
 			</td>
@@ -103,7 +106,7 @@
 			<td class="edit">
 				{if $fpLevel == 900}
 				{include 'popups/addReportForm.tpl'}
-				<a class="create" href="#addReportForm{$item.dID}">[Prüfen]</a>
+				<a class="create" href="#addReportForm{$item.dID}"><img src="images/search.png" alt="Prüfung starten" title="Prüfung starten" /></a>
 				{include 'popups/deleteDocumentForm.tpl'}
 				<a class="create" href="#deleteDocumentForm{$item.dID}"><img src="images/remove.png" alt="Dokument löschen" title="Dokument löschen" /></a>
 			</td>

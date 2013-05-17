@@ -6,7 +6,6 @@
 		{foreach $users as $user}
 		<label for="user{$item.fID}{$user.uID}"> <input {if {$user.uID}|in_array:$item.user}checked="checked"{/if} type="checkbox" name="uIDs[]" value="{$user.uID}" id="user{$item.fID}{$user.uID}" /> {$user.uName} {$user.uLastname}</label>
 		{/foreach}
-
 		<br />
 		<input type="submit" name="button[shareFolder]" value="teilen" />
 	</form>
