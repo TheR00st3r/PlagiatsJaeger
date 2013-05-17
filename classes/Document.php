@@ -53,7 +53,6 @@ class Document {
 					$checkReport = Report::createReport($lastID, $slID, $uThreshold, $uCheckWWW);
 					if ($checkReport['state']) {
 						$state = true;
-						$messages = $checkReport['messages'];
 					}
 					$messages = $checkReport['messages'];
 				}
