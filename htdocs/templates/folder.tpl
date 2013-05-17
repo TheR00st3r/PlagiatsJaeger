@@ -54,9 +54,11 @@
 			<td class="image"><img src="{$root}images/folder-closed.gif" alt="" />
 			</td>
 			<td class="borderright">
-				<div class="jeditable" id="fName_{$item.fID}">{strip}
+				<div class="jeditable" id="fName_{$item.fID}">
+					{strip}
 					{$item.fName}
-				{/strip}</div>
+					{/strip}
+				</div>
 			</td>
 			<td class="borderright">
 				&nbsp;
@@ -64,15 +66,20 @@
 			{if $fpLevel == 900}
 			<td class="edit">
 				{include 'popups/shareFolderForm.tpl'}
-				<a class="create" href="#shareFolderForm{$item.fID}">[Teilen]</a>
-				{if $item.fHashLink != ''}
-				<a target="_blank" href="{$root}public?id={$item.fHashLink}">[Link] bis {$item.fLinkExpireDatetime}</a>
+
+				{if $item.user|count > 0}
+				<a class="create" href="#shareFolderForm{$item.fID}"><img src="images/share.png" alt="Ordner für Kollegen freigeben" title="Ordner für Kollegen freigeben" /></a>
+				{else}
+				<a class="create" href="#shareFolderForm{$item.fID}"><img src="images/share_off.png" alt="Ordner für Kollegen freigeben" title="Ordner für Kollegen freigeben" /></a>
+				{/if}
+				{if $item.fHashLink != '' and $item.fLinkExpireDatetime > $smarty.now|date_format: "%Y-%m-%d %H:%i:%s"}
+				<a target="_blank" href="{$root}public?id={$item.fHashLink}"><img src="images/link.png" alt="Bis zum {$item.fLinkExpireDatetime} freigegeben" title="Bis zum {$item.fLinkExpireDatetime} freigegeben" /></a>
 				{else}
 				{include 'popups/createLinkForm.tpl'}
-				<a class="create" href="#createLinkForm{$item.fID}">[Link]</a>
+				<a class="create" href="#createLinkForm{$item.fID}"><img src="images/link_off.png" alt="Ordner für Studenten freigeben" title="Ordner für Studenten freigeben" /></a>
 				{/if}
 				{include 'popups/deleteFolderForm.tpl'}
-				<a class="create" href="#deleteFolderForm{$item.fID}">[Löschen]</a>
+				<a class="create" href="#deleteFolderForm{$item.fID}"><img src="images/remove.png" alt="Ordner löschen" title="Ordner löschen" /></a>
 			</td>
 			{/if}
 		</tr>
@@ -94,11 +101,11 @@
 				{$item.dAuthor}
 			</td>
 			<td class="edit">
-			{if $fpLevel == 900}
+				{if $fpLevel == 900}
 				{include 'popups/addReportForm.tpl'}
 				<a class="create" href="#addReportForm{$item.dID}">[Prüfen]</a>
 				{include 'popups/deleteDocumentForm.tpl'}
-				<a class="create" href="#deleteDocumentForm{$item.dID}">[Löschen]</a>
+				<a class="create" href="#deleteDocumentForm{$item.dID}"><img src="images/remove.png" alt="Dokument löschen" title="Dokument löschen" /></a>
 			</td>
 			{/if}
 		</tr>
