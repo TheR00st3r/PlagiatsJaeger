@@ -13,7 +13,7 @@ class Report {
 		if (Validator::validate(VAL_INTEGER, $dID, true) and Validator::validate(VAL_INTEGER, $slID, true) and Validator::validate(VAL_INTEGER, $rThreshold, true) and Validator::validate(VAL_INTEGER, $rCheckWWW)) {
 			$db = new db();
 			if ($db -> insert('report', array(
-				'rDatetime' => date('Y-m-d H:m:s'),
+				'rDatetime' => date('Y-m-d H:i:s'),
 				'rErrorCode' => 100,
 				'dID' => $dID,
 				'slID' => $slID,

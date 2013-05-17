@@ -56,7 +56,9 @@
 			<td class="image"><img src="{$root}images/folder-closed.gif" alt="" />
 			</td>
 			<td class="borderright">
+				<!-- @formatter:off -->
 				<div class="jeditable" id="fName_{$item.fID}">{strip}{$item.fName}{/strip}</div>
+				<!-- @formatter:on -->
 			</td>
 			<td class="borderright">
 				&nbsp;

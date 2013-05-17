@@ -126,7 +126,7 @@ if ($page == 'public') {
 					$check = Document::addUrl($folder['fID'], $_POST['dAddAutor'], $_POST['dOriginalName'], $userSettings['slID'], $userSettings['uThreshold'], $userSettings['uCheckWWW']);
 					break;
 				case 'newShortTest' :
-					Upload::shortTextUpload($folder['fID'], $_POST['dAddAutor'], $_POST['dAddShortText']);
+					$check = Document::addSnipped($folder['fID'], $_POST['dAddAutor'], $_POST['dAddShortText'], $userSettings['slID'], $userSettings['uThreshold'], $userSettings['uCheckWWW']);
 					break;
 				case 'dAddFolderShareSubmit' :
 					$check = Folder::saveMultibleFolderPermissions(700, $_POST['fID'], $_POST['uIDs']);

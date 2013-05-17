@@ -13,13 +13,29 @@ class File {
 	 * @return boolean
 	 */
 	public static function writeFile($dID, $text, $extension) {
+		$state = false;
+		$messages = array();
 
-		$handle = fopen(self::path . $dID . $extension, 'w+');
-		$return = true;
-		if (!fwrite($handle, $text)) {
-			$return = false;
-		}
-		fclose($handle);
+		if (Validator::validate(VAL_INTEGER, $dID, true)) {
+
+			$handle = fopen(self::path . $dID . $extension, 'w+');
+			$return = true;
+			if (fwrite($handle, $text)) {
+				$state = true;
+			} else
+				$messages[] = array(
+					'type' => 'error',
+					'text' => 'Snippet kann nicht gespeichert werden.'
+				);
+			fclose($handle);
+		} else
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'Parameter haben kein gültiges Format!'
+			);
+
+		$return['state'] = $state;
+		$return['messages'] = $messages;
 		return $return;
 	}
 
@@ -52,7 +68,7 @@ class File {
 					if (copy($file["tmp_name"], self::path . $dID . $extension)) {
 
 						$checkParsing = self::startFileParsing($dID, $extension);
-						if($checkParsing['state']) {
+						if ($checkParsing['state']) {
 							$state = true;
 						}
 						$messages = $checkParsing['messages'];
