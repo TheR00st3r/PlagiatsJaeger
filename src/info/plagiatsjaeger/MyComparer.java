@@ -20,7 +20,7 @@ public class MyComparer implements IComparer
 {
 	// TODO: default Werte eintragen
 	private static int					NUM_WORDS_TO_COMPARE		= 10;
-	private static double			SCHWELLENWERT				= 0.9;
+	private static double				THRESHOLD					= 0.9;
 	private static final int			MAX_WORDS_BETWEEN_RESULTS	= 4;
 
 	private String[]					_checkWords;
@@ -45,13 +45,7 @@ public class MyComparer implements IComparer
 		_rId = rId;
 		Settings settings = Settings.getInstance();
 		NUM_WORDS_TO_COMPARE = settings.getCompareSentenceLength();
-		SCHWELLENWERT = settings.getThreshold();
-		_logger.info("#############################################");
-		_logger.info("#############################################");
-		_logger.info(NUM_WORDS_TO_COMPARE);
-		_logger.info(SCHWELLENWERT);
-		_logger.info("#############################################");
-		_logger.info("#############################################");
+		THRESHOLD = ((double) settings.getThreshold()) / 100;
 	}
 
 	@Override
@@ -116,7 +110,7 @@ public class MyComparer implements IComparer
 				boolean resultFound = false;
 				double sumSimilarity = 0.0;
 				int countSimilarity = 0;
-				while ((similarity = compareStrings(sbCheckText.toString(), sbSourceText.toString())) >= SCHWELLENWERT)
+				while ((similarity = compareStrings(sbCheckText.toString(), sbSourceText.toString())) >= THRESHOLD)
 				{
 					resultFound = true;
 					if (checkResultStart < 0)
