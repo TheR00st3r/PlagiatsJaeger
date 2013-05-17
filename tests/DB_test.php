@@ -64,7 +64,7 @@ class DBTest extends PHPUnit_Framework_TestCase {
     else {
       $assert = false;
     }
-    $this->assertFalse($assert);
+    $this->assertEquals(true, $assert);
   }
 
 }
