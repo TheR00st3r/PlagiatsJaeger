@@ -59,7 +59,11 @@ if ($page == 'public') {
 			'type' => 'error',
 			'text' => 'Bitte wählen Sie eine Datei aus und geben Ihren Namen an!'
 		);
+<<<<<<< HEAD
 		$smarty -> assign('messages', $messages);
+=======
+		$smarty -> assign('messages', $check['messages']);
+>>>>>>> branch 'frontend' of https://github.com/4ipalino/PlagiatsJaeger.git
 		$contentTpl = $smarty -> fetch('public.tpl');
 	}
 
