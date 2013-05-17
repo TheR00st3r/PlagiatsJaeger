@@ -34,25 +34,33 @@ if (isset($_POST['lSubmit'])) {
 if ($page == 'public') {
 	require_once '../classes/Folder.php';
 	$folder = Folder::getFolderFromHash($_GET['id']);
-	if ($folder['fID']) {
+	if (Validator::validate(VAL_STRING, $_POST['dAddAutor'], true) and isset($_FILES['dAddFile'])) {
+		if ($folder['fID']) {
 
-		if ($folder['fLinkExpireDatetime'] > date("Y-m-d H:i:s")) {
+			if ($folder['fLinkExpireDatetime'] > date("Y-m-d H:i:s")) {
 
-			if (isset($_POST['dAddSubmit'])) {
-				require_once '../classes/Document.php';
-				$check = Document::addDocument($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'], $slID, $uThreshold, $uCheckWWW);
-				if ($check['state']) {
-					$contentTpl = 'vielen Dank!';
-				} else
-					$contentTpl = 'upload Error';
+				if (isset($_POST['dAddSubmit'])) {
+					require_once '../classes/Document.php';
+					$check = Document::addDocument($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'], $folder['slID'], $folder['uThreshold'], $folder['uCheckWWW']);
+					if ($check['state']) {
+						$contentTpl = 'vielen Dank!';
+					} else
+						$contentTpl = 'upload Error';
+				} else {
+					$contentTpl = $smarty -> fetch('public.tpl');
+				}
 			} else {
-				$contentTpl = $smarty -> fetch('public.tpl');
+				$contentTpl = 'Link ist abgelaufen....Sie sind zu spät...';
 			}
-		} else {
-			$contentTpl = 'Link ist abgelaufen....';
-		}
-	} else
-		$contentTpl = 'error';
+		} else
+			$contentTpl = 'error';
+	} else {
+		$messages[] = array(
+			'type' => 'error',
+			'text' => 'Bitte wählen Sie eine Datei aus und geben Ihren Namen an!'
+		);
+		$contentTpl = $smarty -> fetch('public.tpl');
+	}
 
 	//Is loggedin
 } else if (LoginAccess::check()) {
@@ -67,7 +75,6 @@ if ($page == 'public') {
 	// get settings
 	$settings = Setting::getAllSettings();
 	$smarty -> assign('settings', $settings);
-	
 
 	$userSettings = LoginAccess::getUserSettings();
 	$smarty -> assign('userSettings', $userSettings);
@@ -131,7 +138,7 @@ if ($page == 'public') {
 				case 'addReport' :
 					$check = Report::createReport($_POST['dID'], $_POST['slID'], $_POST['rThreshold'], $_POST['rCheckWWW']);
 					break;
-				case 'deleteDocument':
+				case 'deleteDocument' :
 					$check = Document::deleteDocument($_POST['dID']);
 					break;
 			}
