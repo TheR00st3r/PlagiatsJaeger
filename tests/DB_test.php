@@ -17,7 +17,7 @@ class DBTest extends PHPUnit_Framework_TestCase {
     global $logData;
   
     // create database
-    $sql = "CREATE DATABASE '".$this->database."'";
+    $sql = "CREATE DATABASE ".$this->database;
     mysql_connect($logData['host'], $logData['user'], $logData['pass'])
       or die(mysql_error()); 
     
@@ -36,7 +36,7 @@ class DBTest extends PHPUnit_Framework_TestCase {
   protected function tearDown() {
     echo "tearDown()";
     
-    $sql_befehl = "DROP DATABASE ".$this->database."'";
+    $sql_befehl = "DROP DATABASE ".$this->database;
     mysql_connect($logData['host'], $logData['user'], $logData['pass'])
       or die(mysql_error()); 
     
