@@ -25,7 +25,8 @@ class DBTest extends PHPUnit_Framework_TestCase {
     $sql = "CREATE DATABASE ".$database;
     mysql_connect($logData['host'], $logData['user'], $logData['pass'])
       or die(mysql_error()); 
-      
+    
+    echo $sql." wird ausgefuehrt...";
     mysql_query($sql) 
       or die(mysql_error());
       
@@ -41,7 +42,8 @@ class DBTest extends PHPUnit_Framework_TestCase {
     $sql_befehl = "DROP DATABASE ".$database;
     mysql_connect($logData['host'], $logData['user'], $logData['pass'])
       or die(mysql_error()); 
-      
+    
+    echo $sql." wird ausgefuehrt...";
     mysql_query($sql) 
       or die(mysql_error());
       
