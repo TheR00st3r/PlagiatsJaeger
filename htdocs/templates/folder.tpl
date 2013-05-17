@@ -54,11 +54,7 @@
 			<td class="image"><img src="{$root}images/folder-closed.gif" alt="" />
 			</td>
 			<td class="borderright">
-				<div class="jeditable" id="fName_{$item.fID}">
-					{strip}
-					{$item.fName}
-					{/strip}
-				</div>
+				<div class="jeditable" id="fName_{$item.fID}">{strip}{$item.fName}{/strip}</div>
 			</td>
 			<td class="borderright">
 				&nbsp;
