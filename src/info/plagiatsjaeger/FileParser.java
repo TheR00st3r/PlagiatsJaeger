@@ -255,6 +255,7 @@ public class FileParser
 					MySqlDatabaseHelper databaseHelper = new MySqlDatabaseHelper();
 
 					writer.write(SourceLoader.loadURL(databaseHelper.loadDocumentURL(dId)));
+					result=true;
 
 				}
 				finally
