@@ -85,8 +85,6 @@ public class FileParser
 		return result;
 	}
 
-
-
 	/**
 	 * Liesst die gegebende Datei ein und speichert den beinhalteten Text in
 	 * einer txt File unter dem selben Namen und Speicherort ab.
@@ -159,7 +157,7 @@ public class FileParser
 						String strLine = nChild.getTextContent();
 						if (strLine != null && !strLine.trim().isEmpty())
 						{
-							writer.write(strLine.trim() + strLineSeparator);
+							writer.write(strLine.trim() + "\n");
 						}
 					}
 					result = true;
@@ -244,13 +242,21 @@ public class FileParser
 			case HTML:
 			{
 				_logger.info("Filetype = HTML");
+				try{
 				MySqlDatabaseHelper databaseHelper= new MySqlDatabaseHelper();
 				URL url= new URL(databaseHelper.loadDocumentURL(dId));
 				
-				Reader is = new InputStreamReader( url.openStream() );
-				BufferedReader in = new BufferedReader( is );
-				for ( String s; ( s = in.readLine() ) != null; ) {
-				System.out.println( s );
+				Reader inputStreamReader = new InputStreamReader( url.openStream() );
+				BufferedReader bufferedReader = new BufferedReader( inputStreamReader );
+				for (String content; ( content = bufferedReader.readLine() ) != null; ) {
+				//hier content in txt schreiben, anschließend Zeilenumbruch(?)
+					writer.write(content + "\n");
+				}
+				}
+				finally{
+					if(writer!= null){
+					writer.close();
+					}
 				}
 			}
 			case TXT:
