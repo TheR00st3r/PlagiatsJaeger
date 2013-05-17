@@ -72,8 +72,7 @@ public class Control
 					{
 						_logger.info("Thread started: " + dId + fileEnding);
 						FileParser fileParser = new FileParser();
-						_logger.info("FileParser-Objekt angelegt");
-						if (fileParser.parseFile(ROOT_FILES + "documentHash" + fileEnding))
+						if (fileParser.parseFile(ROOT_FILES + dId + fileEnding))
 						{
 							new MySqlDatabaseHelper().setDocumentAsParsed(dId);
 						}
@@ -93,8 +92,8 @@ public class Control
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
 			_logger.fatal(e.getMessage());
+			e.printStackTrace();
 		}
 		return result;
 
@@ -113,6 +112,7 @@ public class Control
 			final int intDocumentId = mySqlDatabaseHelper.getDocumentID(rId);
 			_logger.info("Document: " + intDocumentId);
 
+						
 			if (intDocumentId != 0)
 			{
 				_logger.info("Check started");
@@ -122,9 +122,30 @@ public class Control
 					@Override
 					public void run()
 					{
-						_logger.info("Thread started!");
-						mySqlDatabaseHelper.setReportState(rId, ErrorCode.Started);
-						startPlagiatsSearch(ROOT_FILES + intDocumentId + ".txt", rId);
+						int numTries = 0;
+						while(numTries < 10 && !mySqlDatabaseHelper.getDocumentParseSatet(intDocumentId))
+						{
+									try
+									{
+										Thread.sleep(60000);
+									}
+									catch (InterruptedException e)
+									{
+										_logger.fatal(e.getMessage());
+										e.printStackTrace();
+									}
+									numTries = 0;
+						}			
+						if(numTries<10)
+						{
+							_logger.info("Thread started!");
+							mySqlDatabaseHelper.setReportState(rId, ErrorCode.Started);
+							startPlagiatsSearch(ROOT_FILES + intDocumentId + ".txt", rId);
+						}
+						else
+						{
+							mySqlDatabaseHelper.setReportState(rId, ErrorCode.Error);	
+						}
 					}
 				}).start();
 				return true;
@@ -132,12 +153,12 @@ public class Control
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
 			_logger.fatal(e.getMessage());
+			e.printStackTrace();
 		}
 		return false;
 	}
-
+	
 	/**
 	 * Fuehrt eine Plagiatssuche zu dem uebergebenen Dokument durch.
 	 * 

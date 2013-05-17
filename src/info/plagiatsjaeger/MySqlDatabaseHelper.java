@@ -346,5 +346,10 @@ public class MySqlDatabaseHelper
 			e.printStackTrace();
 		}
 	}
+	
+	public boolean getDocumentParseSatet(int docId)
+	{
+		return false;
+	}
 
 }
