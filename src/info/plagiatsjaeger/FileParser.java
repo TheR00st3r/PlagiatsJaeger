@@ -41,6 +41,11 @@ public class FileParser
 
 	private static final Logger	_logger	= Logger.getLogger(File.class.getName());
 
+	public FileParser()
+	{
+		_logger.info("FileParserKonstruktor");
+	}
+	
 	/**
 	 * startet die Konvertierung der Datei
 	 * 
