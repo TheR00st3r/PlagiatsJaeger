@@ -53,12 +53,13 @@ if ($page == 'public') {
 				$contentTpl = 'Link ist abgelaufen....Sie sind zu spät...';
 			}
 		} else
-			$contentTpl = 'error';
+			$contentTpl = 'Ihr Link ist ungültig..';
 	} else {
 		$messages[] = array(
 			'type' => 'error',
 			'text' => 'Bitte wählen Sie eine Datei aus und geben Ihren Namen an!'
 		);
+		$smarty -> assign('messages', $check['messages']);
 		$contentTpl = $smarty -> fetch('public.tpl');
 	}
 
