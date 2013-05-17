@@ -1,6 +1,6 @@
 <?php
-require_once '/usr/share/php5/PEAR/PHPUnit/Autoload.php';
-require_once 'classes/File.php';
+require_once '/usr/share/php/PHPUnit/Autoload.php';
+require_once '../configs/setup.php';
 
 class FileTest extends PHPUnit_Framework_TestCase {
 

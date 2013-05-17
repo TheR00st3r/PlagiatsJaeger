@@ -1,6 +1,6 @@
 <?php
-require_once '/usr/share/php5/PEAR/PHPUnit/Autoload.php';
-require_once 'classes/Folder.php';
+require_once '/usr/share/php/PHPUnit/Autoload.php';
+require_once '../configs/setup.php';
 
 class FolderTest extends PHPUnit_Framework_TestCase {
 
