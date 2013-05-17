@@ -1,6 +1,7 @@
 package info.plagiatsjaeger;
 
 import info.plagiatsjaeger.enums.ErrorCode;
+import info.plagiatsjaeger.enums.FileType;
 import info.plagiatsjaeger.interfaces.IComparer;
 import info.plagiatsjaeger.interfaces.IOnlineSearch;
 import info.plagiatsjaeger.interfaces.OnCompareFinishedListener;
@@ -60,7 +61,7 @@ public class Control
 	 * @param dId
 	 * @return
 	 */
-	public boolean startParsing(final int dId, final String fileEnding)
+	public boolean startParsing(final int dId, final FileType fileEnding)
 	{
 		boolean result = false;
 		try
