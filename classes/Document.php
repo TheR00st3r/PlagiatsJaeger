@@ -36,8 +36,9 @@ class Document {
 	 * @param int $dID
 	 * @return string
 	 */
-	public static function fileUpload($fID, $dAuthor, $file) {
+	public static function addDocument($fID, $dAuthor, $file, $slID, $uThreshold, $uCheckWWW) {
 		$state = false;
+		$messages = array();
 		if (Validator::validate(VAL_INTEGER, $fID, true) and Validator::validate(VAL_STRING, $dAuthor)) {
 			require_once 'Upload.php';
 			$db = new db();
@@ -49,13 +50,13 @@ class Document {
 				$lastID = $db -> lastInsertId();
 				$uploadCheck = Upload::fileUpload($lastID, $file);
 				if ($uploadCheck['state']) {
-					$settings = LoginAccess::getUserSettings();
-					// $checkReport = Report::createReport($dID, $settings['slID'], $settings['uThreshold'], $settings['uCheckWWW, $rErrorCode = 100);
+					$checkReport = Report::createReport($lastID, $slID, $uThreshold, $uCheckWWW);
 					if ($checkReport['state']) {
 						$state = true;
 					}
-				} else
-					$messages = $uploadCheck['messages'];
+					$messages = $checkReport['messages'];
+				}
+				$messages = array_merge($messages, $uploadCheck['messages']);
 			} else
 				$messages[] = array(
 					'type' => 'error',

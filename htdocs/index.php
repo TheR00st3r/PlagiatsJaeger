@@ -8,7 +8,7 @@ require_once '../classes/User.php';
 
 $smarty -> assign('root', $root);
 $smarty -> assign('mySQL', $logData['host']);
-$smarty -> assign('version', '1.5.2');
+$smarty -> assign('version', '1.5');
 
 $get_array = $_GET;
 $post = key($_POST['button']);
@@ -39,8 +39,9 @@ if ($page == 'public') {
 		if ($folder['fLinkExpireDatetime'] > date("Y-m-d H:i:s")) {
 
 			if (isset($_POST['dAddSubmit'])) {
-				require_once '../classes/Upload.php';
-				if (Upload::fileUpload($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'])) {
+				require_once '../classes/Document.php';
+				$check = Document::addDocument($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'], $slID, $uThreshold, $uCheckWWW);
+				if ($check['state']) {
 					$contentTpl = 'vielen Dank!';
 				} else
 					$contentTpl = 'upload Error';
@@ -110,7 +111,7 @@ if ($page == 'public') {
 					Folder::addFolderLink($_POST['fID'], $_POST['fLinkExpireDatetime']);
 					break;
 				case 'newFile' :
-					$check = Document::fileUpload($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile']);
+					$check = Document::addDocument($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'], $userSettings['slID'], $userSettings['uThreshold'], $userSettings['uCheckWWW']);
 					break;
 				case 'newShortTest' :
 					Upload::shortTextUpload($folder['fID'], $_POST['dAddAutor'], $_POST['dAddShortText']);
