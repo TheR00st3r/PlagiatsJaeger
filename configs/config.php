@@ -1,18 +1,18 @@
 <?php
 
-if ($_SERVER['SERVER_NAME'] == 'localhost') {
+// if ($_SERVER['SERVER_NAME'] == 'localhost') {
 	// $logData['host'] = 'localhost';
 	// $logData['user'] = 'root';
 	// $logData['pass'] = 'root';
 	// $logData['database'] = 'plagiatsjaeger';
-	$logData['debug'] = true;
-	require_once '../../database.php';
-	require_once '../../mail.php';
-	
-	$backendUrl = 'http://localhost:8080/PlagiatsJaeger/';
-	$root = 'http://localhost:8888/webseiten/plagiatsjaeger-app/htdocs/';
-
-} else {
+	// $logData['debug'] = true;
+	// require_once '../../database.php';
+	// require_once '../../mail.php';
+// 	
+	// $backendUrl = 'http://localhost:8080/PlagiatsJaeger/';
+	// $root = 'http://localhost:8888/webseiten/plagiatsjaeger-app/htdocs/';
+// 
+// } else {
 	require_once '../../database.php';
 	require_once '../../mail.php';
 	
@@ -20,7 +20,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
 	
 	$backendUrl = 'http://localhost:8080/PlagiatsJaeger/';
 	$root = 'http://192.168.4.28/';
-}
+// }
 
 //DEBUG
 if($logData['debug'] == true) {

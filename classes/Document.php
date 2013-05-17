@@ -49,9 +49,13 @@ class Document {
 				$lastID = $db -> lastInsertId();
 				$uploadCheck = Upload::fileUpload($lastID, $file);
 				if ($uploadCheck['state']) {
-					$state = true;
-				}
-				$messages = $uploadCheck['messages'];
+					$settings = LoginAccess::getUserSettings();
+					// $checkReport = Report::createReport($dID, $settings['slID'], $settings['uThreshold'], $settings['uCheckWWW, $rErrorCode = 100);
+					if ($checkReport['state']) {
+						$state = true;
+					}
+				} else
+					$messages = $uploadCheck['messages'];
 			} else
 				$messages[] = array(
 					'type' => 'error',
@@ -102,18 +106,19 @@ class Document {
 	 */
 	public static function getDocumentOriginalContent($dID) {
 
-		// $db = new db();
-		// $db -> read("
-		// SELECT
-		// d.dID, d.dOriginalName, d.dAuthor, d.fID, d.dIsParsed
-		// FROM
-		// document AS d
-		// WHERE
-		// d.dID = '$dID'
-		// ");
-		//
-		// $row = $db -> lines();
+		$db = new db();
+		$db -> read("
+					SELECT
+						d.dID, d.dOriginalName, d.dAuthor, d.fID, d.dIsParsed
+					FROM
+						document AS d
+					WHERE
+						d.dID = '$dID'
+		");
 
+		$row = $db -> lines();
+
+		// print_array($row);
 		if ($row['dIsParsed']) {
 			require_once 'File.php';
 			return File::readFile($dID . '.txt');
