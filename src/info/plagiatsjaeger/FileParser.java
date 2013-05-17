@@ -48,15 +48,15 @@ public class FileParser
 	 *            filePath, gibt den Speicherpfad der zu konvertierende Datei an
 	 * @return boolean result, gibt bei Erfolg true zurueck
 	 */
-	public boolean parseFile(String filePath)
+	public boolean parseFile(int dId, FileType fileType)
 	{
-		_logger.info("Start parsing: " + filePath);
+		_logger.info("Start parsing: " + dId);
 		boolean result = false;
-		_file = new File(filePath);
+		_file = new File(Control.ROOT_FILES + dId + "." + fileType);
 		_logger.info("New File angelegt");
 		try
 		{
-			result = fileToTxt();
+			result = fileToTxt(fileType);
 		}
 		catch (InvalidFormatException e)
 		{
@@ -81,33 +81,7 @@ public class FileParser
 		return result;
 	}
 
-	/**
-	 * Ermittelt den Dateityp der Datei
-	 * 
-	 * @return FileTyp result, gibt den ermittelten Enum-Wert zurueck
-	 */
-	private FileType detectFileType()
-	{
-		FileType result = null;
-		String fileName = _file.getName();
-		if (fileName.endsWith("docx"))
-		{
-			result = FileType.DOCX;
-		}
-		else if (fileName.endsWith("doc"))
-		{
-			result = FileType.DOC;
-		}
-		else if (fileName.endsWith(".pdf"))
-		{
-			result = FileType.PDF;
-		}
-		else if (fileName.endsWith(".txt"))
-		{
-			result = FileType.TXT;
-		}
-		return result;
-	}
+
 
 	/**
 	 * Liesst die gegebende Datei ein und speichert den beinhalteten Text in
@@ -123,10 +97,10 @@ public class FileParser
 	 * @throws IOException
 	 *             ; falls auf die Dateien nicht zugegriffen werden kann
 	 */
-	private boolean fileToTxt() throws InvalidFormatException, OpenXML4JException, XmlException, IOException
+	private boolean fileToTxt(FileType fileTyp) throws InvalidFormatException, OpenXML4JException, XmlException, IOException
 	{
 		boolean result = false;
-		FileType fileTyp = detectFileType();
+		
 		// Filename= Selber Dateiname und Speicherort wie orginale Datei, nur
 		// mit txt Endung
 		String strName = _file.getAbsolutePath().toString().substring(0, _file.getAbsolutePath().toString().length() - fileTyp.toString().length()) + "txt";
@@ -262,6 +236,9 @@ public class FileParser
 					writer.close();
 				}
 				break;
+			}
+			case HTML:{
+				
 			}
 			case TXT:
 			{
