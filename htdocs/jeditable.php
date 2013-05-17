@@ -2,7 +2,6 @@
 require_once '../configs/setup.php';
 $smarty = new MySmarty();
 if (LoginAccess::check()) {
-	// print_array($_POST);
 
 	$id = explode("_", $_POST['id']);
 	$content = $_POST['content'];
@@ -18,8 +17,5 @@ if (LoginAccess::check()) {
 			echo 'error';
 			break;
 	}
-
-	// $smarty -> assign('arrayName', $_POST['arrayName']);
-	// $smarty -> display('intern/ajax/singleText.tpl');
 }
 ?>

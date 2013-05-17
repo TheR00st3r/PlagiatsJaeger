@@ -98,7 +98,7 @@ class Document {
 				require_once 'File.php';
 				$checkWrite = File::writeFile($lastID, nl2br($text), '.txt');
 				if ($checkWrite['state']) {
-					require_once 'Report.php';
+					// require_once 'Report.php';
 					$checkReport = Report::createReport($lastID, $slID, $uThreshold, $uCheckWWW);
 					if ($checkReport['state']) {
 						$state = true;
@@ -214,7 +214,6 @@ class Document {
 
 		$row = $db -> lines();
 
-		// print_array($row);
 		if ($row['dIsParsed']) {
 			require_once 'File.php';
 			return File::readFile($dID . '.txt');

@@ -14,14 +14,15 @@ class File {
 	 */
 	public static function writeFile($dID, $text, $extension) {
 		$state = false;
-		$messages = array();
-
 		if (Validator::validate(VAL_INTEGER, $dID, true)) {
 
 			$handle = fopen(self::path . $dID . $extension, 'w+');
-			$return = true;
 			if (fwrite($handle, $text)) {
 				$state = true;
+				$messages[] = array(
+					'type' => 'save',
+					'text' => 'OK'
+				);
 			} else
 				$messages[] = array(
 					'type' => 'error',
@@ -33,7 +34,6 @@ class File {
 				'type' => 'error',
 				'text' => 'Parameter haben kein gültiges Format!'
 			);
-
 		$return['state'] = $state;
 		$return['messages'] = $messages;
 		return $return;
@@ -110,7 +110,7 @@ class File {
 				);
 			} else {
 				//TODO: print errors
-				print_array($result);
+				// print_array($result);
 				$messages[] = array(
 					'type' => 'error',
 					'text' => 'Dokumentparsing konnte nicht angestoßen werden!<br />' . $link

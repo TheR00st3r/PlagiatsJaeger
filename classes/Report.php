@@ -30,7 +30,6 @@ class Report {
 						'text' => 'Report wurde erfolgreich angelegt!'
 					);
 				} else {
-					print_array($result);
 					$messages[] = array(
 						'type' => 'error',
 						'text' => 'Report konnte nicht angestoßen werden!<br />' . $link

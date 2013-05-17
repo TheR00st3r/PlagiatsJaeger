@@ -10,7 +10,6 @@ require_once '../classes/Document.php';
 
 
 $reportCheck = Report::getReport($_GET['rID']);
-// print_array($reportCheck['report']);
 if ($reportCheck['state']) {
 	$smarty -> assign('report', $reportCheck['report']);
 }
@@ -18,11 +17,9 @@ $messages[] = $reportCheck['messages'];
 
 
 $results = Result::getResultsFromReportID($_GET['rID']);
-// print_array($results);
 
 $orgDocument = Document::getDocumentOriginalContent($reportCheck['report']['dID']);
 $split = explode(" ", $orgDocument);
-// print_array($split);
 
 $resultsNew = array();
 
