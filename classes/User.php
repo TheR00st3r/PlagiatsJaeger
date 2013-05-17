@@ -37,7 +37,7 @@ class User {
 			$db = new db();
 			$db -> read("
 				SELECT
-					u.uID, u.uName, u.uLastname, u.uEMailAdress, u.uPassword, u.uPermissonLevel, u.uSentenceLength, u.uJumpLength, u.uTreshold
+					u.uID, u.uName, u.uLastname, u.uEMailAdress, u.uPassword, u.uRestoreKey, u.uRestoreEndDate, u.uPermissonLevel, u.uThreshold, u.uCheckWWW, u.slID, u.cID
 				FROM
 					user AS u
 				WHERE 
@@ -77,35 +77,42 @@ class User {
 	 * @param int $uPermissonLevel
 	 * @return boolean
 	 */
-	public static function newUser($uName, $uLastname, $uEMailAdress, $uPassword, $uPermissonLevel, $cID = null) {
+	public static function newUser($uName, $uLastname, $uEMailAdress, $uPassword, $uPermissonLevel, $cID, $slID = 1, $uThreshold = 50, $uCheckWWW = 1) {
 		$state = false;
 		if (!Validator::validate(VAL_INTEGER, $cID, true)) {
 			$cID = LoginAccess::getClientID();
 		}
 		if (Validator::validate(VAL_STRING, $uName, true) and Validator::validate(VAL_STRING, $uLastname, true) and Validator::validate(VAL_EMAIL, $uEMailAdress, true) and Validator::validate(VAL_PASSWORD, $uPassword, true) and Validator::validate(VAL_INTEGER, $uPermissonLevel, true) and Validator::validate(VAL_INTEGER, $cID, true)) {
+
 			$db = new db();
-			if ($db -> insert('user', array(
-				'uName' => $uName,
-				'uLastname' => $uLastname,
-				'uEMailAdress' => $uEMailAdress,
-				'uPassword' => md5($uPassword),
-				'uPermissonLevel' => $uPermissonLevel,
-				'cID' => $cID
-			))) {
-				$lastId = $db -> lastInsertId();
-				$checkSettings = self::saveUserSettings($lastId);
-				if ($checkSettings['state']) {
+			if (!$db -> ifExist('user', array('uEMailAdress' => $uEMailAdress))) {
+
+				$db = new db();
+				if ($db -> insert('user', array(
+					'uName' => $uName,
+					'uLastname' => $uLastname,
+					'uEMailAdress' => $uEMailAdress,
+					'uPassword' => md5($uPassword),
+					'uPermissonLevel' => $uPermissonLevel,
+					'cID' => $cID,
+					'slID' => $slID,
+					'uThreshold' => $uThreshold,
+					'uCheckWWW' => $uCheckWWW
+				))) {
 					$state = true;
 					$messages[] = array(
 						'type' => 'save',
 						'text' => 'Benutzer erfolgreich angelegt.'
 					);
 				} else
-					$messages = $checkSettings['messages'];
+					$messages[] = array(
+						'type' => 'error',
+						'text' => 'Benuter konnte nicht gespeichert werden.'
+					);
 			} else
 				$messages[] = array(
 					'type' => 'error',
-					'text' => 'Benuter konnte nicht gespeichert werden.'
+					'text' => 'eMail-Adresse existiert schon im System.'
 				);
 		} else
 			$messages[] = array(
