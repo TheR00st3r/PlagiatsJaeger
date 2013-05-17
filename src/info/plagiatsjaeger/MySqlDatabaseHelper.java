@@ -224,7 +224,7 @@ public class MySqlDatabaseHelper
 		{
 			disconnect();
 		}
-		
+
 		return result;
 	}
 
@@ -241,7 +241,6 @@ public class MySqlDatabaseHelper
 		{
 			connect();
 			rstResultSet = _statement.executeQuery(query);
-			
 		}
 		catch (SQLException e)
 		{
@@ -321,9 +320,10 @@ public class MySqlDatabaseHelper
 	}
 
 	/**
-	 * Noch nicht implementiert! Setzt ein Document als fertig geparst.
+	 * Setzt ein Document als fertig geparst.
 	 * 
 	 * @param docId
+	 *            Dokumentnummer passend zum Report
 	 */
 	public void setDocumentAsParsed(int docId)
 	{
@@ -346,10 +346,41 @@ public class MySqlDatabaseHelper
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * Gibt zurueck ob Dokument schon geparsed wurde.
+	 * 
+	 * @param docId
+	 *            Dokumentnummp passend zum Report
+	 * @return TRUE wenn geparsed / FALSE wenn nicht geparsed
+	 */
 	public boolean getDocumentParseSatet(int docId)
 	{
-		return false;
+		boolean isparsed = false;
+		String strStatement = "SELECT dIsParsed FROM document AS d WHERE d.dID = " + docId;
+		ResultSet rstResultSet = null;
+		try
+		{
+			rstResultSet = startQuery(strStatement);
+			if (rstResultSet.next())
+			{
+				isparsed = rstResultSet.getBoolean("d.dIsParsed");
+			}
+		}
+		catch (SQLException e)
+		{
+			_logger.fatal(e.getMessage());
+			e.printStackTrace();
+		}
+		catch (Exception e)
+		{
+			_logger.fatal(e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			disconnect();
+		}
+		return isparsed;
 	}
-
 }
