@@ -348,6 +348,10 @@ public class MySqlDatabaseHelper
 			_logger.fatal(e.getMessage());
 			e.printStackTrace();
 		}
+		finally
+		{
+			disconnect();
+		}
 	}
 
 	/**
