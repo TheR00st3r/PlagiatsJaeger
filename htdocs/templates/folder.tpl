@@ -37,6 +37,8 @@
 		<a class="create button" href="#newFileForm"><img src="{$root}images/file.gif" alt="" /> Datei upload</a>
 		{include 'popups/newShortTestForm.tpl'}
 		<a class="create button" href="#newShortTestForm"><img src="{$root}images/file.gif" alt="" /> Schnelltest</a>
+		{include 'popups/newUrlForm.tpl'}
+		<a class="create button" href="#newUrlForm"><img src="{$root}images/file.gif" alt="" /> html-Check</a>
 		{/if}
 		{/if}
 	</div>

@@ -122,6 +122,9 @@ if ($page == 'public') {
 				case 'newFile' :
 					$check = Document::addDocument($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'], $userSettings['slID'], $userSettings['uThreshold'], $userSettings['uCheckWWW']);
 					break;
+				case 'newUrl' :
+					$check = Document::addUrl($folder['fID'], $_POST['dAddAutor'], $_POST['dOriginalName'], $userSettings['slID'], $userSettings['uThreshold'], $userSettings['uCheckWWW']);
+					break;
 				case 'newShortTest' :
 					Upload::shortTextUpload($folder['fID'], $_POST['dAddAutor'], $_POST['dAddShortText']);
 					break;

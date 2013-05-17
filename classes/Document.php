@@ -74,6 +74,53 @@ class Document {
 		return $return;
 	}
 
+	/**
+	 * Uploads a given file and creates a database entry.
+	 * @param int $dID
+	 * @return string
+	 */
+	public static function addUrl($fID, $dAuthor, $dOriginalName, $slID, $uThreshold, $uCheckWWW) {
+		$state = false;
+		$messages = array();
+		if (Validator::validate(VAL_INTEGER, $fID, true) and Validator::validate(VAL_STRING, $dAuthor)  and Validator::validate(VAL_STRING, $dOriginalName)) {
+			require_once 'Upload.php';
+			$db = new db();
+			if ($db -> insert('document', array(
+				'dOriginalName' => $dOriginalName,
+				'dAuthor' => $dAuthor,
+				'fID' => $fID
+			))) {
+				$lastID = $db -> lastInsertId();
+				
+				
+				$uploadCheck = Upload::fileUpload($lastID, $file);
+				
+				
+				if ($uploadCheck['state']) {
+					require_once '../classes/Report.php';
+					$checkReport = Report::createReport($lastID, $slID, $uThreshold, $uCheckWWW);
+					if ($checkReport['state']) {
+						$state = true;
+					}
+					$messages = $checkReport['messages'];
+				}
+				$messages = array_merge($messages, $uploadCheck['messages']);
+			} else
+				$messages[] = array(
+					'type' => 'error',
+					'text' => 'Dokument wurde nicht angelegt!'
+				);
+		} else
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'Parameter haben kein gültiges Format!'
+			);
+
+		$return['state'] = $state;
+		$return['messages'] = $messages;
+		return $return;
+	}
+
 	public static function deleteDocument($dID) {
 		$state = false;
 		if (Validator::validate(VAL_INTEGER, $dID, true)) {

@@ -31,7 +31,6 @@ class File {
 	 * @return boolean
 	 */
 	public static function copyTempFile($dID, $file) {
-		global $backendUrl;
 		$state = false;
 		if (Validator::validate(VAL_INTEGER, $dID, true)) {
 
@@ -51,21 +50,13 @@ class File {
 				if (in_array($extension, $allowedExtensions)) {
 
 					if (copy($file["tmp_name"], self::path . $dID . $extension)) {
-						$link = $backendUrl . "ParseServlet?dID=" . $dID . "&dFileEnding=" . $extension;
-						$result = file($link);
-						if ($result == true) {
+
+						$checkParsing = self::startFileParsing($dID, $extension);
+						if($checkParsing['state']) {
 							$state = true;
-							$messages[] = array(
-								'type' => 'save',
-								'text' => 'Dokument wurde erfolgreich gespeichert!'
-							);
-						} else {
-							print_array($result);
-							$messages[] = array(
-								'type' => 'error',
-								'text' => 'Dokumentparsing konnte nicht angestoßen werden!<br />' . $link
-							);
 						}
+						$messages = $checkParsing['messages'];
+
 					} else
 						$messages[] = array(
 							'type' => 'error',
@@ -86,6 +77,35 @@ class File {
 		$return['state'] = $state;
 		$return['messages'] = $messages;
 		return $return;
+	}
+
+	public static function startFileParsing($dID, $extension) {
+		global $backendUrl;
+		$state = false;
+		if (Validator::validate(VAL_INTEGER, $dID, true) and Validator::validate(VAL_STRING, $extension, true)) {
+
+			$link = $backendUrl . "ParseServlet?dID=" . $dID . "&dFileEnding=" . $extension;
+			$result = file($link);
+			if ($result == true) {
+				$state = true;
+				$messages[] = array(
+					'type' => 'save',
+					'text' => 'Dokument wurde erfolgreich gespeichert!'
+				);
+			} else {
+				//TODO: print errors
+				print_array($result);
+				$messages[] = array(
+					'type' => 'error',
+					'text' => 'Dokumentparsing konnte nicht angestoßen werden!<br />' . $link
+				);
+			}
+		}
+
+		$return['state'] = $state;
+		$return['messages'] = $messages;
+		return $return;
+
 	}
 
 	/**
