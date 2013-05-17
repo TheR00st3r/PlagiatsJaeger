@@ -27,7 +27,7 @@ class Document {
 			$row['reports'] = Report::getReportsFromDocumentID($row['dID']);
 			$docs[] = $row;
 		}
-
+		$db -> disconnect();
 		return $docs;
 	}
 
@@ -40,7 +40,7 @@ class Document {
 		$state = false;
 		$messages = array();
 		if (Validator::validate(VAL_INTEGER, $fID, true) and Validator::validate(VAL_STRING, $dAuthor)) {
-			require_once 'Upload.php';
+			require_once '../classes/File.php';
 			$db = new db();
 			if ($db -> insert('document', array(
 				'dOriginalName' => $file["name"],
@@ -48,9 +48,9 @@ class Document {
 				'fID' => $fID
 			))) {
 				$lastID = $db -> lastInsertId();
-				$uploadCheck = Upload::fileUpload($lastID, $file);
+				$uploadCheck = File::copyTempFile($lastID, $file);
 				if ($uploadCheck['state']) {
-					require_once 'Report.php';
+					require_once '../classes/Report.php';
 					$checkReport = Report::createReport($lastID, $slID, $uThreshold, $uCheckWWW);
 					if ($checkReport['state']) {
 						$state = true;
@@ -68,7 +68,7 @@ class Document {
 				'type' => 'error',
 				'text' => 'Parameter haben kein gültiges Format!'
 			);
-
+		$db -> disconnect();
 		$return['state'] = $state;
 		$return['messages'] = $messages;
 		return $return;
@@ -95,7 +95,7 @@ class Document {
 			))) {
 				$lastID = $db -> lastInsertId();
 
-				require_once 'File.php';
+				require_once '../classes/File.php';
 				$checkWrite = File::writeFile($lastID, nl2br($text), '.txt');
 				if ($checkWrite['state']) {
 					// require_once 'Report.php';
@@ -103,11 +103,11 @@ class Document {
 					if ($checkReport['state']) {
 						$state = true;
 					}
-					print_array($checkReport);
+					//print_array($checkReport);
 					$messages = $checkReport['messages'];
 				}
-				$messages = array_merge($messages, $checkWrite['messages']);
-print_array($checkWrite);
+				//$messages = array_merge($messages, $checkWrite['messages']);
+				print_array($checkWrite);
 			} else
 				$messages[] = array(
 					'type' => 'error',
@@ -118,6 +118,8 @@ print_array($checkWrite);
 				'type' => 'error',
 				'text' => 'Parameter haben kein gültiges Format!'
 			);
+
+		$db -> disconnect();
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;
@@ -142,7 +144,7 @@ print_array($checkWrite);
 			))) {
 				$lastID = $db -> lastInsertId();
 
-				require_once 'File.php';
+				require_once '../classes/File.php';
 				$checkParsing = File::startFileParsing($lastID, '.html');
 
 				if ($checkParsing['state']) {
@@ -164,6 +166,8 @@ print_array($checkWrite);
 				'type' => 'error',
 				'text' => 'Parameter haben kein gültiges Format!'
 			);
+
+		$db -> disconnect();
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;
@@ -191,6 +195,8 @@ print_array($checkWrite);
 				'text' => 'Die Dokument Id ist nicht gültig.'
 			);
 
+		$db -> disconnect();
+
 		$return['state'] = $state;
 		$return['messages'] = $messages;
 
@@ -216,8 +222,10 @@ print_array($checkWrite);
 
 		$row = $db -> lines();
 
+		$db -> disconnect();
+
 		if ($row['dIsParsed']) {
-			require_once 'File.php';
+			require_once '../classes/File.php';
 			return File::readFile($dID . '.txt');
 		} else
 			return 'Datei wurde noch nicht geparsed....';

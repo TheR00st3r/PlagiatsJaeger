@@ -33,8 +33,10 @@ class LoginAccess {
 				$_SESSION[self::suffix . '_name'] = $row['uName'] . ' ' . $row['uLastname'];
 				$_SESSION[self::suffix . '_email'] = $row['uEMailAdress'];
 				$_SESSION[self::suffix . '_level'] = $row['uPermissonLevel'];
-				
+
 				self::saveSettingsSession($row['slID'], $row['uThreshold'], $row['uCheckWWW']);
+
+				$db -> disconnect();
 
 				return true;
 			} else

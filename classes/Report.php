@@ -46,6 +46,8 @@ class Report {
 				'text' => 'Parameter haben kein gültiges Format!'
 			);
 
+		$db -> disconnect();
+
 		$return['state'] = $state;
 		$return['messages'] = $messages;
 		return $return;
@@ -111,6 +113,8 @@ class Report {
 				'type' => 'error',
 				'text' => 'rID hat kein gültiges Format.'
 			);
+
+		$db -> disconnect();
 
 		$return['report'] = $report;
 		$return['state'] = $state;

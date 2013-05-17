@@ -61,6 +61,9 @@ class User {
 				'text' => 'ID hat kein gültiges Format.'
 			);
 		}
+
+		$db -> disconnect();
+
 		$return['user'] = $user;
 		$return['state'] = $state;
 		$return['messages'] = $messages;
@@ -119,6 +122,9 @@ class User {
 				'type' => 'error',
 				'text' => 'Bitte füllen Sie alle Felder aus.'
 			);
+
+		$db -> disconnect();
+
 		$return['state'] = $state;
 		$return['messages'] = $messages;
 
@@ -162,6 +168,8 @@ class User {
 		} else
 			$messages = $pwCheck['messages'];
 
+		$db -> disconnect();
+
 		$return['uID'] = $uID;
 		$return['state'] = $state;
 		$return['messages'] = $messages;
@@ -199,6 +207,8 @@ class User {
 		} else
 			$messages = $uIDCheck['messages'];
 
+		$db -> disconnect();
+
 		$return['uID'] = $uID;
 		$return['state'] = $state;
 		$return['messages'] = $messages;
@@ -233,6 +243,8 @@ class User {
 				'type' => 'error',
 				'text' => 'Der Key hat kein gültiges Format. Bitte fordnern Sie einen neuen Key an!'
 			);
+
+		$db -> disconnect();
 
 		$return['uID'] = $uID;
 		$return['state'] = $state;
@@ -281,6 +293,9 @@ class User {
 				'text' => 'uID fehlt.'
 			);
 		}
+
+		$db -> disconnect();
+
 		$return['state'] = $state;
 		$return['messages'] = $messages;
 		return $return;
@@ -314,6 +329,9 @@ class User {
 				'text' => 'Parameter fehlerhaft.'
 			);
 		}
+
+		$db -> disconnect();
+
 		$return['state'] = $state;
 		$return['messages'] = $messages;
 		return $return;
@@ -354,6 +372,9 @@ class User {
 				'text' => 'Berechtigung oder Benutzer ID ungültig.'
 			);
 		}
+
+		$db -> disconnect();
+
 		$return['state'] = $state;
 		$return['messages'] = $messages;
 
@@ -394,6 +415,9 @@ class User {
 				'text' => 'Benutzer ID ungültig.'
 			);
 		}
+
+		$db -> disconnect();
+
 		$return['state'] = $state;
 		$return['messages'] = $messages;
 
@@ -472,6 +496,8 @@ class User {
 			);
 		}
 
+		$db -> disconnect();
+
 		$return['cID'] = $cID;
 		$return['cAdmin'] = $cAdmin;
 		$return['state'] = $state;
@@ -503,6 +529,8 @@ class User {
 				'type' => 'error',
 				'text' => 'Die eMail-Adresse hat kein gültiges Format.'
 			);
+
+		$db -> disconnect();
 
 		$return['uID'] = $uID;
 		$return['state'] = $state;

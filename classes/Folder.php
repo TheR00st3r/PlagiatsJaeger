@@ -60,8 +60,8 @@ class Folder {
 			if (count($back) > 0) {
 				$folder[$row['fID']]['sub'] = $back;
 			}
-
 		}
+		$db -> disconnect();
 		return $folder;
 	}
 
@@ -120,6 +120,7 @@ class Folder {
 				$folder = array_merge($folder, $back);
 			}
 		}
+		$db -> disconnect();
 		return $folder;
 	}
 
@@ -147,6 +148,7 @@ class Folder {
 					return true;
 				}
 			}
+			$db -> disconnect();
 			return false;
 		}
 	}
@@ -179,7 +181,7 @@ class Folder {
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;
-
+		$db -> disconnect();
 		return $return;
 	}
 
@@ -198,6 +200,7 @@ class Folder {
 		), array('fID' => $fID))) {
 			return $hash;
 		}
+		$db -> disconnect();
 		return false;
 	}
 
@@ -266,7 +269,7 @@ class Folder {
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;
-
+		$db -> disconnect();
 		return $return;
 	}
 
@@ -296,7 +299,6 @@ class Folder {
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;
-
 		return $return;
 	}
 
@@ -314,8 +316,8 @@ class Folder {
 		while ($row = $db -> lines()) {
 			$return[] = $row['uID'];
 		}
+		$db -> disconnect();
 		return $return;
-		// return $db -> linesAsArray();
 	}
 
 	private static function deleteFolderPermissionsFromFolderId($fID) {

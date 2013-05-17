@@ -30,6 +30,7 @@ class File {
 				'type' => 'error',
 				'text' => 'Parameter haben kein gültiges Format!'
 			);
+
 		$return['state'] = $state;
 		$return['messages'] = $messages;
 		return $return;
