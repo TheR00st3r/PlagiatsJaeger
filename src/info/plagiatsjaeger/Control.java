@@ -87,7 +87,8 @@ public class Control
 					}
 					catch (Exception e)
 					{
-						_logger.fatal(e.getStackTrace().toString());
+						e.printStackTrace();
+						_logger.fatal(e.getLocalizedMessage());
 					}
 				}
 			}).start();
