@@ -118,18 +118,6 @@ if ($page == 'public') {
 				case 'createLink' :
 					Folder::addFolderLink($_POST['fID'], $_POST['fLinkExpireDatetime']);
 					break;
-				case 'newFile' :
-					$check = Document::addDocument($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'], $userSettings['slID'], $userSettings['uThreshold'], $userSettings['uCheckWWW']);
-					break;
-				case 'newUrl' :
-					$check = Document::addUrl($folder['fID'], $_POST['dAddAutor'], $_POST['dOriginalName'], $userSettings['slID'], $userSettings['uThreshold'], $userSettings['uCheckWWW']);
-					break;
-				case 'newShortTest' :
-					$check = Document::addSnipped($folder['fID'], $_POST['dAddAutor'], $_POST['dAddShortText'], $userSettings['slID'], $userSettings['uThreshold'], $userSettings['uCheckWWW']);
-					break;
-				case 'dAddFolderShareSubmit' :
-					$check = Folder::saveMultibleFolderPermissions(700, $_POST['fID'], $_POST['uIDs']);
-					break;
 				case 'shareFolder' :
 					$check = Folder::saveMultibleFolderPermissions(700, $_POST['fID'], $_POST['uIDs']);
 					break;
@@ -139,11 +127,20 @@ if ($page == 'public') {
 				case 'deleteFolder' :
 					$check = Folder::deleteFolder($_POST['fID']);
 					break;
-				case 'addReport' :
-					$check = Report::createReport($_POST['dID'], $_POST['slID'], $_POST['rThreshold'], $_POST['rCheckWWW']);
+				case 'newFile' :
+					$check = Document::addDocument($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'], $userSettings['slID'], $userSettings['uThreshold'], $userSettings['uCheckWWW']);
+					break;
+				case 'newUrl' :
+					$check = Document::addUrl($folder['fID'], $_POST['dAddAutor'], $_POST['dOriginalName'], $userSettings['slID'], $userSettings['uThreshold'], $userSettings['uCheckWWW']);
+					break;
+				case 'newSnipped' :
+					$check = Document::addSnipped($folder['fID'], $_POST['dAddAutor'], $_POST['dAddShortText'], $userSettings['slID'], $userSettings['uThreshold'], $userSettings['uCheckWWW']);
 					break;
 				case 'deleteDocument' :
 					$check = Document::deleteDocument($_POST['dID']);
+					break;
+				case 'addReport' :
+					$check = Report::createReport($_POST['dID'], $_POST['slID'], $_POST['rThreshold'], $_POST['rCheckWWW'], $_POST['rCheckIDs']);
 					break;
 			}
 

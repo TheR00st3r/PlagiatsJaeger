@@ -1,4 +1,4 @@
-<div id="newShortTestForm" style="display: none">
+<div id="newSnippedForm" style="display: none">
 	<form method="post" action="{$root}{$page}" enctype="multipart/form-data">
 		<h2>Text Upload</h2>
 		<label for="dAddShortText">Fügen Sie Ihren zu prüfenden Text ein:</label>
@@ -9,6 +9,6 @@
 		<input type="text" name="dAddAutor" id="dAddShortAutor" />
 		<br />
 		<br />
-		<input type="submit" name="button[newShortTest]" value="upload" />
+		<input type="submit" name="button[newSnipped]" value="upload" />
 	</form>
 </div>

@@ -1,18 +1,7 @@
+{include 'functions/folders.tpl'}
+{include 'functions/checkfolders.tpl'}
+
 <div class="floatleft folders">
-	{function name=printFolders}
-	{if $level!=0}
-	<ul>
-		{/if}
-		{foreach $items as $item}
-		<li id="foo_{$item.fID}" {if $item.fID == $folder.fID}class="open"{/if} >
-			<span class="folder"> <a href="{$root}{$type}/{$item.root}{$item.alias}">{$item.fName}</a> {if $type == 'shared'}({$item.uName}){/if} </span>
-			{if $item['sub']}
-			{call name=printFolders items=$item.sub level=$level+1 type=$type}
-			{/if}
-		</li>
-		{/foreach}
-	</ul>
-	{/function}
 	<ul id="filetree1" class="filetree">
 		<li class="open">
 			<span class="folder"><a href="{$root}folder">Meine Ordner</a></span>
@@ -25,7 +14,6 @@
 				{call name=printFolders items=$sharedFolders level=0 type='shared'}
 		</li>
 	</ul>
-
 </div>
 <div class="floatright files">
 	<div class="folderMenue">
@@ -35,8 +23,8 @@
 		{if $folder.fID}
 		{include 'popups/newFileForm.tpl'}
 		<a class="create button" href="#newFileForm"><img src="{$root}images/file.gif" alt="" /> Datei upload</a>
-		{include 'popups/newShortTestForm.tpl'}
-		<a class="create button" href="#newShortTestForm"><img src="{$root}images/file.gif" alt="" /> Schnelltest</a>
+		{include 'popups/newSnippedForm.tpl'}
+		<a class="create button" href="#newSnippedForm"><img src="{$root}images/file.gif" alt="" /> Schnelltest</a>
 		{include 'popups/newUrlForm.tpl'}
 		<a class="create button" href="#newUrlForm"><img src="{$root}images/file.gif" alt="" /> html-Check</a>
 		{/if}

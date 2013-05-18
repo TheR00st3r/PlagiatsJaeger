@@ -7,11 +7,11 @@ $(document).ready(function() {
 		unique : false
 	});
 
-	$("#filetree2").treeview({
+	$(".filetree2").treeview({
 		animated : "fast",
+		persist : "location",
 		collapsed : false,
-		unique : false,
-		persist : "cookie"
+		unique : false
 	});
 
 	// fourth example
