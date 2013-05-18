@@ -39,15 +39,15 @@ class Document {
 	public static function addDocument($fID, $dAuthor, $files, $slID, $uThreshold, $uCheckWWW) {
 		$state = false;
 		$messages = array();
-		
+
 		for ($i = 0; $i < count($files['name']); $i++) {
-			
+
 			$file['name'] = $files['name'][$i];
 			$file['tmp_name'] = $files['tmp_name'][$i];
 			$file['error'] = $files['error'][$i];
 			$file['error'] = $files['error'][$i];
 			$file['error'] = $files['error'][$i];
-			
+
 			if (Validator::validate(VAL_INTEGER, $fID, true) and Validator::validate(VAL_STRING, $dAuthor)) {
 				require_once '../classes/File.php';
 				$db = new db();
@@ -236,6 +236,17 @@ class Document {
 			return File::readFile($dID . '.txt');
 		} else
 			return 'Datei wurde noch nicht geparsed....';
+	}
+
+	/**
+	 * Edit the Autor name from the given document id.
+	 * @param int $fID
+	 * @param string $fName
+	 * @return boolean
+	 */
+	public static function editAutor($dID, $dAuthor) {
+		$db = new db();
+		return $db -> update('document', array('dAuthor' => $dAuthor), array('dID' => $dID));
 	}
 
 }

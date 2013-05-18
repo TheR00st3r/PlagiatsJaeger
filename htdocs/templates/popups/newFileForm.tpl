@@ -1,7 +1,7 @@
 <div id="newFileForm" style="display: none">
 	<form method="post" action="{$root}{$page}" enctype="multipart/form-data">
 		<h2>File Upload</h2>
-		<label for="dAddFile">Wählen Sie die zu prüfende Datei:</label>
+		<label for="dAddFile">Wählen Sie eine oder mehrere zu prüfende Dateien:</label>
 		<input type="file" name="dAddFile[]" id="dAddFile" multiple="multiple" />
 		<br />
 		<br />

@@ -13,6 +13,12 @@ if (LoginAccess::check()) {
 				echo $content;
 			}
 			break;
+		case 'dAutor' :
+			require_once '../classes/Document.php';
+			if (Document::editAutor($id[1], $content)) {
+				echo $content;
+			}
+			break;
 		default :
 			echo 'error';
 			break;

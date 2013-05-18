@@ -45,7 +45,7 @@
 			</td>
 			<td class="borderright">
 				<!-- @formatter:off -->
-				<div class="jeditable" id="fName_{$item.fID}">{strip}{$item.fName}{/strip}</div>
+				<div class="jeditable" id="fName_{$item.fID}">{$item.fName}</div>
 				<!-- @formatter:on -->
 			</td>
 			<td class="borderright">
@@ -90,8 +90,11 @@
 				</li>
 				{/foreach}
 			</td>
+			
 			<td class="borderright">
-				{$item.dAuthor}
+				<!-- @formatter:off -->
+				<div class="jeditable" id="dAutor_{$item.dID}">{$item.dAuthor}</div>
+				<!-- @formatter:on -->
 			</td>
 			<td class="edit">
 				{if $fpLevel == 900}
