@@ -1,3 +1,4 @@
+{if $results|count > 0}
 <h2>Plagiatsfunde</h2>
 <br />
 <table class="short">
@@ -16,3 +17,4 @@
 	</tr>
 	{/foreach}
 </table>
+{/if}

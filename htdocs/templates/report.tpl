@@ -57,7 +57,5 @@
 
 	</table>
 
-	{if $results|count > 0}
 	{$reportContent}
-	{/if}
 </div>

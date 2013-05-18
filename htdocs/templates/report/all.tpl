@@ -1,3 +1,4 @@
+{if $results|count > 0}
 {foreach from=$results item=result}
 <h2>{$result.rtQuellText}</h2>
 Start: {$result.rtStartWord}, Stop: {$result.rtEndWord}
@@ -14,3 +15,4 @@ Start: {$result.rtStartWord}, Stop: {$result.rtEndWord}
 	{/foreach}
 </div>
 {/foreach}
+{/if}
