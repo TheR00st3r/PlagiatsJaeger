@@ -56,7 +56,7 @@
 		{$result.rtQuellText}
 	</p>
 	<div>
-		{foreach from=$result item=source}
+		{foreach from=$result.source item=source}
 		<p>
 			{source.rtSourceText}
 		</p>
