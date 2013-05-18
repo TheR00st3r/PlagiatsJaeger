@@ -179,6 +179,15 @@ if ($page == 'public') {
 					}
 					$smarty -> assign('messages', $checkSettings['messages']);
 					break;
+				case 'uChangePassword' :
+					$checkPassword = User::checkUserPassword(LoginAccess::getUserID(), $_POST['uPassword']);
+					if ($checkPassword['state']) {
+						$checkSave = User::setUserPassword($_POST['uPassword1'], $_POST['uPassword2'], LoginAccess::getUserID());
+						$message = $checkSave['messages'];
+					} else
+						$message = $checkPassword['messages'];
+					$smarty -> assign('messages', $message);
+					break;
 			}
 
 			$contentTpl = $smarty -> fetch('settings.tpl');

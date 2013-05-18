@@ -284,6 +284,7 @@ class User {
 						'text' => 'Passwort konnte nicht gespeichert werden!'
 					);
 				}
+				$db -> disconnect();
 			} else {
 				$messages = $pwCheck['messages'];
 			}
@@ -294,7 +295,42 @@ class User {
 			);
 		}
 
-		$db -> disconnect();
+		$return['state'] = $state;
+		$return['messages'] = $messages;
+		return $return;
+	}
+
+	public static function checkUserPassword($uID, $password) {
+		$state = false;
+		if (Validator::validate(VAL_INTEGER, $uID, true) and Validator::validate(VAL_PASSWORD, $password, true)) {
+
+			$password = md5($password);
+
+			$db = new db();
+			$db -> read("SELECT
+								uID
+							FROM 
+								user
+							WHERE
+								uPassword = '$password' AND uID = '$uID'
+							");
+
+			if ($db -> valueCount() == 1) {
+				$state = true;
+				$messages[] = array(
+					'type' => 'save',
+					'text' => 'Passwort ist korrekt.'
+				);
+			} else
+				$messages[] = array(
+					'type' => 'error',
+					'text' => 'Passwort ist nicht korrekt.'
+				);
+		} else
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'Parameter fehlerhaft.'
+			);
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;
@@ -322,6 +358,7 @@ class User {
 					'text' => 'Einstellungen wurden gespeichert.'
 				);
 			}
+			$db -> disconnect();
 
 		} else {
 			$messages[] = array(
@@ -329,8 +366,6 @@ class User {
 				'text' => 'Parameter fehlerhaft.'
 			);
 		}
-
-		$db -> disconnect();
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;

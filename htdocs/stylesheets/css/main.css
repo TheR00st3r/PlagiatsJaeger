@@ -1,7 +1,7 @@
 *{font-size:10pt;font-family:Arial;}
 body{background:#eee;margin:0px;padding:0px;}
 a{text-decoration:underlined;color:#000000;}
-label{display:block;}
+label{display:block;font-weight:bold;}
 input{border:solid 1px #cccccc;}
 textarea{border:solid 1px #cccccc;}
 .help{cursor:help;border-bottom:1px dotted #aaa;}
@@ -34,7 +34,7 @@ textarea{border:solid 1px #cccccc;}
 .admin .user .bgcolor{background:#f3f6fa;}
 .document{background:#FFF;}
 h2{font-size:20px;}
-h2{font-size:20px;}
+h3{font-size:16px;}
 .loginform{width:300px;margin:auto;}
 tr:hover{background:#ffa !important;}
 .error,.save,.info{color:#000;text-align:center;padding:3px;margin:10px 0 10px 0;}
