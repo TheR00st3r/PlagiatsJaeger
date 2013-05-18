@@ -96,7 +96,9 @@
 				<a href="document.php?dID={$item.dID}" class="iframeviewer fancybox.iframe">{$item.dOriginalName}</a>
 				{foreach from=$item.reports item=report}
 				<li>
-					<a href="report.php?rID={$report.rID}" class="iframeviewer fancybox.iframe">{$report.rDatetime|date_format:'%d.%m.%Y %H:%M'}</a> rID={$report.rID}
+					<a href="report.php?rID={$report.rID}" class="iframeviewer fancybox.iframe">{$report.rDatetime|date_format:'%d.%m.%Y %H:%M'}</a>
+					Status: <span class="help" title="{$report.eDescription}">{$report.eName}</span>,
+					Verdacht: {$report.rtSimilarity}%
 				</li>
 				{/foreach}
 			</td>

@@ -8,70 +8,70 @@ require_once '../classes/Report.php';
 require_once '../classes/Result.php';
 require_once '../classes/Document.php';
 
-$reportCheck = Report::getReport($_GET['rID']);
+$reportCheck = Report::getReportInfos($_GET['rID']);
 if ($reportCheck['state']) {
 	$smarty -> assign('report', $reportCheck['report']);
 }
 $messages[] = $reportCheck['messages'];
 
-$results = Result::getResultsFromReportID($_GET['rID']);
+switch ($_GET['type']) {
+	case 'grafic' :
+		$reportContent = 'report/grafic.tpl';
+		break;
+	case 'all' :
+		$results = Result::getAllReportResult($_GET['rID']);
 
-$orgDocument = Document::getDocumentOriginalContent($reportCheck['report']['dID']);
-$split = explode(" ", $orgDocument);
+		$orgDocument = Document::getDocumentOriginalContent($reportCheck['report']['dID']);
+		$split = explode(" ", $orgDocument);
 
-$resultsNew = array();
+		$resultsNew = array();
 
-$output = array();
+		$output = array();
 
-foreach ($results as $result) {
+		foreach ($results as $result) {
 
-	$key = $result['rtStartWord'];
-	//.$result['rtEndWord'];
+			$key = $result['rtStartWord'];
 
-	if (array_key_exists($key, $output)) {
+			if (array_key_exists($key, $output)) {
 
-		$source['rtSourceText'] = $result['rtSourceText'];
-		$source['rtSourcedID'] = $result['rtSourcedID'];
-		$source['rtSourceLink'] = $result['rtSourceLink'];
-		$source['rtSimilarity'] = $result['rtSimilarity'];
-		$output[$key]['source'][] = $source;
+				$source['rtSourceText'] = $result['rtSourceText'];
+				$source['rtSourcedID'] = $result['rtSourcedID'];
+				$source['rtSourceLink'] = $result['rtSourceLink'];
+				$source['rtSimilarity'] = $result['rtSimilarity'];
+				$output[$key]['source'][] = $source;
 
-	} else {
+			} else {
 
-		$string = '';
-		for ($i = $result['rtStartWord']; $i < $result['rtEndWord']; $i++) {
-			$string = $string . $split[$i] . ' ';
-			// echo $split[$i];
+				$string = '';
+				for ($i = $result['rtStartWord']; $i < $result['rtEndWord']; $i++) {
+					$string = $string . $split[$i] . ' ';
+				}
+
+				$item['rtStartWord'] = $result['rtStartWord'];
+				$item['rtEndWord'] = $result['rtEndWord'];
+				$item['rtQuellText'] = $string;
+				$source['rtSourceText'] = $result['rtSourceText'];
+				$source['rtSourcedID'] = $result['rtSourcedID'];
+				$source['rtSourceLink'] = $result['rtSourceLink'];
+				$source['rtSimilarity'] = $result['rtSimilarity'];
+				$item['source'][] = $source;
+
+				$output[$key] = $item;
+			}
 		}
-		// $result['rtQuellText'] = $string;
-		//$resultsNew[] = $result;
-
-		$item['rtStartWord'] = $result['rtStartWord'];
-		$item['rtEndWord'] = $result['rtEndWord'];
-		$item['rtQuellText'] = $string;
-		$source['rtSourceText'] = $result['rtSourceText'];
-		$source['rtSourcedID'] = $result['rtSourcedID'];
-		$source['rtSourceLink'] = $result['rtSourceLink'];
-		$source['rtSimilarity'] = $result['rtSimilarity'];
-		$item['source'][] = $source;
-
-		$output[$key] = $item;
-	}
+		$reportContent = 'report/all.tpl';
+		break;
+	default :
+		//short
+		$output = Result::getShortReportResult($_GET['rID']);
+		// print_array($output);
+		$reportContent = 'report/short.tpl'; 
+		break;
 }
 
-print_array($output);
-
 $smarty -> assign('results', $output);
-
-// foreach $results as
-
-// echo $orgDocument;
-//$words = (str_word_count($orgDocument, 1, 'äüöÄÜÖß'));
-
-// echo implode(" ", $split);
-
-// $smarty -> assign('content', $contentTpl);
-// $bodyTpl = $smarty -> fetch('layout.tpl');
+// $temp = $smarty -> fetch($reportContent);
+$smarty -> assign('reportContent', $smarty -> fetch($reportContent));
 
 $smarty -> assign('messages', $messages);
 $bodyTpl = $smarty -> fetch('report.tpl');

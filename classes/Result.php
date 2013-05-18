@@ -6,7 +6,7 @@ class Result {
 	 * @param int $rID
 	 * @return array
 	 */
-	public static function getResultsFromReportID($rID) {
+	public static function getAllReportResult($rID) {
 		if (Validator::validate(VAL_INTEGER, $rID, true)) {
 			$db = new db();
 			$db -> read("
@@ -18,6 +18,30 @@ class Result {
 					rt.rID = '$rID'
 				ORDER BY
 					rt.rtStartWord ASC, rt.rtEndWord ASC");
+
+			return $db -> linesAsArray();
+		}
+	}
+	
+	/**
+	 * Returns s short results summary from the given report id.
+	 * @param int $rID
+	 * @return array
+	 */
+	public static function getShortReportResult($rID) {
+		if (Validator::validate(VAL_INTEGER, $rID, true)) {
+			$db = new db();
+			$db -> read("
+				SELECT
+					COUNT(rt.rtSourceLink) as count, rt.rtSourceLink
+				FROM
+					result AS rt
+				WHERE
+					rt.rID = '$rID'
+				GROUP BY
+					rt.rtSourceLink
+				ORDER BY
+					count DESC");
 
 			return $db -> linesAsArray();
 		}

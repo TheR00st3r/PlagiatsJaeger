@@ -110,8 +110,6 @@ class File {
 					'text' => 'Dokument wurde erfolgreich gespeichert!'
 				);
 			} else {
-				//TODO: print errors
-				// print_array($result);
 				$messages[] = array(
 					'type' => 'error',
 					'text' => 'Dokumentparsing konnte nicht angestoßen werden!<br />' . $link

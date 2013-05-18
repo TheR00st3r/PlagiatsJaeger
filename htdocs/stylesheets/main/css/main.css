@@ -4,6 +4,7 @@ a{text-decoration:underlined;color:#000000;}
 label{display:block;}
 input{border:solid 1px #cccccc;}
 textarea{border:solid 1px #cccccc;}
+.help{cursor:help;border-bottom:1px dotted #aaa;}
 #dAddShortText{width:800px;height:400px;}
 #frame{background:#FFF;}
 #container{width:900px;margin:20px auto;background:#fff;-moz-box-shadow:6px 6px 6px #666;-webkit-box-shadow:6px 6px 6px #666;box-shadow:6px 6px 6px #666;border:solid 1px #666;}
@@ -20,7 +21,7 @@ textarea{border:solid 1px #cccccc;}
 .button{border:solid 1px #000;padding:2px;background:#f9f9f9;}
 .folders{overflow:auto;margin:0px;width:250px;border-right:dotted 1px #000;min-height:400px;}.folders .selected{font-weight:bold;}
 .files{width:540px;margin:0;}.files .documents{width:100%;border-collapse:collapse;}.files .documents .borderright{border-right:solid 1px #eee;}
-.files .documents td{padding:1px 5px 1px 5px;vertical-align:top;}
+.files .documents td{padding:5px 5px 5px 5px;vertical-align:top;}
 .files .documents .image{width:15px;}
 .files .documents .smal{width:50px;}
 .files .documents .bgcolor{background:#f3f6fa;}
@@ -30,8 +31,6 @@ textarea{border:solid 1px #cccccc;}
 .admin .user{width:100%;border-collapse:collapse;}.admin .user .borderright{border-right:solid 1px #eee;}
 .admin .user td{padding:1px 5px 1px 5px;}
 .admin .user .bgcolor{background:#f3f6fa;}
-.report{background:#FFF;}.report table th{text-align:right;min-width:120px;padding:0 20px 0 0;}
-.report table .reports td{width:50%;}
 .document{background:#FFF;}
 h2{font-size:20px;}
 .loginform{width:300px;margin:auto;}
@@ -41,3 +40,10 @@ tr:hover{background:#ffa !important;}
 .save{background-color:#7FFF99;border:solid 1px #00B233;}
 .info{background-color:#eee;border:solid 1px #555;}
 .error a,.save a,.info a{color:#000;}
+.report{background:#FFF;padding:20px;}.report h1{font-size:18pt;margin:0px;padding:0px;}
+.report h2{margin:30px 0 0 0;font-size:11pt;}
+.report h3{margin:15px 0 5px 0;padding:0px;}
+.report table th{text-align:right;min-width:120px;padding:0 20px 0 0;}
+.report table.short th{text-align:left;padding:10px;}
+.report p{margin:0 0 5px 0;padding:0px;}
+.report .plags{margin:0 0 0 50px;}.report .plags .link{text-align:right;font-style:italic;}

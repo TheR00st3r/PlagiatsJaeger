@@ -63,9 +63,9 @@ class Report {
 			$db = new db();
 			$db -> read("
 				SELECT
-					r.rID, r.rDatetime, r.dID
+					r.rID, r.rDatetime, r.rtSimilarity, e.eName, e.eDescription
 				FROM
-					report AS r
+					report AS r LEFT JOIN errorcode AS e ON r.rErrorCode = e.eID
 				WHERE
 					r.dID = '$dID'
 				ORDER BY
@@ -76,18 +76,18 @@ class Report {
 	}
 
 	/**
-	 * Returns report from given report id.
+	 * Returns report informations from given report id.
 	 * @param int $rID
 	 * @return array
 	 */
-	public static function getReport($rID) {
+	public static function getReportInfos($rID) {
 		$state = false;
 		if (Validator::validate(VAL_INTEGER, $rID, true)) {
 			$db = new db();
 			$db -> read("
 				SELECT
-					r.rID, r.rDatetime, r.rErrorCode, r.dID,
-					d.dOriginalName, d.dAuthor, d.dIsParsed,
+					r.rID, r.rDatetime, r.rErrorCode, r.dID, r.rtSimilarity,
+					d.dOriginalName, d.dAuthor, 
 					e.eName, e.eDescription,
 					r.rThreshold, r.rCheckWWW,
 					sl.slTitle
@@ -122,36 +122,5 @@ class Report {
 
 		return $return;
 	}
-
-	public static function createGraphicReport($uID) {
-		// TODO: createGraphicReport not imp.
-		throw new Exception('Not implemented');
-	}
-
-	public static function createShortReport($uID) {
-		// TODO: createShortReport not imp.
-		throw new Exception('Not implemented');
-	}
-
-	public static function createSearchReport($uID) {
-		// TODO: createReport not imp.
-		throw new Exception('Not implemented');
-	}
-
-	public static function showGraphicReport($uID) {
-		// TODO: showGraphicReport not imp.
-		throw new Exception('Not implemented');
-	}
-
-	public static function showShortReport($uID) {
-		// TODO: showShortReport not imp.
-		throw new Exception('Not implemented');
-	}
-
-	public static function showSearchReport($uID) {
-		// TODO: showReport not imp.
-		throw new Exception('Not implemented');
-	}
-
 }
 ?>

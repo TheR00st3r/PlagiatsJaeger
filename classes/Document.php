@@ -52,7 +52,6 @@ class Document {
 				if ($uploadCheck['state']) {
 					require_once '../classes/Report.php';
 					$checkReport = Report::createReport($lastID, $slID, $uThreshold, $uCheckWWW);
-					print_array($checkReport);
 					if ($checkReport['state']) {
 						$state = true;
 					}
