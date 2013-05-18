@@ -23,6 +23,9 @@
 		</div>
 		<div class="floatright">
 			<h3>Mit folgenden Ordnern gegenprüfen</h3>
+			<script lang="text/javascript">
+        		$('#tree{$item.dID}').checkboxTree();
+    		</script>
 			<ul class="filetree2">
 				<li>
 					<span class="folder">Meine Ordner</span>

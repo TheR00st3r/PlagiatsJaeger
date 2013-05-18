@@ -29,4 +29,22 @@ $(document).ready(function() {
 		persist : "cookie"
 	});
 
-}); 
+});
+
+$('ul#checkboxes').checkboxTree({ });
+
+
+(function($){
+$('ul#checkboxes input[type="checkbox"]').each (
+ function () {
+  $(this).bind('click change', function (){
+   if($(this).is(':checked')) {
+    $(this).siblings('ul').find('input[type="checkbox"]').attr('checked', 'checked');
+    $(this).parents('ul').siblings('input[type="checkbox"]').attr('checked', 'checked');
+   } else {
+    $(this).siblings('ul').find('input[type="checkbox"]').removeAttr('checked', 'checked');
+   }
+  });
+ }
+);
+})(jQuery);

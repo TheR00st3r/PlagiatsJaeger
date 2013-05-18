@@ -2,7 +2,7 @@
 	<form method="post" action="{$root}{$page}" enctype="multipart/form-data">
 		<h2>File Upload</h2>
 		<label for="dAddFile">Wählen Sie die zu prüfende Datei:</label>
-		<input type="file" name="dAddFile" id="dAddFile" multiple="multiple" />
+		<input type="file" name="dAddFile[]" id="dAddFile" multiple="multiple" />
 		<br />
 		<br />
 		<label for="dAddAutor">Fügen Sie den Namen des Autors/Studenten hinzu:</label>

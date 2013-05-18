@@ -12,13 +12,14 @@
 
 		<script type="text/javascript" src="{$root}thirdparty/jquery-1.8.2.min.js"></script>
 		<script type="text/javascript" src="{$root}thirdparty/less-1.3.3.min.js"></script>
+		<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		
 		<script type="text/javascript" src="{$root}thirdparty/jquery-treeview/lib/jquery.cookie.js"></script>
 		<script type="text/javascript" src="{$root}thirdparty/jquery-treeview/jquery.treeview.js"></script>
 		<script type="text/javascript" src="{$root}thirdparty/jeditable/jquery.jeditable.mini.js"></script>
 		
-		<script type="text/javascript" src="{$root}thirdparty/jquery-tree-master/minified/jquery.tree.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="{$root}thirdparty/jquery-tree-master/minified/jquery.tree.min.css" />
+		    <script type="text/javascript" src="{$root}thirdparty/checkboxtree/jquery.checkboxtree.js"></script>
+    		<link rel="stylesheet" type="text/css" href="{$root}thirdparty/checkboxtree/jquery.checkboxtree.css"/>
 
 		<link rel="stylesheet" href="{$root}thirdparty/anytime/anytime.min.css" />
 		<script type="text/javascript" src="{$root}thirdparty/anytime/anytime.min.js"></script>
@@ -32,7 +33,6 @@
 		<script type="text/javascript" src="{$root}js/fancybox.js"></script>
 		<script type="text/javascript" src="{$root}js/treeview.js"></script>
 		<script type="text/javascript" src="{$root}js/anytime.js"></script>
-		<script type="text/javascript" src="{$root}js/jquery-tree-master.js"></script>
 
 	</head>
 	<body>

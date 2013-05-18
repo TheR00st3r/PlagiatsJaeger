@@ -128,6 +128,7 @@ if ($page == 'public') {
 					$check = Folder::deleteFolder($_POST['fID']);
 					break;
 				case 'newFile' :
+					// print_array($_FILES['dAddFile']);
 					$check = Document::addDocument($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'], $userSettings['slID'], $userSettings['uThreshold'], $userSettings['uCheckWWW']);
 					break;
 				case 'newUrl' :

@@ -36,38 +36,48 @@ class Document {
 	 * @param int $dID
 	 * @return string
 	 */
-	public static function addDocument($fID, $dAuthor, $file, $slID, $uThreshold, $uCheckWWW) {
+	public static function addDocument($fID, $dAuthor, $files, $slID, $uThreshold, $uCheckWWW) {
 		$state = false;
 		$messages = array();
-		if (Validator::validate(VAL_INTEGER, $fID, true) and Validator::validate(VAL_STRING, $dAuthor)) {
-			require_once '../classes/File.php';
-			$db = new db();
-			if ($db -> insert('document', array(
-				'dOriginalName' => $file["name"],
-				'dAuthor' => $dAuthor,
-				'fID' => $fID
-			))) {
-				$lastID = $db -> lastInsertId();
-				$uploadCheck = File::copyTempFile($lastID, $file);
-				if ($uploadCheck['state']) {
-					require_once '../classes/Report.php';
-					$checkReport = Report::createReport($lastID, $slID, $uThreshold, $uCheckWWW);
-					if ($checkReport['state']) {
-						$state = true;
+		
+		for ($i = 0; $i < count($files['name']); $i++) {
+			
+			$file['name'] = $files['name'][$i];
+			$file['tmp_name'] = $files['tmp_name'][$i];
+			$file['error'] = $files['error'][$i];
+			$file['error'] = $files['error'][$i];
+			$file['error'] = $files['error'][$i];
+			
+			if (Validator::validate(VAL_INTEGER, $fID, true) and Validator::validate(VAL_STRING, $dAuthor)) {
+				require_once '../classes/File.php';
+				$db = new db();
+				if ($db -> insert('document', array(
+					'dOriginalName' => $file["name"],
+					'dAuthor' => $dAuthor,
+					'fID' => $fID
+				))) {
+					$lastID = $db -> lastInsertId();
+					$uploadCheck = File::copyTempFile($lastID, $file);
+					if ($uploadCheck['state']) {
+						require_once '../classes/Report.php';
+						$checkReport = Report::createReport($lastID, $slID, $uThreshold, $uCheckWWW);
+						if ($checkReport['state']) {
+							$state = true;
+						}
+						$messages = array_merge($messages, $checkReport['messages']);
 					}
-					$messages = $checkReport['messages'];
-				}
-				$messages = array_merge($messages, $uploadCheck['messages']);
+					$messages = array_merge($messages, $uploadCheck['messages']);
+				} else
+					$messages[] = array(
+						'type' => 'error',
+						'text' => 'Dokument wurde nicht angelegt!'
+					);
 			} else
 				$messages[] = array(
 					'type' => 'error',
-					'text' => 'Dokument wurde nicht angelegt!'
+					'text' => 'Parameter haben kein gültiges Format!'
 				);
-		} else
-			$messages[] = array(
-				'type' => 'error',
-				'text' => 'Parameter haben kein gültiges Format!'
-			);
+		}
 		$db -> disconnect();
 		$return['state'] = $state;
 		$return['messages'] = $messages;
