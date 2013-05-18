@@ -57,7 +57,9 @@
 	</p>
 	<div>
 		{foreach from=$result item=source}
-		{$source.rtSourceText}
+		<p>
+			{source.rtSourceText}
+		</p>
 		{$source.rtSourceLink}
 		{/foreach}
 	</div>

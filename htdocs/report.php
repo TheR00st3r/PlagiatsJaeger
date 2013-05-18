@@ -59,7 +59,7 @@ foreach ($results as $result) {
 	}
 }
 
-// print_array($output);
+print_array($output);
 
 $smarty -> assign('results', $output);
 

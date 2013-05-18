@@ -1,12 +1,12 @@
 <?php
 
 if ($_SERVER['SERVER_NAME'] == 'localhost') {
-	// $logData['host'] = 'localhost';
-	// $logData['user'] = 'root';
-	// $logData['pass'] = 'root';
-	// $logData['database'] = 'plagiatsjaeger';
+	$logData['host'] = 'localhost';
+	$logData['user'] = 'root';
+	$logData['pass'] = 'p4EHd4qL2pvy8';
+	$logData['database'] = 'plagiatsjaeger';
 	$logData['debug'] = true;
-	require_once '../../database.php';
+	// require_once '../../database.php';
 	require_once '../../mail.php';
 	
 	$backendUrl = 'http://localhost:8080/PlagiatsJaeger/';
