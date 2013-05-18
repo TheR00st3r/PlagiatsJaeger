@@ -7,7 +7,7 @@
 		<base href="{$root}" />
 
 		<!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" /> -->
-		<link rel="stylesheet" href="{$root}stylesheets/main/css/main.css" type="text/css" media="all" />
+		<link rel="stylesheet" href="{$root}stylesheets/css/main.css" type="text/css" media="all" />
 		<!-- <link rel="stylesheet/less" type="text/css" href="{$root}stylesheets/main/less/main.less"> -->
 
 		<script type="text/javascript" src="{$root}thirdparty/jquery-1.8.2.min.js"></script>
