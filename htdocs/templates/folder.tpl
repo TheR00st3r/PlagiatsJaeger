@@ -1,5 +1,5 @@
 {include 'functions/folders.tpl'}
-{include 'functions/checkfolders.tpl'}
+{include 'functions/checkFolders.tpl'}
 
 <div class="floatleft folders">
 	<ul id="filetree1" class="filetree">
