@@ -4,7 +4,6 @@ import info.plagiatsjaeger.enums.ErrorCode;
 import info.plagiatsjaeger.types.CompareResult;
 import info.plagiatsjaeger.types.Settings;
 
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,12 +25,14 @@ import org.apache.log4j.Logger;
  */
 public class MySqlDatabaseHelper
 {
-	private static final String	SERVERNAME	= "jdbc:mysql://localhost/plagiatsjaeger?useUnicode=true&characterEncoding=utf-8";
-	private static final String	DBDRIVER	= "com.mysql.jdbc.Driver";
+	private static final String	SERVERNAME		= ConfigReader.getProperty("SERVERNAME");					// "jdbc:mysql://localhost/plagiatsjaeger?useUnicode=true&characterEncoding=utf-8";
+	private static final String	DBDRIVER		= ConfigReader.getProperty("DBDRIVER");					// "com.mysql.jdbc.Driver";
+	private static final String	USER			= ConfigReader.getProperty("USER");
+	private static final String	PASSWORDFILE	= ConfigReader.getProperty("PASSWORD-PATH");
 
-	private Connection			_connection	= null;
-	private Statement			_statement	= null;
-	public static final Logger	_logger		= Logger.getLogger(MySqlDatabaseHelper.class.getName());
+	private Connection			_connection		= null;
+	private Statement			_statement		= null;
+	public static final Logger	_logger			= Logger.getLogger(MySqlDatabaseHelper.class.getName());
 
 	/**
 	 * Konstruktor wird noch nicht verwendet
@@ -56,7 +57,7 @@ public class MySqlDatabaseHelper
 			Class.forName(DBDRIVER);
 			// Verbindung mit DB herstellen
 			String strPassword = this.readPassword();
-			_connection = DriverManager.getConnection(SERVERNAME, "root", strPassword);
+			_connection = DriverManager.getConnection(SERVERNAME, USER, strPassword);
 			// Statements erlauben SQL Abfragen
 			_statement = _connection.createStatement();
 		}
@@ -96,8 +97,7 @@ public class MySqlDatabaseHelper
 	public String readPassword()
 	{
 		String result = "";
-		String strFilepath = System.getProperty("user.home") + File.separator + "password.txt";
-		result = SourceLoader.loadFile(strFilepath).trim();
+		result = SourceLoader.loadFile(PASSWORDFILE).trim();
 		return result;
 	}
 

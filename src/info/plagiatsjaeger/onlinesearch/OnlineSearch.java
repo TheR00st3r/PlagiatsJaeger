@@ -1,5 +1,6 @@
 package info.plagiatsjaeger.onlinesearch;
 
+import info.plagiatsjaeger.ConfigReader;
 import info.plagiatsjaeger.SourceLoader;
 import info.plagiatsjaeger.WordProcessing;
 import info.plagiatsjaeger.interfaces.IOnlineSearch;
@@ -26,7 +27,10 @@ import org.jsoup.Jsoup;
  */
 public abstract class OnlineSearch implements IOnlineSearch
 {
-
+	private static final String URL_PATTERN_1 = ConfigReader.getProperty("URLPATTERN1");
+	private static final String URL_PATTERN_2 = ConfigReader.getProperty("URLPATTERN2");
+	
+	
 	private ArrayList<String>		_allSearchResults	= new ArrayList<String>();
 	protected static int			SEARCH_SENTENCELENGTH;
 	private static int				SEARCH_JUMPLENGTH;
@@ -136,9 +140,9 @@ public abstract class OnlineSearch implements IOnlineSearch
 		ArrayList<String> alUrlList = new ArrayList<String>();
 		// Matchpattern
 		// Altes JSON
-		Pattern patPattern = Pattern.compile("\"url\"\\s*?:\\s*?\"([^\"]+?)\"");
+		Pattern patPattern = Pattern.compile(URL_PATTERN_1);//"\"url\"\\s*?:\\s*?\"([^\"]+?)\"");
 		// Neues JSON
-		Pattern patPatternNew = Pattern.compile("\"displayUrl\"\\s*?:\\s*?\"([^\"]+?)\"");
+		Pattern patPatternNew = Pattern.compile(URL_PATTERN_2);//"\"displayUrl\"\\s*?:\\s*?\"([^\"]+?)\"");
 
 		Matcher matMatcher;
 

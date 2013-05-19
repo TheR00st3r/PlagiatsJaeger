@@ -27,7 +27,8 @@ public class SourceLoader
 {
 	public static final Logger	_logger				= Logger.getLogger(SourceLoader.class.getName());
 
-	private static final String	DEFAULT_CONTENTTYPE	= "UTF-8";
+	private static final String	DEFAULT_CONTENTTYPE	= ConfigReader.getProperty("DEFAULT-CONTENTTYPE");
+	private static final String CONTENTTYPE_PATTERN = ConfigReader.getProperty("CONTENTTYPE-PATTERN");
 
 	/**
 	 * Laed den Text einer Webseite.
@@ -42,7 +43,7 @@ public class SourceLoader
 			URL url = new URL(cleanUrl(strUrl));
 			URLConnection urlConnection = url.openConnection();
 			// Pattern zum auffinden des contenttypes
-			Pattern pattern = Pattern.compile("text/html;\\s+charset=([^\\s]+)\\s*");
+			Pattern pattern = Pattern.compile(CONTENTTYPE_PATTERN);
 			Matcher matcher = pattern.matcher(urlConnection.getContentType());
 			// Wenn ein Contenttype gefunden wird, wird dieser verwendet, sonst
 			// der defaul wert

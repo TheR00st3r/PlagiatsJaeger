@@ -31,11 +31,11 @@ public class Control
 	/**
 	 * Dateipfad fuer die Dateien auf dem Server.
 	 */
-	public static final String		ROOT_FILES				= "/var/www/uploads/";
+	public static final String		ROOT_FILES				= ConfigReader.getProperty("ROOT_FILES");
 	private static final Logger		_logger					= Logger.getLogger(Control.class.getName());
-	private static final int		SIZE_THREADPOOL			= 20;
-	private static final int		NUM_CHECKS_IF_PARSED	= 60;
-	private static final int		TIME_BETWEEN_CHECK		= 1;												// min
+	private static final int		SIZE_THREADPOOL			= Integer.parseInt(ConfigReader.getProperty("THREADPOOL-SIZE"), 20);
+	private static final int		NUM_CHECKS_IF_PARSED	= Integer.parseInt(ConfigReader.getProperty("PARSECHECKS"), 60);
+	private static final int		TIME_BETWEEN_CHECK		= Integer.parseInt(ConfigReader.getProperty("TIMEBETWEENCHECKS"), 1);;												// min
 
 	private Settings				_settings;
 	private ExecutorService			_threadPool				= Executors.newFixedThreadPool(SIZE_THREADPOOL);
@@ -228,7 +228,7 @@ public class Control
 				{
 					future.get();
 					numThreadsFinished++;
-					_logger.info(numThreadsFinished + "/" + _futuresSearch.size() + " searches finished");
+					_logger.info(numThreadsFinished + " searches finished");
 				}
 				else
 				{
@@ -266,7 +266,7 @@ public class Control
 				{
 					future.get();
 					numThreadsFinished++;
-					_logger.info(numThreadsFinished + "/" + _futures.size() + " compare finished");
+					_logger.info(numThreadsFinished + " compare finished");
 				}
 				else
 				{

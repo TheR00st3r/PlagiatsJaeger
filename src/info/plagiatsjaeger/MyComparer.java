@@ -19,9 +19,9 @@ import org.apache.log4j.Logger;
 public class MyComparer implements IComparer
 {
 	// TODO: default Werte eintragen
-	private static int					NUM_WORDS_TO_COMPARE		= 10;
-	private static double				THRESHOLD					= 0.9;
-	private static final int			MAX_WORDS_BETWEEN_RESULTS	= 4;
+	private static int					NUM_WORDS_TO_COMPARE;
+	private static double				THRESHOLD;
+	private static int					MAX_WORDS_BETWEEN_RESULTS;
 
 	private String[]					_checkWords;
 	private String[]					_sourceWords;
@@ -33,7 +33,7 @@ public class MyComparer implements IComparer
 
 	private int							_rId;
 
-	private static final Logger			_logger						= Logger.getLogger(MyComparer.class.getName());
+	private static final Logger			_logger	= Logger.getLogger(MyComparer.class.getName());
 
 	/**
 	 * Legt einen neuen Comparer fuer einen Report an.
@@ -44,6 +44,7 @@ public class MyComparer implements IComparer
 	{
 		_rId = rId;
 		Settings settings = Settings.getInstance();
+		MAX_WORDS_BETWEEN_RESULTS = settings.getCompareJumpLength();
 		NUM_WORDS_TO_COMPARE = settings.getCompareSentenceLength();
 		THRESHOLD = ((double) settings.getThreshold()) / 100;
 	}
@@ -91,7 +92,7 @@ public class MyComparer implements IComparer
 		boolean resultFound = false;
 		double sumSimilarity = 0.0;
 		int countSimilarity = 0;
-		
+
 		for (int iCheck = 0; iCheck < _checkWords.length; iCheck++)
 		{
 			sbCheckText.delete(0, sbCheckText.length());
@@ -239,7 +240,7 @@ public class MyComparer implements IComparer
 				}
 			}
 		}
-		//2.0 => Skalierung auf Werte zwischen 0 und 1
+		// 2.0 => Skalierung auf Werte zwischen 0 und 1
 		return (2.0 * similarityCounter) / completeSize;
 	}
 
