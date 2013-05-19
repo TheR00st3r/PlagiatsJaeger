@@ -10,8 +10,8 @@ class LoginAccess {
 	 * @return boolean
 	 */
 	public static function login($email, $password) {
-
-		if (Validator::validate(VAL_EMAIL, $email)) {
+		$state = false;
+		if (Validator::validate(VAL_EMAIL, $email, true) and Validator::validate(VAL_PASSWORD, $password, true)) {
 
 			$password = md5($password);
 
@@ -38,11 +38,21 @@ class LoginAccess {
 
 				$db -> disconnect();
 
-				return true;
+				$state = true;
 			} else
-				return false;
+				$messages[] = array(
+					'type' => 'error',
+					'text' => 'Passwort und/oder eMail-Adresse sind nicht gültig.'
+				);
 		} else
-			return false;
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'Passwort und/oder eMail-Adresse haben kein gültiges Format.'
+			);
+
+		$return['state'] = $state;
+		$return['messages'] = $messages;
+		return $return;
 	}
 
 	/**

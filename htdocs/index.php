@@ -26,8 +26,8 @@ if ($page == 'logout') {
 
 //Login check
 if (isset($_POST['lSubmit'])) {
-	$loginResult = LoginAccess::login($_POST['lEMailAdress'], $_POST['lPassword']);
-	$smarty -> assign('message', $loginResult);
+	$checkLogin = LoginAccess::login($_POST['lEMailAdress'], $_POST['lPassword']);
+	$smarty -> assign('messages', $checkLogin['messages']);
 }
 
 // Public student Upload
