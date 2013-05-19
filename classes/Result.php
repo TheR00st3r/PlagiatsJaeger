@@ -50,6 +50,32 @@ class Result {
 			return $results;
 		}
 	}
+	
+		/**
+	 * Returns s short results summary from the given report id.
+	 * @param int $rID
+	 * @return array
+	 */
+	public static function getGraficReportResult($rID) {
+		if (Validator::validate(VAL_INTEGER, $rID, true)) {
+			$db = new db();
+			$db -> read("
+				SELECT
+					rtStartWord, rtEndWord, rtSourceText, max(rtSimilarity) as rtSimilarity, rtSourceLink, rtSourcedID
+				FROM
+					result
+				WHERE
+					rID = '$rID'
+				GROUP BY
+					rtStartWord
+				ORDER BY
+					rtStartWord ASC");
+
+			$results = $db -> linesAsArray();
+			$db -> disconnect();
+			return $results;
+		}
+	}
 
 }
 ?>

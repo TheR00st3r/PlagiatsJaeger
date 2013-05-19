@@ -1,6 +1,8 @@
-<div class="error">
-	Nicht Implementiert
+<br />
+<br />
+<br />
+<div class="graficReport">
+	<div class="source">
+		{$results}
+	</div>
 </div>
-{if $results|count > 0}
-{$reportContent}
-{/if}

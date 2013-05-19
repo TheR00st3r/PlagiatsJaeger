@@ -16,6 +16,77 @@ $messages[] = $reportCheck['messages'];
 
 switch ($_GET['type']) {
 	case 'grafic' :
+		$orgDocument = Document::getDocumentOriginalContent($reportCheck['report']['dID']);
+		$split = explode(" ", $orgDocument);
+
+		$results = Result::getGraficReportResult($_GET['rID']);
+
+		// echo count($split);
+
+		$start = 0;
+		$array = array();
+
+		foreach ($results as $result) {
+
+			$string = '';
+			for ($i = $start; $i < $result['rtStartWord']; $i++) {
+				$string = $string . $split[$i] . ' ';
+			}
+
+			$out = array();
+
+			$out['type'] = 0;
+			$out['rtStartWord'] = $start;
+			$out['rtEndWord'] = $result['rtStartWord'];
+			$out['rtQuellText'] = $string;
+
+			$array[] = $out;
+
+			$string = '';
+			for ($i = $result['rtStartWord']; $i < $result['rtEndWord']; $i++) {
+				$string = $string . $split[$i] . ' ';
+			}
+
+			$out = array();
+
+			$out = $result;
+			$out['type'] = 1;
+			$out['rtQuellText'] = $string;
+
+			$array[] = $out;
+
+			$start = $result['rtEndWord'];
+
+			// $output = $string;
+
+		}
+
+		if ($start < count($split)) {
+			$string = '';
+			for ($i = $start; $i < count($split); $i++) {
+				$string = $string . $split[$i] . ' ';
+			}
+
+			$out = array();
+			$out['type'] = 0;
+			$out['rtStartWord'] = $start;
+			$out['rtEndWord'] = $result['rtStartWord'];
+			$out['rtQuellText'] = $string;
+
+			$array[] = $out;
+		}
+
+		foreach ($array as $a) {
+			if ($a['type'] != 0) {
+				$output .= '<div class="rtSourceText">'.$a['rtSourceText'].'</div><span style="background: #F00;">';
+			}
+			$output .= $a['rtQuellText'];
+			if ($a['type'] != 0) {
+				$output .= '</span>';
+			}
+		}
+
+		// print_array($output);
 		$reportContent = 'report/grafic.tpl';
 		break;
 	case 'all' :
@@ -65,7 +136,7 @@ switch ($_GET['type']) {
 		//short
 		$output = Result::getShortReportResult($_GET['rID']);
 		// print_array($output);
-		$reportContent = 'report/short.tpl'; 
+		$reportContent = 'report/short.tpl';
 		break;
 }
 
