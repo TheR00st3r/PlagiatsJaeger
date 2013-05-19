@@ -19,7 +19,9 @@ class Result {
 				ORDER BY
 					rt.rtStartWord ASC, rt.rtEndWord ASC");
 
-			return $db -> linesAsArray();
+			$results = $db -> linesAsArray();
+			$db -> disconnect();
+			return $results;
 		}
 	}
 	
@@ -43,7 +45,9 @@ class Result {
 				ORDER BY
 					count DESC");
 
-			return $db -> linesAsArray();
+			$results = $db -> linesAsArray();
+			$db -> disconnect();
+			return $results;
 		}
 	}
 

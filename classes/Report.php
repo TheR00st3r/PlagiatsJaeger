@@ -41,13 +41,12 @@ class Report {
 					'type' => 'error',
 					'text' => 'Report wurde nicht angelegt!'
 				);
+			$db -> disconnect();
 		} else
 			$messages[] = array(
 				'type' => 'error',
 				'text' => 'Parameter haben kein gültiges Format!'
 			);
-
-		$db -> disconnect();
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;
@@ -72,7 +71,9 @@ class Report {
 				ORDER BY
 					r.rDatetime DESC");
 
-			return $db -> linesAsArray();
+			$reports = $db -> linesAsArray();
+			$db -> disconnect();
+			return $reports;
 		}
 	}
 
@@ -109,13 +110,12 @@ class Report {
 					'type' => 'error',
 					'text' => 'rID ist nicht gültig.'
 				);
+			$db -> disconnect();
 		} else
 			$messages[] = array(
 				'type' => 'error',
 				'text' => 'rID hat kein gültiges Format.'
 			);
-
-		$db -> disconnect();
 
 		$return['report'] = $report;
 		$return['state'] = $state;

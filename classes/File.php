@@ -2,9 +2,6 @@
 
 class File {
 
-	// TODO: Path in configs auslagern
-	const path = '../uploads/';
-
 	/**
 	 * Saves a text to file.
 	 * @param int $dID
@@ -13,10 +10,11 @@ class File {
 	 * @return boolean
 	 */
 	public static function writeFile($dID, $text, $extension) {
+		global $logData;
 		$state = false;
 		if (Validator::validate(VAL_INTEGER, $dID, true)) {
 
-			$handle = fopen(self::path . $dID . $extension, 'w+');
+			$handle = fopen($logData['uploadpath'] . $dID . $extension, 'w+');
 			if (fwrite($handle, $text)) {
 				$state = true;
 				$messages[] = array(
@@ -37,6 +35,7 @@ class File {
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;
+		
 		return $return;
 	}
 
@@ -48,6 +47,7 @@ class File {
 	 * @return boolean
 	 */
 	public static function copyTempFile($dID, $file) {
+		global $logData;
 		$state = false;
 		if (Validator::validate(VAL_INTEGER, $dID, true)) {
 
@@ -66,7 +66,7 @@ class File {
 
 				if (in_array($extension, $allowedExtensions)) {
 
-					if (copy($file["tmp_name"], self::path . $dID . $extension)) {
+					if (copy($file["tmp_name"], $logData['uploadpath'] . $dID . $extension)) {
 
 						$checkParsing = self::startFileParsing($dID, $extension);
 						if ($checkParsing['state']) {
@@ -129,7 +129,8 @@ class File {
 	 * @return string
 	 */
 	public static function readFile($filename) {
-		$handle = fopen(self::path . $filename, 'r');
+		global $logData;
+		$handle = fopen($logData['uploadpath'] . $filename, 'r');
 
 		while (!feof($handle)) {
 			$buffer = fgets($handle);

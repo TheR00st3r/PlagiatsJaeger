@@ -2,19 +2,9 @@
 class Setting {
 
 	/**
-	 * Saves the given Properties to the individual tables.
-	 * @param ???
-	 * @return boolean
+	 * Returns all standard settings.
+	 * @return array
 	 */
-	public static function saveProperties() {
-		// TODO: Not imp.
-		// Schwellenwert einstellen
-		// Internetquellen ein/aus
-		// Lokale Quellen ja/nein/array
-		// Deitailgrad der Prüfung
-		throw new Exception('Not implemented');
-	}
-
 	public static function getAllSettings() {
 		$db = new db();
 		$db -> read("
@@ -25,7 +15,9 @@ class Setting {
 				ORDER BY
 					 sl.slTitle ASC");
 
-		return $db -> linesAsArray();
+		$settings = $db -> linesAsArray();
+		$db -> disconnect();
+		return $settings;
 	}
 
 }

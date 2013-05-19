@@ -5,6 +5,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
 	$logData['user'] = 'root';
 	$logData['pass'] = 'p4EHd4qL2pvy8';
 	$logData['database'] = 'plagiatsjaeger';
+	$logData['uploadpath'] = '../uploads/';
 	$logData['debug'] = true;
 	// require_once '../../database.php';
 	require_once '../../mail.php';
@@ -16,6 +17,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
 	require_once '../../database.php';
 	require_once '../../mail.php';
 	
+	$logData['uploadpath'] = '../uploads/';
 	$logData['debug'] = true;
 	
 	$backendUrl = 'http://localhost:8080/PlagiatsJaeger/';

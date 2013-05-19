@@ -36,14 +36,13 @@ class LoginAccess {
 
 				self::saveSettingsSession($row['slID'], $row['uThreshold'], $row['uCheckWWW']);
 
-				$db -> disconnect();
-
 				$state = true;
 			} else
 				$messages[] = array(
 					'type' => 'error',
 					'text' => 'Passwort und/oder eMail-Adresse sind nicht gültig.'
 				);
+			$db -> disconnect();
 		} else
 			$messages[] = array(
 				'type' => 'error',

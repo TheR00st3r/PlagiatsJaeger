@@ -173,6 +173,7 @@ class Folder {
 					'type' => 'error',
 					'text' => 'Ordner konnte nicht gelöscht werden.'
 				);
+			$db -> disconnect();
 		} else
 			$messages[] = array(
 				'type' => 'error',
@@ -181,7 +182,7 @@ class Folder {
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;
-		$db -> disconnect();
+
 		return $return;
 	}
 
@@ -193,11 +194,11 @@ class Folder {
 	public static function addFolderLink($fID, $fLinkExpireDatetime) {
 		$hash = md5(uniqid());
 		$db = new db();
-		// TODO: add expire date
 		if ($db -> update('folder', array(
 			'fHashLink' => $hash,
 			'fLinkExpireDatetime' => $fLinkExpireDatetime
 		), array('fID' => $fID))) {
+			$db -> disconnect();
 			return $hash;
 		}
 		$db -> disconnect();
@@ -220,7 +221,9 @@ class Folder {
 					f.fHashLink = '$hash' and f.fHashLink != '' and fp.fpPermissionLevel = 900
 				ORDER BY
 					f.fName ASC");
-		return $db -> lines();
+		$folder = $db -> lines();
+		$db -> disconnect();
+		return $folder;
 	}
 
 	/**
@@ -231,7 +234,9 @@ class Folder {
 	 */
 	public static function editFolderName($fID, $fName) {
 		$db = new db();
-		return $db -> update('folder', array('fName' => $fName), array('fID' => $fID));
+		$state = $db -> update('folder', array('fName' => $fName), array('fID' => $fID));
+		$db -> disconnect();
+		return $state;
 	}
 
 	/**
@@ -261,6 +266,7 @@ class Folder {
 					'text' => 'Ordner Einstellung konnte nicht gespeichert werden.'
 				);
 			}
+			$db -> disconnect();
 		} else
 			$messages[] = array(
 				'type' => 'error',
@@ -269,7 +275,7 @@ class Folder {
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;
-		$db -> disconnect();
+
 		return $return;
 	}
 
@@ -299,6 +305,7 @@ class Folder {
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;
+		
 		return $return;
 	}
 
@@ -316,7 +323,9 @@ class Folder {
 		while ($row = $db -> lines()) {
 			$return[] = $row['uID'];
 		}
+		
 		$db -> disconnect();
+		
 		return $return;
 	}
 
@@ -326,6 +335,7 @@ class Folder {
 			'fID' => $fID,
 			'fpPermissionLevel' => '700'
 		), 99);
+		$db -> disconnect();
 	}
 
 }

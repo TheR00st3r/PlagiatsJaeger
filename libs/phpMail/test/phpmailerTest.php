@@ -379,7 +379,7 @@ class phpmailerTest extends PHPUnit_Framework_TestCase
         //Check that a quoted printable encode and decode results in the same as went in
         $t = substr(file_get_contents(__FILE__), 0, 1024); //Just pick a chunk of this file as test content
         $this->assertEquals($t, quoted_printable_decode($this->Mail->EncodeQP($t)), 'QP encoding round-trip failed');
-        //$this->assertEquals($t, quoted_printable_decode($this->Mail->EncodeQPphp($t)), 'Native PHP QP encoding round-trip failed'); //TODO the PHP qp encoder is quite broken
+        //$this->assertEquals($t, quoted_printable_decode($this->Mail->EncodeQPphp($t)), 'Native PHP QP encoding round-trip failed');
 
     }
 
@@ -674,17 +674,17 @@ class phpmailerTest extends PHPUnit_Framework_TestCase
         $this->Mail->CharSet = 'iso-8859-1';
         $this->assertEquals(
             '=A1Hola!_Se=F1or!',
-            $this->Mail->EncodeQ('¡Hola! Señor!', 'text'),
+            $this->Mail->EncodeQ('ï¿½Hola! Seï¿½or!', 'text'),
             'Q Encoding (text) failed'
         );
         $this->assertEquals(
             '=A1Hola!_Se=F1or!',
-            $this->Mail->EncodeQ('¡Hola! Señor!', 'comment'),
+            $this->Mail->EncodeQ('ï¿½Hola! Seï¿½or!', 'comment'),
             'Q Encoding (comment) failed'
         );
         $this->assertEquals(
             '=A1Hola!_Se=F1or!',
-            $this->Mail->EncodeQ('¡Hola! Señor!', 'phrase'),
+            $this->Mail->EncodeQ('ï¿½Hola! Seï¿½or!', 'phrase'),
             'Q Encoding (phrase) failed'
         );
     }
@@ -698,7 +698,7 @@ class phpmailerTest extends PHPUnit_Framework_TestCase
             'certfile.txt',
             'keyfile.txt',
             'password'
-        ); //TODO this is not really testing signing, but at least helps coverage
+        );
     }
 
     /**

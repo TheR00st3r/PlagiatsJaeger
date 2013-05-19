@@ -27,7 +27,9 @@ class Document {
 			$row['reports'] = Report::getReportsFromDocumentID($row['dID']);
 			$docs[] = $row;
 		}
+
 		$db -> disconnect();
+
 		return $docs;
 	}
 
@@ -72,15 +74,17 @@ class Document {
 						'type' => 'error',
 						'text' => 'Dokument wurde nicht angelegt!'
 					);
+				$db -> disconnect();
 			} else
 				$messages[] = array(
 					'type' => 'error',
 					'text' => 'Parameter haben kein gültiges Format!'
 				);
 		}
-		$db -> disconnect();
+
 		$return['state'] = $state;
 		$return['messages'] = $messages;
+
 		return $return;
 	}
 
@@ -121,16 +125,16 @@ class Document {
 					'type' => 'error',
 					'text' => 'Dokument wurde nicht angelegt!'
 				);
+			$db -> disconnect();
 		} else
 			$messages[] = array(
 				'type' => 'error',
 				'text' => 'Parameter haben kein gültiges Format!'
 			);
 
-		$db -> disconnect();
-
 		$return['state'] = $state;
 		$return['messages'] = $messages;
+		
 		return $return;
 	}
 
@@ -168,16 +172,16 @@ class Document {
 					'type' => 'error',
 					'text' => 'Dokument wurde nicht angelegt!'
 				);
+			$db -> disconnect();
 		} else
 			$messages[] = array(
 				'type' => 'error',
 				'text' => 'Parameter haben kein gültiges Format!'
 			);
 
-		$db -> disconnect();
-
 		$return['state'] = $state;
 		$return['messages'] = $messages;
+		
 		return $return;
 	}
 
@@ -196,13 +200,12 @@ class Document {
 					'type' => 'error',
 					'text' => 'Dokument konnte nicht gelöscht werden.'
 				);
+			$db -> disconnect();
 		} else
 			$messages[] = array(
 				'type' => 'error',
 				'text' => 'Die Dokument Id ist nicht gültig.'
 			);
-
-		$db -> disconnect();
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;
@@ -225,7 +228,7 @@ class Document {
 						document AS d
 					WHERE
 						d.dID = '$dID'
-		");
+				");
 
 		$row = $db -> lines();
 
@@ -246,7 +249,9 @@ class Document {
 	 */
 	public static function editAutor($dID, $dAuthor) {
 		$db = new db();
-		return $db -> update('document', array('dAuthor' => $dAuthor), array('dID' => $dID));
+		$state = $db -> update('document', array('dAuthor' => $dAuthor), array('dID' => $dID));
+		$db -> disconnect();
+		return $state;
 	}
 
 }

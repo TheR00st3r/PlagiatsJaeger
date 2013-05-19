@@ -24,7 +24,9 @@ class User {
 				ORDER BY
 					 u.uLastname ASC, u.uName ASC");
 
-		return $db -> linesAsArray();
+		$users = $db -> linesAsArray();
+		$db -> disconnect();
+		return $users;
 	}
 
 	/**
@@ -55,14 +57,13 @@ class User {
 					'text' => 'Id ist nicht gültig.'
 				);
 			}
+			$db -> disconnect();
 		} else {
 			$messages[] = array(
 				'type' => 'error',
 				'text' => 'ID hat kein gültiges Format.'
 			);
 		}
-
-		$db -> disconnect();
 
 		$return['user'] = $user;
 		$return['state'] = $state;
@@ -112,6 +113,7 @@ class User {
 						'type' => 'error',
 						'text' => 'Benuter konnte nicht gespeichert werden.'
 					);
+				$db -> disconnect();
 			} else
 				$messages[] = array(
 					'type' => 'error',
@@ -122,8 +124,6 @@ class User {
 				'type' => 'error',
 				'text' => 'Bitte füllen Sie alle Felder aus.'
 			);
-
-		$db -> disconnect();
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;
@@ -159,7 +159,7 @@ class User {
 					$messages = $mailCheck['messages'];
 					$messages[] = array(
 						'type' => 'save',
-						'text' => 'Erfolgreich registiertier, sie werden nach der Freischaltung durch Ihren Administrator benachrichtigt.'
+						'text' => 'Erfolgreich registriert, sie werden nach der Freischaltung durch Ihren Administrator benachrichtigt.'
 					);
 				} else
 					$messages = $userCheck['messages'];
@@ -167,8 +167,6 @@ class User {
 				$messages = $cIDCheck['messages'];
 		} else
 			$messages = $pwCheck['messages'];
-
-		$db -> disconnect();
 
 		$return['uID'] = $uID;
 		$return['state'] = $state;
@@ -204,10 +202,9 @@ class User {
 				}
 				$messages = $mailCheck['messages'];
 			}
+			$db -> disconnect();
 		} else
 			$messages = $uIDCheck['messages'];
-
-		$db -> disconnect();
 
 		$return['uID'] = $uID;
 		$return['state'] = $state;
@@ -238,13 +235,12 @@ class User {
 					'type' => 'error',
 					'text' => 'Der Key ist falsch oder nicht mehr gültig, Bitte fordnern Sie einen neuen Key an!'
 				);
+			$db -> disconnect();
 		} else
 			$messages[] = array(
 				'type' => 'error',
 				'text' => 'Der Key hat kein gültiges Format. Bitte fordnern Sie einen neuen Key an!'
 			);
-
-		$db -> disconnect();
 
 		$return['uID'] = $uID;
 		$return['state'] = $state;
@@ -276,7 +272,6 @@ class User {
 						'text' => 'Neues Passwort wurde gespeichert, bitte loggen Sie sich nun mit Ihrem neuen Passwort ein.'
 					);
 					$state = true;
-					// TODO: Need Logout?
 					LoginAccess::logout();
 				} else {
 					$messages[] = array(
@@ -326,6 +321,7 @@ class User {
 					'type' => 'error',
 					'text' => 'Passwort ist nicht korrekt.'
 				);
+			$db -> disconnect();
 		} else
 			$messages[] = array(
 				'type' => 'error',
@@ -384,6 +380,8 @@ class User {
 			$db = new db();
 			if ($db -> ifExist('user', array('uID' => $uID))) {
 				if ($db -> update('user', array('uPermissonLevel' => $uPermissonLevel), array('uID' => $uID))) {
+					$mail = new Mail();
+					$mail -> activate($uID);
 					$state = true;
 					$messages[] = array(
 						'type' => 'save',
@@ -401,14 +399,13 @@ class User {
 					'text' => 'Benutzer existiert nicht.'
 				);
 			}
+			$db -> disconnect();
 		} else {
 			$messages[] = array(
 				'type' => 'error',
 				'text' => 'Berechtigung oder Benutzer ID ungültig.'
 			);
 		}
-
-		$db -> disconnect();
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;
@@ -438,6 +435,7 @@ class User {
 						'text' => 'Benuter konnte nicht gelöscht werden.'
 					);
 				}
+				$db -> disconnect();
 			} else {
 				$messages[] = array(
 					'type' => 'info',
@@ -450,8 +448,6 @@ class User {
 				'text' => 'Benutzer ID ungültig.'
 			);
 		}
-
-		$db -> disconnect();
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;
@@ -524,14 +520,13 @@ class User {
 					'text' => 'Mandantenummer ist nicht gültig.'
 				);
 			}
+			$db -> disconnect();
 		} else {
 			$messages[] = array(
 				'type' => 'error',
 				'text' => 'Mandantenummer hat kein gültiges Format.'
 			);
 		}
-
-		$db -> disconnect();
 
 		$return['cID'] = $cID;
 		$return['cAdmin'] = $cAdmin;
@@ -559,13 +554,12 @@ class User {
 					'type' => 'error',
 					'text' => 'eMail-Adresse ist falsch.'
 				);
+			$db -> disconnect();
 		} else
 			$messages[] = array(
 				'type' => 'error',
 				'text' => 'Die eMail-Adresse hat kein gültiges Format.'
 			);
-
-		$db -> disconnect();
 
 		$return['uID'] = $uID;
 		$return['state'] = $state;
