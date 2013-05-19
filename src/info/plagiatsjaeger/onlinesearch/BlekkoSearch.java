@@ -41,19 +41,16 @@ public class BlekkoSearch extends OnlineSearch implements IOnlineSearch
 		}
 		catch (UnsupportedEncodingException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 
-		
 		try
 		{
 			result = new URL(URL + URL_ARG_SEARCH + searchString + URL_ARG_JSON);
 		}
 		catch (MalformedURLException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 		return result;
 	}

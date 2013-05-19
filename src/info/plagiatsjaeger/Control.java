@@ -31,19 +31,18 @@ public class Control
 	/**
 	 * Dateipfad fuer die Dateien auf dem Server.
 	 */
-	public static final String		ROOT_FILES			= "/var/www/uploads/";
-	private static final Logger		_logger				= Logger.getLogger(Control.class.getName());
-	private static final int		SIZE_THREADPOOL		= 20;
-	private static final int		NUM_CHECKS_IF_PARSED = 60;
-	private static final int		TIME_BETWEEN_CHECK = 1; //min
-	
-	
-	private Settings				_settings;
-	private ExecutorService			_threadPool			= Executors.newFixedThreadPool(SIZE_THREADPOOL);
-	private ArrayList<Future<Void>>	_futures			= new ArrayList<Future<Void>>();
+	public static final String		ROOT_FILES				= "/var/www/uploads/";
+	private static final Logger		_logger					= Logger.getLogger(Control.class.getName());
+	private static final int		SIZE_THREADPOOL			= 20;
+	private static final int		NUM_CHECKS_IF_PARSED	= 60;
+	private static final int		TIME_BETWEEN_CHECK		= 1;												// min
 
-	private ExecutorService			_threadPoolSearch	= Executors.newFixedThreadPool(SIZE_THREADPOOL);
-	private ArrayList<Future<Void>>	_futuresSearch		= new ArrayList<Future<Void>>();
+	private Settings				_settings;
+	private ExecutorService			_threadPool				= Executors.newFixedThreadPool(SIZE_THREADPOOL);
+	private ArrayList<Future<Void>>	_futures				= new ArrayList<Future<Void>>();
+
+	private ExecutorService			_threadPoolSearch		= Executors.newFixedThreadPool(SIZE_THREADPOOL);
+	private ArrayList<Future<Void>>	_futuresSearch			= new ArrayList<Future<Void>>();
 
 	public Control(int rId)
 	{
@@ -116,7 +115,6 @@ public class Control
 			final int intDocumentId = mySqlDatabaseHelper.getDocumentID(rId);
 			_logger.info("Document: " + intDocumentId);
 
-						
 			if (intDocumentId != 0)
 			{
 				_logger.info("Check started");
@@ -126,22 +124,21 @@ public class Control
 					@Override
 					public void run()
 					{
-						//Kontrolliert ob das Dokument schon geparsed wurde.
+						// Kontrolliert ob das Dokument schon geparsed wurde.
 						int numTries = 0;
-						while(numTries < NUM_CHECKS_IF_PARSED && !mySqlDatabaseHelper.getDocumentParseSatet(intDocumentId))
+						while (numTries < NUM_CHECKS_IF_PARSED && !mySqlDatabaseHelper.getDocumentParseSatet(intDocumentId))
 						{
-									try
-									{
-										Thread.sleep(TIME_BETWEEN_CHECK * 60000);
-									}
-									catch (InterruptedException e)
-									{
-										_logger.fatal(e.getMessage());
-										e.printStackTrace();
-									}
-									numTries = 0;
-						}			
-						if(numTries<NUM_CHECKS_IF_PARSED)
+							try
+							{
+								Thread.sleep(TIME_BETWEEN_CHECK * 60000);
+							}
+							catch (InterruptedException e)
+							{
+								_logger.fatal(e.getMessage(), e);
+							}
+							numTries = 0;
+						}
+						if (numTries < NUM_CHECKS_IF_PARSED)
 						{
 							_logger.info("Thread started!");
 							mySqlDatabaseHelper.setReportState(rId, ErrorCode.Started);
@@ -149,7 +146,7 @@ public class Control
 						}
 						else
 						{
-							mySqlDatabaseHelper.setReportState(rId, ErrorCode.Error);	
+							mySqlDatabaseHelper.setReportState(rId, ErrorCode.Error);
 						}
 					}
 				}).start();
@@ -158,12 +155,11 @@ public class Control
 		}
 		catch (Exception e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Fuehrt eine Plagiatssuche zu dem uebergebenen Dokument durch.
 	 * 
@@ -234,20 +230,17 @@ public class Control
 			}
 			catch (CancellationException e)
 			{
-				_logger.fatal(e.getMessage());
-				e.printStackTrace();
+				_logger.fatal(e.getMessage(), e);
 				succesful = false;
 			}
 			catch (InterruptedException e)
 			{
-				_logger.fatal(e.getMessage());
-				e.printStackTrace();
+				_logger.fatal(e.getMessage(), e);
 				succesful = false;
 			}
 			catch (ExecutionException e)
 			{
-				_logger.fatal(e.getMessage());
-				e.printStackTrace();
+				_logger.fatal(e.getMessage(), e);
 				succesful = false;
 			}
 		}
@@ -264,20 +257,17 @@ public class Control
 			}
 			catch (CancellationException e)
 			{
-				_logger.fatal(e.getMessage());
-				e.printStackTrace();
+				_logger.fatal(e.getMessage(), e);
 				succesful = false;
 			}
 			catch (InterruptedException e)
 			{
-				_logger.fatal(e.getMessage());
-				e.printStackTrace();
+				_logger.fatal(e.getMessage(), e);
 				succesful = false;
 			}
 			catch (ExecutionException e)
 			{
-				_logger.fatal(e.getMessage());
-				e.printStackTrace();
+				_logger.fatal(e.getMessage(), e);
 				succesful = false;
 			}
 		}

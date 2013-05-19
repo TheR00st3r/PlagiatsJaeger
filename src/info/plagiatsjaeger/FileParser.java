@@ -67,38 +67,32 @@ public class FileParser
 		}
 		catch (InvalidFormatException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 			result = false;
 		}
 		catch (OpenXML4JException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 			result = false;
 		}
 		catch (XmlException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 			result = false;
 		}
 		catch (IOException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 			result = false;
 		}
 		catch (SAXException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 			result = false;
 		}
 		catch (ParserConfigurationException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 			result = false;
 		}
 		return result;
@@ -200,7 +194,7 @@ public class FileParser
 	 * 
 	 * @param dId
 	 *            Die DocumentId, mit deren Hilfe die URL ermittelt werden kann
-	 * @return String result, gibt den ermittelten Inhalt zurück
+	 * @return String result, gibt den ermittelten Inhalt zurueck
 	 */
 	private String parseHTML(int dId)
 	{
@@ -212,7 +206,7 @@ public class FileParser
 	}
 
 	/**
-	 * ließt den Inhalt einer Doc Datei aus
+	 * liesst den Inhalt einer Doc Datei aus
 	 * 
 	 * @return String result, der Text der Doc
 	 * @throws FileNotFoundException
@@ -335,7 +329,7 @@ public class FileParser
 			}
 			catch (IOException e)
 			{
-				_logger.fatal(e.getMessage());
+				_logger.fatal(e.getMessage(), e);
 				e.printStackTrace();
 			}
 		}

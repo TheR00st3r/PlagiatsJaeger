@@ -62,13 +62,11 @@ public class MySqlDatabaseHelper
 		}
 		catch (ClassNotFoundException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 		catch (SQLException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 	}
 
@@ -86,8 +84,7 @@ public class MySqlDatabaseHelper
 		}
 		catch (SQLException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 	}
 
@@ -124,7 +121,7 @@ public class MySqlDatabaseHelper
 			DecimalFormat df = new DecimalFormat("###.##", otherSymbols);
 			for (CompareResult result : compareResults)
 			{
-				String text = new String(result.getSourceText().getBytes("UTF-8"),"ISO-8859-1");
+				String text = new String(result.getSourceText().getBytes("UTF-8"), "ISO-8859-1");
 				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + text + "' , '" + "' , '" + dID + "' , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "' , '" + df.format(result.getSimilarity() * 100) + "' , '" + result.getReportID() + "' )";
 				_statement.executeUpdate(strStatement);
 			}
@@ -132,18 +129,15 @@ public class MySqlDatabaseHelper
 		}
 		catch (ClassNotFoundException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 		catch (SQLException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 		catch (UnsupportedEncodingException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 
 	}
@@ -168,10 +162,10 @@ public class MySqlDatabaseHelper
 			DecimalFormat df = new DecimalFormat("###.##", otherSymbols);
 			for (CompareResult result : compareResults)
 			{
-				String text = new String(result.getSourceText().getBytes("UTF-8"),"ISO-8859-1");
-				
+				String text = new String(result.getSourceText().getBytes("UTF-8"), "ISO-8859-1");
+
 				_logger.info("Text: " + result.getSourceText());
-			
+
 				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + text + "','" + sourceLink + "' , " + "null" + " , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "','" + df.format(result.getSimilarity() * 100) + "' , '" + result.getReportID() + "' )";
 				_statement.executeUpdate(strStatement);
 			}
@@ -179,18 +173,15 @@ public class MySqlDatabaseHelper
 		}
 		catch (ClassNotFoundException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 		catch (SQLException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 		catch (UnsupportedEncodingException e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 	}
 
@@ -281,13 +272,11 @@ public class MySqlDatabaseHelper
 		}
 		catch (SQLException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 		catch (Exception e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 		finally
 		{
@@ -307,18 +296,19 @@ public class MySqlDatabaseHelper
 			connect();
 			String strStatement = "UPDATE report SET rErrorCode=" + state.value() + " WHERE rId=" + rId;
 			_statement.executeUpdate(strStatement);
-			disconnect();
 			_logger.info("State changed for: " + rId + "to " + state.value());
 		}
 		catch (ClassNotFoundException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 		catch (SQLException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
+		}
+		finally
+		{
+			disconnect();
 		}
 	}
 
@@ -335,18 +325,15 @@ public class MySqlDatabaseHelper
 			connect();
 			String strStatement = "UPDATE document SET dIsParsed=1 WHERE dID=" + docId;
 			_statement.executeUpdate(strStatement);
-			disconnect();
 			_logger.info("Setting document parsed in DB: " + docId);
 		}
 		catch (ClassNotFoundException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 		catch (SQLException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 		finally
 		{
@@ -376,13 +363,11 @@ public class MySqlDatabaseHelper
 		}
 		catch (SQLException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 		catch (Exception e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 		finally
 		{
@@ -390,10 +375,12 @@ public class MySqlDatabaseHelper
 		}
 		return isparsed;
 	}
-	
+
 	/**
 	 * Gibt den Namen/Url fuer eine DocId zurueck.
-	 * @param docId Dokumentnummer fuer passenden Report.
+	 * 
+	 * @param docId
+	 *            Dokumentnummer fuer passenden Report.
 	 * @return Gibt Name/Url als String zurueck.
 	 */
 	public String loadDocumentURL(int docId)
@@ -411,13 +398,11 @@ public class MySqlDatabaseHelper
 		}
 		catch (SQLException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 		catch (Exception e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 		finally
 		{

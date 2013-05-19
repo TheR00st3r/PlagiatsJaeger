@@ -27,14 +27,14 @@ import org.jsoup.Jsoup;
 public abstract class OnlineSearch implements IOnlineSearch
 {
 
-	private ArrayList<String>		_allSearchResults		= new ArrayList<String>();
+	private ArrayList<String>		_allSearchResults	= new ArrayList<String>();
 	protected static int			SEARCH_SENTENCELENGTH;
 	private static int				SEARCH_JUMPLENGTH;
 	private OnLinkFoundListener		_onLinkFoundListener;
-	private static int				MAX_URLS				= 5;
-	protected static final String	CHARSET					= "UTF-8";
+	private static int				MAX_URLS			= 5;
+	protected static final String	CHARSET				= "UTF-8";
 
-	private static final Logger		_logger					= Logger.getLogger(BlekkoSearch.class.getName());
+	private static final Logger		_logger				= Logger.getLogger(BlekkoSearch.class.getName());
 
 	protected OnlineSearch()
 	{
@@ -64,7 +64,7 @@ public abstract class OnlineSearch implements IOnlineSearch
 
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 
 		return result;
@@ -93,7 +93,7 @@ public abstract class OnlineSearch implements IOnlineSearch
 					}
 					catch (InterruptedException e)
 					{
-						e.printStackTrace();
+						_logger.fatal(e.getMessage(), e);
 					}
 				}
 			});
@@ -115,7 +115,7 @@ public abstract class OnlineSearch implements IOnlineSearch
 			}
 			catch (InterruptedException e)
 			{
-				e.printStackTrace();
+				_logger.fatal(e.getMessage(), e);
 			}
 			search(searchString, buildSearchString(searchString));
 		}

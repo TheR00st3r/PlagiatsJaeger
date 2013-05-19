@@ -6,7 +6,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
@@ -52,8 +51,7 @@ public class EntirewebSearch extends OnlineSearch implements IOnlineSearch
 		}
 		catch (UnsupportedEncodingException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 
 		try
@@ -62,8 +60,7 @@ public class EntirewebSearch extends OnlineSearch implements IOnlineSearch
 		}
 		catch (MalformedURLException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 		return result;
 	}

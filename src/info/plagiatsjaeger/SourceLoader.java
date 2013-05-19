@@ -64,20 +64,17 @@ public class SourceLoader
 		}
 		catch (MalformedURLException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 			return "FAIL MalformedURLException";
 		}
 		catch (UnsupportedEncodingException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 			return "FAIL UnsupportedEncodingException";
 		}
 		catch (IOException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 			return "FAIL IOException";
 		}
 	}
@@ -112,14 +109,12 @@ public class SourceLoader
 		}
 		catch (FileNotFoundException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 			return "FAIL FileNotFoundException";
 		}
 		catch (IOException e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 			return "FAIL IOException";
 		}
 		finally
@@ -128,7 +123,7 @@ public class SourceLoader
 		}
 		return result;
 	}
-	
+
 	/**
 	 * Bereinigt eine Url, sodass sie immer vollstaendig ist
 	 * 
