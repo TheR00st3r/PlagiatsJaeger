@@ -385,7 +385,7 @@ class User {
 					$state = true;
 					$messages[] = array(
 						'type' => 'save',
-						'text' => 'Benutzer erfolgreich freigeschlaten.'
+						'text' => 'Benutzer erfolgreich freigeschalten.'
 					);
 				} else {
 					$messages[] = array(
