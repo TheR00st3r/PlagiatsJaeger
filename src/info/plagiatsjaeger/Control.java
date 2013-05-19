@@ -199,7 +199,7 @@ public class Control
 				@Override
 				public Void call()
 				{
-					iOnlineSearch.searchAsync(strSourceText, _settings.getSearchSentenceLength());
+					iOnlineSearch.searchAsync(strSourceText);
 					return null;
 				}
 			}));

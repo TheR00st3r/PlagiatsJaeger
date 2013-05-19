@@ -34,7 +34,7 @@ public class TestSearch
 		});
 		// onlineSearch.searchAsync("Das ist nun mein Suchtext. TEST test und noch mehr Test. Ich hasse Text zu schreiben! Das ist nun mein Suchtext. TEST test und noch mehr Test. Ich hasse Text zu schreiben! Das ist nun mein Suchtext. TEST test und noch mehr Test. Ich hasse Text zu schreiben! Das ist nun mein Suchtext. TEST test und noch mehr Test. Ich hasse Text zu schreiben!",
 		// BlekkoSearch.NUM_WORDS_FOR_SEARCH_DEFAULT);
-		faroo.searchAsync(searchString, 10);
+		faroo.searchAsync(searchString);
 
 		IOnlineSearch blekko = new BlekkoSearch();
 		blekko.setOnLinkFoundListener(new OnLinkFoundListener()
@@ -48,7 +48,7 @@ public class TestSearch
 		});
 		// onlineSearch.searchAsync("Das ist nun mein Suchtext. TEST test und noch mehr Test. Ich hasse Text zu schreiben! Das ist nun mein Suchtext. TEST test und noch mehr Test. Ich hasse Text zu schreiben! Das ist nun mein Suchtext. TEST test und noch mehr Test. Ich hasse Text zu schreiben! Das ist nun mein Suchtext. TEST test und noch mehr Test. Ich hasse Text zu schreiben!",
 		// BlekkoSearch.NUM_WORDS_FOR_SEARCH_DEFAULT);
-		blekko.searchAsync(searchString, 10);
+		blekko.searchAsync(searchString);
 
 	}
 

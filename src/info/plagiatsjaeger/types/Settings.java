@@ -15,11 +15,11 @@ public class Settings
 
 	private double								_threshold;
     //TODO: Default Settings setzen eventuell ueber Config File
-	private int								_searchSentenceLength	= 0;
-	private int								_searchJumpLength		= 0;
-	private int								_compareSentenceLength	= 0;
-	private int								_compareJumpLength		= 0;
-	private boolean							_checkWWW				= false;
+	private int								_searchSentenceLength	= 10;
+	private int								_searchJumpLength		= 10;
+	private int								_compareSentenceLength	= 10;
+	private int								_compareJumpLength		= 10;
+	private boolean							_checkWWW				= true;
 	private ArrayList<Integer>				_localFolders			= new ArrayList<Integer>();
 
 	private static Settings						_Instance = new Settings();

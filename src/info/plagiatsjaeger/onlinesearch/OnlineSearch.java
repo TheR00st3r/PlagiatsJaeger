@@ -4,6 +4,7 @@ import info.plagiatsjaeger.SourceLoader;
 import info.plagiatsjaeger.WordProcessing;
 import info.plagiatsjaeger.interfaces.IOnlineSearch;
 import info.plagiatsjaeger.interfaces.OnLinkFoundListener;
+import info.plagiatsjaeger.types.Settings;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,16 +27,20 @@ import org.jsoup.Jsoup;
 public abstract class OnlineSearch implements IOnlineSearch
 {
 
-	private ArrayList<String>		_allSearchResults				= new ArrayList<String>();
-	protected static final int		NUM_WORDS_FOR_SEARCH_DEFAULT	= 10;
+	private ArrayList<String>		_allSearchResults		= new ArrayList<String>();
+	protected static int			SEARCH_SENTENCELENGTH;
+	private static int				SEARCH_JUMPLENGTH;
 	private OnLinkFoundListener		_onLinkFoundListener;
-	private static int				MAX_URLS						= 5;
-	protected static final String	CHARSET							= "UTF-8";
+	private static int				MAX_URLS				= 5;
+	protected static final String	CHARSET					= "UTF-8";
 
-	private static final Logger	_logger				= Logger.getLogger(BlekkoSearch.class.getName());
-	
+	private static final Logger		_logger					= Logger.getLogger(BlekkoSearch.class.getName());
+
 	protected OnlineSearch()
 	{
+		Settings settings = Settings.getInstance();
+		SEARCH_JUMPLENGTH = settings.getSearchJumpLength();
+		SEARCH_SENTENCELENGTH = settings.getCompareSentenceLength();
 	}
 
 	public ArrayList<String> search(String searchString, URL _URL)
@@ -66,14 +71,35 @@ public abstract class OnlineSearch implements IOnlineSearch
 	}
 
 	@Override
-	public void searchAsync(final String completeString, final int numWordsToSearchFor)
+	public void searchAsync(final String completeString)
 	{
 		WordProcessing wordProcessing = new WordProcessing();
 		String[] words = wordProcessing.splitToWords(completeString);
-		for (int i = 0; i < words.length - numWordsToSearchFor; i += numWordsToSearchFor)
+
+		// i wird immer um die satzlaenge + sprungweie erhoeht
+		for (int i = 0; i < words.length - SEARCH_SENTENCELENGTH; i += SEARCH_SENTENCELENGTH + SEARCH_JUMPLENGTH)
 		{
+			Thread thread = new Thread(new Runnable()
+			{
+
+				@Override
+				public void run()
+				{
+					// Sicherstellen, dass nur 1 mal pro Sekunde eine
+					// Suchabfrage gestartet wird.
+					try
+					{
+						Thread.sleep(1000);
+					}
+					catch (InterruptedException e)
+					{
+						e.printStackTrace();
+					}
+				}
+			});
+			thread.start();
 			String searchString = "";
-			for (int j = 0; j < numWordsToSearchFor; j++)
+			for (int j = 0; j < SEARCH_SENTENCELENGTH; j++)
 			{
 				if (searchString.length() > 0)
 				{
@@ -81,7 +107,16 @@ public abstract class OnlineSearch implements IOnlineSearch
 				}
 				searchString += words[i + j];
 			}
-			_logger.info(i + "/" +  (words.length - numWordsToSearchFor)  + " Suche nach: " + searchString);
+			_logger.info(i + "/" + (words.length - SEARCH_SENTENCELENGTH) + " Suche nach: " + searchString);
+			try
+			{
+				// Auf beendigung des Threads mit 1s warten
+				thread.join();
+			}
+			catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
 			search(searchString, buildSearchString(searchString));
 		}
 	}

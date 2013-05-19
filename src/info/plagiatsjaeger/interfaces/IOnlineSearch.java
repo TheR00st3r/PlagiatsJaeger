@@ -29,7 +29,7 @@ public interface IOnlineSearch
 	 * 
 	 * @param searchString
 	 */
-	public void searchAsync(String searchString, int numWordsToSearchFor);
+	public void searchAsync(String searchString);
 
 	/**
 	 * Registriert einen {@link OnLinkFoundListener} um auf gefundene Links zu
