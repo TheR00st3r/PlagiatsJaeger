@@ -7,10 +7,11 @@ class Report {
 	 * @param int $rLevel
 	 * @return boolean
 	 */
-	public static function createReport($dID, $slID, $rThreshold, $rCheckWWW, $rCheckIDs = array()) {
+	public static function createReport($dID, $slID, $rThreshold, $rCheckWWW, $rCheckIDs = array(), $seID = 1) {
 		global $backendUrl;
 		$state = false;
-		if (Validator::validate(VAL_INTEGER, $dID, true) and Validator::validate(VAL_INTEGER, $slID, true) and Validator::validate(VAL_INTEGER, $rThreshold, true) and Validator::validate(VAL_INTEGER, $rCheckWWW)) {
+		if (Validator::validate(VAL_INTEGER, $dID, true) and Validator::validate(VAL_INTEGER, $slID, true) and
+		Validator::validate(VAL_INTEGER, $rThreshold, true) and Validator::validate(VAL_INTEGER, $rCheckWWW) and Validator::validate(VAL_INTEGER, $seID)) {
 			$db = new db();
 			if ($db -> insert('report', array(
 				'rDatetime' => date('Y-m-d H:i:s'),
@@ -19,7 +20,8 @@ class Report {
 				'slID' => $slID,
 				'rThreshold' => $rThreshold,
 				'rCheckWWW' => $rCheckWWW,
-				'rCheckIDs' => $rCheckIDs
+				'rCheckIDs' => $rCheckIDs,
+				'seID' => $seID
 			))) {
 				$lastReportID = $db -> lastInsertId();
 				$link = $backendUrl . "ReportServlet?rID=" . $lastReportID;
