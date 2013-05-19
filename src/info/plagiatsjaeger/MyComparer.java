@@ -88,6 +88,10 @@ public class MyComparer implements IComparer
 		StringBuilder sbCheckText = new StringBuilder();
 		StringBuilder sbSourceText = new StringBuilder();
 
+		boolean resultFound = false;
+		double sumSimilarity = 0.0;
+		int countSimilarity = 0;
+		
 		for (int iCheck = 0; iCheck < _checkWords.length; iCheck++)
 		{
 			sbCheckText.delete(0, sbCheckText.length());
@@ -107,9 +111,9 @@ public class MyComparer implements IComparer
 					sbSourceText.append(_sourceWords[iSource + jSource]).append(" ");
 				}
 
-				boolean resultFound = false;
-				double sumSimilarity = 0.0;
-				int countSimilarity = 0;
+				resultFound = false;
+				sumSimilarity = 0.0;
+				countSimilarity = 0;
 				while ((similarity = compareStrings(sbCheckText.toString(), sbSourceText.toString())) >= THRESHOLD)
 				{
 					resultFound = true;
@@ -155,48 +159,49 @@ public class MyComparer implements IComparer
 			iCheck += NUM_WORDS_TO_COMPARE - 1;
 		}
 
+		StringBuilder resultText = new StringBuilder();
 		// Compareresults zusammenfuegen und Trefferlinks schreiben.
 		for (int resultCounter = 0; resultCounter < unmergedCompareResults.size() - 1; resultCounter++)
 		{
-			CompareResult compareResult1 = unmergedCompareResults.get(resultCounter);
-			CompareResult compareResult2 = unmergedCompareResults.get(resultCounter + 1);
+			CompareResult compareResultCheck = unmergedCompareResults.get(resultCounter);
+			CompareResult compareResultSource = unmergedCompareResults.get(resultCounter + 1);
 
 			// Zusammenhaengende Text erkennen und start/end aktualisieren
-			double sumSimilarity = compareResult1.getSimilarity();
-			int countSimilarity = 1;
-			while ((compareResult1.getCheckEnd() >= (compareResult2.getCheckStart() - MAX_WORDS_BETWEEN_RESULTS)) && (compareResult1.getSourceEnd() >= (compareResult2.getSourceStart() - MAX_WORDS_BETWEEN_RESULTS)))
+			sumSimilarity = compareResultCheck.getSimilarity();
+			countSimilarity = 1;
+			while ((compareResultCheck.getCheckEnd() >= (compareResultSource.getCheckStart() - MAX_WORDS_BETWEEN_RESULTS)) && (compareResultCheck.getSourceEnd() >= (compareResultSource.getSourceStart() - MAX_WORDS_BETWEEN_RESULTS)))
 			{
-				sumSimilarity += compareResult2.getSimilarity();
+				sumSimilarity += compareResultSource.getSimilarity();
 				countSimilarity++;
-				compareResult1.setCheckEnd(compareResult2.getCheckEnd());
-				compareResult1.setSourceEnd(compareResult2.getSourceEnd());
+				compareResultCheck.setCheckEnd(compareResultSource.getCheckEnd());
+				compareResultCheck.setSourceEnd(compareResultSource.getSourceEnd());
 				resultCounter++;
 				if (resultCounter < unmergedCompareResults.size() - 1)
 				{
-					compareResult2 = unmergedCompareResults.get(resultCounter + 1);
+					compareResultSource = unmergedCompareResults.get(resultCounter + 1);
 				}
 				else
 				{
 					break;
 				}
 			}
-			compareResult1.setSimilarity(sumSimilarity / countSimilarity);
+			compareResultCheck.setSimilarity(sumSimilarity / countSimilarity);
 			// plagiatsText fuer plagStart/plagEnd setzen.
-			StringBuilder resultText = new StringBuilder();
-			for (int wordCounter = compareResult1.getSourceStart(); wordCounter < compareResult1.getSourceEnd(); wordCounter++)
+			resultText.delete(0, resultText.length());
+			for (int wordCounter = compareResultCheck.getSourceStart(); wordCounter < compareResultCheck.getSourceEnd(); wordCounter++)
 			{
 				resultText.append(_sourceWords[wordCounter]).append(" ");
 			}
-			compareResult1.setSourceText(resultText.toString());
+			compareResultCheck.setSourceText(resultText.toString());
 
 			System.out.println("### TREFFER #######################");
 			System.out.println("Source:       " + _currentLink);
-			System.out.println("Start-Ende:   " + compareResult1.getCheckStart() + "-" + compareResult1.getCheckEnd());
-			System.out.println("Text:         " + compareResult1.getSourceText());
-			System.out.println("Aehnlichkeit: " + compareResult1.getSimilarity());
+			System.out.println("Start-Ende:   " + compareResultCheck.getCheckStart() + "-" + compareResultCheck.getCheckEnd());
+			System.out.println("Text:         " + compareResultCheck.getSourceText());
+			System.out.println("Aehnlichkeit: " + compareResultCheck.getSimilarity());
 			System.out.println("###################################");
-			_logger.info("Found link: " + _currentLink + "with Similarity " + compareResult1.getSimilarity());
-			result.add(compareResult1);
+			_logger.info("Found link: " + _currentLink + "with Similarity " + compareResultCheck.getSimilarity());
+			result.add(compareResultCheck);
 		}
 		if (_currentDocId == 0)
 		{
@@ -218,8 +223,8 @@ public class MyComparer implements IComparer
 	{
 		ArrayList<String> pairs1 = wordLetterPairs(text1.toUpperCase());
 		ArrayList<String> pairs2 = wordLetterPairs(text2.toUpperCase());
-		int intersection = 0;
-		int union = pairs1.size() + pairs2.size();
+		int similarityCounter = 0;
+		int completeSize = pairs1.size() + pairs2.size();
 		for (int i = 0; i < pairs1.size(); i++)
 		{
 			Object pair1 = pairs1.get(i);
@@ -228,13 +233,14 @@ public class MyComparer implements IComparer
 				Object pair2 = pairs2.get(j);
 				if (pair1.equals(pair2))
 				{
-					intersection++;
+					similarityCounter++;
 					pairs2.remove(j);
 					break;
 				}
 			}
 		}
-		return (2.0 * intersection) / union;
+		//2.0 => Skalierung auf Werte zwischen 0 und 1
+		return (2.0 * similarityCounter) / completeSize;
 	}
 
 	/**
