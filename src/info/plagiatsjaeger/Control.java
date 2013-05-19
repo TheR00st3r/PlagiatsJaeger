@@ -224,9 +224,20 @@ public class Control
 		{
 			try
 			{
-				future.get();
-				numThreadsFinished++;
-				_logger.info(numThreadsFinished + "/" + _futuresSearch.size() + " searches finished");
+				if (future != null)
+				{
+					future.get();
+					numThreadsFinished++;
+					_logger.info(numThreadsFinished + "/" + _futuresSearch.size() + " searches finished");
+				}
+				else
+				{
+					_logger.info("####################################################");
+					_logger.info("####################################################");
+					_logger.info("##############    FUTURE IS NULL    ################");
+					_logger.info("####################################################");
+					_logger.info("####################################################");
+				}
 			}
 			catch (CancellationException e)
 			{
@@ -251,9 +262,20 @@ public class Control
 		{
 			try
 			{
-				future.get();
-				numThreadsFinished++;
-				_logger.info(numThreadsFinished + "/" + _futures.size() + " compare finished");
+				if (future != null)
+				{
+					future.get();
+					numThreadsFinished++;
+					_logger.info(numThreadsFinished + "/" + _futures.size() + " compare finished");
+				}
+				else
+				{
+					_logger.info("####################################################");
+					_logger.info("####################################################");
+					_logger.info("##############    FUTURE IS NULL    ################");
+					_logger.info("####################################################");
+					_logger.info("####################################################");
+				}
 			}
 			catch (CancellationException e)
 			{
