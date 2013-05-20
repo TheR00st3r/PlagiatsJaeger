@@ -34,16 +34,16 @@ public class OnlineSearch implements IOnlineSearch
 	private static final String		URL_PATTERN_2		= ConfigReader.getProperty("URLPATTERN2");
 
 	private ArrayList<String>		_allSearchResults	= new ArrayList<String>();
-	protected static int			SEARCH_SENTENCELENGTH;
+	private static int			SEARCH_SENTENCELENGTH;
 	private static int				SEARCH_JUMPLENGTH;
 	private OnLinkFoundListener		_onLinkFoundListener;
 	private static int				MAX_URLS			= 5;
-	protected static final String	CHARSET				= "UTF-8";
+	private static final String	CHARSET				= "UTF-8";
 
-	protected static String			URL;
-	protected static String			URL_ARGS;
-	protected static String			URL_ARG_AUTH;
-	protected static String			URL_ARG_SEARCH;
+	private static String			URL;
+	private static String			URL_ARGS;
+	private static String			URL_ARG_AUTH;
+	private static String			URL_ARG_SEARCH;
 
 	private static final Logger		_logger				= Logger.getLogger(OnlineSearch.class.getName());
 
@@ -56,6 +56,11 @@ public class OnlineSearch implements IOnlineSearch
 		URL_ARGS = urlArgs;
 		URL_ARG_AUTH = authArg;
 		URL_ARG_SEARCH = searchArg;
+		
+		_logger.info("URL: " + URL);
+		_logger.info("URL_ARGS: " + URL_ARGS);
+		_logger.info("URL_ARG_AUTH: " + URL_ARG_AUTH);
+		_logger.info("URL_ARG_SEARCH: " + URL_ARG_SEARCH);
 	}
 
 	public ArrayList<String> search(String searchString, URL _URL)
