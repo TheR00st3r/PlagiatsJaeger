@@ -131,7 +131,7 @@ public class Control
 					{
 						// Kontrolliert ob das Dokument schon geparsed wurde.
 						int numTries = 0;
-						while (numTries < NUM_CHECKS_IF_PARSED && !mySqlDatabaseHelper.getDocumentParseSatet(intDocumentId))
+						while (numTries < NUM_CHECKS_IF_PARSED && !mySqlDatabaseHelper.getDocumentParseState(intDocumentId))
 						{
 							try
 							{
