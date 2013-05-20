@@ -6,7 +6,7 @@ import info.plagiatsjaeger.interfaces.IComparer;
 import info.plagiatsjaeger.interfaces.IOnlineSearch;
 import info.plagiatsjaeger.interfaces.OnCompareFinishedListener;
 import info.plagiatsjaeger.interfaces.OnLinkFoundListener;
-import info.plagiatsjaeger.onlinesearch.BlekkoSearch;
+import info.plagiatsjaeger.onlinesearch.OnlineSearch;
 import info.plagiatsjaeger.types.CompareResult;
 import info.plagiatsjaeger.types.Settings;
 
@@ -18,7 +18,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.log4j.Logger;
 
@@ -48,7 +47,7 @@ public class Control
 	private ExecutorService			_threadPoolSearch		= Executors.newFixedThreadPool(SIZE_THREADPOOL);
 	private ArrayList<Future<Void>>	_futuresSearch			= new ArrayList<Future<Void>>();
 
-	private double					_similarity	= 0.0;
+	private double					_similarity				= 0.0;
 
 	public Control(int rId)
 	{
@@ -178,7 +177,7 @@ public class Control
 		final String strSourceText = SourceLoader.loadFile(filePath);
 		if (_settings.getCheckWWW())
 		{
-			final IOnlineSearch iOnlineSearch = new BlekkoSearch();
+			final IOnlineSearch iOnlineSearch = new OnlineSearch(_settings.getSearchURL(), _settings.getSearchSearchArg(), _settings.getSearchURLArgs(), _settings.getSearchAuthArg());
 			iOnlineSearch.setOnLinkFoundListener(new OnLinkFoundListener()
 			{
 				@Override
@@ -353,12 +352,17 @@ public class Control
 			comparer.compareText(checkText, SourceLoader.loadFile(ROOT_FILES + docId + ".txt"), docId);
 		}
 	}
-	
+
+	/**
+	 * Berechnet die Gesammtaehnlichkeit
+	 * 
+	 * @param compareResults
+	 */
 	private synchronized void calcSimilarity(ArrayList<CompareResult> compareResults)
 	{
-		for(CompareResult result : compareResults)
+		for (CompareResult result : compareResults)
 		{
-			if(_similarity < result.getSimilarity())
+			if (_similarity < result.getSimilarity())
 			{
 				_similarity = result.getSimilarity();
 			}

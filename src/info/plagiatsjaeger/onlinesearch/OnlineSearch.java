@@ -10,7 +10,10 @@ import info.plagiatsjaeger.types.Settings;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,12 +28,11 @@ import org.jsoup.Jsoup;
  * 
  * @author FischerC
  */
-public abstract class OnlineSearch implements IOnlineSearch
+public class OnlineSearch implements IOnlineSearch
 {
-	private static final String URL_PATTERN_1 = ConfigReader.getProperty("URLPATTERN1");
-	private static final String URL_PATTERN_2 = ConfigReader.getProperty("URLPATTERN2");
-	
-	
+	private static final String		URL_PATTERN_1		= ConfigReader.getProperty("URLPATTERN1");
+	private static final String		URL_PATTERN_2		= ConfigReader.getProperty("URLPATTERN2");
+
 	private ArrayList<String>		_allSearchResults	= new ArrayList<String>();
 	protected static int			SEARCH_SENTENCELENGTH;
 	private static int				SEARCH_JUMPLENGTH;
@@ -38,13 +40,22 @@ public abstract class OnlineSearch implements IOnlineSearch
 	private static int				MAX_URLS			= 5;
 	protected static final String	CHARSET				= "UTF-8";
 
-	private static final Logger		_logger				= Logger.getLogger(BlekkoSearch.class.getName());
+	protected static String			URL;
+	protected static String			URL_ARGS;
+	protected static String			URL_ARG_AUTH;
+	protected static String			URL_ARG_SEARCH;
 
-	protected OnlineSearch()
+	private static final Logger		_logger				= Logger.getLogger(OnlineSearch.class.getName());
+
+	public OnlineSearch(String url, String searchArg, String urlArgs, String authArg)
 	{
 		Settings settings = Settings.getInstance();
 		SEARCH_JUMPLENGTH = settings.getSearchJumpLength();
 		SEARCH_SENTENCELENGTH = settings.getCompareSentenceLength();
+		URL = url;
+		URL_ARGS = urlArgs;
+		URL_ARG_AUTH = authArg;
+		URL_ARG_SEARCH = searchArg;
 	}
 
 	public ArrayList<String> search(String searchString, URL _URL)
@@ -125,8 +136,6 @@ public abstract class OnlineSearch implements IOnlineSearch
 		}
 	}
 
-	protected abstract URL buildSearchString(String searchString);
-
 	/**
 	 * Extrahiert die Links aus dem eingegebenen String. Wenn ein
 	 * {@link OnLinkFoundListener} registriert ist werden diesem die Links
@@ -140,9 +149,9 @@ public abstract class OnlineSearch implements IOnlineSearch
 		ArrayList<String> alUrlList = new ArrayList<String>();
 		// Matchpattern
 		// Altes JSON
-		Pattern patPattern = Pattern.compile(URL_PATTERN_1);//"\"url\"\\s*?:\\s*?\"([^\"]+?)\"");
+		Pattern patPattern = Pattern.compile(URL_PATTERN_1);// "\"url\"\\s*?:\\s*?\"([^\"]+?)\"");
 		// Neues JSON
-		Pattern patPatternNew = Pattern.compile(URL_PATTERN_2);//"\"displayUrl\"\\s*?:\\s*?\"([^\"]+?)\"");
+		Pattern patPatternNew = Pattern.compile(URL_PATTERN_2);// "\"displayUrl\"\\s*?:\\s*?\"([^\"]+?)\"");
 
 		Matcher matMatcher;
 
@@ -189,6 +198,25 @@ public abstract class OnlineSearch implements IOnlineSearch
 		}
 		_allSearchResults.addAll(alUrlList);
 		return alUrlList;
+	}
+
+	private URL buildSearchString(String searchString)
+	{
+		URL result = null;
+		try
+		{
+			searchString = URLEncoder.encode(searchString, CHARSET).replaceAll("[ \t\n\f\r]", "+");
+			result = new URL(URL + URL_ARG_SEARCH + searchString + URL_ARGS + URL_ARG_AUTH);
+		}
+		catch (UnsupportedEncodingException e)
+		{
+			_logger.fatal(e.getMessage(), e);
+		}
+		catch (MalformedURLException e)
+		{
+			_logger.fatal(e.getMessage(), e);
+		}
+		return result;
 	}
 
 	@Override
