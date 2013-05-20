@@ -15,6 +15,8 @@ public class CompareResult
 	private int		_sourceStart;
 	private int		_sourceEnd;
 
+	private boolean	_isInSources	= false;
+
 	private double	_similarity;
 
 	/**
@@ -170,5 +172,25 @@ public class CompareResult
 	public void setSimilarity(double similarity)
 	{
 		_similarity = similarity;
+	}
+
+	/**
+	 * Setzt ein Flag ob es sich hier ggf. um eine angegebene Quelle handelt.
+	 * 
+	 * @param isInSources
+	 */
+	public void setIsInSources(boolean isInSources)
+	{
+		_isInSources = isInSources;
+	}
+
+	/**
+	 * Liefert das Flag fuer angegebene Quellen zurueck.
+	 * 
+	 * @return boolean
+	 */
+	public boolean getIsInSources()
+	{
+		return _isInSources;
 	}
 }
