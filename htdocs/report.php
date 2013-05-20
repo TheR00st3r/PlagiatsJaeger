@@ -22,14 +22,13 @@ switch ($_GET['type']) {
 		$results = Result::getGraficReportResult($_GET['rID']);
 		$sim = $reportCheck['report']['rThreshold'];
 		$color1 = $sim;
-		$color2 = $sim + (100 - $sim) * 1/3;
-		$color3 = $sim + (100 - $sim) * 2/3;
-// 		
+		$color2 = $sim + (100 - $sim) * 1 / 3;
+		$color3 = $sim + (100 - $sim) * 2 / 3;
+		//
 		// echo $sim.'<br />';
 		// echo $color1.'<br />';
 		// echo $color2.'<br />';
 		// echo $color3.'<br />';
-		
 
 		// echo count($split);
 
@@ -56,8 +55,6 @@ switch ($_GET['type']) {
 				$out['rtQuellText'] = $string;
 
 				$array[] = $out;
-
-				
 
 			}
 
@@ -107,14 +104,11 @@ switch ($_GET['type']) {
 					$background = '#ff0';
 
 				// $background = ($a['rtSimilarity'] > $red) ? '#F00' : '#FAFB00';
-				$output .= '<div class="rtSourceText">' . $a['rtSourceText'] . ' <b> ['.$a['rtStartWord'].'-'.$a['rtEndWord'].'](<a target="_blank" href="' . $a['rtSourceLink'] . '">' . $a['rtSimilarity'] . ' %</a>)</b></div>';
-				$output .= '<span style="background: ' . $background . ';">';
-			}
-
-			$output .= $a['rtQuellText'];
-
-			if ($a['type'] != 0) {
-				$output .= '</span> ';
+				$output .= '<div class="rtSourceText">' . $a['rtSourceText'] . ' <b> [' . $a['rtStartWord'] . '-' . $a['rtEndWord'] . '](<a target="_blank" href="' . $a['rtSourceLink'] . '">' . $a['rtSimilarity'] . ' %</a>)</b></div>';
+				$output .= '<span style="background: ' . $background . ';">' . $a['rtQuellText'] . '</span>';
+				
+			} else {
+				$output .= $a['rtQuellText'];
 			}
 		}
 
