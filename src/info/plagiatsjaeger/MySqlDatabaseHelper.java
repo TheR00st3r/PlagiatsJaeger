@@ -410,4 +410,9 @@ public class MySqlDatabaseHelper
 		}
 		return docurl;
 	}
+	
+	public void finishReport(int rId, double similarity, String endTime)
+	{
+		
+	}
 }
