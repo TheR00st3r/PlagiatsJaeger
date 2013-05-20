@@ -142,6 +142,8 @@ public class SourceLoader
 		dirtyUrl = dirtyUrl.replaceAll("www.", "");
 		dirtyUrl = dirtyUrl.replaceAll("http://", "");
 		result = "http://" + dirtyUrl;
+		_logger.info("Dirty-URL: " + dirtyUrl);
+		_logger.info("Clean-URL: " + result);
 		return result;
 	}
 }
