@@ -56,6 +56,11 @@ public class OnlineSearch implements IOnlineSearch
 		URL_ARGS = urlArgs;
 		URL_ARG_AUTH = authArg;
 		URL_ARG_SEARCH = searchArg;
+		
+		_logger.info("URL: " + URL);
+		_logger.info("URL_ARGS: " + URL_ARGS);
+		_logger.info("URL_ARG_AUTH: " + URL_ARG_AUTH);
+		_logger.info("URL_ARG_SEARCH: " + URL_ARG_SEARCH);
 	}
 
 	public ArrayList<String> search(String searchString, URL _URL)
