@@ -1,5 +1,6 @@
 package info.plagiatsjaeger;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -21,6 +22,8 @@ public class ConfigReader
 	 */
 	public void setProperty(String name, String value)
 	{
+		File f = new File("dummy");
+		_logger.info(f.getAbsolutePath());
 		Properties prop = new Properties();
 
 		try
