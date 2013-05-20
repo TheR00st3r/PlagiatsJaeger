@@ -211,7 +211,9 @@ public class OnlineSearch implements IOnlineSearch
 		try
 		{
 			searchString = URLEncoder.encode(searchString, CHARSET).replaceAll("[ \t\n\f\r]", "+");
-			result = new URL(URL + URL_ARG_SEARCH + searchString + URL_ARGS + URL_ARG_AUTH);
+			String url = URL + URL_ARG_SEARCH + searchString + URL_ARGS + URL_ARG_AUTH;
+			_logger.info(url);
+			result = new URL(url);
 		}
 		catch (UnsupportedEncodingException e)
 		{
