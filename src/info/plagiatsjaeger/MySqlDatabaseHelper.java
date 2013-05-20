@@ -351,7 +351,7 @@ public class MySqlDatabaseHelper
 	 *            Dokumentnummp passend zum Report
 	 * @return TRUE wenn geparsed / FALSE wenn nicht geparsed
 	 */
-	public boolean getDocumentParseSatet(int docId)
+	public boolean getDocumentParseState(int docId)
 	{
 		boolean isparsed = false;
 		String strStatement = "SELECT dIsParsed FROM document AS d WHERE d.dID = " + docId;
