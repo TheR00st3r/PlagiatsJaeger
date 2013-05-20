@@ -11,14 +11,18 @@ import info.plagiatsjaeger.types.CompareResult;
 import info.plagiatsjaeger.types.Settings;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.log4j.Logger;
+
+import com.ibm.icu.text.SimpleDateFormat;
 
 
 /**
@@ -35,7 +39,7 @@ public class Control
 	private static final Logger		_logger					= Logger.getLogger(Control.class.getName());
 	private static final int		SIZE_THREADPOOL			= Integer.parseInt(ConfigReader.getProperty("THREADPOOLSIZE"));
 	private static final int		NUM_CHECKS_IF_PARSED	= Integer.parseInt(ConfigReader.getProperty("PARSECHECKS"));
-	private static final int		TIME_BETWEEN_CHECK		= Integer.parseInt(ConfigReader.getProperty("TIMEBETWEENCHECKS"));;												// min
+	private static final int		TIME_BETWEEN_CHECK		= Integer.parseInt(ConfigReader.getProperty("TIMEBETWEENCHECKS"));	; // min
 
 	private Settings				_settings;
 	private ExecutorService			_threadPool				= Executors.newFixedThreadPool(SIZE_THREADPOOL);
@@ -43,6 +47,8 @@ public class Control
 
 	private ExecutorService			_threadPoolSearch		= Executors.newFixedThreadPool(SIZE_THREADPOOL);
 	private ArrayList<Future<Void>>	_futuresSearch			= new ArrayList<Future<Void>>();
+
+	private double					_similarity	= 0.0;
 
 	public Control(int rId)
 	{
@@ -297,7 +303,10 @@ public class Control
 		if (succesful)
 		{
 			mySqlDatabaseHelper.setReportState(rId, ErrorCode.Succesful);
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			mySqlDatabaseHelper.finishReport(rId, _similarity, simpleDateFormat.format(Calendar.getInstance().getTime()));
 			_logger.info("Report " + rId + " fertiggestellt!");
+
 		}
 		if (!succesful || (localFolders == null && !_settings.getCheckWWW()))
 		{
@@ -324,6 +333,7 @@ public class Control
 			{
 				MySqlDatabaseHelper mySqlDatabaseHelper = new MySqlDatabaseHelper();
 				mySqlDatabaseHelper.insertCompareResults(compareResult, docId);
+				calcSimilarity(compareResult);
 			}
 
 			@Override
@@ -331,6 +341,7 @@ public class Control
 			{
 				MySqlDatabaseHelper mySqlDatabaseHelper = new MySqlDatabaseHelper();
 				mySqlDatabaseHelper.insertCompareResults(compareResult, link);
+				calcSimilarity(compareResult);
 			}
 		});
 		if (docId <= 0)
@@ -340,6 +351,17 @@ public class Control
 		else
 		{
 			comparer.compareText(checkText, SourceLoader.loadFile(ROOT_FILES + docId + ".txt"), docId);
+		}
+	}
+	
+	private synchronized void calcSimilarity(ArrayList<CompareResult> compareResults)
+	{
+		for(CompareResult result : compareResults)
+		{
+			if(_similarity < result.getSimilarity())
+			{
+				_similarity = result.getSimilarity();
+			}
 		}
 	}
 }
