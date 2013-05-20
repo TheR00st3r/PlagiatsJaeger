@@ -49,5 +49,5 @@ tr:hover{background:#ffa !important;}
 .report table.short th{text-align:left;padding:10px;}
 .report p{margin:0 0 5px 0;padding:0px;}
 .report .plags{margin:0 0 0 50px;}.report .plags .link{text-align:right;font-style:italic;}
-.report .graficReport{width:100%;position:relative;}.report .graficReport .source{width:48%;}
-.report .graficReport .rtSourceText{position:absolute;left:50%;margin:-20px 0 0 0;}
+.report .graficReport{line-height:1.6em;width:100%;position:relative;}.report .graficReport .source{width:48%;}
+.report .graficReport .rtSourceText{position:absolute;left:50%;margin:-20px 0 0 0;font-size:9pt;line-height:normal;}

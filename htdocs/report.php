@@ -28,19 +28,28 @@ switch ($_GET['type']) {
 
 		foreach ($results as $result) {
 
-			$string = '';
-			for ($i = $start; $i < $result['rtStartWord']; $i++) {
-				$string = $string . $split[$i] . ' ';
+			if ($start > $result['rtStartWord']) {
+				//$start = $result['rtStartWord'];
+				$result['rtStartWord'] = $start;
+			} else {
+
+				$string = '';
+				for ($i = $start; $i < $result['rtStartWord']; $i++) {
+					$string = $string . $split[$i] . ' ';
+				}
+
+				$out = array();
+
+				$out['type'] = 0;
+				$out['rtStartWord'] = $start;
+				$out['rtEndWord'] = $result['rtStartWord'];
+				$out['rtQuellText'] = $string;
+
+				$array[] = $out;
+
+				
+
 			}
-
-			$out = array();
-
-			$out['type'] = 0;
-			$out['rtStartWord'] = $start;
-			$out['rtEndWord'] = $result['rtStartWord'];
-			$out['rtQuellText'] = $string;
-
-			$array[] = $out;
 
 			$string = '';
 			for ($i = $result['rtStartWord']; $i < $result['rtEndWord']; $i++) {
@@ -77,12 +86,25 @@ switch ($_GET['type']) {
 		}
 
 		foreach ($array as $a) {
+			// $output .= '|||';
 			if ($a['type'] != 0) {
-				$output .= '<div class="rtSourceText">'.$a['rtSourceText'].'</div><span style="background: #F00;">';
+
+				if ($a['rtSimilarity'] > '96')
+					$background = '#f00';
+				else if ($a['rtSimilarity'] > '93')
+					$background = '#FF7722';
+				else if ($a['rtSimilarity'])
+					$background = '#ff0';
+
+				// $background = ($a['rtSimilarity'] > $red) ? '#F00' : '#FAFB00';
+				$output .= '<div class="rtSourceText">' . $a['rtSourceText'] . ' <b>(<a target="_blank" href="' . $a['rtSourceLink'] . '">' . $a['rtSimilarity'] . ' %</a>)</b></div>';
+				$output .= '<span style="background: ' . $background . ';">';
 			}
+
 			$output .= $a['rtQuellText'];
+
 			if ($a['type'] != 0) {
-				$output .= '</span>';
+				$output .= '</span> ';
 			}
 		}
 
