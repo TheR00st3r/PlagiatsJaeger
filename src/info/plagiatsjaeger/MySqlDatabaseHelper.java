@@ -28,7 +28,7 @@ public class MySqlDatabaseHelper
 	private static final String	SERVERNAME		= ConfigReader.getProperty("SERVERNAME");					// "jdbc:mysql://localhost/plagiatsjaeger?useUnicode=true&characterEncoding=utf-8";
 	private static final String	DBDRIVER		= ConfigReader.getProperty("DBDRIVER");					// "com.mysql.jdbc.Driver";
 	private static final String	USER			= ConfigReader.getProperty("USER");
-	private static final String	PASSWORDFILE	= ConfigReader.getProperty("PASSWORD-PATH");
+	private static final String	PASSWORDFILE	= ConfigReader.getProperty("PASSWORDPATH");
 
 	private Connection			_connection		= null;
 	private Statement			_statement		= null;

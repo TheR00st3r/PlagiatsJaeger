@@ -31,9 +31,9 @@ public class Control
 	/**
 	 * Dateipfad fuer die Dateien auf dem Server.
 	 */
-	public static final String		ROOT_FILES				= ConfigReader.getProperty("ROOT_FILES");
+	public static final String		ROOT_FILES				= ConfigReader.getProperty("ROOTFILES");
 	private static final Logger		_logger					= Logger.getLogger(Control.class.getName());
-	private static final int		SIZE_THREADPOOL			= Integer.parseInt(ConfigReader.getProperty("THREADPOOL-SIZE"), 20);
+	private static final int		SIZE_THREADPOOL			= Integer.parseInt(ConfigReader.getProperty("THREADPOOLSIZE"), 20);
 	private static final int		NUM_CHECKS_IF_PARSED	= Integer.parseInt(ConfigReader.getProperty("PARSECHECKS"), 60);
 	private static final int		TIME_BETWEEN_CHECK		= Integer.parseInt(ConfigReader.getProperty("TIMEBETWEENCHECKS"), 1);;												// min
 
