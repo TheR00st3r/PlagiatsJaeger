@@ -28,7 +28,7 @@ public class SourceLoader
 	public static final Logger	_logger				= Logger.getLogger(SourceLoader.class.getName());
 
 	private static final String	DEFAULT_CONTENTTYPE	= ConfigReader.getProperty("DEFAULTCONTENTTYPE");
-	private static final String CONTENTTYPE_PATTERN = ConfigReader.getProperty("CONTENTTYPEPATTERN");
+	private static final String	CONTENTTYPE_PATTERN	= ConfigReader.getProperty("CONTENTTYPEPATTERN");
 
 	/**
 	 * Laed den Text einer Webseite.
@@ -43,14 +43,19 @@ public class SourceLoader
 			URL url = new URL(cleanUrl(strUrl));
 			URLConnection urlConnection = url.openConnection();
 			// Pattern zum auffinden des contenttypes
-			Pattern pattern = Pattern.compile(CONTENTTYPE_PATTERN);
-			Matcher matcher = pattern.matcher(urlConnection.getContentType());
-			// Wenn ein Contenttype gefunden wird, wird dieser verwendet, sonst
-			// der defaul wert
 			String charset = DEFAULT_CONTENTTYPE;
-			if (matcher.matches())
+			String contentType = urlConnection.getContentType();
+			if (contentType != null)
 			{
-				charset = matcher.group(1);
+				Pattern pattern = Pattern.compile(CONTENTTYPE_PATTERN);
+				Matcher matcher = pattern.matcher(urlConnection.getContentType());
+				// Wenn ein Contenttype gefunden wird, wird dieser verwendet,
+				// sonst
+				// der defaul wert
+				if (matcher.matches())
+				{
+					charset = matcher.group(1);
+				}
 			}
 			Reader inputStreamReader = new InputStreamReader(urlConnection.getInputStream(), charset);
 			StringBuilder stringBuilder = new StringBuilder();
