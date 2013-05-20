@@ -56,7 +56,7 @@ class Result {
 	 * @param int $rID
 	 * @return array
 	 */
-	public static function getGraficReportResult($rID) {
+	public static function getGraficReportResult($rID, $rThreshold) {
 		if (Validator::validate(VAL_INTEGER, $rID, true)) {
 			$db = new db();
 			$db -> read("
@@ -65,11 +65,11 @@ class Result {
 				FROM
 					result
 				WHERE
-					rID = '$rID'
+					rID = '$rID' AND rtSourceText !=  '' AND rtSimilarity !=  '' and rtSimilarity > '$rThreshold'
 				GROUP BY
 					rtStartWord
 				ORDER BY
-					rtStartWord ASC");
+					rtStartWord ASC , rtEndWord ASC ");
 
 			$results = $db -> linesAsArray();
 			$db -> disconnect();

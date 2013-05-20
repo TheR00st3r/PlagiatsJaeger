@@ -6,7 +6,7 @@ $smarty -> assign('root', $root);
 
 require_once '../classes/Document.php';
 $orgDocument = Document::getDocumentOriginalContent($_GET['dID']);
-$smarty -> assign('orgDocument', $orgDocument);
+$smarty -> assign('orgDocument', nl2br($orgDocument));
 
 $bodyTpl = $smarty -> fetch('document.tpl');
 

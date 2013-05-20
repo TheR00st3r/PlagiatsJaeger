@@ -19,7 +19,7 @@ switch ($_GET['type']) {
 		$orgDocument = Document::getDocumentOriginalContent($reportCheck['report']['dID']);
 		$split = explode(" ", $orgDocument);
 
-		$results = Result::getGraficReportResult($_GET['rID'], $reportCheck['report']['rThreshold']);
+		$results = Result::getGraficReportResult($_GET['rID']);
 		$sim = $reportCheck['report']['rThreshold'];
 		$color1 = $sim;
 		$color2 = $sim + (100 - $sim) * 1 / 3;
@@ -37,59 +37,54 @@ switch ($_GET['type']) {
 
 		foreach ($results as $result) {
 
-			if ($start < $result['rtEndWord'] or ($result['rtStartWord'] - $result['rtEndWord']) < 10) {
+			if ($start > $result['rtStartWord']) {
+				//$start = $result['rtStartWord'];
+				$result['rtStartWord'] = $start;
+			} else {
 
-				if ($start > $result['rtStartWord']) {
-					//$start = $result['rtStartWord'];
-					$result['rtStartWord'] = $start;
-				} else {
-
-					// TYP 0 - kein Plagiat
-					$string = '';
-					for ($i = $start; $i < $result['rtStartWord']; $i++) {
-						$string .= $split[$i] . ' ';
-					}
-
-					$out = array();
-
-					$out['type'] = 0;
-					$out['rtStartWord'] = $start;
-					$out['rtEndWord'] = $result['rtStartWord'];
-					$out['rtQuellText'] = $string;
-					$out['start'] = $start;
-					$out['stop'] = $result['rtStartWord'];
-
-					$array[] = $out;
-
-				}
-
-				// TYP 1 - Plagiat
 				$string = '';
-				for ($i = $result['rtStartWord']; $i < $result['rtEndWord']; $i++) {
-					$string .= $split[$i] . ' ';
+				for ($i = $start; $i < $result['rtStartWord']; $i++) {
+					$string = $string . $split[$i] . ' ';
 				}
 
 				$out = array();
 
-				$out = $result;
-				$out['type'] = 1;
+				$out['type'] = 0;
+				$out['rtStartWord'] = $start;
+				$out['rtEndWord'] = $result['rtStartWord'];
 				$out['rtQuellText'] = $string;
-				$out['start'] = $result['rtStartWord'];
-				$out['stop'] = $result['rtEndWord'];
+				// $out['start'] = $start;
+				// $out['stop'] = $result['rtStartWord'];
 
 				$array[] = $out;
 
-				$start = $result['rtEndWord'];
-
-				// $output = $string;
 			}
+
+			$string = '';
+			for ($i = $result['rtStartWord']; $i < $result['rtEndWord']; $i++) {
+				$string = $string . $split[$i] . ' ';
+			}
+
+			$out = array();
+
+			$out = $result;
+			$out['type'] = 1;
+			$out['rtQuellText'] = $result['rtStartWord'];
+			// $out['start'] = $result['rtStartWord'];
+			// $out['stop'] = $result['rtEndWord'];
+
+			$array[] = $out;
+
+			$start = $result['rtEndWord'];
+
+			// $output = $string;
 
 		}
 
 		if ($start < count($split)) {
 			$string = '';
 			for ($i = $start; $i < count($split); $i++) {
-				$string .= $split[$i] . ' ';
+				$string = $string . $split[$i] . ' ';
 			}
 
 			$out = array();
@@ -97,8 +92,8 @@ switch ($_GET['type']) {
 			$out['rtStartWord'] = $start;
 			$out['rtEndWord'] = $result['rtStartWord'];
 			$out['rtQuellText'] = $string;
-			$out['start'] = $start;
-			$out['stop'] = count($split);
+			// $out['start'] = $start;
+			// $out['stop'] = count($split);
 
 			$array[] = $out;
 		}
