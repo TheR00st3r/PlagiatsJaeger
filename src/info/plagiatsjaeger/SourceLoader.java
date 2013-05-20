@@ -55,6 +55,7 @@ public class SourceLoader
 				if (matcher.matches())
 				{
 					charset = matcher.group(1);
+					_logger.info("Charset detected: " + charset + "(URL: " + strUrl + ")");
 				}
 			}
 			Reader inputStreamReader = new InputStreamReader(urlConnection.getInputStream(), charset);
