@@ -434,7 +434,7 @@ public class MySqlDatabaseHelper
 			DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.GERMAN);
 			otherSymbols.setDecimalSeparator('.');
 			DecimalFormat df = new DecimalFormat("###.##", otherSymbols);
-			strStatement = "UPDATE report SET rEndTime =" + endTime + ", rSimilarity = " + df.format(similarity * 100) + " WHERE rID =" + rId;
+			strStatement = "UPDATE report SET rEndTime ='" + endTime + "', rSimilarity = '" + df.format(similarity * 100) + "' WHERE rID =" + rId;
 			_statement.executeUpdate(strStatement);
 		}
 		catch (ClassNotFoundException e)
