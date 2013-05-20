@@ -408,6 +408,7 @@ public class MySqlDatabaseHelper
 		{
 			disconnect();
 		}
+		_logger.info("URL Loaded From DB: " + docurl);
 		return docurl;
 	}
 	
