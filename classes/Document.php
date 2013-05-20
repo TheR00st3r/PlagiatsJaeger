@@ -236,7 +236,8 @@ class Document {
 
 		if ($row['dIsParsed']) {
 			require_once '../classes/File.php';
-			return nl2br(File::readFile($dID . '.txt'));
+			// return nl2br(File::readFile($dID . '.txt'));
+			return File::readFile($dID . '.txt');
 		} else
 			return 'Datei wurde noch nicht geparsed....';
 	}
