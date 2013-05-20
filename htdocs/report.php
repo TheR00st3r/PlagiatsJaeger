@@ -20,6 +20,16 @@ switch ($_GET['type']) {
 		$split = explode(" ", $orgDocument);
 
 		$results = Result::getGraficReportResult($_GET['rID']);
+		$sim = $reportCheck['report']['rThreshold'];
+		$color1 = $sim;
+		$color2 = $sim + (100 - $sim) * 1/3;
+		$color3 = $sim + (100 - $sim) * 2/3;
+// 		
+		// echo $sim.'<br />';
+		// echo $color1.'<br />';
+		// echo $color2.'<br />';
+		// echo $color3.'<br />';
+		
 
 		// echo count($split);
 
@@ -86,12 +96,12 @@ switch ($_GET['type']) {
 		}
 
 		foreach ($array as $a) {
-			// $output .= '|||';
+			$output .= '|||';
 			if ($a['type'] != 0) {
 
-				if ($a['rtSimilarity'] > '96')
+				if ($a['rtSimilarity'] >= $color3)
 					$background = '#f00';
-				else if ($a['rtSimilarity'] > '93')
+				else if ($a['rtSimilarity'] >= $color2)
 					$background = '#FF7722';
 				else if ($a['rtSimilarity'])
 					$background = '#ff0';
