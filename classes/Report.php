@@ -65,7 +65,7 @@ class Report {
 			$db = new db();
 			$db -> read("
 				SELECT
-					r.rID, r.rDatetime, r.rtSimilarity, e.eName, e.eDescription
+					r.rID, r.rDatetime, r.rSimilarity, e.eName, e.eDescription
 				FROM
 					report AS r LEFT JOIN errorcode AS e ON r.rErrorCode = e.eID
 				WHERE
@@ -90,7 +90,7 @@ class Report {
 			$db = new db();
 			$db -> read("
 				SELECT
-					r.rID, r.rDatetime, r.rErrorCode, r.dID, r.rtSimilarity, r.rEndTime,
+					r.rID, r.rDatetime, r.rErrorCode, r.dID, r.rSimilarity, r.rEndTime,
 					d.dOriginalName, d.dAuthor,
 					e.eName, e.eDescription,
 					r.rThreshold, r.rCheckWWW,
