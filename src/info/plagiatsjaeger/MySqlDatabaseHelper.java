@@ -166,10 +166,9 @@ public class MySqlDatabaseHelper
 
 				_logger.info("Text: " + result.getSourceText());
 
-				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + text + "','" + sourceLink + "' , " + "null" + " , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "','" + df.format(result.getSimilarity() * 100) + "' , '" + result.getReportID() + "' )";
+				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + text + "','" + sourceLink + "' , " + result.getIsInSources() + " , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "','" + df.format(result.getSimilarity() * 100) + "' , '" + result.getReportID() + "' )";
 				_statement.executeUpdate(strStatement);
 			}
-			disconnect();
 		}
 		catch (ClassNotFoundException e)
 		{
@@ -182,6 +181,10 @@ public class MySqlDatabaseHelper
 		catch (UnsupportedEncodingException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+		}
+		finally
+		{
+			disconnect();
 		}
 	}
 
@@ -267,7 +270,7 @@ public class MySqlDatabaseHelper
 			if (rstResultSet.next())
 			{
 				result = Settings.getInstance();
-				result.putSettings(rstResultSet.getInt("r.rThreshold"), rstResultSet.getInt("sl.slSearchSentenceLength"), rstResultSet.getInt("sl.slSearchJumpLength"), rstResultSet.getInt("sl.slCompareSentenceLength"), rstResultSet.getInt("sl.slCompareJumpLength"), rstResultSet.getBoolean("r.rCheckWWW"), null,rstResultSet.getString("se.seURL"), rstResultSet.getString("se.seURLSearchArg"), rstResultSet.getString("se.seURLAuthArg"), rstResultSet.getString("se.seUrlArgs"));
+				result.putSettings(rstResultSet.getInt("r.rThreshold"), rstResultSet.getInt("sl.slSearchSentenceLength"), rstResultSet.getInt("sl.slSearchJumpLength"), rstResultSet.getInt("sl.slCompareSentenceLength"), rstResultSet.getInt("sl.slCompareJumpLength"), rstResultSet.getBoolean("r.rCheckWWW"), null, rstResultSet.getString("se.seURL"), rstResultSet.getString("se.seURLSearchArg"), rstResultSet.getString("se.seURLAuthArg"), rstResultSet.getString("se.seUrlArgs"));
 			}
 		}
 		catch (SQLException e)
@@ -411,9 +414,41 @@ public class MySqlDatabaseHelper
 		_logger.info("URL Loaded From DB: " + docurl);
 		return docurl;
 	}
-	
+
+	/**
+	 * Sschreibt Ergebnisse des Reports in die DB.
+	 * 
+	 * @param rId
+	 *            Report ID
+	 * @param similarity
+	 *            Plagiatsverdachtswert
+	 * @param endTime
+	 *            Abschlusszeit
+	 */
 	public void finishReport(int rId, double similarity, String endTime)
 	{
-		
+		try
+		{
+			String strStatement = "";
+			connect();
+			DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.GERMAN);
+			otherSymbols.setDecimalSeparator('.');
+			DecimalFormat df = new DecimalFormat("###.##", otherSymbols);
+			strStatement = "UPDATE report SET rEndTime =" + endTime + ", rSimilarity = " + df.format(similarity * 100) + " WHERE rID =" + rId;
+			_statement.executeUpdate(strStatement);
+		}
+		catch (ClassNotFoundException e)
+		{
+			_logger.fatal(e.getMessage(), e);
+		}
+		catch (SQLException e)
+		{
+			_logger.fatal(e.getMessage(), e);
+		}
+		finally
+		{
+			disconnect();
+		}
+
 	}
 }
