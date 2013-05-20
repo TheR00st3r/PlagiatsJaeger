@@ -33,6 +33,8 @@ public class MyComparer implements IComparer
 
 	private int							_rId;
 
+	private boolean						_isInSources;
+
 	private static final Logger			_logger	= Logger.getLogger(MyComparer.class.getName());
 
 	/**
@@ -162,8 +164,17 @@ public class MyComparer implements IComparer
 
 		StringBuilder resultText = new StringBuilder();
 		// Compareresults zusammenfuegen und Trefferlinks schreiben.
+		boolean init = true;
 		for (int resultCounter = 0; resultCounter < unmergedCompareResults.size() - 1; resultCounter++)
 		{
+			if (init)
+			{
+				if (checkText.contains(_currentLink))
+				{
+					_isInSources = true;
+				}
+				init = false;
+			}
 			CompareResult compareResultCheck = unmergedCompareResults.get(resultCounter);
 			CompareResult compareResultSource = unmergedCompareResults.get(resultCounter + 1);
 
@@ -194,6 +205,7 @@ public class MyComparer implements IComparer
 				resultText.append(_sourceWords[wordCounter]).append(" ");
 			}
 			compareResultCheck.setSourceText(resultText.toString());
+			compareResultCheck.setIsInSources(_isInSources);
 
 			System.out.println("### TREFFER #######################");
 			System.out.println("Source:       " + _currentLink);
