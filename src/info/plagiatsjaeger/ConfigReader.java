@@ -52,8 +52,10 @@ public class ConfigReader
 			// load a properties file
 			prop.load(new FileInputStream(PROP_FILE));
 
+			String result = prop.getProperty(name);
+			_logger.info("Property " + name + ", Value: " + result);
 			// get the property value and print it out
-			return prop.getProperty(name);
+			return result;
 
 		}
 		catch (IOException e)
