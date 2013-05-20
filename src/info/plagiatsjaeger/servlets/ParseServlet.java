@@ -24,8 +24,6 @@ public class ParseServlet extends HttpServlet
 {
 	private static final long	serialVersionUID	= 1L;
 
-	private static final Logger	_logger				= Logger.getLogger(ParseServlet.class.getName());
-
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -40,9 +38,6 @@ public class ParseServlet extends HttpServlet
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		File f = new File("dummy");
-		_logger.info(f.getAbsolutePath());
-
 		response.setContentType("text/html");
 		final int dID = Integer.parseInt(request.getParameter("dID"));
 		final FileType dFileEndign = FileType.valueOf(request.getParameter("dFileEnding").substring(1).toUpperCase());

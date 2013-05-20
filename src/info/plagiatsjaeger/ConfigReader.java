@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 public class ConfigReader
 {
 	private static final Logger	_logger		= Logger.getLogger(Control.class.getName());
-	private static final String	PROP_FILE	= "config.properties";
+	private static final String	PROP_FILE	= "webapps/PlagiatsJaeger/WEB-INF/classes/config.properties";
 
 	/**
 	 * Schreibt einen Parameter in das ConfigFile.
