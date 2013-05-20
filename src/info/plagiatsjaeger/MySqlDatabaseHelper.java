@@ -122,7 +122,7 @@ public class MySqlDatabaseHelper
 			for (CompareResult result : compareResults)
 			{
 				String text = new String(result.getSourceText().getBytes("UTF-8"), "ISO-8859-1");
-				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + text + "' , '" + "' , '" + dID + "' , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "' , '" + df.format(result.getSimilarity() * 100) + "' , '" + result.getIsInSources()+ "' , '" + result.getReportID() + "' )";
+				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + text + "' , '" + "' , '" + dID + "' , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "' , '" + df.format(result.getSimilarity() * 100) + "' , '" + (result.getIsInSources() ? 1 :0 ) + "' , '" + result.getReportID() + "' )";
 				_statement.executeUpdate(strStatement);
 			}
 			disconnect();
@@ -166,7 +166,7 @@ public class MySqlDatabaseHelper
 
 				_logger.info("Text: " + result.getSourceText());
 
-				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + text + "','" + sourceLink + "' , " + null + " , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "','" + df.format(result.getSimilarity() * 100) + "' , '" + result.getIsInSources()+ "' , '"+ result.getReportID() + "' )";
+				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + text + "','" + sourceLink + "' , " + null + " , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "','" + df.format(result.getSimilarity() * 100) + "' , '" + (result.getIsInSources()? 1 : 0)   + "' , '"+ result.getReportID() + "' )";
 				_statement.executeUpdate(strStatement);
 			}
 		}
