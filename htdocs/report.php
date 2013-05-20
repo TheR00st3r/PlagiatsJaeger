@@ -97,7 +97,7 @@ switch ($_GET['type']) {
 					$background = '#ff0';
 
 				// $background = ($a['rtSimilarity'] > $red) ? '#F00' : '#FAFB00';
-				$output .= '<div class="rtSourceText">' . $a['rtSourceText'] . ' <b>(<a target="_blank" href="' . $a['rtSourceLink'] . '">' . $a['rtSimilarity'] . ' %</a>)</b></div>';
+				$output .= '<div class="rtSourceText">' . $a['rtSourceText'] . ' <b> ['.$a['rtStartWord'].'-'.$a['rtEndWord'].'](<a target="_blank" href="' . $a['rtSourceLink'] . '">' . $a['rtSimilarity'] . ' %</a>)</b></div>';
 				$output .= '<span style="background: ' . $background . ';">';
 			}
 
