@@ -37,7 +37,7 @@ switch ($_GET['type']) {
 
 		foreach ($results as $result) {
 
-			if ($start < $result['rtEndWord'] or ($result['rtStartWord'] - $result['rtEndWord']) < 10) {
+			if ($start <= $result['rtEndWord'] or ($result['rtStartWord'] - $result['rtEndWord']) < 10) {
 
 				if ($start > $result['rtStartWord']) {
 					//$start = $result['rtStartWord'];
