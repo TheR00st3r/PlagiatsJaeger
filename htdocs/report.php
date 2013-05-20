@@ -37,7 +37,7 @@ switch ($_GET['type']) {
 
 		foreach ($results as $result) {
 
-			if ($start <= $result['rtEndWord'] or ($result['rtStartWord'] - $result['rtEndWord']) < 10) {
+			if ($start < $result['rtEndWord']-5) { // and ($result['rtEndWord'] - $result['rtStartWord']) > 10) {
 
 				if ($start > $result['rtStartWord']) {
 					//$start = $result['rtStartWord'];
@@ -115,7 +115,7 @@ switch ($_GET['type']) {
 					$background = '#ff0';
 
 				// $background = ($a['rtSimilarity'] > $red) ? '#F00' : '#FAFB00';
-				$output .= '<div class="rtSourceText">' . $a['rtSourceText'] . ' <b> [' . $a['rtStartWord'] . '-' . $a['rtEndWord'] . '](<a target="_blank" href="' . $a['rtSourceLink'] . '">' . $a['rtSimilarity'] . ' %</a>)</b></div>';
+				$output .= '<div class="rtSourceText">' . $a['rtSourceText'] . ' <b> [' . $a['rtStartWord'] . '-' . $a['rtEndWord'] . '](<a target="_blank" href="' . $a['rtSourceLink'] . '" title="' . $a['rtSourceLink'] . '" />' . $a['rtSimilarity'] . ' %</a>)</b></div>';
 				$output .= '<span style="background: ' . $background . ';">' . nl2br($a['rtQuellText']) . '</span>';
 
 			} else {

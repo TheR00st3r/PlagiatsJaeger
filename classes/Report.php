@@ -90,8 +90,8 @@ class Report {
 			$db = new db();
 			$db -> read("
 				SELECT
-					r.rID, r.rDatetime, r.rErrorCode, r.dID, r.rtSimilarity,
-					d.dOriginalName, d.dAuthor, 
+					r.rID, r.rDatetime, r.rErrorCode, r.dID, r.rtSimilarity, r.rEndTime,
+					d.dOriginalName, d.dAuthor,
 					e.eName, e.eDescription,
 					r.rThreshold, r.rCheckWWW,
 					sl.slTitle

@@ -27,7 +27,8 @@
 		<tr>
 			<th>Datum:</th>
 			<td>
-				{$report.rDatetime|date_format:'%d.%m.%Y %H:%M'}
+				{$report.rDatetime|date_format:'%d.%m.%Y %H:%M'}<br />
+				{$report.rEndTime|date_format:'%d.%m.%Y %H:%M'}
 			</td>
 			<th>Plagiatsverdacht zu:</th>
 			<td>
