@@ -15,4 +15,6 @@ Start: {$result.rtStartWord}, Stop: {$result.rtEndWord}
 	{/foreach}
 </div>
 {/foreach}
+{else}
+	<div class="info">Es wurde (noch) kein Plagiatsverdacht gefunden.</div>
 {/if}

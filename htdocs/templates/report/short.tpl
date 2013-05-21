@@ -17,4 +17,6 @@
 	</tr>
 	{/foreach}
 </table>
+{else}
+	<div class="info">Es wurde (noch) kein Plagiatsverdacht gefunden.</div>
 {/if}
