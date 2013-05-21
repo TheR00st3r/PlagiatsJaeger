@@ -122,7 +122,7 @@ public class MySqlDatabaseHelper
 			DecimalFormat df = new DecimalFormat("###.##", otherSymbols);
 			for (CompareResult result : compareResults)
 			{
-				String text = new String(Charset.forName("Cp1252").encode(result.getSourceText()).array(), "UTF-8");
+				String text = new String(Charset.forName("Cp1252").encode(result.getSourceText()).array(), "ISO-8859-1");
 				//String text = new String(result.getSourceText().getBytes("UTF-8"), "ISO-8859-1");
 				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + text + "' , '" + "' , '" + dID + "' , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "' , '" + df.format(result.getSimilarity() * 100) + "' , '" + (result.getIsInSources() ? 1 :0 ) + "' , '" + result.getReportID() + "' )";
 				_statement.executeUpdate(strStatement);
@@ -164,7 +164,7 @@ public class MySqlDatabaseHelper
 			DecimalFormat df = new DecimalFormat("###.##", otherSymbols);
 			for (CompareResult result : compareResults)
 			{
-				String text = new String(Charset.forName("Cp1252").encode(result.getSourceText()).array(), "UTF-8");
+				String text = new String(Charset.forName("Cp1252").encode(result.getSourceText()).array(), "ISO-8859-1");
 				//String text = new String(result.getSourceText().getBytes("UTF-8"), "ISO-8859-1");
 
 				_logger.info("Text: " + result.getSourceText());
