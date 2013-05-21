@@ -57,6 +57,14 @@ public class SourceLoader
 					charset = matcher.group(1);
 					_logger.info("Charset detected: " + charset + "(URL: " + strUrl + ")");
 				}
+				else
+				{
+					_logger.info("No match found " + strUrl);
+				}
+			}
+			else
+			{
+				_logger.info("CONTENT_TYPE IS null " + strUrl);
 			}
 			Reader inputStreamReader = new InputStreamReader(urlConnection.getInputStream(), charset);
 			StringBuilder stringBuilder = new StringBuilder();
@@ -143,7 +151,7 @@ public class SourceLoader
 		dirtyUrl = dirtyUrl.replaceAll("www.", "");
 		dirtyUrl = dirtyUrl.replaceAll("http://", "");
 		dirtyUrl = dirtyUrl.replaceAll("https://", "");
-		result = "http://" + dirtyUrl;
+		result = "www." + dirtyUrl;
 		_logger.info("Dirty-URL: " + dirtyUrl);
 		_logger.info("Clean-URL: " + result);
 		return result;
