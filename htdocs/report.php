@@ -138,10 +138,15 @@ switch ($_GET['type']) {
 
 		foreach ($results as $result) {
 
+			$item = array();
+			$source = array();
+			$string = '';
+			
 			$key = $result['rtStartWord'];
 
 			if (array_key_exists($key, $output)) {
 
+				$source = array();
 				$source['rtSourceText'] = $result['rtSourceText'];
 				$source['rtSourcedID'] = $result['rtSourcedID'];
 				$source['rtSourceLink'] = $result['rtSourceLink'];
@@ -150,14 +155,14 @@ switch ($_GET['type']) {
 
 			} else {
 
-				$string = '';
 				for ($i = $result['rtStartWord']; $i < $result['rtEndWord']; $i++) {
-					$string = $string . $split[$i] . ' ';
+					$string .= $split[$i] . ' ';
 				}
-
+				
 				$item['rtStartWord'] = $result['rtStartWord'];
 				$item['rtEndWord'] = $result['rtEndWord'];
 				$item['rtQuellText'] = $string;
+
 				$source['rtSourceText'] = $result['rtSourceText'];
 				$source['rtSourcedID'] = $result['rtSourcedID'];
 				$source['rtSourceLink'] = $result['rtSourceLink'];
@@ -168,6 +173,7 @@ switch ($_GET['type']) {
 			}
 		}
 		$reportContent = 'report/all.tpl';
+		// print_array($output);
 		break;
 	default :
 		//short
