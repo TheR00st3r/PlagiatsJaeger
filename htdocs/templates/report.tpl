@@ -32,7 +32,7 @@
 			</td>
 			<th>Plagiatsverdacht zu:</th>
 			<td>
-				{$report.rtSimilarity} %
+				{$report.rSimilarity} %
 			</td>
 		</tr>
 		<tr>

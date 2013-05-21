@@ -86,7 +86,7 @@
 				<li>
 					<a href="report.php?rID={$report.rID}" class="iframeviewer fancybox.iframe">{$report.rDatetime|date_format:'%d.%m.%Y %H:%M'}</a>
 					Status: <span class="help" title="{$report.eDescription}">{$report.eName}</span>,
-					Verdacht: {$report.rtSimilarity}%
+					Verdacht: {$report.rSimilarity}%
 				</li>
 				{/foreach}
 			</td>
