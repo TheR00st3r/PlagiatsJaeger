@@ -48,6 +48,9 @@ public class SourceLoader
 			if (contentType != null)
 			{
 				Pattern pattern = Pattern.compile(CONTENTTYPE_PATTERN);
+				_logger.info("ContentEncoding: " + urlConnection.getContentEncoding());
+				_logger.info("ContentType: " + urlConnection.getContentType());
+				
 				Matcher matcher = pattern.matcher(urlConnection.getContentType());
 				// Wenn ein Contenttype gefunden wird, wird dieser verwendet,
 				// sonst
