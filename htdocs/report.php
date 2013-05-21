@@ -26,6 +26,8 @@ else {
 
 switch ($_GET['type']) {
 	case 'grafic' :
+		$title = 'Grafikbericht';
+	
 		$results = Result::getGraficReportResult($_GET['rID'], $reportCheck['report']['rThreshold']);
 		$sim = $reportCheck['report']['rThreshold'];
 		$color1 = $sim;
@@ -134,6 +136,7 @@ switch ($_GET['type']) {
 		$reportContent = 'report/grafic.tpl';
 		break;
 	case 'all' :
+		$title = 'Resultatbericht';
 		$results = Result::getAllReportResult($_GET['rID']);
 
 		$resultsNew = array();
@@ -180,6 +183,7 @@ switch ($_GET['type']) {
 		// print_array($output);
 		break;
 	default :
+		$title = 'Schnellbericht';
 		//short
 		$output = Result::getShortReportResult($_GET['rID']);
 		// print_array($output);
@@ -188,6 +192,7 @@ switch ($_GET['type']) {
 }
 
 $smarty -> assign('results', $output);
+$smarty -> assign('title', $output);
 // $temp = $smarty -> fetch($reportContent);
 $smarty -> assign('reportContent', $smarty -> fetch($reportContent));
 

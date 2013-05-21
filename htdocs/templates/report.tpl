@@ -16,7 +16,7 @@
 		</li>
 	</ul>
 
-	<h1>Report</h1>
+	<h1>{$title}</h1>
 	<table>
 		<tr>
 			<th>Dokumentname:</th>
