@@ -86,8 +86,9 @@ if ($page == 'public') {
 	$smarty -> assign('userSettings', $userSettings);
 
 	switch ($url[0]) {
-		case '' :
 		case 'shared' :
+			$shared = true;
+		case '' :
 		case 'folder' :
 			// Folder Overview
 
@@ -112,7 +113,10 @@ if ($page == 'public') {
 			// get selected folder
 			$folderUrl = deleteItem($url, 0);
 			$folderLink = implode('/', $folderUrl);
-			$allFolders = Folder::getFolders($fpLevel, null);
+			if ($shared)
+				$allFolders = Folder::getSharedFolders(null);
+			else
+				$allFolders = Folder::getFolders(null);
 			$folder = $allFolders[$folderLink];
 
 			$smarty -> assign('folder', $folder);
@@ -152,13 +156,23 @@ if ($page == 'public') {
 			$smarty -> assign('messages', $check['messages']);
 
 			//get documents from selected folder
-			$smarty -> assign('documents', Document::getDocumentsFromFolderID($folder['fID']));
+			if ($shared) {
+				if($folder['show'] == 2)
+				$smarty -> assign('documents', Document::getDocumentsFromFolderID($folder['fID']));
+			} else {
+				$smarty -> assign('documents', Document::getDocumentsFromFolderID($folder['fID']));
+			}
+
 			// get all sub folders from selected folder
-			$smarty -> assign('folders', Folder::getFolderArray($fpLevel, $folder['fID']));
+			if ($shared)
+				$smarty -> assign('folders', Folder::getSharedFolderArray($folder['fID']));
+			else
+				$smarty -> assign('folders', Folder::getFolderArray($folder['fID']));
+
 			//get all folders for navigation overview
-			$smarty -> assign('folderNav', Folder::getFolderArray(900, null));
+			$smarty -> assign('folderNav', Folder::getFolderArray(null));
 			//get all shared folders from user
-			$smarty -> assign('sharedFolders', Folder::getFolderArray(700, null));
+			$smarty -> assign('sharedFolders', Folder::getSharedFolderArray(null));
 			// $smarty -> assign('sharedFolders', Folder::getSharedFolders(LoginAccess::getUserID()));
 
 			$contentTpl = $smarty -> fetch('folder.tpl');

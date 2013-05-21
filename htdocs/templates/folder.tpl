@@ -45,7 +45,7 @@
 			</td>
 			<td class="borderright">
 				<!-- @formatter:off -->
-				<div class="jeditable" id="fName_{$item.fID}">{$item.fName}</div>
+				<div {if $fpLevel == 900}class="jeditable"{/if} id="fName_{$item.fID}">{$item.fName}</div>
 				<!-- @formatter:on -->
 			</td>
 			<td class="borderright">
@@ -93,7 +93,7 @@
 			
 			<td class="borderright">
 				<!-- @formatter:off -->
-				<div class="jeditable" id="dAutor_{$item.dID}">{$item.dAuthor}</div>
+				<div {if $fpLevel == 900}class="jeditable"{/if} id="dAutor_{$item.dID}">{$item.dAuthor}</div>
 				<!-- @formatter:on -->
 			</td>
 			<td class="edit">

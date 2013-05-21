@@ -9,11 +9,8 @@ class Folder {
 	 * @param string $pathName
 	 * @return array
 	 */
-	public static function getFolderArray($fpLevel, $fParentID, $depth = 999, $level = 0, $path = '', $pathName = '') {
-
-		if (!is_numeric($fpLevel))
-			$fpLevel = 900;
-
+	public static function getFolderArray($fParentID, $depth = 999, $level = 0, $path = '', $pathName = '') {
+			
 		$uID = LoginAccess::getUserID();
 
 		if ($level > $depth)
@@ -33,7 +30,7 @@ class Folder {
 			FROM
 				folder AS f LEFT JOIN folderpermission AS p ON f.fID = p.fID
 			WHERE
-				$checkParent and p.uID = '$uID' and p.fpPermissionLevel = '$fpLevel'
+				$checkParent and p.uID = '$uID' and p.fpPermissionLevel = 900
 			ORDER BY
 				f.fName ASC");
 
@@ -56,10 +53,80 @@ class Folder {
 			$folder[$row['fID']]['fLinkExpireDatetime'] = $row['fLinkExpireDatetime'];
 			$folder[$row['fID']]['user'] = self::getFolderPermissions($row['fID']);
 
-			$back = self::getFolderArray($fpLevel, $row['fID'], $depth, $level + 1, $path . $alias . '/', $pathName . $row['fName'] . ' / ');
+			$back = self::getFolderArray($row['fID'], $depth, $level + 1, $path . $alias . '/', $pathName . $row['fName'] . ' / ');
 			if (count($back) > 0) {
 				$folder[$row['fID']]['sub'] = $back;
 			}
+		}
+		$db -> disconnect();
+		return $folder;
+	}
+
+	public static function getSharedFolderArray($fParentID, $status = 0, $path = '', $pathName = '') {
+
+		$uID = LoginAccess::getUserID();
+
+		if ($fParentID == null) {
+			$checkParent = "f.fParentID IS NULL";
+		} else {
+			$checkParent = "f.fParentID = '$fParentID'";
+		}
+
+		$db = new db();
+		$db -> read("
+			SELECT
+				f.fID, f.fName, f.fParentID, f.fHashLink, fLinkExpireDatetime,
+				(SELECT CONCAT(u.uName, ' ', u.uLastname) FROM folderpermission AS fp LEFT JOIN user AS u ON fp.uID = u.uID WHERE fp.fpPermissionLevel = 900 and fp.fID = f.fID) AS uName
+			FROM
+				folder AS f LEFT JOIN folderpermission AS p ON f.fID = p.fID
+			WHERE
+				$checkParent and (p.fpPermissionLevel = 900 and p.uID != '$uID')
+			ORDER BY
+				f.fName ASC");
+
+		if ($db -> valueCount() == 0) {
+			return;
+		}
+		while ($row = $db -> lines()) {
+
+			$tempStatus = $status;
+
+			$alias = Helper::urlString($row['fName']);
+			$users = Folder::getFolderPermissions($row['fID']);
+
+			if (in_array($uID, $users)) {
+				$tempStatus = 2;
+			}
+
+			$back = self::getSharedFolderArray($row['fID'], $tempStatus, $path . $alias . '/', $pathName . $row['fName'] . ' / ');
+
+			if ($tempStatus != 2) {
+				foreach ($back as $b) {
+					if (in_array($uID, $b['user']) or $b['show'] > 0) {
+						$tempStatus = 1;
+					}
+				}
+			}
+
+			if ($tempStatus > 0) {
+				$folder[$row['fID']]['root'] = $path;
+				$folder[$row['fID']]['alias'] = $alias;
+				$folder[$row['fID']]['path'] = $path . $alias;
+				$folder[$row['fID']]['pathName'] = $pathName . $row['fName'];
+				$folder[$row['fID']]['fParentID'] = $fParentID;
+				$folder[$row['fID']]['fID'] = $row['fID'];
+				$folder[$row['fID']]['fName'] = $row['fName'];
+				$folder[$row['fID']]['uName'] = $row['uName'];
+				$folder[$row['fID']]['fHashLink'] = $row['fHashLink'];
+				$folder[$row['fID']]['fLinkExpireDatetime'] = $row['fLinkExpireDatetime'];
+
+				$folder[$row['fID']]['user'] = $users;
+				if (count($back) > 0) {
+					$folder[$row['fID']]['sub'] = $back;
+				}
+				$folder[$row['fID']]['show'] = $tempStatus;
+			}
+
 		}
 		$db -> disconnect();
 		return $folder;
@@ -74,7 +141,7 @@ class Folder {
 	 * @param string $pathName
 	 * @return array
 	 */
-	public static function getFolders($fpLevel, $fParentID, $depth = 999, $level = 0, $path = '', $pathName = '') {
+	public static function getFolders($fParentID, $depth = 999, $level = 0, $path = '', $pathName = '') {
 
 		$uID = LoginAccess::getUserID();
 
@@ -92,7 +159,7 @@ class Folder {
 			FROM
 				folder AS f LEFT JOIN folderpermission AS p ON f.fID = p.fID
 			WHERE
-				$checkParent and p.uID = '$uID' and p.fpPermissionLevel = '$fpLevel'
+				$checkParent and p.uID = '$uID' and p.fpPermissionLevel = 900
 			ORDER BY
 				f.fName ASC");
 
@@ -115,10 +182,81 @@ class Folder {
 			$folder[$path . $alias]['fLinkExpireDatetime'] = $row['fLinkExpireDatetime'];
 			$folder[$path . $alias]['user'] = self::getFolderPermissions($row['fID']);
 
-			$back = self::getFolders($fpLevel, $row['fID'], $depth, $level + 1, $path . $alias . '/', $pathName . $row['fName'] . ' / ');
+			$back = self::getFolders($row['fID'], $depth, $level + 1, $path . $alias . '/', $pathName . $row['fName'] . ' / ');
 			if (count($back) > 0) {
 				$folder = array_merge($folder, $back);
 			}
+		}
+		$db -> disconnect();
+		return $folder;
+	}
+
+	public static function getSharedFolders($fParentID, $status = 0, $path = '', $pathName = '') {
+
+		$uID = LoginAccess::getUserID();
+
+		if ($fParentID == null) {
+			$checkParent = "f.fParentID IS NULL";
+		} else {
+			$checkParent = "f.fParentID = '$fParentID'";
+		}
+
+		$db = new db();
+		$db -> read("
+			SELECT
+				f.fID, f.fName, f.fParentID, f.fHashLink, fLinkExpireDatetime,
+				(SELECT CONCAT(u.uName, ' ', u.uLastname) FROM folderpermission AS fp LEFT JOIN user AS u ON fp.uID = u.uID WHERE fp.fpPermissionLevel = 900 and fp.fID = f.fID) AS uName
+			FROM
+				folder AS f LEFT JOIN folderpermission AS p ON f.fID = p.fID
+			WHERE
+				$checkParent and (p.fpPermissionLevel = 900 and p.uID != '$uID')
+			ORDER BY
+				f.fName ASC");
+
+		if ($db -> valueCount() == 0) {
+			return;
+		}
+		while ($row = $db -> lines()) {
+
+			$tempStatus = $status;
+
+			$alias = Helper::urlString($row['fName']);
+			$users = Folder::getFolderPermissions($row['fID']);
+
+			if (in_array($uID, $users)) {
+				$tempStatus = 2;
+			}
+
+			$back = self::getSharedFolders($row['fID'], $tempStatus, $path . $alias . '/', $pathName . $row['fName'] . ' / ');
+
+			if ($tempStatus != 2) {
+				foreach ($back as $b) {
+					if (in_array($uID, $b['user']) or $b['show'] > 0) {
+						$tempStatus = 1;
+					}
+				}
+			}
+
+			if ($tempStatus > 0) {
+				$folder[$path . $alias]['root'] = $path;
+				$folder[$path . $alias]['alias'] = $alias;
+				$folder[$path . $alias]['path'] = $path . $alias;
+				$folder[$path . $alias]['pathName'] = $pathName . $row['fName'];
+				$folder[$path . $alias]['fParentID'] = $fParentID;
+				$folder[$path . $alias]['fID'] = $row['fID'];
+				$folder[$path . $alias]['fName'] = $row['fName'];
+				$folder[$path . $alias]['uName'] = $row['uName'];
+				$folder[$path . $alias]['fHashLink'] = $row['fHashLink'];
+				$folder[$path . $alias]['fLinkExpireDatetime'] = $row['fLinkExpireDatetime'];
+
+				$folder[$path . $alias]['user'] = $users;
+				if (count($back) > 0) {
+					$folder = array_merge($folder, $back);
+					// $folder[$row['fID']]['sub'] = $back;
+				}
+				$folder[$path . $alias]['show'] = $tempStatus;
+			}
+
 		}
 		$db -> disconnect();
 		return $folder;
@@ -305,7 +443,7 @@ class Folder {
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;
-		
+
 		return $return;
 	}
 
@@ -323,9 +461,9 @@ class Folder {
 		while ($row = $db -> lines()) {
 			$return[] = $row['uID'];
 		}
-		
+
 		$db -> disconnect();
-		
+
 		return $return;
 	}
 
