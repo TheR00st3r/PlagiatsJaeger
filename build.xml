@@ -25,10 +25,6 @@
         <pathelement location="WebContent/WEB-INF/classes"/>
     </path>
     <path id="EAR Libraries.libraryclasspath"/>
-    <path id="JUnit 4.libraryclasspath">
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.junit_4.10.0.v4_10_0_v20120426-0900/junit.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.hamcrest.core_1.1.0.v20090501071000.jar"/>
-    </path>
     <path id="PlagiatsSoftware.classpath">
         <pathelement location="build/classes"/>
         <path refid="Web App Libraries.libraryclasspath"/>
@@ -71,7 +67,7 @@
         <pathelement location="lib/Tomcat/tomcat-util.jar"/>
         <pathelement location="lib/log4j-1.2.17.jar"/>
         <pathelement location="lib/mysql-connector-java-5.1.25-bin.jar"/>
-        <path refid="JUnit 4.libraryclasspath"/>
+        <pathelement location="lib/junit.jar"/>
     </path>
     <target name="init">
         <mkdir dir="build/classes"/>
