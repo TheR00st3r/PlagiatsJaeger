@@ -41,6 +41,7 @@ public class SourceLoader
 		try
 		{
 			URL url = new URL(cleanUrl(strUrl));
+			_logger.info(url.toString());
 			URLConnection urlConnection = url.openConnection();
 			// Pattern zum auffinden des contenttypes
 			String charset = DEFAULT_CONTENTTYPE;

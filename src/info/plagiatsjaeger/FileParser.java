@@ -202,6 +202,7 @@ public class FileParser
 		_logger.info("Filetype = HTML");
 		MySqlDatabaseHelper databaseHelper = new MySqlDatabaseHelper();
 		result = (SourceLoader.loadURL(databaseHelper.loadDocumentURL(dId)));
+		_logger.info("HTML geparst");
 		return result;
 	}
 
