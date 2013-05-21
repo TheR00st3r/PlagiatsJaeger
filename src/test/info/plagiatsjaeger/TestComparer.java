@@ -16,19 +16,9 @@ public class TestComparer
 	 */
 	public static void main(String[] args)
 	{
-		String s = "Ä Ö Ü ß ä ö ü /n";
+//		String s = "Ä Ö Ü ß ä ö ü /n";
 		
-		try
-		{
-//			String text = new String(Charset.forName("UTF-8").encode(s).array(), "ISO-8859-1");
-			String text = new String(Charset.forName("UTF-8").encode(s).array(), "CP1252");
-			System.out.println(text);
-		}
-		catch (UnsupportedEncodingException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		
 		
 		
