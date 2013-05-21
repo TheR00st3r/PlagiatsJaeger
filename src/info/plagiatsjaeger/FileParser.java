@@ -172,6 +172,7 @@ public class FileParser
 			if (strText == "")
 			{
 				_logger.info("Im Dokument wurde kein Text festgestellt");
+				result=false;
 			}
 			else
 			{
