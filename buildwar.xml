@@ -6,7 +6,7 @@
 
 	<property name="war-file-name" value="${project-name}.war" />
 	<property name="source-directory" value="src" />
-	<property name="classes-directory" value="build" />
+	<property name="classes-directory" value="build/classes" />
 	<property name="web-directory" value="WebContent" />
 	<property name="web-xml-file" value="WebContent/WEB-INF/web.xml" />
 	<tstamp prefix="build-info">
