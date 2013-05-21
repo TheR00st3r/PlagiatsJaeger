@@ -14,11 +14,18 @@ if ($reportCheck['state']) {
 }
 $messages[] = $reportCheck['messages'];
 
+// load original document
+$documentCheck = Document::getDocumentOriginalContent($reportCheck['report']['dID']);
+if ($documentCheck['state']) {
+	$split = explode(" ", $documentCheck['file']);
+}
+else {
+	$split = '';
+	$messages = array_merge($messages, $documentCheck['messages']);
+}
+
 switch ($_GET['type']) {
 	case 'grafic' :
-		$orgDocument = Document::getDocumentOriginalContent($reportCheck['report']['dID']);
-		$split = explode(" ", $orgDocument);
-
 		$results = Result::getGraficReportResult($_GET['rID'], $reportCheck['report']['rThreshold']);
 		$sim = $reportCheck['report']['rThreshold'];
 		$color1 = $sim;
@@ -37,7 +44,7 @@ switch ($_GET['type']) {
 
 		foreach ($results as $result) {
 
-			if ($start < $result['rtEndWord']-5) { // and ($result['rtEndWord'] - $result['rtStartWord']) > 10) {
+			if ($start < $result['rtEndWord'] - 5) {// and ($result['rtEndWord'] - $result['rtStartWord']) > 10) {
 
 				if ($start > $result['rtStartWord']) {
 					//$start = $result['rtStartWord'];
@@ -129,9 +136,6 @@ switch ($_GET['type']) {
 	case 'all' :
 		$results = Result::getAllReportResult($_GET['rID']);
 
-		$orgDocument = Document::getDocumentOriginalContent($reportCheck['report']['dID']);
-		$split = explode(" ", $orgDocument);
-
 		$resultsNew = array();
 
 		$output = array();
@@ -141,7 +145,7 @@ switch ($_GET['type']) {
 			$item = array();
 			$source = array();
 			$string = '';
-			
+
 			$key = $result['rtStartWord'];
 
 			if (array_key_exists($key, $output)) {
@@ -158,7 +162,7 @@ switch ($_GET['type']) {
 				for ($i = $result['rtStartWord']; $i < $result['rtEndWord']; $i++) {
 					$string .= $split[$i] . ' ';
 				}
-				
+
 				$item['rtStartWord'] = $result['rtStartWord'];
 				$item['rtEndWord'] = $result['rtEndWord'];
 				$item['rtQuellText'] = $string;

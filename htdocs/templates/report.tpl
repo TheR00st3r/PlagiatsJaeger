@@ -4,13 +4,18 @@
 		{$message.text}
 	</div>
 	{/foreach}
-	
 	<ul>
-		<li><a href="report.php?rID={$smarty.get.rID}&amp;type=short">Schnellbericht</a></li>
-		<li><a href="report.php?rID={$smarty.get.rID}&amp;type=grafic">Grafikbericht</a></li>
-		<li><a href="report.php?rID={$smarty.get.rID}&amp;type=all">Resultatbericht</a></li>
+		<li>
+			<a href="report.php?rID={$smarty.get.rID}&amp;type=short">Schnellbericht</a>
+		</li>
+		<li>
+			<a href="report.php?rID={$smarty.get.rID}&amp;type=grafic">Grafikbericht</a>
+		</li>
+		<li>
+			<a href="report.php?rID={$smarty.get.rID}&amp;type=all">Resultatbericht</a>
+		</li>
 	</ul>
-	
+
 	<h1>Report</h1>
 	<table>
 		<tr>
@@ -27,7 +32,8 @@
 		<tr>
 			<th>Datum:</th>
 			<td>
-				{$report.rDatetime|date_format:'%d.%m.%Y %H:%M'}<br />
+				{$report.rDatetime|date_format:'%d.%m.%Y %H:%M'}
+				<br />
 				{$report.rEndTime|date_format:'%d.%m.%Y %H:%M'}
 			</td>
 			<th>Plagiatsverdacht zu:</th>

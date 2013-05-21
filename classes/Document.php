@@ -134,7 +134,7 @@ class Document {
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;
-		
+
 		return $return;
 	}
 
@@ -181,7 +181,7 @@ class Document {
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;
-		
+
 		return $return;
 	}
 
@@ -219,9 +219,10 @@ class Document {
 	 * @return string
 	 */
 	public static function getDocumentOriginalContent($dID) {
-
-		$db = new db();
-		$db -> read("
+		if (Validator::validate(VAL_INTEGER, $dID, true)) {
+			$state = false;
+			$db = new db();
+			$db -> read("
 					SELECT
 						d.dID, d.dOriginalName, d.dAuthor, d.fID, d.dIsParsed
 					FROM
@@ -230,16 +231,36 @@ class Document {
 						d.dID = '$dID'
 				");
 
-		$row = $db -> lines();
+			$row = $db -> lines();
 
-		$db -> disconnect();
+			$db -> disconnect();
 
-		if ($row['dIsParsed']) {
-			require_once '../classes/File.php';
-			// return nl2br(File::readFile($dID . '.txt'));
-			return File::readFile($dID . '.txt');
+			if ($row['dIsParsed']) {
+				require_once '../classes/File.php';
+
+				$checkFile = File::readFile($dID . '.txt');
+				if ($checkFile['state']) {
+					$file = $checkFile['file'];
+					$state = true;
+				} else
+					$messages = $checkFile['messages'];
+
+			} else
+				$messages[] = array(
+					'type' => 'info',
+					'text' => 'Datei wurde noch nicht geparsed.'
+				);
 		} else
-			return 'Datei wurde noch nicht geparsed....';
+			$messages[] = array(
+				'type' => 'info',
+				'text' => 'Dokument ID ist nicht korrekt.'
+			);
+
+		$return['file'] = $file;
+		$return['state'] = $state;
+		$return['messages'] = $messages;
+
+		return $return;
 	}
 
 	/**

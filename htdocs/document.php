@@ -5,8 +5,11 @@ $smarty = new MySmarty();
 $smarty -> assign('root', $root);
 
 require_once '../classes/Document.php';
-$orgDocument = Document::getDocumentOriginalContent($_GET['dID']);
-$smarty -> assign('orgDocument', nl2br($orgDocument));
+$dokumentCheck = Document::getDocumentOriginalContent($_GET['dID']);
+if ($dokumentCheck['state']) {
+	$smarty -> assign('orgDocument', nl2br($dokumentCheck['file']));
+} else
+	$smarty -> assign('messages', $dokumentCheck['messages']);
 
 $bodyTpl = $smarty -> fetch('document.tpl');
 

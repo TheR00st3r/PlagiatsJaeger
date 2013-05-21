@@ -35,7 +35,7 @@ class File {
 
 		$return['state'] = $state;
 		$return['messages'] = $messages;
-		
+
 		return $return;
 	}
 
@@ -109,12 +109,11 @@ class File {
 					'type' => 'save',
 					'text' => 'Dokument wurde erfolgreich gespeichert!'
 				);
-			} else {
+			} else
 				$messages[] = array(
 					'type' => 'error',
 					'text' => 'Dokumentparsing konnte nicht angestoßen werden!<br />' . $link
 				);
-			}
 		}
 
 		$return['state'] = $state;
@@ -130,15 +129,28 @@ class File {
 	 */
 	public static function readFile($filename) {
 		global $logData;
-		$handle = fopen($logData['uploadpath'] . $filename, 'r');
+		$state = false;
+		if (file_exists($logData['uploadpath'] . $filename)) {
+			$handle = fopen($logData['uploadpath'] . $filename, 'r');
+			$file = '';
+			while (!feof($handle)) {
+				$buffer = fgets($handle);
+				$file .= $buffer;
+				$state = true;
+			}
+			fclose($handle);
+		} else
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'Dokument wurde nicht gefunden.' . $link
+			);
 
-		while (!feof($handle)) {
-			$buffer = fgets($handle);
-			$return .= $buffer;
-		}
-		fclose($handle);
+		$return['file'] = $file;
+		$return['state'] = $state;
+		$return['messages'] = $messages;
 
 		return $return;
 	}
 
 }
+?>
