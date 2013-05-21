@@ -20,5 +20,24 @@ class Setting {
 		return $settings;
 	}
 
+	/**
+	 * Returns all search engines.
+	 * @return array
+	 */
+	public static function getAllSearchengines() {
+		$db = new db();
+		$db -> read("
+				SELECT
+					seID, seName
+				FROM
+					searchengine
+				ORDER BY
+					 seName ASC");
+
+		$settings = $db -> linesAsArray();
+		$db -> disconnect();
+		return $settings;
+	}
+
 }
 ?>

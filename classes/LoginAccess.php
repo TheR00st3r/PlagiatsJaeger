@@ -17,7 +17,7 @@ class LoginAccess {
 
 			$db = new db();
 			$db -> read("SELECT
-								uID, uName, uLastname, uEMailAdress, uPassword, uPermissonLevel, cID, uThreshold, uCheckWWW, slID
+								uID, uName, uLastname, uEMailAdress, uPassword, uPermissonLevel, cID, uThreshold, uCheckWWW, slID, seID
 							FROM 
 								user
 							WHERE
@@ -34,7 +34,7 @@ class LoginAccess {
 				$_SESSION[self::suffix . '_email'] = $row['uEMailAdress'];
 				$_SESSION[self::suffix . '_level'] = $row['uPermissonLevel'];
 
-				self::saveSettingsSession($row['slID'], $row['uThreshold'], $row['uCheckWWW']);
+				self::saveSettingsSession($row['slID'], $row['seID'], $row['uThreshold'], $row['uCheckWWW']);
 
 				$state = true;
 			} else
@@ -127,10 +127,11 @@ class LoginAccess {
 	 * @param int $slID
 	 * @return void
 	 */
-	public static function saveSettingsSession($slID, $uThreshold, $uCheckWWW) {
+	public static function saveSettingsSession($slID, $seID, $uThreshold, $uCheckWWW) {
 		$settings['uThreshold'] = $uThreshold;
 		$settings['uCheckWWW'] = $uCheckWWW;
 		$settings['slID'] = $slID;
+		$settings['seID'] = $seID;
 		$_SESSION[self::suffix . '_settings'] = $settings;
 	}
 

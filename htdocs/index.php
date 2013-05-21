@@ -74,6 +74,10 @@ if ($page == 'public') {
 
 	$smarty -> assign('userinfo', LoginAccess::getUserInfo());
 
+	// get  search engines
+	$searchengines = Setting::getAllSearchengines();
+	$smarty -> assign('searchengines', $searchengines);
+
 	// get settings
 	$settings = Setting::getAllSettings();
 	$smarty -> assign('settings', $settings);
@@ -141,7 +145,7 @@ if ($page == 'public') {
 					$check = Document::deleteDocument($_POST['dID']);
 					break;
 				case 'addReport' :
-					$check = Report::createReport($_POST['dID'], $_POST['slID'], $_POST['rThreshold'], $_POST['rCheckWWW'], $_POST['rCheckIDs']);
+					$check = Report::createReport($_POST['dID'], $_POST['slID'], $_POST['seID'], $_POST['rThreshold'], $_POST['rCheckWWW'], $_POST['rCheckIDs']);
 					break;
 			}
 
@@ -171,9 +175,9 @@ if ($page == 'public') {
 			// POST FUNCTIONS
 			switch ($post) {
 				case 'uChangeSettings' :
-					$checkSettings = User::saveUserSettings(LoginAccess::getUserID(), $_POST['slID'], $_POST['uThreshold'], $_POST['uCheckWWW']);
+					$checkSettings = User::saveUserSettings(LoginAccess::getUserID(), $_POST['slID'], $_POST['seID'], $_POST['uThreshold'], $_POST['uCheckWWW']);
 					if ($checkSettings['state']) {
-						LoginAccess::saveSettingsSession($_POST['slID'], $_POST['uThreshold'], $_POST['uCheckWWW']);
+						LoginAccess::saveSettingsSession($_POST['slID'], $_POST['seID'], $_POST['uThreshold'], $_POST['uCheckWWW']);
 						$page = $root . $page;
 						header("Refresh: 1; url=$page");
 					}

@@ -4,8 +4,13 @@
 	<form method="post" action="{$root}{$page}">
 		<label>Detailgrad der Prüfung:</label>
 		{foreach $settings as $setting}
-		<input {if $userSettings.slID == $setting.slID}checked="checked"{/if} type="radio" name="slID" value="{$setting.slID}" />
-		{$setting.slTitle}
+		<input {if $userSettings.slID == $setting.slID}checked="checked"{/if} type="radio" name="slID" value="{$setting.slID}" />{$setting.slTitle}
+		<br />
+		{/foreach}
+		<br />
+		<label>Suchmaschine:</label>
+		{foreach $searchengines as $engine}
+		<input {if $userSettings.seID == $engine.seID}checked="checked"{/if} type="radio" name="seID" value="{$engine.seID}" />{$engine.seName}
 		<br />
 		{/foreach}
 		<br />

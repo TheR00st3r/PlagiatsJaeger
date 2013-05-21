@@ -11,6 +11,12 @@
 			<br />
 			{/foreach}
 			<br />
+			<label>Suchmaschine:</label>
+			{foreach $searchengines as $engine}
+			<input {if $userSettings.seID == $engine.seID}checked="checked"{/if} type="radio" name="seID" value="{$engine.seID}" />{$engine.seName}
+			<br />
+			{/foreach}
+			<br />
 			<label for="rThreshold">Schwellenwert einstellen:</label>
 			<input type="text" name="rThreshold" id="rThreshold" value="{$userSettings.uThreshold}" />
 			%
@@ -24,8 +30,8 @@
 		<div class="floatright">
 			<h3>Mit folgenden Ordnern gegenprüfen</h3>
 			<script lang="text/javascript">
-        		$('#tree{$item.dID}').checkboxTree();
-    		</script>
+				$('#tree{$item.dID}').checkboxTree();
+			</script>
 			<ul class="filetree2">
 				<li>
 					<span class="folder">Meine Ordner</span>

@@ -81,12 +81,12 @@ class User {
 	 * @param int $uPermissonLevel
 	 * @return boolean
 	 */
-	public static function newUser($uName, $uLastname, $uEMailAdress, $uPassword, $uPermissonLevel, $cID, $slID = 1, $uThreshold = 50, $uCheckWWW = 1) {
+	public static function newUser($uName, $uLastname, $uEMailAdress, $uPassword, $uPermissonLevel, $cID, $slID = 1, $seID = 1, $uThreshold = 70, $uCheckWWW = 1) {
 		$state = false;
 		if (!Validator::validate(VAL_INTEGER, $cID, true)) {
 			$cID = LoginAccess::getClientID();
 		}
-		if (Validator::validate(VAL_STRING, $uName, true) and Validator::validate(VAL_STRING, $uLastname, true) and Validator::validate(VAL_EMAIL, $uEMailAdress, true) and Validator::validate(VAL_PASSWORD, $uPassword, true) and Validator::validate(VAL_INTEGER, $uPermissonLevel, true) and Validator::validate(VAL_INTEGER, $cID, true)) {
+		if (Validator::validate(VAL_STRING, $uName, true) and Validator::validate(VAL_STRING, $uLastname, true) and Validator::validate(VAL_EMAIL, $uEMailAdress, true) and Validator::validate(VAL_PASSWORD, $uPassword, true) and Validator::validate(VAL_INTEGER, $uPermissonLevel, true) and Validator::validate(VAL_INTEGER, $cID, true) and Validator::validate(VAL_INTEGER, $slID, true) and Validator::validate(VAL_INTEGER, $seID, true)) {
 
 			$db = new db();
 			if (!$db -> ifExist('user', array('uEMailAdress' => $uEMailAdress))) {
@@ -100,6 +100,7 @@ class User {
 					'uPermissonLevel' => $uPermissonLevel,
 					'cID' => $cID,
 					'slID' => $slID,
+					'seID' => $seID,
 					'uThreshold' => $uThreshold,
 					'uCheckWWW' => $uCheckWWW
 				))) {
@@ -333,13 +334,14 @@ class User {
 		return $return;
 	}
 
-	public static function saveUserSettings($uID, $slID = 1, $uThreshold = 50, $uCheckWWW = 1) {
+	public static function saveUserSettings($uID, $slID = 1, $seID = 1, $uThreshold = 50, $uCheckWWW = 1) {
 		$state = false;
-		if (Validator::validate(VAL_INTEGER, $uID, true) and Validator::validate(VAL_INTEGER, $slID, true) and Validator::validate(VAL_INTEGER, $uThreshold, true) and Validator::validate(VAL_INTEGER, $uCheckWWW)) {
+		if (Validator::validate(VAL_INTEGER, $uID, true) and Validator::validate(VAL_INTEGER, $slID, true) and Validator::validate(VAL_INTEGER, $seID, true) and Validator::validate(VAL_INTEGER, $uThreshold, true) and Validator::validate(VAL_INTEGER, $uCheckWWW)) {
 
 			$db = new db();
 			if ($db -> insertUpdate('user', array(
 				'slID' => $slID,
+				'seID' => $seID,
 				'uThreshold' => $uThreshold,
 				'uCheckWWW' => $uCheckWWW
 			), array('uID' => $uID))) {
