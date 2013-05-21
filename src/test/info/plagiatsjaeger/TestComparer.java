@@ -16,16 +16,7 @@ public class TestComparer
 	 */
 	public static void main(String[] args)
 	{
-//		String s = "Ä Ö Ü ß ä ö ü /n";
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	
 //		MyComparer myComparer = new MyComparer(0);
 //
 //		
