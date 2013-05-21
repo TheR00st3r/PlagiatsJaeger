@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse.ant.import?>
-<project basedir="." default="help" name="help">
-    <target name="help">
-        <echo message="Please run: $ ant -v -projecthelp"/>
-    </target>
+<project basedir="." default="jUnit" name="jUnit">
+    <property name="java.test.reports.path" value="build/reports"/>
+    <property name="java.src.build.path" value="build/classes"/>
+   <target name="test.java" depends="build">
+    <mkdir dir="${java.test.reports.path}" />
+    <junit haltonfailure="no" printsummary="true">
+      <classpath>
+        <path refid="test.run.classpath" />
+        <pathelement location = "${java.src.build.path}" />
+      </classpath>
+      <!-- add to see errors on console while running junit tests.
+      <formatter type="brief" usefile="false" />    
+      -->
+      <formatter type="xml"/>
+      <batchtest fork="yes" todir="${java.test.reports.path}">
+        <fileset dir="${java.test.build.path}/">
+          <include name="**/*Test*.class"/>
+          <exclude name="**/*$*.class"/>
+        </fileset>
+      </batchtest>
+    </junit>
+  </target> 
 </project>
