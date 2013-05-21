@@ -42,7 +42,7 @@ if ($page == 'public') {
 			if (isset($_POST['dAddSubmit'])) {
 				if (Validator::validate(VAL_STRING, $_POST['dAddAutor'], true) and isset($_FILES['dAddFile'])) {
 					require_once '../classes/Document.php';
-					$check = Document::addDocument($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'], $folder['slID'], $folder['uThreshold'], $folder['uCheckWWW']);
+					$check = Document::addDocument($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'], $folder['slID'], $folder['seID'], $folder['uThreshold'], $folder['uCheckWWW']);
 					if ($check['state']) {
 						$contentTpl = 'vielen Dank!';
 					} else
@@ -137,13 +137,13 @@ if ($page == 'public') {
 					break;
 				case 'newFile' :
 					// print_array($_FILES['dAddFile']);
-					$check = Document::addDocument($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'], $userSettings['slID'], $userSettings['uThreshold'], $userSettings['uCheckWWW']);
+					$check = Document::addDocument($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'], $userSettings['slID'], $userSettings['seID'], $userSettings['uThreshold'], $userSettings['uCheckWWW']);
 					break;
 				case 'newUrl' :
-					$check = Document::addUrl($folder['fID'], $_POST['dAddAutor'], $_POST['dOriginalName'], $userSettings['slID'], $userSettings['uThreshold'], $userSettings['uCheckWWW']);
+					$check = Document::addUrl($folder['fID'], $_POST['dAddAutor'], $_POST['dOriginalName'], $userSettings['slID'], $userSettings['seID'], $userSettings['uThreshold'], $userSettings['uCheckWWW']);
 					break;
 				case 'newSnipped' :
-					$check = Document::addSnipped($folder['fID'], $_POST['dAddAutor'], $_POST['dAddShortText'], $userSettings['slID'], $userSettings['uThreshold'], $userSettings['uCheckWWW']);
+					$check = Document::addSnipped($folder['fID'], $_POST['dAddAutor'], $_POST['dAddShortText'], $userSettings['slID'], $userSettings['seID'], $userSettings['uThreshold'], $userSettings['uCheckWWW']);
 					break;
 				case 'deleteDocument' :
 					$check = Document::deleteDocument($_POST['dID']);

@@ -38,7 +38,7 @@ class Document {
 	 * @param int $dID
 	 * @return string
 	 */
-	public static function addDocument($fID, $dAuthor, $files, $slID, $uThreshold, $uCheckWWW) {
+	public static function addDocument($fID, $dAuthor, $files, $slID, $seID, $uThreshold, $uCheckWWW) {
 		$state = false;
 		$messages = array();
 
@@ -62,7 +62,7 @@ class Document {
 					$uploadCheck = File::copyTempFile($lastID, $file);
 					if ($uploadCheck['state']) {
 						require_once '../classes/Report.php';
-						$checkReport = Report::createReport($lastID, $slID, $uThreshold, $uCheckWWW);
+						$checkReport = Report::createReport($lastID, $slID, $seID, $uThreshold, $uCheckWWW);
 						if ($checkReport['state']) {
 							$state = true;
 						}
@@ -96,7 +96,7 @@ class Document {
 	 * @param string $text
 	 * @return boolean
 	 */
-	public static function addSnipped($fID, $dAuthor, $text, $slID, $uThreshold, $uCheckWWW) {
+	public static function addSnipped($fID, $dAuthor, $text, $slID, $seID, $uThreshold, $uCheckWWW) {
 		$state = false;
 		$messages = array();
 		if (Validator::validate(VAL_INTEGER, $fID, true) and Validator::validate(VAL_STRING, $dAuthor)) {
@@ -112,7 +112,7 @@ class Document {
 				require_once '../classes/File.php';
 				$checkWrite = File::writeFile($lastID, nl2br($text), '.txt');
 				if ($checkWrite['state']) {
-					$checkReport = Report::createReport($lastID, $slID, $uThreshold, $uCheckWWW);
+					$checkReport = Report::createReport($lastID, $slID, $seID, $uThreshold, $uCheckWWW);
 					if ($checkReport['state']) {
 						$state = true;
 					}
@@ -143,7 +143,7 @@ class Document {
 	 * @param int $dID
 	 * @return string
 	 */
-	public static function addUrl($fID, $dAuthor, $dOriginalName, $slID, $uThreshold, $uCheckWWW) {
+	public static function addUrl($fID, $dAuthor, $dOriginalName, $slID, $seID, $uThreshold, $uCheckWWW) {
 		$state = false;
 		$messages = array();
 		if (Validator::validate(VAL_INTEGER, $fID, true) and Validator::validate(VAL_STRING, $dAuthor)) {
@@ -160,7 +160,7 @@ class Document {
 
 				if ($checkParsing['state']) {
 					require_once '../classes/Report.php';
-					$checkReport = Report::createReport($lastID, $slID, $uThreshold, $uCheckWWW);
+					$checkReport = Report::createReport($lastID, $slID, $seID, $uThreshold, $uCheckWWW);
 					if ($checkReport['state']) {
 						$state = true;
 					}

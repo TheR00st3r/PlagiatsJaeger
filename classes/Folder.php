@@ -352,7 +352,7 @@ class Folder {
 		$db = new db();
 		$db -> read("
 				SELECT
-					f.fID, f.fName, f.fLinkExpireDatetime, u.uThreshold, u.uCheckWWW, u.slID
+					f.fID, f.fName, f.fLinkExpireDatetime, u.uThreshold, u.uCheckWWW, u.slID, u.seID
 				FROM
 					folder AS f LEFT JOIN folderpermission AS fp ON f.fID = fp.fID LEFT JOIN user AS u ON fp.uID = u.uID
 				WHERE

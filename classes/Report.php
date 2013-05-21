@@ -7,7 +7,7 @@ class Report {
 	 * @param int $rLevel
 	 * @return boolean
 	 */
-	public static function createReport($dID, $slID, $rThreshold, $rCheckWWW, $rCheckIDs = array(), $seID = 1) {
+	public static function createReport($dID, $slID, $seID, $rThreshold, $rCheckWWW, $rCheckIDs = array()) {
 		global $backendUrl;
 		$state = false;
 		if (Validator::validate(VAL_INTEGER, $dID, true) and Validator::validate(VAL_INTEGER, $slID, true) and
