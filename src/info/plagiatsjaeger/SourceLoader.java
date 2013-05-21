@@ -60,6 +60,7 @@ public class SourceLoader
 				else
 				{
 					_logger.info("No match found " + strUrl);
+					//TODO: Gesamte seite nach contenttype durchsuchen
 				}
 			}
 			else

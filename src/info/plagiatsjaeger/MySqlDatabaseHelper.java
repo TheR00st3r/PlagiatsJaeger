@@ -5,6 +5,7 @@ import info.plagiatsjaeger.types.CompareResult;
 import info.plagiatsjaeger.types.Settings;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -121,7 +122,8 @@ public class MySqlDatabaseHelper
 			DecimalFormat df = new DecimalFormat("###.##", otherSymbols);
 			for (CompareResult result : compareResults)
 			{
-				String text = new String(result.getSourceText().getBytes("UTF-8"), "ISO-8859-1");
+				String text = new String(Charset.forName("Cp1252").encode(result.getSourceText()).array());
+				//String text = new String(result.getSourceText().getBytes("UTF-8"), "ISO-8859-1");
 				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + text + "' , '" + "' , '" + dID + "' , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "' , '" + df.format(result.getSimilarity() * 100) + "' , '" + (result.getIsInSources() ? 1 :0 ) + "' , '" + result.getReportID() + "' )";
 				_statement.executeUpdate(strStatement);
 			}
@@ -132,10 +134,6 @@ public class MySqlDatabaseHelper
 			_logger.fatal(e.getMessage(), e);
 		}
 		catch (SQLException e)
-		{
-			_logger.fatal(e.getMessage(), e);
-		}
-		catch (UnsupportedEncodingException e)
 		{
 			_logger.fatal(e.getMessage(), e);
 		}
@@ -162,7 +160,8 @@ public class MySqlDatabaseHelper
 			DecimalFormat df = new DecimalFormat("###.##", otherSymbols);
 			for (CompareResult result : compareResults)
 			{
-				String text = new String(result.getSourceText().getBytes("UTF-8"), "ISO-8859-1");
+				String text = new String(Charset.forName("Cp1252").encode(result.getSourceText()).array());
+				//String text = new String(result.getSourceText().getBytes("UTF-8"), "ISO-8859-1");
 
 				_logger.info("Text: " + result.getSourceText());
 
@@ -175,10 +174,6 @@ public class MySqlDatabaseHelper
 			_logger.fatal(e.getMessage(), e);
 		}
 		catch (SQLException e)
-		{
-			_logger.fatal(e.getMessage(), e);
-		}
-		catch (UnsupportedEncodingException e)
 		{
 			_logger.fatal(e.getMessage(), e);
 		}
