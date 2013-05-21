@@ -93,6 +93,7 @@ public class Control
 					{
 						e.printStackTrace();
 						_logger.fatal(e.getLocalizedMessage());
+						_logger.fatal(e.getCause());
 					}
 				}
 			}).start();

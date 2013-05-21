@@ -80,6 +80,7 @@ public class SourceLoader
 			{
 				stringBuilder.append(line).append("\n");
 			}
+			_logger.info(stringBuilder.toString());
 			return Jsoup.parse(stringBuilder.toString()).text();
 		}
 		catch (MalformedURLException e)
