@@ -38,7 +38,7 @@ public class Control
 	private static final Logger		_logger					= Logger.getLogger(Control.class.getName());
 	private static final int		SIZE_THREADPOOL			= ConfigReader.getPropertyInt("THREADPOOLSIZE");
 	private static final int		NUM_CHECKS_IF_PARSED	= ConfigReader.getPropertyInt("PARSECHECKS");
-	private static final int		TIME_BETWEEN_CHECK		= ConfigReader.getPropertyInt("TIMEBETWEENCHECKS");	; // min
+	private static final int		TIME_BETWEEN_CHECK		= ConfigReader.getPropertyInt("TIMEBETWEENCHECKS"); // min
 
 	private Settings				_settings;
 	private ExecutorService			_threadPool				= Executors.newFixedThreadPool(SIZE_THREADPOOL);

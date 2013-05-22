@@ -81,17 +81,6 @@ public class SourceLoader
 				detectCharset(url);
 				result = loadSiteWithCharset(urlConnection, _detectedCharset);
 			}			
-			return result;
-//			Reader inputStreamReader = new InputStreamReader(urlConnection.getInputStream(), charset);
-//			StringBuilder stringBuilder = new StringBuilder();
-//			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-//
-//			String line = "";
-//			while ((line = bufferedReader.readLine()) != null)
-//			{
-//				stringBuilder.append(line).append("\n");
-//			}
-//			return Jsoup.parse(stringBuilder.toString()).text();
 		}
 		catch (MalformedURLException e)
 		{
@@ -108,6 +97,7 @@ public class SourceLoader
 			_logger.fatal(e.getMessage(), e);
 			return "FAIL IOException";
 		}
+		return result;
 	}
 
 	private static void detectCharset(URL url)
@@ -140,7 +130,9 @@ public class SourceLoader
 				// DoIt if non-ascii and not done yet.
 				if (!isAscii && !done) done = detector.DoIt(buf, len, false);
 			}
+			_logger.info("before Detector.DataEnd");
 			detector.DataEnd();
+			_logger.info("after Detector.DataEnd");
 		}
 		catch (IOException e)
 		{
@@ -180,7 +172,6 @@ public class SourceLoader
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
 		return Jsoup.parse(stringBuilder.toString()).text();
 	}
 	
