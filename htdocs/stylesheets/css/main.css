@@ -7,7 +7,7 @@ textarea{border:solid 1px #cccccc;}
 .help{cursor:help;border-bottom:1px dotted #aaa;}
 #dAddShortText{width:800px;height:400px;}
 #frame{background:#FFF;}
-#container{width:900px;margin:20px auto;background:#fff;-moz-box-shadow:6px 6px 6px #666;-webkit-box-shadow:6px 6px 6px #666;box-shadow:6px 6px 6px #666;border:solid 1px #666;}
+#container{width:1000px;margin:20px auto;background:#fff;-moz-box-shadow:6px 6px 6px #666;-webkit-box-shadow:6px 6px 6px #666;box-shadow:6px 6px 6px #666;border:solid 1px #666;}
 #header{position:relative;height:125px;}#header img{position:absolute;left:30px;top:20px;}
 #header h1{position:absolute;left:120px;top:70px;font-style:italic;}#header h1 a{font-size:30px;color:#000000;text-decoration:none;}
 #header #userinfo{position:absolute;right:10px;top:10px;}
@@ -20,7 +20,7 @@ textarea{border:solid 1px #cccccc;}
 .folderMenue{text-align:right;padding:0 0 20px 0;}
 .button{border:solid 1px #000;padding:2px;background:#f9f9f9;}
 .folders{overflow:auto;margin:0px;width:250px;border-right:dotted 1px #000;min-height:400px;}.folders .selected{font-weight:bold;}
-.files{width:540px;margin:0;}.files .documents{width:100%;border-collapse:collapse;}.files .documents .borderright{border-right:solid 1px #eee;}
+.files{width:670px;margin:0;}.files .documents{width:100%;border-collapse:collapse;}.files .documents .borderright{border-right:solid 1px #eee;}
 .files .documents td{padding:5px 5px 5px 5px;vertical-align:top;}
 .files .documents .image{width:15px;}
 .files .documents .smal{width:50px;}

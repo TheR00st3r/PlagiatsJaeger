@@ -113,6 +113,7 @@ switch ($_GET['type']) {
 		}
 
 		foreach ($array as $a) {
+			//TODO DEBUG [xx-xx]
 			$output .= '|' . $a['start'] . '-' . $a['stop'] . '|';
 			if ($a['type'] != 0) {
 
@@ -123,7 +124,7 @@ switch ($_GET['type']) {
 				else if ($a['rtSimilarity'])
 					$background = '#ff0';
 
-				// $background = ($a['rtSimilarity'] > $red) ? '#F00' : '#FAFB00';
+				//TODO DEBUG [xx-xx]
 				$output .= '<div class="rtSourceText">' . $a['rtSourceText'] . ' <b> [' . $a['rtStartWord'] . '-' . $a['rtEndWord'] . '](<a target="_blank" href="' . $a['rtSourceLink'] . '" title="' . $a['rtSourceLink'] . '" />' . $a['rtSimilarity'] . ' %</a>)</b></div>';
 				$output .= '<span style="background: ' . $background . ';">' . nl2br($a['rtQuellText']) . '</span>';
 
