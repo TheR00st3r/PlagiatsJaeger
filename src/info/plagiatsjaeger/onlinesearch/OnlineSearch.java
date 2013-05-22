@@ -37,7 +37,7 @@ public class OnlineSearch implements IOnlineSearch
 	private static int			SEARCH_SENTENCELENGTH;
 	private static int				SEARCH_JUMPLENGTH;
 	private OnLinkFoundListener		_onLinkFoundListener;
-	private static int				MAX_URLS			= 5;
+	private static int				MAX_URLS			= ConfigReader.getPropertyInt("NUMURLS");
 	private static final String	CHARSET				= "UTF-8";
 
 	private static String			URL;
