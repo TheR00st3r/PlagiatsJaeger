@@ -1,5 +1,6 @@
 package info.plagiatsjaeger;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -16,6 +17,8 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
+import org.mozilla.intl.chardet.nsDetector;
+import org.mozilla.intl.chardet.nsICharsetDetectionObserver;
 
 
 /**
@@ -30,6 +33,8 @@ public class SourceLoader
 	private static final String	DEFAULT_CONTENTTYPE	= ConfigReader.getProperty("DEFAULTCONTENTTYPE");
 	private static final String	CONTENTTYPE_PATTERN	= ConfigReader.getProperty("CONTENTTYPEPATTERN");
 
+	private static String _detectedCharset;
+	
 	/**
 	 * Laed den Text einer Webseite.
 	 * 
@@ -38,6 +43,7 @@ public class SourceLoader
 	 */
 	public static String loadURL(String strUrl)
 	{
+		String result = "";
 		try
 		{
 			URL url = new URL(cleanUrl(strUrl));
@@ -51,7 +57,7 @@ public class SourceLoader
 				Pattern pattern = Pattern.compile(CONTENTTYPE_PATTERN);
 				_logger.info("ContentEncoding: " + urlConnection.getContentEncoding());
 				_logger.info("ContentType: " + urlConnection.getContentType());
-				
+
 				Matcher matcher = pattern.matcher(urlConnection.getContentType());
 				// Wenn ein Contenttype gefunden wird, wird dieser verwendet,
 				// sonst
@@ -64,23 +70,28 @@ public class SourceLoader
 				else
 				{
 					_logger.info("No match found " + strUrl);
-					//TODO: Gesamte seite nach contenttype durchsuchen
+					// TODO: Gesamte seite nach contenttype durchsuchen
+					detectCharset(url);
+					result = loadSiteWithCharset(urlConnection, _detectedCharset);
 				}
 			}
 			else
 			{
 				_logger.info("CONTENT_TYPE IS null " + strUrl);
-			}
-			Reader inputStreamReader = new InputStreamReader(urlConnection.getInputStream(), charset);
-			StringBuilder stringBuilder = new StringBuilder();
-			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-			String line = "";
-			while ((line = bufferedReader.readLine()) != null)
-			{
-				stringBuilder.append(line).append("\n");
-			}
-			return Jsoup.parse(stringBuilder.toString()).text();
+				detectCharset(url);
+				result = loadSiteWithCharset(urlConnection, _detectedCharset);
+			}			
+			return result;
+//			Reader inputStreamReader = new InputStreamReader(urlConnection.getInputStream(), charset);
+//			StringBuilder stringBuilder = new StringBuilder();
+//			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+//
+//			String line = "";
+//			while ((line = bufferedReader.readLine()) != null)
+//			{
+//				stringBuilder.append(line).append("\n");
+//			}
+//			return Jsoup.parse(stringBuilder.toString()).text();
 		}
 		catch (MalformedURLException e)
 		{
@@ -99,6 +110,73 @@ public class SourceLoader
 		}
 	}
 
+	private static void detectCharset(URL url)
+	{
+		nsDetector detector = new nsDetector();
+		detector.Init(new nsICharsetDetectionObserver()
+		{
+
+			@Override
+			public void Notify(String arg0)
+			{
+				_detectedCharset = arg0;
+			}
+		});
+		BufferedInputStream imp;
+		try
+		{
+			imp = new BufferedInputStream(url.openStream());
+			byte[] buf = new byte[1024];
+			int len;
+			boolean done = false;
+			boolean isAscii = true;
+
+			while ((len = imp.read(buf, 0, buf.length)) != -1)
+			{
+				// Check if the stream is only ascii.
+				if (isAscii) isAscii = detector.isAscii(buf, len);
+				// DoIt if non-ascii and not done yet.
+				if (!isAscii && !done) done = detector.DoIt(buf, len, false);
+			}
+			detector.DataEnd();
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private static String loadSiteWithCharset(URLConnection urlConnection, String charset)
+	{
+		Reader inputStreamReader;
+		StringBuilder stringBuilder = new StringBuilder();
+		try
+		{
+			inputStreamReader = new InputStreamReader(urlConnection.getInputStream(), charset);
+			
+			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+			String line = "";
+			while ((line = bufferedReader.readLine()) != null)
+			{
+				stringBuilder.append(line).append("\n");
+			}
+		}
+		catch (UnsupportedEncodingException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		return Jsoup.parse(stringBuilder.toString()).text();
+	}
+	
 	/**
 	 * Laed eine Datei.
 	 * 
@@ -153,7 +231,7 @@ public class SourceLoader
 	public static String cleanUrl(String dirtyUrl)
 	{
 		String result = "";
-		//dirtyUrl = dirtyUrl.replaceAll("www.", "");
+		// dirtyUrl = dirtyUrl.replaceAll("www.", "");
 		dirtyUrl = dirtyUrl.replaceAll("http://", "");
 		dirtyUrl = dirtyUrl.replaceAll("https://", "");
 		result = "http://" + dirtyUrl;
