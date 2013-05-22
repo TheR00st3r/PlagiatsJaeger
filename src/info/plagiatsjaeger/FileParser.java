@@ -204,6 +204,7 @@ public class FileParser
 		MySqlDatabaseHelper databaseHelper = new MySqlDatabaseHelper();
 		result = (SourceLoader.loadURL(databaseHelper.loadDocumentURL(dId)));
 		_logger.info("HTML geparst");
+		_logger.info(result);
 		return result;
 	}
 
