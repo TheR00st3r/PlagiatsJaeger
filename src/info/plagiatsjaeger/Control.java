@@ -34,11 +34,11 @@ public class Control
 	/**
 	 * Dateipfad fuer die Dateien auf dem Server.
 	 */
-	public static final String		ROOT_FILES				= ConfigReader.getProperty("ROOTFILES");
+	public static final String		ROOT_FILES				= ConfigReader.getPropertyString("ROOTFILES");
 	private static final Logger		_logger					= Logger.getLogger(Control.class.getName());
-	private static final int		SIZE_THREADPOOL			= Integer.parseInt(ConfigReader.getProperty("THREADPOOLSIZE"));
-	private static final int		NUM_CHECKS_IF_PARSED	= Integer.parseInt(ConfigReader.getProperty("PARSECHECKS"));
-	private static final int		TIME_BETWEEN_CHECK		= Integer.parseInt(ConfigReader.getProperty("TIMEBETWEENCHECKS"));	; // min
+	private static final int		SIZE_THREADPOOL			= Integer.parseInt(ConfigReader.getPropertyString("THREADPOOLSIZE"));
+	private static final int		NUM_CHECKS_IF_PARSED	= Integer.parseInt(ConfigReader.getPropertyString("PARSECHECKS"));
+	private static final int		TIME_BETWEEN_CHECK		= Integer.parseInt(ConfigReader.getPropertyString("TIMEBETWEENCHECKS"));	; // min
 
 	private Settings				_settings;
 	private ExecutorService			_threadPool				= Executors.newFixedThreadPool(SIZE_THREADPOOL);

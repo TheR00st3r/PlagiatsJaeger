@@ -30,8 +30,8 @@ public class SourceLoader
 {
 	public static final Logger	_logger				= Logger.getLogger(SourceLoader.class.getName());
 
-	private static final String	DEFAULT_CONTENTTYPE	= ConfigReader.getProperty("DEFAULTCONTENTTYPE");
-	private static final String	CONTENTTYPE_PATTERN	= ConfigReader.getProperty("CONTENTTYPEPATTERN");
+	private static final String	DEFAULT_CONTENTTYPE	= ConfigReader.getPropertyString("DEFAULTCONTENTTYPE");
+	private static final String	CONTENTTYPE_PATTERN	= ConfigReader.getPropertyString("CONTENTTYPEPATTERN");
 
 	private static String _detectedCharset;
 	

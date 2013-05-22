@@ -43,7 +43,7 @@ public class ConfigReader
 	 * @param name
 	 * @return Wert als String
 	 */
-	public static String getProperty(String name)
+	public static String getPropertyString(String name)
 	{
 		Properties prop = new Properties();
 
@@ -63,5 +63,31 @@ public class ConfigReader
 			_logger.fatal(e.getMessage(), e);
 		}
 		return "";
+	}
+	/**
+	 * Liest einen Parameter aus dem ConfigFile aus.
+	 * 
+	 * @param name
+	 * @return Wert als int
+	 */
+	public static int getPropertyInt(String name)
+	{
+		Properties prop = new Properties();
+
+		try
+		{
+			// load a properties file
+			prop.load(new FileInputStream(PROP_FILE));
+			int result = Integer.parseInt(prop.getProperty(name));
+			_logger.info("Property " + name + ", Value: " + result);
+			// get the property value and print it out
+			return result;
+
+		}
+		catch (IOException e)
+		{
+			_logger.fatal(e.getMessage(), e);
+		}
+		return 0;
 	}
 }
