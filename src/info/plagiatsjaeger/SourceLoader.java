@@ -66,6 +66,7 @@ public class SourceLoader
 				{
 					charset = matcher.group(1);
 					_logger.info("Charset detected: " + charset + "(URL: " + strUrl + ")");
+					result = loadSiteWithCharset(urlConnection, charset);
 				}
 				else
 				{
@@ -112,14 +113,16 @@ public class SourceLoader
 
 	private static void detectCharset(URL url)
 	{
+		_logger.info("Detect Charset...");
 		nsDetector detector = new nsDetector();
 		detector.Init(new nsICharsetDetectionObserver()
 		{
 
 			@Override
-			public void Notify(String arg0)
+			public void Notify(String charset)
 			{
-				_detectedCharset = arg0;
+				_logger.info("Charset detected: " + charset);
+				_detectedCharset = charset;
 			}
 		});
 		BufferedInputStream imp;
@@ -149,6 +152,7 @@ public class SourceLoader
 
 	private static String loadSiteWithCharset(URLConnection urlConnection, String charset)
 	{
+		_logger.info("Load Website " + urlConnection.getURL().toString() + "with charset " + charset);
 		Reader inputStreamReader;
 		StringBuilder stringBuilder = new StringBuilder();
 		try
