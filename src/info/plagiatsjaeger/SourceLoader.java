@@ -151,6 +151,10 @@ public class SourceLoader
 
 	private static String loadSiteWithCharset(URLConnection urlConnection, String charset)
 	{
+		if(charset==null)
+		{
+			charset = DEFAULT_CONTENTTYPE;
+		}
 		_logger.info("Load Website " + urlConnection.getURL().toString() + "with charset " + charset);
 		Reader inputStreamReader;
 		StringBuilder stringBuilder = new StringBuilder();
