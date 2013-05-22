@@ -19,6 +19,7 @@ public class Settings
 	// TODO: Default Settings setzen eventuell ueber Config File
 	private int								_searchSentenceLength	= ConfigReader.getPropertyInt("SEARCHSENTENCELENGTH");
 	private int								_searchJumpLength		= ConfigReader.getPropertyInt("SEARCHJUMPLENGTH");
+	private int								_searchNumLinks;
 	private int								_compareSentenceLength	= ConfigReader.getPropertyInt("COMPARESENTENCELENGTH");
 	private int								_compareJumpLength		= ConfigReader.getPropertyInt("COMPAREJUMPLENGTH");
 	private boolean							_checkWWW				= Boolean.getBoolean(ConfigReader.getPropertyString("CHECKWWW"));
@@ -87,6 +88,21 @@ public class Settings
 			_write.unlock();
 		}
 	}
+	
+	public void putSettings(int threshold, int searchSentenceLength, int searchJumpLength, int compareSentenceLength, int compareJumpLength, boolean checkWWW, ArrayList<Integer> localFolders, String searchUrl, String searchSearchArg, String searchAuthArg, String searchUrlArgs, int searchNumLinks)
+	{
+		putSettings(threshold, searchSentenceLength, searchJumpLength, compareSentenceLength, compareJumpLength, checkWWW, localFolders, searchUrl, searchSearchArg, searchAuthArg, searchUrlArgs);
+		_write.lock();
+		try
+		{
+			_searchNumLinks = searchNumLinks;
+		}
+		finally
+		{
+			_write.unlock();
+		}
+	}
+
 
 	public double getThreshold()
 	{
@@ -229,6 +245,11 @@ public class Settings
 		{
 			_read.unlock();
 		}
+	}
+	
+	public int getSearchNumLinks()
+	{
+		return _searchNumLinks;
 	}
 
 }

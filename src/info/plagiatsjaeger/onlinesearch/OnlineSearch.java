@@ -52,6 +52,7 @@ public class OnlineSearch implements IOnlineSearch
 		Settings settings = Settings.getInstance();
 		SEARCH_JUMPLENGTH = settings.getSearchJumpLength();
 		SEARCH_SENTENCELENGTH = settings.getCompareSentenceLength();
+		MAX_URLS = settings.getSearchNumLinks();
 		URL = url;
 		URL_ARGS = urlArgs;
 		URL_ARG_AUTH = authArg;
