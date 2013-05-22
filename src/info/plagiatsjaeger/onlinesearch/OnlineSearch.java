@@ -30,8 +30,8 @@ import org.jsoup.Jsoup;
  */
 public class OnlineSearch implements IOnlineSearch
 {
-	private static final String		URL_PATTERN_1		= ConfigReader.getProperty("URLPATTERN1");
-	private static final String		URL_PATTERN_2		= ConfigReader.getProperty("URLPATTERN2");
+	private static final String		URL_PATTERN_1		= ConfigReader.getPropertyString("URLPATTERN1");
+	private static final String		URL_PATTERN_2		= ConfigReader.getPropertyString("URLPATTERN2");
 
 	private ArrayList<String>		_allSearchResults	= new ArrayList<String>();
 	private static int			SEARCH_SENTENCELENGTH;

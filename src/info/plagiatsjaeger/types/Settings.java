@@ -1,5 +1,7 @@
 package info.plagiatsjaeger.types;
 
+import info.plagiatsjaeger.ConfigReader;
+
 import java.util.ArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -15,17 +17,17 @@ public class Settings
 
 	private double							_threshold;
 	// TODO: Default Settings setzen eventuell ueber Config File
-	private int								_searchSentenceLength	= 10;
-	private int								_searchJumpLength		= 10;
-	private int								_compareSentenceLength	= 10;
-	private int								_compareJumpLength		= 10;
-	private boolean							_checkWWW				= true;
+	private int								_searchSentenceLength	= ConfigReader.getPropertyInt("SEARCHSENTENCELENGTH");
+	private int								_searchJumpLength		= ConfigReader.getPropertyInt("SEARCHJUMPLENGTH");
+	private int								_compareSentenceLength	= ConfigReader.getPropertyInt("COMPARESENTENCELENGTH");
+	private int								_compareJumpLength		= ConfigReader.getPropertyInt("COMPAREJUMPLENGTH");
+	private boolean							_checkWWW				= Boolean.getBoolean(ConfigReader.getPropertyString("CHECKWWW"));
 	private ArrayList<Integer>				_localFolders			= new ArrayList<Integer>();
 
-	private String							_searchURL				= "http://blekko.com/ws/?";
-	private String							_searchSearchArg		= "q=";
-	private String							_searchAuthArg;
-	private String							_searchURLArgs			= "+%2Fjson";
+	private String							_searchURL				= ConfigReader.getPropertyString("SEARCHURL");
+	private String							_searchSearchArg		= ConfigReader.getPropertyString("SEARCHARG");
+	private String							_searchAuthArg			= ConfigReader.getPropertyString("SEARCHAUTHARGS");
+	private String							_searchURLArgs			= ConfigReader.getPropertyString("SEARCHURLARGS");
 
 	private static Settings					_Instance				= new Settings();
 
