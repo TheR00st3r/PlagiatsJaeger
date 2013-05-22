@@ -29,7 +29,7 @@ public class Settings
 	private String							_searchAuthArg			= ConfigReader.getPropertyString("SEARCHAUTHARGS");
 	private String							_searchURLArgs			= ConfigReader.getPropertyString("SEARCHURLARGS");
 
-	private static Settings					_Instance				= new Settings();
+	private static Settings					_Instance;
 
 	private final ReentrantReadWriteLock	_readWriteLock			= new ReentrantReadWriteLock();
 	private final Lock						_read					= _readWriteLock.readLock();
@@ -37,11 +37,16 @@ public class Settings
 
 	public static Settings getInstance()
 	{
+		if(_Instance == null)
+		{
+			_Instance = new Settings();
+		}
 		return _Instance;
 	}
 
 	private Settings()
 	{
+		
 	}
 
 	public void putSettings(int threshold, int searchSentenceLength, int searchJumpLength, int compareSentenceLength, int compareJumpLength, boolean checkWWW, ArrayList<Integer> localFolders)
