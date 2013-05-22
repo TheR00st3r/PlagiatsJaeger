@@ -3,7 +3,8 @@ package info.plagiatsjaeger.enums;
 public enum ErrorCode
 {
 	Created(100),
-	Started(200),
+	Parsing(150),
+	Checking(200),
 	Succesful(300),
 	Error(400);
 	

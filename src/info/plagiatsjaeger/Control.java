@@ -134,6 +134,12 @@ public class Control
 						int numTries = 0;
 						while (numTries < NUM_CHECKS_IF_PARSED && !mySqlDatabaseHelper.getDocumentParseState(intDocumentId))
 						{
+							if(numTries<=0)
+							{
+								//TODO in parser aufrufen
+								//Parsen laeuft noch.
+								new MySqlDatabaseHelper().setReportState(rId, ErrorCode.Parsing);
+							}
 							try
 							{
 								Thread.sleep(TIME_BETWEEN_CHECK * 60000);
@@ -147,7 +153,7 @@ public class Control
 						if (numTries < NUM_CHECKS_IF_PARSED)
 						{
 							_logger.info("Thread started!");
-							mySqlDatabaseHelper.setReportState(rId, ErrorCode.Started);
+							mySqlDatabaseHelper.setReportState(rId, ErrorCode.Checking);
 							startPlagiatsSearch(ROOT_FILES + intDocumentId + ".txt", rId);
 						}
 						else
