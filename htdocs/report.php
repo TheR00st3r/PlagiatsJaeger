@@ -192,7 +192,7 @@ switch ($_GET['type']) {
 }
 
 $smarty -> assign('results', $output);
-$smarty -> assign('title', $output);
+$smarty -> assign('title', $title);
 // $temp = $smarty -> fetch($reportContent);
 $smarty -> assign('reportContent', $smarty -> fetch($reportContent));
 

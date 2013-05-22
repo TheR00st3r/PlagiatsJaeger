@@ -100,6 +100,43 @@ class Mail {
 		return $return;
 	}
 
+	public function reportState($report) {
+
+		global $root;
+		$state = false;
+
+		$this -> smarty -> assign('r', $report);
+		$this -> smarty -> assign('root', $root);
+
+		$body = $this -> smarty -> fetch('mail/reportState.tpl');
+		$this -> smarty -> assign('body', $body);
+		$mailContent = $this -> smarty -> fetch('mail/layout.tpl');
+
+		$mail = new MyMailer();
+		$mail -> Subject = $report['eName'] . ' - ' . $report['dOriginalName'];
+
+		$mail -> AddAddress($report['uEMailAdress']);
+
+		$mail -> Body = $mailContent;
+
+		if ($mail -> Send()) {
+			$state = true;
+			$messages[] = array(
+				'type' => 'save',
+				'text' => 'Mail versendet.'
+			);
+		} else
+			$messages[] = array(
+				'type' => 'error',
+				'text' => $mail -> ErrorInfo
+			);
+
+		$return['state'] = $state;
+		$return['messages'] = $messages;
+
+		return $return;
+	}
+
 	public function forgotPasswordMailSend($key, $uID) {
 
 		global $root;

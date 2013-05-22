@@ -125,5 +125,53 @@ class Report {
 
 		return $return;
 	}
+
+	/**
+	 * Returns the user informations from the given report id.
+	 * @return array with users details
+	 */
+	public static function getReportInformationForMail($rID) {
+		$state = false;
+		if (Validator::validate(VAL_INTEGER, $rID, true)) {
+			$db = new db();
+			$db -> read("
+				SELECT
+					u.uID, u.uName, u.uLastname, u.uEMailAdress,
+					r.rThreshold, r.rSimilarity, r.rDatetime, r.rEndTime, r.rErrorCode,
+					d.dOriginalName, d.dAuthor,
+					e.eName, e.eDescription
+				FROM
+					report AS r LEFT JOIN document AS d ON r.dID = d.dID
+					LEFT JOIN folder AS f ON d.fID = f.fID
+					LEFT JOIN folderpermission AS fp ON f.fID = fp.fID
+					LEFT JOIN user AS u ON fp.uID = u.uID
+					LEFT JOIN errorcode AS e ON r.rErrorCode = e.eID
+				WHERE 
+					 r.rID = $rID and fp.fpPermissionLevel = 900
+				");
+			$row = $db -> lines();
+			if (Validator::validate(VAL_INTEGER, $row['uID'])) {
+				$report = $row;
+				$state = true;
+			} else {
+				$messages[] = array(
+					'type' => 'error',
+					'text' => 'Report ID ist nicht gültig.'
+				);
+			}
+			$db -> disconnect();
+		} else {
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'Report ID hat kein gültiges Format.'
+			);
+		}
+
+		$return['report'] = $report;
+		$return['state'] = $state;
+		$return['messages'] = $messages;
+		return $return;
+
+	}
 }
 ?>

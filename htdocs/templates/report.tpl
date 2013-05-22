@@ -17,7 +17,7 @@
 	</ul>
 
 	<h1>{$title}</h1>
-	<table>
+	<table class="overview">
 		<tr>
 			<th>Dokumentname:</th>
 			<td>
@@ -27,19 +27,6 @@
 			<td>
 				{$report.dAuthor}
 			</th>
-
-		</tr>
-		<tr>
-			<th>Datum:</th>
-			<td>
-				{$report.rDatetime|date_format:'%d.%m.%Y %H:%M'}
-				<br />
-				{$report.rEndTime|date_format:'%d.%m.%Y %H:%M'}
-			</td>
-			<th>Plagiatsverdacht zu:</th>
-			<td>
-				{$report.rSimilarity} %
-			</td>
 		</tr>
 		<tr>
 			<th>Schwellenwert:</th>
@@ -56,8 +43,24 @@
 			<td>
 				{if $report.rCheckWWW == '1'}ja{else}nein{/if}
 			</td>
-			<th>Status der Prüfung:</th>
+			<th>Plagiatsverdacht zu:</th>
 			<td>
+				{$report.rSimilarity} %
+			</td>
+		</tr>
+		<tr>
+			<th>Start:</th>
+			<td>
+				{$report.rDatetime|date_format:'%d.%m.%Y %H:%M'}
+			</td>
+			<th>Stop:</th>
+			<td>
+				{$report.rEndTime|date_format:'%d.%m.%Y %H:%M'}
+			</td>
+		</tr>
+		<tr>
+			<th>Status der Prüfung:</th>
+			<td colspan="3">
 				{$report.eName} ({$report.eDescription})
 			</td>
 		</tr>
