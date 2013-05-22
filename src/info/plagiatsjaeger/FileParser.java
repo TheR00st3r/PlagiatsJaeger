@@ -152,6 +152,7 @@ public class FileParser
 			case HTML:
 			{
 				strText = parseHTML(dId);
+				result=true;
 				break;
 			}
 			default:
@@ -163,9 +164,11 @@ public class FileParser
 		Writer writer = null;
 		try
 		{
-			String strName = _file.getAbsolutePath().toString().substring(0, _file.getAbsolutePath().toString().length() - fileTyp.toString().length()) + "txt";
+			
+			//String strName = _file.getAbsolutePath().toString().substring(0, _file.getAbsolutePath().toString().length() - fileTyp.toString().length()) + "txt";
 			// strName= Selber Dateiname und Speicherort der geparsten Datei wie
 			// orginale Datei, nur mit txt Endung
+			String strName= Control.ROOT_FILES + dId + ".txt";
 			File file = new File(strName);
 			writer = new BufferedWriter(new FileWriter(file));
 
