@@ -188,7 +188,7 @@ public class FileParser
 			// writer soll auf jeden Fall geschlossen werden
 			writer.close();
 		}
-		_logger.info("Fileparsed:" + _file.getName());
+		
 		return result;
 	}
 
