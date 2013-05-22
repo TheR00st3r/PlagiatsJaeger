@@ -91,8 +91,6 @@ public class Control
 					}
 					catch (Exception e)
 					{
-						e.printStackTrace();
-						_logger.fatal(e.getLocalizedMessage());
 						_logger.fatal(e.getMessage(),e);
 					}
 				}
@@ -101,8 +99,7 @@ public class Control
 		}
 		catch (Exception e)
 		{
-			_logger.fatal(e.getMessage());
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(),e);
 		}
 		return result;
 
