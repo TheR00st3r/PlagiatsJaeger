@@ -9,11 +9,15 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.nio.charset.Charset;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.log4j.Logger;
 import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.pdfparser.PDFParser;
@@ -120,12 +124,6 @@ public class FileParser
 	{
 
 		boolean result = false;
-		// Txts werden einfach durchgereicht
-		if (fileTyp == FileType.TXT)
-		{
-			return true;
-		}
-
 		String strText = "";
 
 		// Auswahl Methode je nach Dateityp
@@ -152,7 +150,13 @@ public class FileParser
 			case HTML:
 			{
 				strText = parseHTML(dId);
-				result=true;
+				result = true;
+				break;
+			}
+			case TXT:
+			{
+				strText = parseTXT(dId);
+				result = true;
 				break;
 			}
 			default:
@@ -164,18 +168,20 @@ public class FileParser
 		Writer writer = null;
 		try
 		{
-			
-			//String strName = _file.getAbsolutePath().toString().substring(0, _file.getAbsolutePath().toString().length() - fileTyp.toString().length()) + "txt";
+
+			// String strName = _file.getAbsolutePath().toString().substring(0,
+			// _file.getAbsolutePath().toString().length() -
+			// fileTyp.toString().length()) + "txt";
 			// strName= Selber Dateiname und Speicherort der geparsten Datei wie
 			// orginale Datei, nur mit txt Endung
-			String strName= Control.ROOT_FILES + dId + ".txt";
+			String strName = Control.ROOT_FILES + dId + ".txt";
 			File file = new File(strName);
 			writer = new BufferedWriter(new FileWriter(file));
 
 			if (strText == "")
 			{
 				_logger.info("Im Dokument wurde kein Text festgestellt");
-				result=false;
+				result = false;
 			}
 			else
 			{
@@ -188,7 +194,22 @@ public class FileParser
 			// writer soll auf jeden Fall geschlossen werden
 			writer.close();
 		}
-		
+
+		return result;
+	}
+
+	private String parseTXT(int dId)
+	{
+		String result = "";
+		String text = SourceLoader.loadFile(Control.ROOT_FILES + dId + ".txt");
+		try
+		{
+			result = new String(Charset.forName("UTF-8").encode(text).array(), "CP1252");
+		}
+		catch (UnsupportedEncodingException e)
+		{
+			_logger.fatal(e.getMessage(), e);
+		}
 		return result;
 	}
 

@@ -6,6 +6,7 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
@@ -33,8 +34,8 @@ public class SourceLoader
 	private static final String	DEFAULT_CONTENTTYPE	= ConfigReader.getPropertyString("DEFAULTCONTENTTYPE");
 	private static final String	CONTENTTYPE_PATTERN	= ConfigReader.getPropertyString("CONTENTTYPEPATTERN");
 
-	private static String _detectedCharset;
-	
+	private static String		_detectedCharset;
+
 	/**
 	 * Laed den Text einer Webseite.
 	 * 
@@ -71,16 +72,16 @@ public class SourceLoader
 				{
 					_logger.info("No match found " + strUrl);
 					// TODO: Gesamte seite nach contenttype durchsuchen
-					detectCharset(url);
+					detectCharset(url.openStream());
 					result = loadSiteWithCharset(urlConnection, _detectedCharset);
 				}
 			}
 			else
 			{
 				_logger.info("CONTENT_TYPE IS null " + strUrl);
-				detectCharset(url);
+				detectCharset(url.openStream());
 				result = loadSiteWithCharset(urlConnection, _detectedCharset);
-			}			
+			}
 		}
 		catch (MalformedURLException e)
 		{
@@ -100,7 +101,7 @@ public class SourceLoader
 		return result;
 	}
 
-	private static void detectCharset(URL url)
+	private static void detectCharset(InputStream stream)
 	{
 		_logger.info("Detect Charset...");
 		nsDetector detector = new nsDetector();
@@ -117,7 +118,7 @@ public class SourceLoader
 		BufferedInputStream imp;
 		try
 		{
-			imp = new BufferedInputStream(url.openStream());
+			imp = new BufferedInputStream(stream);
 			byte[] buf = new byte[1024];
 			int len;
 			boolean done = false;
@@ -136,14 +137,13 @@ public class SourceLoader
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 	}
 
 	private static String loadSiteWithCharset(URLConnection urlConnection, String charset)
 	{
-		if(charset==null)
+		if (charset == null)
 		{
 			charset = DEFAULT_CONTENTTYPE;
 		}
@@ -153,7 +153,7 @@ public class SourceLoader
 		try
 		{
 			inputStreamReader = new InputStreamReader(urlConnection.getInputStream(), charset);
-			
+
 			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
 			String line = "";
@@ -164,17 +164,15 @@ public class SourceLoader
 		}
 		catch (UnsupportedEncodingException e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
 		}
 		return Jsoup.parse(stringBuilder.toString()).text();
 	}
-	
+
 	/**
 	 * Laed eine Datei.
 	 * 
@@ -194,8 +192,16 @@ public class SourceLoader
 			String line = "";
 			fileInputstream = new FileInputStream(filePath);
 			dataInputStream = new DataInputStream(fileInputstream);
-			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(dataInputStream));
-
+			detectCharset(fileInputstream);
+			BufferedReader bufferedReader = null;
+			if (_detectedCharset != null)
+			{
+				bufferedReader = new BufferedReader(new InputStreamReader(dataInputStream, _detectedCharset));
+			}
+			else
+			{
+				bufferedReader = new BufferedReader(new InputStreamReader(dataInputStream));
+			}
 			while ((line = bufferedReader.readLine()) != null)
 			{
 				stringBuilder.append(line).append("\n");
