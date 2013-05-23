@@ -21,28 +21,13 @@ class UserTest extends PHPUnit_Framework_TestCase {
   protected function tearDown() {
     echo "tearDown()";
   }
-
-  /*
-   * create an object of User class
-   */
-  public function test_createObject() {
-    $userObject = null;
-    $userObject = new User();
-
-    if ($userObject != null) {
-      $assert = true;
-    } else {
-      $assert = false;
-    }
-
-    $this -> assertEquals(true, $assert);
-  }
+  
 
   /*
    * check if getAllUsers returns at least one value
    */
   public function test_getAllUsersTest() {
-    $return = User::getAllUsers();
+    $return = User::getAllUser();
     if (count($return) > 0) {
       $assert = true;
     }
@@ -58,7 +43,7 @@ class UserTest extends PHPUnit_Framework_TestCase {
    * check if the name is the same
    */
   public function test_getUser() {
-    $return = User::getAllUsers();
+    $return = User::getAllUser();
     if (count($return) > 0) {
       $returnUser = User::getUser($return[0]['uID']);
 
