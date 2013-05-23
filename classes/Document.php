@@ -35,8 +35,14 @@ class Document {
 
 	/**
 	 * Uploads a given file and creates a database entry.
-	 * @param int $dID
-	 * @return string
+	 * @param int $fID
+	 * @param string $dAuthor
+	 * @param array $files
+	 * @param int $slID
+	 * @param int $seID
+	 * @param double $uThreshold
+	 * @param boolean $uCheckWWW
+	 * @return void
 	 */
 	public static function addDocument($fID, $dAuthor, $files, $slID, $seID, $uThreshold, $uCheckWWW) {
 		$state = false;
@@ -91,11 +97,14 @@ class Document {
 
 	/**
 	 * Saves the short upload text fragments to a file and the informations into the database.
-	 * @param int $uID
 	 * @param int $fID
 	 * @param string $dAuthor
 	 * @param string $text
-	 * @return boolean
+	 * @param int $slID
+	 * @param int $seID
+	 * @param double $uThreshold
+	 * @param boolean $uCheckWWW
+	 * @return void
 	 */
 	public static function addSnipped($fID, $dAuthor, $text, $slID, $seID, $uThreshold, $uCheckWWW) {
 		$state = false;
@@ -142,16 +151,22 @@ class Document {
 
 	/**
 	 * Uploads a given file and creates a database entry.
-	 * @param int $dID
-	 * @return string
+	 * @param int $fID
+	 * @param string $dAuthor
+	 * @param string $link
+	 * @param int $slID
+	 * @param int $seID
+	 * @param double $uThreshold
+	 * @param boolean $uCheckWWW
+	 * @return void
 	 */
-	public static function addUrl($fID, $dAuthor, $dOriginalName, $slID, $seID, $uThreshold, $uCheckWWW) {
+	public static function addUrl($fID, $dAuthor, $link, $slID, $seID, $uThreshold, $uCheckWWW) {
 		$state = false;
 		$messages = array();
 		if (Validator::validate(VAL_INTEGER, $fID, true) and Validator::validate(VAL_STRING, $dAuthor)) {
 			$db = new db();
 			if ($db -> insert('document', array(
-				'dOriginalName' => $dOriginalName,
+				'dOriginalName' => $link,
 				'dFileExtension' => '.html',
 				'dAuthor' => $dAuthor,
 				'fID' => $fID
@@ -188,6 +203,11 @@ class Document {
 		return $return;
 	}
 
+	/**
+	 * Deletes the document with ge given document id.
+	 * @param int $dID
+	 * @return void
+	 */
 	public static function deleteDocument($dID) {
 		$state = false;
 		if (Validator::validate(VAL_INTEGER, $dID, true)) {
