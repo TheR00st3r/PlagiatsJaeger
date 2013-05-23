@@ -12,24 +12,53 @@ import info.plagiatsjaeger.types.Settings;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Locale;
+
+import org.lorecraft.phparser.SerializedPhpParser;
+import org.lorecraft.phparser.SerializedPhpParser.PhpObject;
 
 public class TestDatabase
 {
 	
 	public static void main(String[] args)
 	{
+		String input = "a:3:{i:0;s:2:\"15\";i:1;s:2:\"31\";i:2;s:2:\"45\";}";
+		//String statementFile = "SELECT dID from document WHERE fID IN (";
+		SerializedPhpParser serializedPhpParser = new SerializedPhpParser(input);
+		LinkedHashMap<Integer,String> test = (LinkedHashMap<Integer,String>) serializedPhpParser.parse();
 		
-		DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.GERMAN);
-		otherSymbols.setDecimalSeparator('.');
+		StringBuilder sb = new StringBuilder();
+		for (Integer key : test.keySet())
+		 	{
+		 	 if(test.get(key).length() == 0)
+		 	 {
+		 	 //_logger.fatal("There is an Error for " + key) ;
+		 	 }
+		 	 else
+		 	 {
+		  if(sb.length()!=0)
+		  {
+		  sb.append(",");
+		  }
+		  sb.append(test.get(key));
+		 	 }
+		 	}
+		
+		String statementFile = "SELECT dID from document as d WHERE fID IN (" + sb.toString() +")";
+		
+		System.out.println(statementFile);
+		
+		//DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.GERMAN);
+		//otherSymbols.setDecimalSeparator('.');
 		//otherSymbols.setGroupingSeparator('.'); 
 
 		
-		DecimalFormat df = new DecimalFormat("###.##", otherSymbols);
+		//DecimalFormat df = new DecimalFormat("###.##", otherSymbols);
 		
-		String test = df.format(0.96677*100);
+		//String test = df.format(0.96677*100);
 		
-		System.out.println(test);
+		//System.out.println(test);
 		
 //		IComparer comparer = new MyComparer(1);
 //		final MySqlDatabaseHelper dbhelper = new MySqlDatabaseHelper();
