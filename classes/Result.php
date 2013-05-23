@@ -55,7 +55,7 @@ class Result {
 				WHERE
 					rt.rID = '$rID'
 				GROUP BY
-					rt.rtSourceLink, rt.rtSourcedID
+					rt.rtSourceLink
 				ORDER BY
 					count DESC");
 

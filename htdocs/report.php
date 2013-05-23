@@ -35,7 +35,7 @@ switch ($_GET['type']) {
 		$color[1]['value'] = $sim + (100 - $sim) * 1 / 3;
 		$color[1]['color'] = '#FF7722';
 		$color[2]['value'] = $sim + (100 - $sim) * 2 / 3;
-		$color[2]['color'] = '#ff0000';
+		$color[2]['color'] = '#a52a2a';
 
 		//
 		// echo $sim.'<br />';
