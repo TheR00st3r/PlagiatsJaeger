@@ -55,14 +55,12 @@ class File {
 				'.pdf',
 				'.doc',
 				'.docx',
-				'.txt',
-				'.html'
+				'.txt'
 			);
 
 			if ($file["tmp_name"] != '') {
 
-				$pos = strripos($file["name"], '.');
-				$extension = strtolower(substr($file["name"], $pos));
+				$extension = self::getFileExtension($file['name']);
 
 				if (in_array($extension, $allowedExtensions)) {
 
@@ -150,6 +148,11 @@ class File {
 		$return['messages'] = $messages;
 
 		return $return;
+	}
+
+	public static function getFileExtension($fileName) {
+		$pos = strripos($file["name"], '.');
+		return strtolower(substr($file["name"], $pos));
 	}
 
 }
