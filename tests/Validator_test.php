@@ -23,7 +23,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase {
 
 
   public function test_IsString() {
-    $assert = Validator::validate(VAL_STRING, 'Hallo, ich bin ein String! :-)', true);
+    $assert = Validator::validate(VAL_STRING, 'abCdeFghiJKLMNOPQ()...', true);
     $this->assertEquals(true, $assert);
   }
   
