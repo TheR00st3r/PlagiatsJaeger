@@ -4,7 +4,7 @@ class Document {
 	/**
 	 * Returns all documents from given folder id.
 	 * @param int $fID
-	 * @return Array documents
+	 * @return array documents
 	 */
 	public static function getDocumentsFromFolderID($fID) {
 
@@ -290,7 +290,7 @@ class Document {
 	 * Edit the Autor name from the given document id.
 	 * @param int $dID
 	 * @param string $dAuthor
-	 * @return boolean
+	 * @return boolean edit state
 	 */
 	public static function editAutor($dID, $dAuthor) {
 		$db = new db();

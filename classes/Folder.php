@@ -7,7 +7,7 @@ class Folder {
 	 * @param int $level
 	 * @param string $path
 	 * @param string $pathName
-	 * @return array
+	 * @return array folder tree
 	 */
 	public static function getFolderArray($fParentID, $depth = 999, $level = 0, $path = '', $pathName = '') {
 
@@ -62,6 +62,14 @@ class Folder {
 		return $folder;
 	}
 
+	/**
+	 * Returns the recursive folder navigation as multidimensional array from shared folders.
+	 * @param int $fParentID
+	 * @param int $status
+	 * @param string $path
+	 * @param string $pathName
+	 * @return array folder tree
+	 */
 	public static function getSharedFolderArray($fParentID, $status = 0, $path = '', $pathName = '') {
 
 		$uID = LoginAccess::getUserID();
@@ -139,7 +147,7 @@ class Folder {
 	 * @param int $level
 	 * @param string $path
 	 * @param string $pathName
-	 * @return array
+	 * @return array folder tree
 	 */
 	public static function getFolders($fParentID, $depth = 999, $level = 0, $path = '', $pathName = '') {
 
@@ -191,6 +199,14 @@ class Folder {
 		return $folder;
 	}
 
+	/**
+	 * Returns the recursive shared folder navigation as array.
+	 * @param int $fParentID
+	 * @param int $status
+	 * @param string $path
+	 * @param string $pathName
+	 * @return array folder tree
+	 */
 	public static function getSharedFolders($fParentID, $status = 0, $path = '', $pathName = '') {
 
 		$uID = LoginAccess::getUserID();
@@ -263,7 +279,7 @@ class Folder {
 	}
 
 	/**
-	 * Add new folder
+	 * Add new folder.
 	 * @param int $fName
 	 * @param int $fParentID
 	 * @param int $uID
@@ -294,7 +310,7 @@ class Folder {
 	/**
 	 * Delete folder with given folder id.
 	 * @param int $fID
-	 * @return boolean
+	 * @return void
 	 */
 	public static function deleteFolder($fID) {
 		$state = false;
@@ -327,7 +343,8 @@ class Folder {
 	/**
 	 * Add hash link for given folder id.
 	 * @param int $fID
-	 * @return string (Hash value)
+	 * @param datetime $fLinkExpireDatetime
+	 * @return void
 	 */
 	public static function addFolderLink($fID, $fLinkExpireDatetime) {
 		$state = false;
@@ -365,7 +382,7 @@ class Folder {
 	/**
 	 * Returns the folder from the given hash value.
 	 * @param string $hash
-	 * @return array
+	 * @return array folder values
 	 */
 	public static function getFolderFromHash($hash) {
 		$db = new db();
@@ -387,7 +404,7 @@ class Folder {
 	 * Edit the foler name from the given folder id.
 	 * @param int $fID
 	 * @param string $fName
-	 * @return boolean
+	 * @return boolean edit state
 	 */
 	public static function editFolderName($fID, $fName) {
 		$db = new db();
@@ -401,7 +418,7 @@ class Folder {
 	 * @param int $fpPermissionLevel
 	 * @param int $fID
 	 * @param int $uID
-	 * @return boolean
+	 * @return void
 	 */
 	private static function saveFolderPermission($fpPermissionLevel, $fID, $uID) {
 		$state = false;
@@ -440,8 +457,8 @@ class Folder {
 	 * Saves the folder permission for the given folder id und user ids.
 	 * @param int $fpPermissionLevel
 	 * @param int $fID
-	 * @param int array $uIDs
-	 * @return boolean
+	 * @param int $uIDs array
+	 * @return void
 	 */
 	public static function saveMultibleFolderPermissions($fpPermissionLevel, $fID, $uIDs) {
 		self::deleteFolderPermissionsFromFolderId($fID);
@@ -466,6 +483,11 @@ class Folder {
 		return $return;
 	}
 
+	/**
+	 * Returns the folder permissions from the given folder id.
+	 * @param int $fID
+	 * @return array uID array
+	 */
 	private static function getFolderPermissions($fID) {
 		$db = new db();
 		$db -> read("
@@ -486,6 +508,11 @@ class Folder {
 		return $return;
 	}
 
+	/**
+	 * Deletes all shared permissions from given folder id.
+	 * @param int $fID
+	 * @return void
+	 */
 	private static function deleteFolderPermissionsFromFolderId($fID) {
 		$db = new db();
 		$db -> deleteWithWhereArray('folderpermission', array(
