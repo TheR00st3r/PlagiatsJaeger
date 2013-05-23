@@ -43,10 +43,7 @@ if ($page == 'public') {
 				if (Validator::validate(VAL_STRING, $_POST['dAddAutor'], true) and isset($_FILES['dAddFile'])) {
 					require_once '../classes/Document.php';
 					$check = Document::addDocument($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'], $folder['slID'], $folder['seID'], $folder['uThreshold'], $folder['uCheckWWW']);
-					if ($check['state']) {
-						$contentTpl = 'vielen Dank!';
-					} else
-						$contentTpl = 'upload Error';
+					$smarty -> assign('messages', $check['messages']);
 				} else {
 					$messages[] = array(
 						'type' => 'error',
@@ -124,7 +121,7 @@ if ($page == 'public') {
 			// POST FUNCTIONS
 			switch ($post) {
 				case 'createLink' :
-					$date = $_POST['fLinkExpireDatetime']['Y'].'-'.$_POST['fLinkExpireDatetime']['m'].'-'.$_POST['fLinkExpireDatetime']['d'].' '.$_POST['fLinkExpireDatetime']['H'].':'.$_POST['fLinkExpireDatetime']['M'].':00';
+					$date = $_POST['fLinkExpireDatetime']['Y'] . '-' . $_POST['fLinkExpireDatetime']['m'] . '-' . $_POST['fLinkExpireDatetime']['d'] . ' ' . $_POST['fLinkExpireDatetime']['H'] . ':' . $_POST['fLinkExpireDatetime']['M'] . ':00';
 					$check = Folder::addFolderLink($_POST['fID'], $date);
 					break;
 				case 'shareFolder' :
@@ -137,7 +134,6 @@ if ($page == 'public') {
 					$check = Folder::deleteFolder($_POST['fID']);
 					break;
 				case 'newFile' :
-					// print_array($_FILES['dAddFile']);
 					$check = Document::addDocument($folder['fID'], $_POST['dAddAutor'], $_FILES['dAddFile'], $userSettings['slID'], $userSettings['seID'], $userSettings['uThreshold'], $userSettings['uCheckWWW']);
 					break;
 				case 'newUrl' :
@@ -158,8 +154,8 @@ if ($page == 'public') {
 
 			//get documents from selected folder
 			if ($shared) {
-				if($folder['show'] == 2)
-				$smarty -> assign('documents', Document::getDocumentsFromFolderID($folder['fID']));
+				if ($folder['show'] == 2)
+					$smarty -> assign('documents', Document::getDocumentsFromFolderID($folder['fID']));
 			} else {
 				$smarty -> assign('documents', Document::getDocumentsFromFolderID($folder['fID']));
 			}
