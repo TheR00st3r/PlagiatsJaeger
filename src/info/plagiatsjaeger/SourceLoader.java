@@ -193,7 +193,7 @@ public class SourceLoader
 			fileInputstream = new FileInputStream(filePath);
 			dataInputStream = new DataInputStream(fileInputstream);
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(dataInputStream));
-			
+
 			while ((line = bufferedReader.readLine()) != null)
 			{
 				stringBuilder.append(line).append("\n");
