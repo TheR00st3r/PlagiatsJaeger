@@ -292,7 +292,7 @@ public class Control
 			mySqlDatabaseHelper.setReportState(rId, ErrorCode.Succesful);
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			mySqlDatabaseHelper.finishReport(rId, _similarity, simpleDateFormat.format(Calendar.getInstance().getTime()));
-			if (_similarity > _settings.getThreshold())
+			if ((_similarity * 100) > _settings.getThreshold())
 			{
 				SourceLoader.loadURL("http://192.168.4.28/sendmail.php?rID=" + rId);
 			}

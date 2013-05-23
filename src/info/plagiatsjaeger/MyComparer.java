@@ -97,7 +97,6 @@ public class MyComparer implements IComparer
 
 		for (int iCheck = 0; iCheck < _checkWords.length; iCheck++)
 		{
-			_logger.info("Aktuelles Wort Orginaldokument: " + iCheck);
 			sbCheckText.delete(0, sbCheckText.length());
 			int jCheck = 0;
 			for (; (jCheck < NUM_WORDS_TO_COMPARE) && ((iCheck + jCheck) < _checkWords.length); jCheck++)
