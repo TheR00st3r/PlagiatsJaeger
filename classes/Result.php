@@ -42,7 +42,7 @@ class Result {
 			$db = new db();
 			$db -> read("
 				SELECT
-					COUNT(rt.rtSourceLink) as count, rt.rtSourceLink, rt.rtSourcedID,
+					COUNT(*) as count, rt.rtSourceLink, rt.rtSourcedID,
 					d.dOriginalName, d.dAuthor,
 					f.fName,
 					u.uName, u.uLastname
@@ -55,7 +55,7 @@ class Result {
 				WHERE
 					rt.rID = '$rID'
 				GROUP BY
-					rt.rtSourceLink
+					rt.rtSourceLink, rt.rtSourcedID
 				ORDER BY
 					count DESC");
 
