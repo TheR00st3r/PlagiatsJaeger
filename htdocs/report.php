@@ -18,8 +18,7 @@ $messages[] = $reportCheck['messages'];
 $documentCheck = Document::getDocumentOriginalContent($reportCheck['report']['dID']);
 if ($documentCheck['state']) {
 	$split = explode(" ", $documentCheck['file']);
-}
-else {
+} else {
 	$split = '';
 	$messages = array_merge($messages, $documentCheck['messages']);
 }
@@ -27,12 +26,17 @@ else {
 switch ($_GET['type']) {
 	case 'grafic' :
 		$title = 'Grafikbericht';
-	
+
 		$results = Result::getGraficReportResult($_GET['rID'], $reportCheck['report']['rThreshold']);
 		$sim = $reportCheck['report']['rThreshold'];
-		$color1 = $sim;
-		$color2 = $sim + (100 - $sim) * 1 / 3;
-		$color3 = $sim + (100 - $sim) * 2 / 3;
+
+		$color[0]['value'] = $sim;
+		$color[0]['color'] = '#ffff00';
+		$color[1]['value'] = $sim + (100 - $sim) * 1 / 3;
+		$color[1]['color'] = '#FF7722';
+		$color[2]['value'] = $sim + (100 - $sim) * 2 / 3;
+		$color[2]['color'] = '#ff0000';
+
 		//
 		// echo $sim.'<br />';
 		// echo $color1.'<br />';
@@ -117,12 +121,12 @@ switch ($_GET['type']) {
 			// $output .= '|' . $a['start'] . '-' . $a['stop'] . '|';
 			if ($a['type'] != 0) {
 
-				if ($a['rtSimilarity'] >= $color3)
-					$background = '#f00';
-				else if ($a['rtSimilarity'] >= $color2)
-					$background = '#FF7722';
+				if ($a['rtSimilarity'] >= $color[2]['value'])
+					$background = $color[2]['color'];
+				else if ($a['rtSimilarity'] >= $color[1]['value'])
+					$background = $color[1]['color'];
 				else if ($a['rtSimilarity'])
-					$background = '#ff0';
+					$background = $color[0]['color'];
 
 				//TODO DEBUG [xx-xx] //[' . $a['rtStartWord'] . '-' . $a['rtEndWord'] . ']
 				$output .= '<div class="rtSourceText">' . $a['rtSourceText'] . ' <b>(<a target="_blank" href="' . $a['rtSourceLink'] . '" title="' . $a['rtSourceLink'] . '" />' . $a['rtSimilarity'] . ' %</a>)</b></div>';
@@ -192,6 +196,7 @@ switch ($_GET['type']) {
 		break;
 }
 
+$smarty -> assign('color', $color);
 $smarty -> assign('results', $output);
 $smarty -> assign('title', $title);
 // $temp = $smarty -> fetch($reportContent);

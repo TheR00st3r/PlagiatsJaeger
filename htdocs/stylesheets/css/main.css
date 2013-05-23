@@ -46,6 +46,7 @@ tr:hover{background:#ffa !important;}
 .report h2{margin:30px 0 0 0;font-size:11pt;}
 .report h3{margin:15px 0 5px 0;padding:0px;}
 .report .overview{width:100%;}.report .overview th{text-align:right;min-width:120px;padding:0 20px 0 0;background:#fff !important;}
+.report .legende{width:100%;}.report .legende td{text-align:center;}
 .report table.short th{text-align:left;padding:10px;}
 .report p{margin:0 0 5px 0;padding:0px;}
 .report .plags{margin:0 0 0 50px;}.report .plags .link{text-align:right;font-style:italic;}
