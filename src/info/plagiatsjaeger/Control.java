@@ -220,7 +220,7 @@ public class Control
 					public Void call()
 					{
 						_logger.info("Thread for File started: " + i + ".txt");
-						compare(rId, strSourceText, "", i);
+						compare(rId, strSourceText, SourceLoader.loadFile(ROOT_FILES + i + ".txt"), i);
 						return null;
 					}
 				}));
