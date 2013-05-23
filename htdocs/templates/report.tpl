@@ -4,7 +4,12 @@
 		{$message.text}
 	</div>
 	{/foreach}
-	<ul>
+
+	<div class="floatright noprint">
+		<a target="_blank" href="report.php?rID={$smarty.get.rID}&amp;type={$smarty.get.type}&amp;print=1">drucken</a>
+	</div>
+
+	<ul class="noprint">
 		<li>
 			<a href="report.php?rID={$smarty.get.rID}&amp;type=short">Schnellbericht</a>
 		</li>

@@ -8,6 +8,7 @@
 
 		<!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" /> -->
 		<link rel="stylesheet" href="{$root}stylesheets/css/main.css" type="text/css" media="all" />
+		<link rel="stylesheet" href="{$root}stylesheets/css/print.css" type="text/css" media="print" />
 		<!-- <link rel="stylesheet/less" type="text/css" href="{$root}stylesheets/main/less/main.less"> -->
 
 		<script type="text/javascript" src="{$root}thirdparty/jquery-1.8.2.min.js"></script>
@@ -35,7 +36,7 @@
 		<script type="text/javascript" src="{$root}js/anytime.js"></script>
 
 	</head>
-	<body>
+	<body {if $smarty.get.print}onLoad="javascript:window.print()"{/if}>
 		{$body}
 	</body>
 </html>
