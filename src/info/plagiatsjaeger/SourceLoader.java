@@ -192,8 +192,8 @@ public class SourceLoader
 			String line = "";
 			fileInputstream = new FileInputStream(filePath);
 			dataInputStream = new DataInputStream(fileInputstream);
-			detectCharset(fileInputstream);
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(dataInputStream));
+			
 			while ((line = bufferedReader.readLine()) != null)
 			{
 				stringBuilder.append(line).append("\n");
