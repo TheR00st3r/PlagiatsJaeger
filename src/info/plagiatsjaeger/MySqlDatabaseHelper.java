@@ -282,36 +282,38 @@ public class MySqlDatabaseHelper
 				result = Settings.getInstance();
 				String input = rstResultSet.getString("r.rCheckIDs");
 				ArrayList<Integer> localFiles = new ArrayList<Integer>();
-				SerializedPhpParser serializedPhpParser = new SerializedPhpParser(input);
-				LinkedHashMap<Integer, String> fileHashMap = (LinkedHashMap<Integer, String>) serializedPhpParser.parse();
-				StringBuilder sb = new StringBuilder();
-
-				if (!fileHashMap.isEmpty())
+				if (input.length() <= 0)
 				{
-					for (Integer key : fileHashMap.keySet())
-					{
-						if (fileHashMap.get(key).length() == 0)
-						{
-							_logger.fatal("There is an Error for " + key);
-						}
-						else
-						{
-							if (sb.length() != 0)
-							{
-								sb.append(",");
-							}
-							sb.append(fileHashMap.get(key));
-						}
-					}
+					SerializedPhpParser serializedPhpParser = new SerializedPhpParser(input);
+					LinkedHashMap<Integer, String> fileHashMap = (LinkedHashMap<Integer, String>) serializedPhpParser.parse();
+					StringBuilder sb = new StringBuilder();
 
-					String statementFile = "SELECT dID from document as d WHERE fID IN (" + sb.toString() + ")";
-					ResultSet rstResultSetFile = startQuery(statementFile);
-					while (rstResultSetFile.next())
+					if (!fileHashMap.isEmpty())
 					{
-						localFiles.add(rstResultSetFile.getInt("d.dID"));
+						for (Integer key : fileHashMap.keySet())
+						{
+							if (fileHashMap.get(key).length() == 0)
+							{
+								_logger.fatal("There is an Error for " + key);
+							}
+							else
+							{
+								if (sb.length() != 0)
+								{
+									sb.append(",");
+								}
+								sb.append(fileHashMap.get(key));
+							}
+						}
+
+						String statementFile = "SELECT dID from document as d WHERE fID IN (" + sb.toString() + ")";
+						ResultSet rstResultSetFile = startQuery(statementFile);
+						while (rstResultSetFile.next())
+						{
+							localFiles.add(rstResultSetFile.getInt("d.dID"));
+						}
 					}
 				}
-				
 				result.putSettings(rstResultSet.getInt("r.rThreshold"), rstResultSet.getInt("sl.slSearchSentenceLength"), rstResultSet.getInt("sl.slSearchJumpLength"), rstResultSet.getInt("sl.slCompareSentenceLength"), rstResultSet.getInt("sl.slCompareJumpLength"), rstResultSet.getBoolean("r.rCheckWWW"), localFiles, rstResultSet.getString("se.seURL"), rstResultSet.getString("se.seURLSearchArg"), rstResultSet.getString("se.seURLAuthArg"), rstResultSet.getString("se.seUrlArgs"), rstResultSet.getInt("sl.slSearchNumLinks"));
 			}
 		}

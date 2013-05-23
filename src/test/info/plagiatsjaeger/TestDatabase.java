@@ -23,7 +23,7 @@ public class TestDatabase
 	
 	public static void main(String[] args)
 	{
-		String input = "a:3:{i:0;s:2:\"15\";i:1;s:2:\"31\";i:2;s:2:\"45\";}";
+		String input = "a:0:{}";
 		//String statementFile = "SELECT dID from document WHERE fID IN (";
 		SerializedPhpParser serializedPhpParser = new SerializedPhpParser(input);
 		LinkedHashMap<Integer,String> test = (LinkedHashMap<Integer,String>) serializedPhpParser.parse();
