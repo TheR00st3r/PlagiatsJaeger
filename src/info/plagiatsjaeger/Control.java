@@ -222,7 +222,7 @@ public class Control
 					public Void call()
 					{
 						_logger.info("Thread for File started: " + i + ".txt");
-						compare(rId, strSourceText, SourceLoader.loadFile(ROOT_FILES + i + ".txt"), i);
+						compare(rId, strSourceText, "", i);
 						return null;
 					}
 				}));
@@ -339,10 +339,12 @@ public class Control
 		});
 		if (docId <= 0)
 		{
+			_logger.info("Compare To URL: " + link);
 			comparer.compareText(checkText, SourceLoader.loadURL(link), link);
 		}
 		else
 		{
+			_logger.info("Compare To Document: " + docId);
 			comparer.compareText(checkText, SourceLoader.loadFile(ROOT_FILES + docId + ".txt"), docId);
 		}
 	}
