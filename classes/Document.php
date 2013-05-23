@@ -11,7 +11,7 @@ class Document {
 		$db = new db();
 		$db -> read("
 				SELECT
-					d.dID, d.dOriginalName, d.dAuthor, d.fID, d.dIsParsed
+					d.dID, d.dOriginalName, d.dFileExtension, d.dAuthor, d.fID, d.dIsParsed
 				FROM
 					document AS d
 				WHERE
@@ -55,6 +55,7 @@ class Document {
 				$db = new db();
 				if ($db -> insert('document', array(
 					'dOriginalName' => $file["name"],
+					'dFileExtension' => File::getFileExtension($file["name"]),
 					'dAuthor' => $dAuthor,
 					'fID' => $fID
 				))) {
@@ -103,6 +104,7 @@ class Document {
 			$db = new db();
 			if ($db -> insert('document', array(
 				'dOriginalName' => 'Schnelltest Upload',
+				'dFileExtension' => '.txt',
 				'dAuthor' => $dAuthor,
 				'fID' => $fID,
 				'dIsParsed' => 1
@@ -150,6 +152,7 @@ class Document {
 			$db = new db();
 			if ($db -> insert('document', array(
 				'dOriginalName' => $dOriginalName,
+				'dFileExtension' => '.html',
 				'dAuthor' => $dAuthor,
 				'fID' => $fID
 			))) {
@@ -224,7 +227,7 @@ class Document {
 			$db = new db();
 			$db -> read("
 					SELECT
-						d.dID, d.dOriginalName, d.dAuthor, d.fID, d.dIsParsed
+						d.dID, d.dOriginalName, d.dFileExtension, d.dAuthor, d.fID, d.dIsParsed
 					FROM
 						document AS d
 					WHERE
