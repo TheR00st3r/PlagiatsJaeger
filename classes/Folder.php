@@ -10,7 +10,7 @@ class Folder {
 	 * @return array
 	 */
 	public static function getFolderArray($fParentID, $depth = 999, $level = 0, $path = '', $pathName = '') {
-			
+
 		$uID = LoginAccess::getUserID();
 
 		if ($level > $depth)
@@ -330,17 +330,36 @@ class Folder {
 	 * @return string (Hash value)
 	 */
 	public static function addFolderLink($fID, $fLinkExpireDatetime) {
-		$hash = md5(uniqid());
-		$db = new db();
-		if ($db -> update('folder', array(
-			'fHashLink' => $hash,
-			'fLinkExpireDatetime' => $fLinkExpireDatetime
-		), array('fID' => $fID))) {
+		$state = false;
+		if (Validator::validate(VAL_INTEGER, $fID, true) and Validator::validate(VAL_INTEGER, $fID, true)) {
+			$hash = md5(uniqid());
+			$db = new db();
+			if ($db -> update('folder', array(
+				'fHashLink' => $hash,
+				'fLinkExpireDatetime' => $fLinkExpireDatetime
+			), array('fID' => $fID))) {
+				$db -> disconnect();
+				$state = true;
+				$messages[] = array(
+					'type' => 'save',
+					'text' => 'Freigabelink gespeichert.'
+				);
+			} else
+				$messages[] = array(
+					'type' => 'error',
+					'text' => 'Freigabelink konnte nicht gespeichert werden.'
+				);
 			$db -> disconnect();
-			return $hash;
-		}
-		$db -> disconnect();
-		return false;
+		} else
+			$messages[] = array(
+				'type' => 'error',
+				'text' => 'Parameter nicht korrekt.'
+			);
+
+		$return['state'] = $state;
+		$return['messages'] = $messages;
+
+		return $return;
 	}
 
 	/**

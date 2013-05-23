@@ -124,7 +124,8 @@ if ($page == 'public') {
 			// POST FUNCTIONS
 			switch ($post) {
 				case 'createLink' :
-					Folder::addFolderLink($_POST['fID'], $_POST['fLinkExpireDatetime']);
+					$date = $_POST['fLinkExpireDatetime']['Y'].'-'.$_POST['fLinkExpireDatetime']['m'].'-'.$_POST['fLinkExpireDatetime']['d'].' '.$_POST['fLinkExpireDatetime']['H'].':'.$_POST['fLinkExpireDatetime']['M'].':00';
+					$check = Folder::addFolderLink($_POST['fID'], $date);
 					break;
 				case 'shareFolder' :
 					$check = Folder::saveMultibleFolderPermissions(700, $_POST['fID'], $_POST['uIDs']);

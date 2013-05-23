@@ -1,11 +1,11 @@
 <?php
 
 if ($_SERVER['SERVER_NAME'] == 'localhost') {
-	// $logData['host'] = 'localhost';
-	// $logData['user'] = 'root';
-	// $logData['pass'] = 'p4EHd4qL2pvy8';
-	// $logData['database'] = 'plagiatsjaeger';
-	require_once '../../database.php';
+	$logData['host'] = 'localhost';
+	$logData['user'] = 'root';
+	$logData['pass'] = 'p4EHd4qL2pvy8';
+	$logData['database'] = 'plagiatsjaeger';
+	// require_once '../../database.php';
 
 	$logData['uploadpath'] = '../uploads/';
 

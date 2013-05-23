@@ -6,7 +6,7 @@
 	{/foreach}
 
 	<div class="floatright noprint">
-		<a target="_blank" href="report.php?rID={$smarty.get.rID}&amp;type={$smarty.get.type}&amp;print=1">drucken</a>
+		<a target="_blank" href="report.php?rID={$smarty.get.rID}&amp;type={$smarty.get.type}&amp;print=1"><img src="{$root}images/print.png" alt="{$title} drucken" title="{$title} drucken" /></a>
 	</div>
 
 	<ul class="noprint">
