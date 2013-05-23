@@ -3,10 +3,9 @@
               Any modifications will be overwritten.
               To include a user specific buildfile here, simply create one in the same
               directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. -->
-<project basedir="." default="build" name="PlagiatsSoftware">
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="PlagiatsSoftware">
     <property environment="env"/>
-    <property name="ECLIPSE_HOME" value="../../../../Program Files/eclipse"/>
+    <property name="ECLIPSE_HOME" value="../../../../Program Files/Eclipse"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.6"/>
     <property name="source" value="1.6"/>
@@ -22,7 +21,7 @@
         <pathelement location="WebContent/WEB-INF/lib/poi-3.9-20121203.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/poi-ooxml-3.9-20121203.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/poi-scratchpad-3.9-20121203.jar"/>
-        <pathelement location="WebContent/WEB-INF/lib/stanford-postagger.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/serialized-php-parser-0.3.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/xmlbeans-2.3.0.jar"/>
         <pathelement location="WebContent/WEB-INF/classes"/>
     </path>
@@ -42,7 +41,6 @@
         <pathelement location="lib/httpmime-4.2.3.jar"/>
         <pathelement location="lib/commons-fileupload-1.2.2.jar"/>
         <pathelement location="lib/commons-io-2.4.jar"/>
-        <pathelement location="lib/stanford-postagger.jar"/>
         <pathelement location="lib/jsoup-1.7.2.jar"/>
         <pathelement location="lib/pdfbox-app-1.8.1.jar"/>
         <pathelement location="lib/poi-3.9-20121203.jar"/>
@@ -71,6 +69,7 @@
         <pathelement location="lib/mysql-connector-java-5.1.25-bin.jar"/>
         <pathelement location="lib/junit.jar"/>
         <pathelement location="lib/chardet.jar"/>
+        <pathelement location="lib/serialized-php-parser-0.3.jar"/>
     </path>
     <target name="init">
         <mkdir dir="build/classes"/>
@@ -107,13 +106,13 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
-    <target name="FileParserLokalTest">
-        <java classname="test.info.plagiatsjaeger.FileParserLokalTest" failonerror="true" fork="yes">
+    <target name="TempTest">
+        <java classname="test.info.plagiatsjaeger.TempTest" failonerror="true" fork="yes">
             <classpath refid="PlagiatsSoftware.classpath"/>
         </java>
     </target>
     <target name="TestControl">
-        <java classname="test.info.plagiatsjaeger.TestControl" failonerror="true" fork="yes">
+        <java classname="info.plagiatsjaeger.test.TestControl" failonerror="true" fork="yes">
             <classpath refid="PlagiatsSoftware.classpath"/>
         </java>
     </target>
