@@ -91,7 +91,7 @@ public class Control
 					}
 					catch (Exception e)
 					{
-						_logger.fatal(e.getMessage(),e);
+						_logger.fatal(e.getMessage(), e);
 					}
 				}
 			}).start();
@@ -99,7 +99,7 @@ public class Control
 		}
 		catch (Exception e)
 		{
-			_logger.fatal(e.getMessage(),e);
+			_logger.fatal(e.getMessage(), e);
 		}
 		return result;
 
@@ -131,10 +131,10 @@ public class Control
 						int numTries = 0;
 						while (numTries < NUM_CHECKS_IF_PARSED && !mySqlDatabaseHelper.getDocumentParseState(intDocumentId))
 						{
-							if(numTries<=0)
+							if (numTries <= 0)
 							{
-								//TODO in parser aufrufen
-								//Parsen laeuft noch.
+								// TODO in parser aufrufen
+								// Parsen laeuft noch.
 								new MySqlDatabaseHelper().setReportState(rId, ErrorCode.Parsing);
 							}
 							try
@@ -292,6 +292,10 @@ public class Control
 			mySqlDatabaseHelper.setReportState(rId, ErrorCode.Succesful);
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			mySqlDatabaseHelper.finishReport(rId, _similarity, simpleDateFormat.format(Calendar.getInstance().getTime()));
+			if (_similarity > _settings.getThreshold())
+			{
+				SourceLoader.loadURL("http://192.168.4.28/sendmail.php?rID=" + rId);
+			}
 			_logger.info("Report " + rId + " fertiggestellt!");
 
 		}
