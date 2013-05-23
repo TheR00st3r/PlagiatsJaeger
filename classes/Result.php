@@ -11,9 +11,16 @@ class Result {
 			$db = new db();
 			$db -> read("
 				SELECT
-					rt.rtID, rt.rtSourceText, rt.rtSourceLink, rt.rtSourcedID, rt.rtStartWord, rt.rtEndWord, rt.rtSimilarity, rt.rID
+					rt.rtID, rt.rtSourceText, rt.rtSourceLink, rt.rtSourcedID, rt.rtStartWord, rt.rtEndWord, rt.rtSimilarity, rt.rID,
+					d.dOriginalName, d.dAuthor,
+					f.fName,
+					u.uName, u.uLastname
 				FROM
-					result AS rt
+					result AS rt LEFT JOIN
+					document AS d ON rt.rtSourcedID = d.dID LEFT JOIN
+					folderpermission AS fp ON fp.fID = d.fID LEFT JOIN
+					folder AS f ON fp.fID = f.fID LEFT JOIN
+					user AS u ON fp.uID = u.uID
 				WHERE
 					rt.rID = '$rID'
 				ORDER BY
@@ -35,13 +42,20 @@ class Result {
 			$db = new db();
 			$db -> read("
 				SELECT
-					COUNT(rt.rtSourceLink) as count, rt.rtSourceLink
+					COUNT(*) as count, rt.rtSourceLink, rt.rtSourcedID,
+					d.dOriginalName, d.dAuthor,
+					f.fName,
+					u.uName, u.uLastname
 				FROM
-					result AS rt
+					result AS rt LEFT JOIN
+					document AS d ON rt.rtSourcedID = d.dID LEFT JOIN
+					folderpermission AS fp ON fp.fID = d.fID LEFT JOIN
+					folder AS f ON fp.fID = f.fID LEFT JOIN
+					user AS u ON fp.uID = u.uID
 				WHERE
 					rt.rID = '$rID'
 				GROUP BY
-					rt.rtSourceLink
+					rt.rtSourceLink, rt.rtSourcedID
 				ORDER BY
 					count DESC");
 
@@ -61,15 +75,22 @@ class Result {
 			$db = new db();
 			$db -> read("
 				SELECT
-					rtStartWord, rtEndWord, rtSourceText, max(rtSimilarity) as rtSimilarity, rtSourceLink, rtSourcedID
+					rt.rtStartWord, rt.rtEndWord, rt.rtSourceText, max(rt.rtSimilarity) as rtSimilarity, rt.rtSourceLink, rt.rtSourcedID,
+					d.dOriginalName, d.dAuthor,
+					f.fName,
+					u.uName, u.uLastname
 				FROM
-					result
+					result AS rt LEFT JOIN
+					document AS d ON rt.rtSourcedID = d.dID LEFT JOIN
+					folderpermission AS fp ON fp.fID = d.fID LEFT JOIN
+					folder AS f ON fp.fID = f.fID LEFT JOIN
+					user AS u ON fp.uID = u.uID
 				WHERE
-					rID = '$rID' AND rtSourceText !=  '' AND rtSimilarity !=  '' and rtSimilarity > '$rThreshold'
+					rt.rID = '$rID' AND rt.rtSourceText !=  '' AND rt.rtSimilarity > '$rThreshold'
 				GROUP BY
-					rtStartWord
+					rt.rtStartWord
 				ORDER BY
-					rtStartWord ASC , rtEndWord ASC ");
+					rt.rtStartWord ASC , rt.rtEndWord ASC ");
 
 			$results = $db -> linesAsArray();
 			$db -> disconnect();

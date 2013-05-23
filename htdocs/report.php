@@ -129,7 +129,15 @@ switch ($_GET['type']) {
 					$background = $color[0]['color'];
 
 				//TODO DEBUG [xx-xx] //[' . $a['rtStartWord'] . '-' . $a['rtEndWord'] . ']
-				$output .= '<div class="rtSourceText">' . $a['rtSourceText'] . ' <b>(<a target="_blank" href="' . $a['rtSourceLink'] . '" title="' . $a['rtSourceLink'] . '" />' . $a['rtSimilarity'] . ' %</a>)</b></div>';
+				$source = '';
+				if($a['rtSourcedID']) {
+					$source = '<b>(' . $a['dOriginalName'] . ' zu ' . $a['rtSimilarity'] . ' %)</b>';
+				}
+				else {
+					$source = '<b>(<a target="_blank" href="' . $a['rtSourceLink'] . '" title="' . $a['rtSourceLink'] . '" />' . $a['rtSimilarity'] . ' %</a>)</b>';
+				}
+				
+				$output .= '<div class="rtSourceText">' . $a['rtSourceText'] . ' '.$source.'</div>';
 				$output .= '<span style="background: ' . $background . ';">' . nl2br($a['rtQuellText']) . '</span>';
 
 			} else {
@@ -158,12 +166,7 @@ switch ($_GET['type']) {
 
 			if (array_key_exists($key, $output)) {
 
-				$source = array();
-				$source['rtSourceText'] = $result['rtSourceText'];
-				$source['rtSourcedID'] = $result['rtSourcedID'];
-				$source['rtSourceLink'] = $result['rtSourceLink'];
-				$source['rtSimilarity'] = $result['rtSimilarity'];
-				$output[$key]['source'][] = $source;
+				$output[$key]['source'][] = $result;
 
 			} else {
 
@@ -175,11 +178,7 @@ switch ($_GET['type']) {
 				$item['rtEndWord'] = $result['rtEndWord'];
 				$item['rtQuellText'] = $string;
 
-				$source['rtSourceText'] = $result['rtSourceText'];
-				$source['rtSourcedID'] = $result['rtSourcedID'];
-				$source['rtSourceLink'] = $result['rtSourceLink'];
-				$source['rtSimilarity'] = $result['rtSimilarity'];
-				$item['source'][] = $source;
+				$item['source'][] = $result;
 
 				$output[$key] = $item;
 			}
