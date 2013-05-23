@@ -165,38 +165,34 @@ public class FileParser
 			}
 
 		}
-		Writer writer = null;
+		BufferedWriter bufferedWriter = null;
 		try
 		{
 
-			// String strName = _file.getAbsolutePath().toString().substring(0,
-			// _file.getAbsolutePath().toString().length() -
-			// fileTyp.toString().length()) + "txt";
-			// strName= Selber Dateiname und Speicherort der geparsten Datei wie
-			// orginale Datei, nur mit txt Endung
-			String strName = Control.ROOT_FILES + dId + ".txt";
-			File file = new File(strName);
-			writer = new BufferedWriter(new FileWriter(file));
+			File file = new File(Control.ROOT_FILES + dId + ".txt");
 
-			if (strText == "")
+			// if file doesnt exists, then create it
+			if (!file.exists())
 			{
-				_logger.info("Im Dokument wurde kein Text festgestellt");
-				result = false;
+				file.createNewFile();
 			}
-			else
-			{
-				writer.write(strText);
-				result = true;
-			}
+
+			FileWriter fileWriter = new FileWriter(file.getAbsoluteFile());
+			bufferedWriter = new BufferedWriter(fileWriter);
+			bufferedWriter.write(strText);
+			bufferedWriter.close();
 		}
-		catch(Exception e)
+		catch (IOException e)
 		{
 			_logger.info(e.getMessage(), e);
 		}
 		finally
 		{
 			// writer soll auf jeden Fall geschlossen werden
-			writer.close();
+			if (bufferedWriter != null)
+			{
+				bufferedWriter.close();
+			}
 		}
 
 		return result;
