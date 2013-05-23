@@ -151,8 +151,8 @@ class File {
 	}
 
 	public static function getFileExtension($fileName) {
-		$pos = strripos($file["name"], '.');
-		return strtolower(substr($file["name"], $pos));
+		$pos = strripos($fileName, '.');
+		return strtolower(substr($fileName, $pos));
 	}
 
 }
