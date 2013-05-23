@@ -212,8 +212,10 @@ public class Control
 		ArrayList<Integer> localFolders = _settings.getLocalFolders();
 		if (localFolders != null)
 		{
+			_logger.info("Check localFolders");
 			for (final int i : localFolders)
 			{
+				_logger.info("Nächstes File: " + i);
 				_futures.add(_threadPool.submit(new Callable<Void>()
 				{
 					@Override
