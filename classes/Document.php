@@ -239,7 +239,7 @@ class Document {
 	/**
 	 * Returns the original content from given document id.
 	 * @param int $dID
-	 * @return string
+	 * @return string the file content
 	 */
 	public static function getDocumentOriginalContent($dID) {
 		if (Validator::validate(VAL_INTEGER, $dID, true)) {
@@ -288,8 +288,8 @@ class Document {
 
 	/**
 	 * Edit the Autor name from the given document id.
-	 * @param int $fID
-	 * @param string $fName
+	 * @param int $dID
+	 * @param string $dAuthor
 	 * @return boolean
 	 */
 	public static function editAutor($dID, $dAuthor) {
