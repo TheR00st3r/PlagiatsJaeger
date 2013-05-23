@@ -189,6 +189,10 @@ public class FileParser
 				result = true;
 			}
 		}
+		catch(Exception e)
+		{
+			_logger.info(e.getMessage(), e);
+		}
 		finally
 		{
 			// writer soll auf jeden Fall geschlossen werden
