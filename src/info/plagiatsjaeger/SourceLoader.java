@@ -193,15 +193,7 @@ public class SourceLoader
 			fileInputstream = new FileInputStream(filePath);
 			dataInputStream = new DataInputStream(fileInputstream);
 			detectCharset(fileInputstream);
-			BufferedReader bufferedReader = null;
-			if (_detectedCharset != null)
-			{
-				bufferedReader = new BufferedReader(new InputStreamReader(dataInputStream, _detectedCharset));
-			}
-			else
-			{
-				bufferedReader = new BufferedReader(new InputStreamReader(dataInputStream));
-			}
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(dataInputStream));
 			while ((line = bufferedReader.readLine()) != null)
 			{
 				stringBuilder.append(line).append("\n");
