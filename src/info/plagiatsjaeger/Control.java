@@ -215,7 +215,7 @@ public class Control
 			_logger.info("Check localFolders");
 			for (final int i : localFolders)
 			{
-				_logger.info("Nächstes File: " + i);
+				_logger.info("Naechstes File: " + i);
 				_futures.add(_threadPool.submit(new Callable<Void>()
 				{
 					@Override
