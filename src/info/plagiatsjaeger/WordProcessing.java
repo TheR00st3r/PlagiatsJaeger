@@ -1,7 +1,5 @@
 package info.plagiatsjaeger;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 
 
 /**
@@ -30,26 +28,4 @@ public class WordProcessing
 		result = text.split("[ \t\f\r]");
 		return result;
 	}
-
-	public ArrayList<String> getVerbsAndNouns(String text)
-	{
-		ArrayList<String> result = null;
-
-		return result;
-	}
-
-	private ArrayList<String> getVerbsAndNouns(HashSet<String> taggedWords)
-	{
-		ArrayList<String> result = null;
-
-		return result;
-	}
-
-	private String tagText(String textToTag)
-	{
-		String result = null;
-
-		return result;
-	}
-
 }
