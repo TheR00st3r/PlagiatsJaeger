@@ -27,7 +27,7 @@ class SettingTest extends PHPUnit_Framework_TestCase {
   /*
    * create an Object of Setting class
    */
-  public function test_CreateObject() {
+  public function test_createObject() {
     $settingObject = null;
     $settingObject = new Setting();
     
@@ -46,7 +46,7 @@ class SettingTest extends PHPUnit_Framework_TestCase {
    * try to get Settings
    * if we get some, it's right
    */
-  public function test_CheckSettings() {
+  public function test_checkSettings() {
     $settingObject = null;
     $settingObject = new Setting();
     
@@ -71,7 +71,7 @@ class SettingTest extends PHPUnit_Framework_TestCase {
    * try to get Searchengines
    * if we get some, it's right
    */
-  public function test_CheckSearchengines() {
+  public function test_checkSearchengines() {
     $settingObject = null;
     $settingObject = new Setting();
     
