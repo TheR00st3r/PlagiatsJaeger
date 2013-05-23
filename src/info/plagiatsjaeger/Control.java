@@ -239,14 +239,6 @@ public class Control
 					numThreadsFinished++;
 					_logger.info(numThreadsFinished + " searches finished");
 				}
-				else
-				{
-					_logger.info("####################################################");
-					_logger.info("####################################################");
-					_logger.info("##############    FUTURE IS NULL    ################");
-					_logger.info("####################################################");
-					_logger.info("####################################################");
-				}
 			}
 			catch (CancellationException e)
 			{
@@ -276,14 +268,6 @@ public class Control
 					future.get();
 					numThreadsFinished++;
 					_logger.info(numThreadsFinished + " compare finished");
-				}
-				else
-				{
-					_logger.info("####################################################");
-					_logger.info("####################################################");
-					_logger.info("##############    FUTURE IS NULL    ################");
-					_logger.info("####################################################");
-					_logger.info("####################################################");
 				}
 			}
 			catch (CancellationException e)
