@@ -14,9 +14,12 @@ import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Locale;
 
 import org.apache.log4j.Logger;
+import org.lorecraft.phparser.SerializedPhpParser;
+import org.lorecraft.phparser.SerializedPhpParser.PhpObject;
 
 
 /**
@@ -26,8 +29,8 @@ import org.apache.log4j.Logger;
  */
 public class MySqlDatabaseHelper
 {
-	private static final String	SERVERNAME		= ConfigReader.getPropertyString("SERVERNAME");					// "jdbc:mysql://localhost/plagiatsjaeger?useUnicode=true&characterEncoding=utf-8";
-	private static final String	DBDRIVER		= ConfigReader.getPropertyString("DBDRIVER");					// "com.mysql.jdbc.Driver";
+	private static final String	SERVERNAME		= ConfigReader.getPropertyString("SERVERNAME");			// "jdbc:mysql://localhost/plagiatsjaeger?useUnicode=true&characterEncoding=utf-8";
+	private static final String	DBDRIVER		= ConfigReader.getPropertyString("DBDRIVER");				// "com.mysql.jdbc.Driver";
 	private static final String	USER			= ConfigReader.getPropertyString("USER");
 	private static final String	PASSWORDFILE	= ConfigReader.getPropertyString("PASSWORDPATH");
 
@@ -123,8 +126,10 @@ public class MySqlDatabaseHelper
 			for (CompareResult result : compareResults)
 			{
 				String text = new String(Charset.forName("UTF-8").encode(result.getSourceText()).array(), "CP1252");
-				//String text = new String(result.getSourceText().getBytes("UTF-8"), "ISO-8859-1");
-				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + text + "' , '" + "' , '" + dID + "' , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "' , '" + df.format(result.getSimilarity() * 100) + "' , '" + (result.getIsInSources() ? 1 :0 ) + "' , '" + result.getReportID() + "' )";
+				// String text = new
+				// String(result.getSourceText().getBytes("UTF-8"),
+				// "ISO-8859-1");
+				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + text + "' , '" + "' , '" + dID + "' , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "' , '" + df.format(result.getSimilarity() * 100) + "' , '" + (result.getIsInSources() ? 1 : 0) + "' , '" + result.getReportID() + "' )";
 				_statement.executeUpdate(strStatement);
 			}
 			disconnect();
@@ -165,11 +170,13 @@ public class MySqlDatabaseHelper
 			for (CompareResult result : compareResults)
 			{
 				String text = new String(Charset.forName("UTF-8").encode(result.getSourceText()).array(), "CP1252");
-				//String text = new String(result.getSourceText().getBytes("UTF-8"), "ISO-8859-1");
+				// String text = new
+				// String(result.getSourceText().getBytes("UTF-8"),
+				// "ISO-8859-1");
 
 				_logger.info("Text: " + result.getSourceText());
 
-				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + text + "','" + sourceLink + "' , " + null + " , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "','" + df.format(result.getSimilarity() * 100) + "' , '" + (result.getIsInSources()? 1 : 0)   + "' , '"+ result.getReportID() + "' )";
+				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + text + "','" + sourceLink + "' , " + null + " , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "','" + df.format(result.getSimilarity() * 100) + "' , '" + (result.getIsInSources() ? 1 : 0) + "' , '" + result.getReportID() + "' )";
 				_statement.executeUpdate(strStatement);
 			}
 		}
@@ -265,7 +272,7 @@ public class MySqlDatabaseHelper
 	public Settings getSettings(int rId)
 	{
 		Settings result = null;
-		String strStatement = "SELECT r.rThreshold, sl.slSearchSentenceLength, sl.slSearchJumpLength, sl.slSearchNumLinks, sl.slCompareSentenceLength, sl.slCompareJumpLength, r.rCheckWWW , se.seName, se.seURL , se.seURLSearchArg, se.seURLAuthArg, se.seURLArgs FROM report AS r LEFT JOIN settinglevel AS sl ON r.slID = sl.slID LEFT JOIN searchengine AS se ON r.seID = se.seID WHERE r.rID = " + rId;
+		String strStatement = "SELECT r.rThreshold, sl.slSearchSentenceLength, sl.slSearchJumpLength, sl.slSearchNumLinks, sl.slCompareSentenceLength, sl.slCompareJumpLength, r.rCheckWWW, r.rCheckIDs, se.seName, se.seURL , se.seURLSearchArg, se.seURLAuthArg, se.seURLArgs FROM report AS r LEFT JOIN settinglevel AS sl ON r.slID = sl.slID LEFT JOIN searchengine AS se ON r.seID = se.seID WHERE r.rID = " + rId;
 		ResultSet rstResultSet = null;
 		try
 		{
@@ -273,7 +280,33 @@ public class MySqlDatabaseHelper
 			if (rstResultSet.next())
 			{
 				result = Settings.getInstance();
-				result.putSettings(rstResultSet.getInt("r.rThreshold"), rstResultSet.getInt("sl.slSearchSentenceLength"), rstResultSet.getInt("sl.slSearchJumpLength"),rstResultSet.getInt("sl.slCompareSentenceLength"), rstResultSet.getInt("sl.slCompareJumpLength"), rstResultSet.getBoolean("r.rCheckWWW"), null, rstResultSet.getString("se.seURL"), rstResultSet.getString("se.seURLSearchArg"), rstResultSet.getString("se.seURLAuthArg"), rstResultSet.getString("se.seUrlArgs"),rstResultSet.getInt("sl.slSearchNumLinks"));
+				String input = rstResultSet.getString("r.rCheckIDs");
+				ArrayList<Integer> localFiles = new ArrayList<Integer>();
+				SerializedPhpParser serializedPhpParser = new SerializedPhpParser(input);
+				LinkedHashMap<Integer, String> test = (LinkedHashMap<Integer, String>) serializedPhpParser.parse();
+				StringBuilder sb = new StringBuilder();
+				for (Integer key : test.keySet())
+				{
+					if (test.get(key).length() == 0)
+					{
+						_logger.fatal("There is an Error for " + key) ;
+					}
+					else
+					{
+						if (sb.length() != 0)
+						{
+							sb.append(",");
+						}
+						sb.append(test.get(key));
+					}
+				}
+				String statementFile = "SELECT dID from document as d WHERE fID IN (" + sb.toString() + ")";
+				ResultSet rstResultSetFile = startQuery(statementFile);
+				while (rstResultSetFile.next())
+				{
+					localFiles.add(rstResultSetFile.getInt("d.dID"));
+				}
+				result.putSettings(rstResultSet.getInt("r.rThreshold"), rstResultSet.getInt("sl.slSearchSentenceLength"), rstResultSet.getInt("sl.slSearchJumpLength"), rstResultSet.getInt("sl.slCompareSentenceLength"), rstResultSet.getInt("sl.slCompareJumpLength"), rstResultSet.getBoolean("r.rCheckWWW"), localFiles, rstResultSet.getString("se.seURL"), rstResultSet.getString("se.seURLSearchArg"), rstResultSet.getString("se.seURLAuthArg"), rstResultSet.getString("se.seUrlArgs"), rstResultSet.getInt("sl.slSearchNumLinks"));
 			}
 		}
 		catch (SQLException e)
