@@ -166,13 +166,14 @@ public class MyComparer implements IComparer
 		}
 
 		StringBuilder resultText = new StringBuilder();
+
 		// Compareresults zusammenfuegen und Trefferlinks schreiben.
 		boolean init = true;
 
 		// Sonderfall abfangen: genau 1 Treffer gefunden, d.H. nichts zu mergen
 		if (unmergedCompareResults.size() == 1)
 		{
-			result.add(unmergedCompareResults.get(0));
+			result.add(buildResult(unmergedCompareResults.get(0), resultText));
 		}
 		for (int resultCounter = 0; resultCounter < unmergedCompareResults.size() - 1; resultCounter++)
 		{
@@ -208,14 +209,8 @@ public class MyComparer implements IComparer
 				}
 			}
 			compareResultCheck.setSimilarity(sumSimilarity / countSimilarity);
-			// plagiatsText fuer plagStart/plagEnd setzen.
-			resultText.delete(0, resultText.length());
-			for (int wordCounter = compareResultCheck.getSourceStart(); wordCounter < compareResultCheck.getSourceEnd(); wordCounter++)
-			{
-				resultText.append(_sourceWords[wordCounter]).append(" ");
-			}
-			compareResultCheck.setSourceText(resultText.toString());
-			compareResultCheck.setIsInSources(_isInSources);
+
+			compareResultCheck = buildResult(compareResultCheck, resultText);
 
 			System.out.println("### TREFFER #######################");
 			System.out.println("Source:       " + _currentLink);
@@ -245,6 +240,28 @@ public class MyComparer implements IComparer
 			_onCompareFinishedListener.onCompareResultFound(result, _currentDocId);
 		}
 		return result;
+	}
+
+	/**
+	 * Baut den Text fuer Suchergebnisse zusammen.
+	 * 
+	 * @param compareResultCheck
+	 *            CompareResult das zusammengebaut werden soll
+	 * @param resultText
+	 *            StringBuilder der fuer das Zusammensetzen der Texte verwendet
+	 *            werden soll
+	 * @return Fertiges CompareResult
+	 */
+	private CompareResult buildResult(CompareResult compareResultCheck, StringBuilder resultText)
+	{
+		resultText.delete(0, resultText.length());
+		for (int wordCounter = compareResultCheck.getSourceStart(); wordCounter < compareResultCheck.getSourceEnd(); wordCounter++)
+		{
+			resultText.append(_sourceWords[wordCounter]).append(" ");
+		}
+		compareResultCheck.setSourceText(resultText.toString());
+		compareResultCheck.setIsInSources(_isInSources);
+		return compareResultCheck;
 	}
 
 	/**
