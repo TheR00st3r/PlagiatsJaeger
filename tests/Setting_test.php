@@ -1,6 +1,7 @@
 <?php
 require_once '/usr/share/php/PHPUnit/Autoload.php';
 require_once '../configs/setup.php';
+require_once '../classes/Setting.php';
 
 class SettingTest extends PHPUnit_Framework_TestCase {
   
@@ -23,6 +24,9 @@ class SettingTest extends PHPUnit_Framework_TestCase {
   }
 
 
+  /*
+   * create an Object of Setting class
+   */
   public function test_CreateObject() {
     $settingObject = null;
     $settingObject = new Setting();
@@ -38,6 +42,10 @@ class SettingTest extends PHPUnit_Framework_TestCase {
   }
   
   
+  /*
+   * try to get Settings
+   * if we get some, it's right
+   */
   public function test_CheckSettings() {
     $settingObject = null;
     $settingObject = new Setting();
@@ -59,6 +67,10 @@ class SettingTest extends PHPUnit_Framework_TestCase {
   }
   
   
+  /*
+   * try to get Searchengines
+   * if we get some, it's right
+   */
   public function test_CheckSearchengines() {
     $settingObject = null;
     $settingObject = new Setting();
