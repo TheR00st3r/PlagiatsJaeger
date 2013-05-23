@@ -62,6 +62,7 @@ public class MyComparer implements IComparer
 	public void compareText(String checkText, String sourceText, int docId)
 	{
 		_currentDocId = docId;
+		_logger.info("CompareText for Document: " + docId);
 		compareText(checkText, sourceText);
 	}
 
@@ -75,6 +76,7 @@ public class MyComparer implements IComparer
 	 */
 	private ArrayList<CompareResult> compareText(String checkText, String sourceText)
 	{
+		_logger.info("Compare started");
 		ArrayList<CompareResult> result = new ArrayList<CompareResult>();
 		ArrayList<CompareResult> unmergedCompareResults = new ArrayList<CompareResult>();
 
@@ -149,6 +151,7 @@ public class MyComparer implements IComparer
 				}
 				if (resultFound)
 				{
+					_logger.info("SubResult found");
 					CompareResult compareResult = new CompareResult(_rId, checkResultStart, checkResultEnd, sourceResultStart, sourceResultEnd, sumSimilarity / countSimilarity);
 					unmergedCompareResults.add(compareResult);
 
@@ -165,8 +168,10 @@ public class MyComparer implements IComparer
 		StringBuilder resultText = new StringBuilder();
 		// Compareresults zusammenfuegen und Trefferlinks schreiben.
 		boolean init = true;
+
 		for (int resultCounter = 0; resultCounter < unmergedCompareResults.size() - 1; resultCounter++)
 		{
+			_logger.info("Merge Results: " + resultCounter);
 			if (init)
 			{
 				if (checkText.contains(_currentLink))
@@ -209,19 +214,29 @@ public class MyComparer implements IComparer
 
 			System.out.println("### TREFFER #######################");
 			System.out.println("Source:       " + _currentLink);
+			System.out.println("Source:       " + _currentDocId);
 			System.out.println("Start-Ende:   " + compareResultCheck.getCheckStart() + "-" + compareResultCheck.getCheckEnd());
 			System.out.println("Text:         " + compareResultCheck.getSourceText());
 			System.out.println("Aehnlichkeit: " + compareResultCheck.getSimilarity());
 			System.out.println("###################################");
-			_logger.info("Found link: " + _currentLink + "with Similarity " + compareResultCheck.getSimilarity());
+			if (_currentDocId <= 0)
+			{
+				_logger.info("Found link: " + _currentLink + " with Similarity " + compareResultCheck.getSimilarity());
+			}
+			else
+			{
+				_logger.info("Found document: " + _currentDocId + " with Similarity " + compareResultCheck.getSimilarity());
+			}
 			result.add(compareResultCheck);
 		}
-		if (_currentDocId == 0)
+		if (_currentDocId <= 0)
 		{
+			_logger.info("OnCompareFinished");
 			_onCompareFinishedListener.onCompareResultFound(result, _currentLink);
 		}
 		else
 		{
+			_logger.info("OnCompareFinished");
 			_onCompareFinishedListener.onCompareResultFound(result, _currentDocId);
 		}
 		return result;
