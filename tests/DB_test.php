@@ -5,7 +5,6 @@ require_once '../configs/setup.php';
 class DBTest extends PHPUnit_Framework_TestCase {
   protected $database ="testDB";
   
-  
 
   /*
    * called before every test-function call
@@ -29,6 +28,7 @@ class DBTest extends PHPUnit_Framework_TestCase {
     mysql_close();*/    
   }
   
+  
   /*
    * called after every test-function call
    * clean up test environment
@@ -48,6 +48,7 @@ class DBTest extends PHPUnit_Framework_TestCase {
     mysql_close();
     */
   }
+  
   
   /*
    * connect to DB
