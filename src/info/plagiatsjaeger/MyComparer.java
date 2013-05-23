@@ -169,6 +169,11 @@ public class MyComparer implements IComparer
 		// Compareresults zusammenfuegen und Trefferlinks schreiben.
 		boolean init = true;
 
+		// Sonderfall abfangen: genau 1 Treffer gefunden, d.H. nichts zu mergen
+		if (unmergedCompareResults.size() == 1)
+		{
+			result.add(unmergedCompareResults.get(0));
+		}
 		for (int resultCounter = 0; resultCounter < unmergedCompareResults.size() - 1; resultCounter++)
 		{
 			_logger.info("Merge Results: " + resultCounter);
