@@ -282,7 +282,7 @@ public class MySqlDatabaseHelper
 				result = Settings.getInstance();
 				String input = rstResultSet.getString("r.rCheckIDs");
 				ArrayList<Integer> localFiles = new ArrayList<Integer>();
-				if (input.length() <= 0)
+				if (input.length() > 0)
 				{
 					SerializedPhpParser serializedPhpParser = new SerializedPhpParser(input);
 					LinkedHashMap<Integer, String> fileHashMap = (LinkedHashMap<Integer, String>) serializedPhpParser.parse();
