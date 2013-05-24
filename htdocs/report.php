@@ -61,7 +61,7 @@ switch ($_GET['type']) {
 
 					// TYP 0 - kein Plagiat
 					$string = '';
-					for ($i = $start; $i < $result['rtStartWord']; $i++) {
+					for ($i = $start; $i < $result['rtStartWord']-1; $i++) {
 						$string .= $split[$i] . ' ';
 					}
 
@@ -80,7 +80,7 @@ switch ($_GET['type']) {
 
 				// TYP 1 - Plagiat
 				$string = '';
-				for ($i = $result['rtStartWord']; $i < $result['rtEndWord']; $i++) {
+				for ($i = $result['rtStartWord']-1; $i < $result['rtEndWord']-1; $i++) {
 					$string .= $split[$i] . ' ';
 				}
 
@@ -94,7 +94,7 @@ switch ($_GET['type']) {
 
 				$array[] = $out;
 
-				$start = $result['rtEndWord'];
+				$start = $result['rtEndWord']-1;
 
 				// $output = $string;
 			}
@@ -120,7 +120,7 @@ switch ($_GET['type']) {
 
 		foreach ($array as $a) {
 			//TODO DEBUG [xx-xx]
-			// $output .= '|' . $a['start'] . '-' . $a['stop'] . '|';
+			$output .= '|' . $a['start'] . '-' . $a['stop'] . '|';
 			if ($a['type'] != 0) {
 
 				if($a['rtIsInSources'] == 1)
@@ -138,7 +138,7 @@ switch ($_GET['type']) {
 					$source = '<b>(' . $a['dOriginalName'] . ' zu ' . $a['rtSimilarity'] . ' %)</b>';
 				}
 				else {
-					$source = '<b>(<a target="_blank" href="' . $a['rtSourceLink'] . '" title="' . $a['rtSourceLink'] . '" />' . $a['rtSimilarity'] . ' %</a>)</b>';
+					$source = '<b>([' . $a['rtStartWord'] . '-' . $a['rtEndWord'] . ']<a target="_blank" href="' . $a['rtSourceLink'] . '" title="' . $a['rtSourceLink'] . '" />' . $a['rtSimilarity'] . ' %</a>)</b>';
 				}
 				
 				$output .= '<div class="rtSourceText">' . nl2br($a['rtSourceText']) . ' '.$source.'</div>';

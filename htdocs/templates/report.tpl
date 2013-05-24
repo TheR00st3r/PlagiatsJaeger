@@ -56,11 +56,11 @@
 		<tr>
 			<th>Start:</th>
 			<td>
-				{$report.rDatetime|date_format:'%d.%m.%Y %H:%M'}
+				{$report.rDatetime|date_format:'%d.%m.%Y %H:%M'} Uhr
 			</td>
 			<th>Stop:</th>
 			<td>
-				{$report.rEndTime|date_format:'%d.%m.%Y %H:%M'}
+				{$report.rEndTime|date_format:'%d.%m.%Y %H:%M'} Uhr
 			</td>
 		</tr>
 		<tr>
