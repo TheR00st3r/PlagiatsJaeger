@@ -48,5 +48,6 @@
 	<classpathentry kind="lib" path="lib/junit.jar"/>
 	<classpathentry kind="lib" path="lib/chardet.jar"/>
 	<classpathentry kind="lib" path="lib/serialized-php-parser-0.3.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/hamcrest-core.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

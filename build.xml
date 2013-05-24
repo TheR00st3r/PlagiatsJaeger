@@ -10,10 +10,13 @@
     <property name="target" value="1.6"/>
     <property name="source" value="1.6"/>
     <path id="Web App Libraries.libraryclasspath">
+        <pathelement location="WebContent/WEB-INF/lib/ant-junit-1.8.4.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/chardet.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/commons-fileupload-1.2.2.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/commons-io-2.4.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/hamcrest-core.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/jsoup-1.7.2.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/junit.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/log4j-1.2.17.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/mysql-connector-java-5.1.25-bin.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/pdfbox-app-1.8.1.jar"/>
@@ -69,6 +72,7 @@
         <pathelement location="lib/junit.jar"/>
         <pathelement location="lib/chardet.jar"/>
         <pathelement location="lib/serialized-php-parser-0.3.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/hamcrest-core.jar"/>
     </path>
     <target name="init">
         <mkdir dir="build/classes"/>
