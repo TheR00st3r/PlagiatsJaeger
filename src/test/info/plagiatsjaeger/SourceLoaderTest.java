@@ -1,9 +1,7 @@
 package test.info.plagiatsjaeger;
 
-import static org.junit.Assert.*;
-
-import javax.swing.JOptionPane;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import info.plagiatsjaeger.SourceLoader;
 
 import org.junit.Before;
