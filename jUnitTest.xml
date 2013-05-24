@@ -4,7 +4,7 @@
 	<property name="build" value="build/classes" />
 	<property name="test.reports" value="reports" />
 
-	<property name="lib.dir" value="webcontent/WEB-INF/lib" />
+	<property name="lib.dir" value="build/classes/webcontent/WEB-INF/lib" />
 
 	<path id="classPath">
 		<pathelement location="${lib.dir}/junit-4.10.jar" />
