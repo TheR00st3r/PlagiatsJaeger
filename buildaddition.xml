@@ -6,7 +6,15 @@
 	<property name="test.reports" value="reports" />
 
 
-	<target name="compile">
+
+	<target name="init">
+	    <echo memessage="Testinit"></echo>
+		<mkdir dir="${build}" />
+	</target>
+
+	<target name="compile" depends="init">
+	    <echo memessage="Testcompile"></echo>
+		<javac srcdir="${src}" destdir="${build}" />
 	</target>
 
 	<target name="test" depends="compile" description="JUnit-Tests durchführen">
