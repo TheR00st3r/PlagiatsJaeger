@@ -5,8 +5,10 @@
 	<property name="build" value="build/classes" />
 	<property name="test.reports" value="reports" />
 
+
+	<target name="compile" />
+
 	<target name="test" depends="compile" description="JUnit-Tests durchführen">
-	    <echo message="start jUnittests..."/>
 		<delete dir="${test.reports}" />
 		<mkdir dir="${test.reports}" />
 		<junit printsummary="yes" fork="yes" haltonfailure="no">
