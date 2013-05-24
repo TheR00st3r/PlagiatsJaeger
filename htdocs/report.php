@@ -27,7 +27,7 @@ switch ($_GET['type']) {
 	case 'grafic' :
 		$title = 'Grafikbericht';
 
-		$results = Result::getGraficReportResult($_GET['rID'], $reportCheck['report']['rThreshold']);
+		$results = Result::getGraficReportResult($_GET['rID'], $reportCheck['report']['rThreshold'], $_GET['rtSourceLink'], $_GET['rtSourcedID']);
 		$sim = $reportCheck['report']['rThreshold'];
 
 		$color[0]['value'] = $sim;

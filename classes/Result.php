@@ -31,7 +31,7 @@ class Result {
 			return $results;
 		}
 	}
-	
+
 	/**
 	 * Returns s short results summary from the given report id.
 	 * @param int $rID
@@ -64,14 +64,23 @@ class Result {
 			return $results;
 		}
 	}
-	
-		/**
+
+	/**
 	 * Returns s short results summary from the given report id.
 	 * @param int $rID
 	 * @return array
 	 */
-	public static function getGraficReportResult($rID, $rThreshold) {
+	public static function getGraficReportResult($rID, $rThreshold, $rtSourceLink = '', $rtSourcedID = '') {
 		if (Validator::validate(VAL_INTEGER, $rID, true)) {
+
+			if ($rtSourceLink != '') {
+				$rtSourceLink = urldecode($rtSourceLink);
+				$where = "AND rt.rtSourceLink =  '$rtSourceLink'";
+			} else if ($rtSourcedID != '')
+				$where = "AND rt.rtSourcedID =  '$rtSourcedID'";
+			else
+				$where = "";
+
 			$db = new db();
 			$db -> read("
 				SELECT
@@ -86,7 +95,7 @@ class Result {
 					folder AS f ON fp.fID = f.fID LEFT JOIN
 					user AS u ON fp.uID = u.uID
 				WHERE
-					rt.rID = '$rID' AND rt.rtSourceText !=  '' AND rt.rtSimilarity > '$rThreshold'
+					rt.rID = '$rID' AND rt.rtSourceText !=  '' AND rt.rtSimilarity > '$rThreshold' $where
 				GROUP BY
 					rt.rtStartWord
 				ORDER BY

@@ -17,6 +17,7 @@
 			<a target="_blank" href="{$result.rtSourceLink}">{$result.rtSourceLink}</a>
 			{/if}
 		</td>
+		<td><a href="report.php?rID={$smarty.get.rID}&amp;type=grafic&amp;rtSourceLink={$result.rtSourceLink|urlencode}&amp;rtSourcedID={$result.rtSourcedID}">Details</a></td>
 	</tr>
 	{/foreach}
 </table>
