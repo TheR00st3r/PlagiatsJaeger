@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?eclipse.ant.import?>
 <project basedir="." default="jUnit" name="jUnit">
 	<property name="src" value="src" />
 	<property name="build" value="build/classes" />
@@ -7,15 +6,8 @@
 
 
 
-	<target name="init">
-	    <echo memessage="Testinit"></echo>
-		<mkdir dir="${build}" />
-	</target>
 
-	<target name="compile" depends="init">
-	    <echo memessage="Testcompile"></echo>
-		<javac srcdir="${src}" destdir="${build}" />
-	</target>
+	<target name="compile" />
 
 	<target name="test" depends="compile" description="JUnit-Tests durchführen">
 		<echo message="start jUnitTests" />

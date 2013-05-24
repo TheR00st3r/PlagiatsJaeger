@@ -9,7 +9,6 @@
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.6"/>
     <property name="source" value="1.6"/>
-    <import file="buildaddition.xml"/>
     <path id="Web App Libraries.libraryclasspath">
         <pathelement location="WebContent/WEB-INF/lib/chardet.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/commons-fileupload-1.2.2.jar"/>
