@@ -4,12 +4,6 @@
 	<property name="build" value="build/classes" />
 	<property name="test.reports" value="reports" />
 
-	<property name="lib.dir" value="build/classes/webcontent/WEB-INF/lib" />
-
-	<path id="classPath">
-		<pathelement location="${lib.dir}/junit-4.10.jar" />
-	</path>
-
 	<target name="compile" />
 
 	<target name="jUnit" depends="compile" description="JUnit-Tests durchführen">
@@ -17,8 +11,7 @@
 		<delete dir="${test.reports}" />
 		<mkdir dir="${test.reports}" />
 		<junit printsummary="yes" fork="yes" haltonfailure="no">
-			<classpath refid="classPath"/>
-			<classpath path="${build}"></classpath>
+						<classpath path="${build}"></classpath>
 			<formatter type="xml" />
 
 			<batchtest todir="${test.reports}">
