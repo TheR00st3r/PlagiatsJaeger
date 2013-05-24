@@ -17,8 +17,8 @@
 		<delete dir="${test.reports}" />
 		<mkdir dir="${test.reports}" />
 		<junit printsummary="yes" fork="yes" haltonfailure="no">
-			<classpath location="${build}" path="${lib.dir}">
-				<path refid="classPath" />
+			<classpath location="${build}" >
+				 <pathelement location="${lib.dir}"/>
 			</classpath>
 			<formatter type="xml" />
 
