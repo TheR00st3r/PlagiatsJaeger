@@ -17,8 +17,8 @@
 		<delete dir="${test.reports}" />
 		<mkdir dir="${test.reports}" />
 		<junit printsummary="yes" fork="yes" haltonfailure="no">
-			<classpath refid="classPath">
-			</classpath>
+			<classpath refid="classPath"/>
+			<classpath path="${build}"></classpath>
 			<formatter type="xml" />
 
 			<batchtest todir="${test.reports}">
