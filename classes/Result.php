@@ -11,7 +11,8 @@ class Result {
 			$db = new db();
 			$db -> read("
 				SELECT
-					rt.rtID, rt.rtSourceText, rt.rtSourceLink, rt.rtSourcedID, rt.rtStartWord, rt.rtEndWord, rt.rtSimilarity, rt.rID,
+					rt.rtID, rt.rtSourceText, rt.rtSourceLink, rt.rtSourcedID, rt.rtStartWord, rt.rtEndWord,
+					rt.rtSimilarity, rt.rID, rt.rtIsInSources,
 					d.dOriginalName, d.dAuthor,
 					f.fName,
 					u.uName, u.uLastname
@@ -42,7 +43,7 @@ class Result {
 			$db = new db();
 			$db -> read("
 				SELECT
-					COUNT(*) as count, rt.rtSourceLink, rt.rtSourcedID, AVG(rt.rtSimilarity) as rtSimilarity,
+					COUNT(*) as count, rt.rtSourceLink, rt.rtSourcedID, AVG(rt.rtSimilarity) as rtSimilarity, rt.rtIsInSources,
 					d.dOriginalName, d.dAuthor,
 					f.fName,
 					u.uName, u.uLastname
@@ -84,7 +85,8 @@ class Result {
 			$db = new db();
 			$db -> read("
 				SELECT
-					rt.rtStartWord, rt.rtEndWord, rt.rtSourceText, max(rt.rtSimilarity) as rtSimilarity, rt.rtSourceLink, rt.rtSourcedID,
+					rt.rtStartWord, rt.rtEndWord, rt.rtSourceText, max(rt.rtSimilarity) as rtSimilarity,
+					rt.rtSourceLink, rt.rtSourcedID, rt.rtIsInSources,
 					d.dOriginalName, d.dAuthor,
 					f.fName,
 					u.uName, u.uLastname

@@ -30,12 +30,14 @@ switch ($_GET['type']) {
 		$results = Result::getGraficReportResult($_GET['rID'], $reportCheck['report']['rThreshold'], $_GET['rtSourceLink'], $_GET['rtSourcedID']);
 		$sim = $reportCheck['report']['rThreshold'];
 
-		$color[0]['value'] = $sim;
-		$color[0]['color'] = '#ffff00';
-		$color[1]['value'] = $sim + (100 - $sim) * 1 / 3;
-		$color[1]['color'] = '#FF7722';
-		$color[2]['value'] = $sim + (100 - $sim) * 2 / 3;
-		$color[2]['color'] = '#CA8989';
+		$color[0]['value'] = 'Zitiert';
+		$color[0]['color'] = '#00FF00';
+		$color[1]['value'] = $sim;
+		$color[1]['color'] = '#ffff00';
+		$color[2]['value'] = $sim + (100 - $sim) * 1 / 3;
+		$color[2]['color'] = '#FF7722';
+		$color[3]['value'] = $sim + (100 - $sim) * 2 / 3;
+		$color[3]['color'] = '#CA8989';
 
 		//
 		// echo $sim.'<br />';
@@ -121,12 +123,14 @@ switch ($_GET['type']) {
 			// $output .= '|' . $a['start'] . '-' . $a['stop'] . '|';
 			if ($a['type'] != 0) {
 
-				if ($a['rtSimilarity'] >= $color[2]['value'])
-					$background = $color[2]['color'];
-				else if ($a['rtSimilarity'] >= $color[1]['value'])
-					$background = $color[1]['color'];
-				else if ($a['rtSimilarity'])
+				if($a['rtIsInSources'] == 1)
 					$background = $color[0]['color'];
+				else if ($a['rtSimilarity'] >= $color[2]['value'])
+					$background = $color[3]['color'];
+				else if ($a['rtSimilarity'] >= $color[1]['value'])
+					$background = $color[2]['color'];
+				else if ($a['rtSimilarity'])
+					$background = $color[1]['color'];
 
 				//TODO DEBUG [xx-xx] //[' . $a['rtStartWord'] . '-' . $a['rtEndWord'] . ']
 				$source = '';
@@ -137,7 +141,7 @@ switch ($_GET['type']) {
 					$source = '<b>(<a target="_blank" href="' . $a['rtSourceLink'] . '" title="' . $a['rtSourceLink'] . '" />' . $a['rtSimilarity'] . ' %</a>)</b>';
 				}
 				
-				$output .= '<div class="rtSourceText">' . $a['rtSourceText'] . ' '.$source.'</div>';
+				$output .= '<div class="rtSourceText">' . nl2br($a['rtSourceText']) . ' '.$source.'</div>';
 				$output .= '<span style="background: ' . $background . ';">' . nl2br($a['rtQuellText']) . '</span>';
 
 			} else {

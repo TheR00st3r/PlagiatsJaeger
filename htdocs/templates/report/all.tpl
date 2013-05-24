@@ -6,7 +6,7 @@
 	{foreach from=$result.source item=source}
 	<!-- rtSourcedID -->
 	<p>
-		<h3>zu {$source.rtSimilarity} %</h3>
+		<h3 {if $source.rtIsInSources == 1}class="green"{/if}>zu {$source.rtSimilarity} % {if $source.rtIsInSources == 1}| als Zitat angegeben{/if}</h3>
 		{$source.rtSourceText}
 	</p>
 	<div class="link">

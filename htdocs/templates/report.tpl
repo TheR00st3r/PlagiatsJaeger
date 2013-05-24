@@ -13,9 +13,9 @@
 		<li>
 			<a href="report.php?rID={$smarty.get.rID}&amp;type=short">Schnellbericht</a>
 		</li>
-		<li>
+		{*<li>
 			<a href="report.php?rID={$smarty.get.rID}&amp;type=grafic">Grafikbericht</a>
-		</li>
+		</li>*}
 		<li>
 			<a href="report.php?rID={$smarty.get.rID}&amp;type=all">Resultatbericht</a>
 		</li>
