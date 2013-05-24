@@ -4,15 +4,18 @@
 	<property name="build" value="build/classes" />
 	<property name="test.reports" value="reports" />
 
+	<property name="libs" value="WebContent/WEB-INF/lib"/>
+	
 	<target name="compile" />
 
 	<path id="cp">
-		<pathelement location="WebContent/WEB-INF/lib/hamcrest-core.jar" />
-		<pathelement location="WebContent/WEB-INF/lib/junit.jar" />
-		<pathelement location="WebContent/WEB-INF/lib/chardet.jar" />
-		<pathelement location="WebContent/WEB-INF/lib/poi.jar" />
-		<pathelement location="WebContent/WEB-INF/lib/poi-ooxml.jar" />
-		<pathelement location="WebContent/WEB-INF/lib/poi-scratchpad.jar" />
+		<pathelement location="${libs}/hamcrest-core.jar" />
+		<pathelement location="${libs}/junit.jar" />
+		<pathelement location="${libs}/chardet.jar" />
+		<pathelement location="${libs}/poi.jar" />
+		<pathelement location="${libs}/poi-ooxml.jar" />
+		<pathelement location="${libs}/poi-scratchpad.jar" />
+		<pathelement location="${libs}/xmlbeans.jar" />
 	</path>
 
 	<target name="jUnit" depends="compile" description="JUnit-Tests durchführen">
