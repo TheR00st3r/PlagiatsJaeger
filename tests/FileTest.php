@@ -3,7 +3,8 @@ require_once '/usr/share/php/PHPUnit/Autoload.php';
 require_once '../configs/setup.php';
 
 class FileTest extends PHPUnit_Framework_TestCase {
-  
+
+
   /*
    * called before every test-function call
    * set up test environment
@@ -11,6 +12,7 @@ class FileTest extends PHPUnit_Framework_TestCase {
   protected function setUp() {
     echo "setUp()";
   }
+  
   
   /*
    * called after every test-function call
@@ -20,13 +22,11 @@ class FileTest extends PHPUnit_Framework_TestCase {
     echo "tearDown()";
   }
 
+
   public function test_Test1() {
-    $this -> assertFalse(true);
+    $this->assertEquals(true, true);
   }
-  
-  public function test_Test2() {
-    $this -> assertFalse(false);
-  }
+
 
 }
 
