@@ -8,6 +8,7 @@
 
 	<path id="cp">
 		<pathelement location="WebContent/WEB-INF/lib/junit-4.10.jar" />
+		<pathelement location="WebContent/WEB-INF/lib/chardet.jar" />
 	</path>
 
 	<target name="jUnit" depends="compile" description="JUnit-Tests durchführen">
