@@ -23,8 +23,8 @@ public class WordProcessingTest {
 		String[] testarray1 = {"Hallo", "ich", "bin", "ein", "Test"};
 		String[] testarray2 = {"Ich", "bin", "ein\n", "Zeilenumbruch"};
 		String[] testarray3 = {"Hallo," ,"ich", "bin", "ein", "Kommasatz.", "Und", "noch", "ein", "Satz"};
-		String[] testarray4 = {"blabla -", "und", "so", "weiter."};
-		String[] testarray5 = {"GmbH &", "Co", "soll", "zusammengeschrieben", "werden."};
+		String[] testarray4 = {"blabla", "-", "und", "so", "weiter."};
+		String[] testarray5 = {"GmbH" , "&", "Co", "soll", "zusammengeschrieben", "werden."};
 		
 		WordProcessing testword = new WordProcessing();
 		
