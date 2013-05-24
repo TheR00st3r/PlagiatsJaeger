@@ -13,9 +13,9 @@
 		<li>
 			<a href="report.php?rID={$smarty.get.rID}&amp;type=short">Schnellbericht</a>
 		</li>
-		<li>
+		{*<li>
 			<a href="report.php?rID={$smarty.get.rID}&amp;type=grafic">Grafikbericht</a>
-		</li>
+		</li>*}
 		<li>
 			<a href="report.php?rID={$smarty.get.rID}&amp;type=all">Resultatbericht</a>
 		</li>
@@ -56,11 +56,11 @@
 		<tr>
 			<th>Start:</th>
 			<td>
-				{$report.rDatetime|date_format:'%d.%m.%Y %H:%M'}
+				{$report.rDatetime|date_format:'%d.%m.%Y %H:%M'} Uhr
 			</td>
 			<th>Stop:</th>
 			<td>
-				{$report.rEndTime|date_format:'%d.%m.%Y %H:%M'}
+				{$report.rEndTime|date_format:'%d.%m.%Y %H:%M'} Uhr
 			</td>
 		</tr>
 		<tr>

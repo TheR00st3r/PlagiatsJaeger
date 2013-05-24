@@ -27,15 +27,17 @@ switch ($_GET['type']) {
 	case 'grafic' :
 		$title = 'Grafikbericht';
 
-		$results = Result::getGraficReportResult($_GET['rID'], $reportCheck['report']['rThreshold']);
+		$results = Result::getGraficReportResult($_GET['rID'], $reportCheck['report']['rThreshold'], $_GET['rtSourceLink'], $_GET['rtSourcedID']);
 		$sim = $reportCheck['report']['rThreshold'];
 
-		$color[0]['value'] = $sim;
-		$color[0]['color'] = '#ffff00';
-		$color[1]['value'] = $sim + (100 - $sim) * 1 / 3;
-		$color[1]['color'] = '#FF7722';
-		$color[2]['value'] = $sim + (100 - $sim) * 2 / 3;
-		$color[2]['color'] = '#ff0000';
+		$color[0]['value'] = 'Zitiert';
+		$color[0]['color'] = '#00FF00';
+		$color[1]['value'] = $sim;
+		$color[1]['color'] = '#ffff00';
+		$color[2]['value'] = $sim + (100 - $sim) * 1 / 3;
+		$color[2]['color'] = '#FF7722';
+		$color[3]['value'] = $sim + (100 - $sim) * 2 / 3;
+		$color[3]['color'] = '#CA8989';
 
 		//
 		// echo $sim.'<br />';
@@ -59,7 +61,7 @@ switch ($_GET['type']) {
 
 					// TYP 0 - kein Plagiat
 					$string = '';
-					for ($i = $start; $i < $result['rtStartWord']; $i++) {
+					for ($i = $start; $i < $result['rtStartWord']-1; $i++) {
 						$string .= $split[$i] . ' ';
 					}
 
@@ -78,7 +80,7 @@ switch ($_GET['type']) {
 
 				// TYP 1 - Plagiat
 				$string = '';
-				for ($i = $result['rtStartWord']; $i < $result['rtEndWord']; $i++) {
+				for ($i = $result['rtStartWord']-1; $i < $result['rtEndWord']-1; $i++) {
 					$string .= $split[$i] . ' ';
 				}
 
@@ -92,7 +94,7 @@ switch ($_GET['type']) {
 
 				$array[] = $out;
 
-				$start = $result['rtEndWord'];
+				$start = $result['rtEndWord']-1;
 
 				// $output = $string;
 			}
@@ -118,18 +120,28 @@ switch ($_GET['type']) {
 
 		foreach ($array as $a) {
 			//TODO DEBUG [xx-xx]
-			// $output .= '|' . $a['start'] . '-' . $a['stop'] . '|';
+			$output .= '|' . $a['start'] . '-' . $a['stop'] . '|';
 			if ($a['type'] != 0) {
 
-				if ($a['rtSimilarity'] >= $color[2]['value'])
-					$background = $color[2]['color'];
-				else if ($a['rtSimilarity'] >= $color[1]['value'])
-					$background = $color[1]['color'];
-				else if ($a['rtSimilarity'])
+				if($a['rtIsInSources'] == 1)
 					$background = $color[0]['color'];
+				else if ($a['rtSimilarity'] >= $color[2]['value'])
+					$background = $color[3]['color'];
+				else if ($a['rtSimilarity'] >= $color[1]['value'])
+					$background = $color[2]['color'];
+				else if ($a['rtSimilarity'])
+					$background = $color[1]['color'];
 
 				//TODO DEBUG [xx-xx] //[' . $a['rtStartWord'] . '-' . $a['rtEndWord'] . ']
-				$output .= '<div class="rtSourceText">' . $a['rtSourceText'] . ' <b>(<a target="_blank" href="' . $a['rtSourceLink'] . '" title="' . $a['rtSourceLink'] . '" />' . $a['rtSimilarity'] . ' %</a>)</b></div>';
+				$source = '';
+				if($a['rtSourcedID']) {
+					$source = '<b>(' . $a['dOriginalName'] . ' zu ' . $a['rtSimilarity'] . ' %)</b>';
+				}
+				else {
+					$source = '<b>([' . $a['rtStartWord'] . '-' . $a['rtEndWord'] . ']<a target="_blank" href="' . $a['rtSourceLink'] . '" title="' . $a['rtSourceLink'] . '" />' . $a['rtSimilarity'] . ' %</a>)</b>';
+				}
+				
+				$output .= '<div class="rtSourceText">' . nl2br($a['rtSourceText']) . ' '.$source.'</div>';
 				$output .= '<span style="background: ' . $background . ';">' . nl2br($a['rtQuellText']) . '</span>';
 
 			} else {
@@ -158,12 +170,7 @@ switch ($_GET['type']) {
 
 			if (array_key_exists($key, $output)) {
 
-				$source = array();
-				$source['rtSourceText'] = $result['rtSourceText'];
-				$source['rtSourcedID'] = $result['rtSourcedID'];
-				$source['rtSourceLink'] = $result['rtSourceLink'];
-				$source['rtSimilarity'] = $result['rtSimilarity'];
-				$output[$key]['source'][] = $source;
+				$output[$key]['source'][] = $result;
 
 			} else {
 
@@ -175,11 +182,7 @@ switch ($_GET['type']) {
 				$item['rtEndWord'] = $result['rtEndWord'];
 				$item['rtQuellText'] = $string;
 
-				$source['rtSourceText'] = $result['rtSourceText'];
-				$source['rtSourcedID'] = $result['rtSourcedID'];
-				$source['rtSourceLink'] = $result['rtSourceLink'];
-				$source['rtSimilarity'] = $result['rtSimilarity'];
-				$item['source'][] = $source;
+				$item['source'][] = $result;
 
 				$output[$key] = $item;
 			}

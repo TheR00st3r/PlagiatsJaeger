@@ -11,9 +11,17 @@ class Result {
 			$db = new db();
 			$db -> read("
 				SELECT
-					rt.rtID, rt.rtSourceText, rt.rtSourceLink, rt.rtSourcedID, rt.rtStartWord, rt.rtEndWord, rt.rtSimilarity, rt.rID
+					rt.rtID, rt.rtSourceText, rt.rtSourceLink, rt.rtSourcedID, rt.rtStartWord, rt.rtEndWord,
+					rt.rtSimilarity, rt.rID, rt.rtIsInSources,
+					d.dOriginalName, d.dAuthor,
+					f.fName,
+					u.uName, u.uLastname
 				FROM
-					result AS rt
+					result AS rt LEFT JOIN
+					document AS d ON rt.rtSourcedID = d.dID LEFT JOIN
+					folderpermission AS fp ON fp.fID = d.fID LEFT JOIN
+					folder AS f ON fp.fID = f.fID LEFT JOIN
+					user AS u ON fp.uID = u.uID
 				WHERE
 					rt.rID = '$rID'
 				ORDER BY
@@ -24,7 +32,7 @@ class Result {
 			return $results;
 		}
 	}
-	
+
 	/**
 	 * Returns s short results summary from the given report id.
 	 * @param int $rID
@@ -35,13 +43,20 @@ class Result {
 			$db = new db();
 			$db -> read("
 				SELECT
-					COUNT(rt.rtSourceLink) as count, rt.rtSourceLink
+					COUNT(*) as count, rt.rtSourceLink, rt.rtSourcedID, AVG(rt.rtSimilarity) as rtSimilarity, rt.rtIsInSources,
+					d.dOriginalName, d.dAuthor,
+					f.fName,
+					u.uName, u.uLastname
 				FROM
-					result AS rt
+					result AS rt LEFT JOIN
+					document AS d ON rt.rtSourcedID = d.dID LEFT JOIN
+					folderpermission AS fp ON fp.fID = d.fID LEFT JOIN
+					folder AS f ON fp.fID = f.fID LEFT JOIN
+					user AS u ON fp.uID = u.uID
 				WHERE
 					rt.rID = '$rID'
 				GROUP BY
-					rt.rtSourceLink
+					rt.rtSourceLink, rt.rtSourcedID
 				ORDER BY
 					count DESC");
 
@@ -50,26 +65,43 @@ class Result {
 			return $results;
 		}
 	}
-	
-		/**
+
+	/**
 	 * Returns s short results summary from the given report id.
 	 * @param int $rID
 	 * @return array
 	 */
-	public static function getGraficReportResult($rID, $rThreshold) {
+	public static function getGraficReportResult($rID, $rThreshold, $rtSourceLink = '', $rtSourcedID = '') {
 		if (Validator::validate(VAL_INTEGER, $rID, true)) {
+
+			if ($rtSourceLink != '') {
+				$rtSourceLink = urldecode($rtSourceLink);
+				$where = "AND rt.rtSourceLink =  '$rtSourceLink'";
+			} else if ($rtSourcedID != '')
+				$where = "AND rt.rtSourcedID =  '$rtSourcedID'";
+			else
+				$where = "";
+
 			$db = new db();
 			$db -> read("
 				SELECT
-					rtStartWord, rtEndWord, rtSourceText, max(rtSimilarity) as rtSimilarity, rtSourceLink, rtSourcedID
+					rt.rtStartWord, rt.rtEndWord, rt.rtSourceText, max(rt.rtSimilarity) as rtSimilarity,
+					rt.rtSourceLink, rt.rtSourcedID, rt.rtIsInSources,
+					d.dOriginalName, d.dAuthor,
+					f.fName,
+					u.uName, u.uLastname
 				FROM
-					result
+					result AS rt LEFT JOIN
+					document AS d ON rt.rtSourcedID = d.dID LEFT JOIN
+					folderpermission AS fp ON fp.fID = d.fID LEFT JOIN
+					folder AS f ON fp.fID = f.fID LEFT JOIN
+					user AS u ON fp.uID = u.uID
 				WHERE
-					rID = '$rID' AND rtSourceText !=  '' AND rtSimilarity !=  '' and rtSimilarity > '$rThreshold'
+					rt.rID = '$rID' AND rt.rtSourceText !=  '' AND rt.rtSimilarity > '$rThreshold' $where
 				GROUP BY
-					rtStartWord
+					rt.rtStartWord
 				ORDER BY
-					rtStartWord ASC , rtEndWord ASC ");
+					rt.rtStartWord ASC , rt.rtEndWord ASC ");
 
 			$results = $db -> linesAsArray();
 			$db -> disconnect();

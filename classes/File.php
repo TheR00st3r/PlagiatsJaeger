@@ -7,7 +7,7 @@ class File {
 	 * @param int $dID
 	 * @param string $text
 	 * @param string $extension
-	 * @return boolean
+	 * @return void
 	 */
 	public static function writeFile($dID, $text, $extension) {
 		global $logData;
@@ -42,9 +42,8 @@ class File {
 	/**
 	 * Copies the uploaded temporary file to the right folder.
 	 * @param int $dID
-	 * @param file $file
-	 * @param string $extension
-	 * @return boolean
+	 * @param array $file
+	 * @return void
 	 */
 	public static function copyTempFile($dID, $file) {
 		global $logData;
@@ -94,6 +93,12 @@ class File {
 		return $return;
 	}
 
+	/**
+	 * Starts the backend file parsing.
+	 * @param int $dID
+	 * @param string $extension
+	 * @return void
+	 */
 	public static function startFileParsing($dID, $extension) {
 		global $backendUrl;
 		$state = false;
@@ -123,7 +128,7 @@ class File {
 	/**
 	 * Returns the content from given filename.
 	 * @param string $filename
-	 * @return string
+	 * @return string the file content
 	 */
 	public static function readFile($filename) {
 		global $logData;
@@ -150,9 +155,14 @@ class File {
 		return $return;
 	}
 
+	/**
+	 * Returns the file extension from the filename.
+	 * @param string $fileName
+	 * @return string the file extension
+	 */
 	public static function getFileExtension($fileName) {
-		$pos = strripos($file["name"], '.');
-		return strtolower(substr($file["name"], $pos));
+		$pos = strripos($fileName, '.');
+		return strtolower(substr($fileName, $pos));
 	}
 
 }
