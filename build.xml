@@ -31,7 +31,6 @@
 		</exec>
 	</target>
 	<target name="build">
-		<antcall target="test" />
 		<antcall target="deploy" />
 		<antcall target="phpdoc" />
 	</target>
