@@ -15,6 +15,7 @@
 				<exclude name=".htaccess" />
 				<exclude name="**/configs/config.php" />
 				<exclude name="**/phpdoc/" />
+				<exclude name="**/reports/" />
 			</fileset>
 		</copy>
 	</target>
