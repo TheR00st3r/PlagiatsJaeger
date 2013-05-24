@@ -6,7 +6,7 @@
 		value="/usr/share/tomcat7/.jenkins/jobs/PlagiatsJaegerPHP/workspace" />
 	<target name="test">
 		<exec dir="${source}/tests" executable="phpunit" failonerror="true">
-			<arg line="--verbose --testdox-html '${source}\phpunit-report.html' DB_test" />
+			<arg line="--verbose --testdox-html '${source}\phpunit-report.html' DBtest" />
 		</exec>
 	</target>
 	<target name="deploy">
