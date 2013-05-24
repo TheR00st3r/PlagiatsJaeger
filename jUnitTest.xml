@@ -7,7 +7,7 @@
 	<target name="compile" />
 
 	<path id="cp">
-		<pathelement location="WebContent/META-INF/WEB-INF/lib/junit-4.10.jar" />
+		<pathelement location="WebContent/WEB-INF/lib/junit-4.10.jar" />
 	</path>
 
 	<target name="jUnit" depends="compile" description="JUnit-Tests durchführen">
