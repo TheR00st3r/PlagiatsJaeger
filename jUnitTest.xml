@@ -7,7 +7,7 @@
 	<target name="compile" />
 
 	<path id="cp">
-		<pathelement location="WebContent/WEB-INF/lib/junit-4.10.jar" />
+		<pathelement location="WebContent/WEB-INF/lib/junit.jar" />
 		<pathelement location="WebContent/WEB-INF/lib/chardet.jar" />
 	</path>
 
