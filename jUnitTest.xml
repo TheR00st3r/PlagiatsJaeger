@@ -4,12 +4,7 @@
 	<property name="build" value="build/classes" />
 	<property name="test.reports" value="reports" />
 
-
-
-
-	<target name="compile" />
-
-	<target name="test" depends="compile" description="JUnit-Tests durchführen">
+	<target name="jUnit" depends="compile" description="JUnit-Tests durchführen">
 		<echo message="start jUnitTests" />
 		<delete dir="${test.reports}" />
 		<mkdir dir="${test.reports}" />
