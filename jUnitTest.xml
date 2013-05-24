@@ -4,6 +4,10 @@
 	<property name="build" value="build/classes" />
 	<property name="test.reports" value="reports" />
 
+	<classpath>
+		<pathelement location="./lib/junit.jar" path="./lib/junit.jar" />
+	</classpath>
+
 	<target name="compile" />
 
 	<target name="jUnit" depends="compile" description="JUnit-Tests durchführen">
@@ -11,7 +15,7 @@
 		<delete dir="${test.reports}" />
 		<mkdir dir="${test.reports}" />
 		<junit printsummary="yes" fork="yes" haltonfailure="no">
-						<classpath path="${build}"></classpath>
+			<classpath path="${build}"></classpath>
 			<formatter type="xml" />
 
 			<batchtest todir="${test.reports}">
