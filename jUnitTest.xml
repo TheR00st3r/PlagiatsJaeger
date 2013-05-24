@@ -10,6 +10,9 @@
 		<pathelement location="WebContent/WEB-INF/lib/hamcrest-core.jar" />
 		<pathelement location="WebContent/WEB-INF/lib/junit.jar" />
 		<pathelement location="WebContent/WEB-INF/lib/chardet.jar" />
+		<pathelement location="WebContent/WEB-INF/lib/poi.jar" />
+		<pathelement location="WebContent/WEB-INF/lib/poi-ooxml.jar" />
+		<pathelement location="WebContent/WEB-INF/lib/poi-scratchpad.jar" />
 	</path>
 
 	<target name="jUnit" depends="compile" description="JUnit-Tests durchführen">
