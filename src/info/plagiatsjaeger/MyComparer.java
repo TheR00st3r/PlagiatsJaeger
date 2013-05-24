@@ -224,13 +224,13 @@ public class MyComparer implements IComparer
 			compareResultCheck.setSourceText(resultText.toString());
 			compareResultCheck.setIsInSources(_isInSources);
 
-			System.out.println("### TREFFER #######################");
-			System.out.println("Source:       " + _currentLink);
-			System.out.println("Source:       " + _currentDocId);
-			System.out.println("Start-Ende:   " + compareResultCheck.getCheckStart() + "-" + compareResultCheck.getCheckEnd());
-			System.out.println("Text:         " + compareResultCheck.getSourceText());
-			System.out.println("Aehnlichkeit: " + compareResultCheck.getSimilarity());
-			System.out.println("###################################");
+			_logger.info("### TREFFER #######################");
+			_logger.info("Source:       " + _currentLink);
+			_logger.info("Source:       " + _currentDocId);
+			_logger.info("Start-Ende:   " + compareResultCheck.getCheckStart() + "-" + compareResultCheck.getCheckEnd());
+			_logger.info("Text:         " + compareResultCheck.getSourceText());
+			_logger.info("Aehnlichkeit: " + compareResultCheck.getSimilarity());
+			_logger.info("###################################");
 			if (_currentDocId <= 0)
 			{
 				_logger.info("Found link: " + _currentLink + " with Similarity " + compareResultCheck.getSimilarity());
