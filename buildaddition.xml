@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse.ant.import?>
 <project basedir="." default="jUnit" name="jUnit">
-    <property name="java.test.reports.path" value="build/reports"/>
-    <property name="java.src.build.path" value="build/classes"/>
-   <target name="test.java" depends="build">
-    <mkdir dir="${java.test.reports.path}" />
-    <junit haltonfailure="no" printsummary="true">
-      <classpath>
-        <path refid="test.run.classpath" />
-        <pathelement location = "${java.src.build.path}" />
-      </classpath>
-      <!-- add to see errors on console while running junit tests.
-      <formatter type="brief" usefile="false" />    
-      -->
-      <formatter type="xml"/>
-      <batchtest fork="yes" todir="${java.test.reports.path}">
-        <fileset dir="${java.test.build.path}/">
-          <include name="**/*Test*.class"/>
-          <exclude name="**/*$*.class"/>
-        </fileset>
-      </batchtest>
-    </junit>
-  </target> 
+	<property name="src" value="src" />
+	<property name="build" value="build/classes" />
+	<property name="test.reports" value="reports" />
+
+	<target name="test" depends="compile" description="JUnit-Tests durchführen">
+	    <echo message="start jUnittests..."/>
+		<delete dir="${test.reports}" />
+		<mkdir dir="${test.reports}" />
+		<junit printsummary="yes" fork="yes" haltonfailure="no">
+			<classpath location="${build}" />
+			<formatter type="xml" />
+
+			<batchtest todir="${test.reports}">
+				<fileset dir="${src}">
+					<include name="**/*Test.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+		<echo message="Fertig, Testergebnisse im Verzeichnis ${test.reports}" />
+	</target>
 </project>
