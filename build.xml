@@ -6,7 +6,6 @@
 		value="/usr/share/tomcat7/.jenkins/jobs/PlagiatsJaegerPHP/workspace" />
 	<target name="test">
 		<exec dir="${source}/tests" executable="phpunit" failonerror="true">
-			<arg line="--log-xml ${source}/build/logs/phpunit.xml User_test" />
 		</exec>
 	</target>
 	<target name="deploy">
