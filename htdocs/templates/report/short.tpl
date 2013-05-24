@@ -4,6 +4,8 @@
 	<tr>
 		<th>Anzahl Textstellen</th>
 		<th>Quelle</th>
+		<th>Average</th>
+		<th>Details</th>
 	</tr>
 	{foreach from=$results item=result}
 	<tr>
@@ -17,6 +19,7 @@
 			<a target="_blank" href="{$result.rtSourceLink}">{$result.rtSourceLink}</a>
 			{/if}
 		</td>
+		<td>{$result.rtSimilarity|money_format} %</td>
 		<td><a href="report.php?rID={$smarty.get.rID}&amp;type=grafic&amp;rtSourceLink={$result.rtSourceLink|urlencode}&amp;rtSourcedID={$result.rtSourcedID}">Details</a></td>
 	</tr>
 	{/foreach}
