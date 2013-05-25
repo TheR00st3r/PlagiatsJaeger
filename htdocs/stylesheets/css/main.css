@@ -26,7 +26,7 @@ textarea{border:solid 1px #cccccc;}
 .files .documents .smal{width:50px;}
 .files .documents .bgcolor{background:#f3f6fa;}
 .files .documents .edit{text-align:right;}
-.files .documents .jeditable input{width:50px;}
+.files .documents .jeditable input{width:80px !important;}
 .files .documents .jeditable button{border:solid 1px #cccccc;}
 .checkFolders ul{list-style:none;}
 .admin .user{width:100%;border-collapse:collapse;}.admin .user .borderright{border-right:solid 1px #eee;}
@@ -42,12 +42,13 @@ tr:hover{background:#ffa !important;}
 .save{background-color:#7FFF99;border:solid 1px #00B233;}
 .info{background-color:#eee;border:solid 1px #555;}
 .error a,.save a,.info a{color:#000;}
-.report{background:#FFF;padding:20px;}.report h1{font-size:18pt;margin:0px;padding:0px;}
+.report{background:#FFF;padding:60px 20px 20px 20px;position:relative;}.report .reportNav{position:fixed;left:0px;top:0px;background:#ccc;width:100%;z-index:99;}.report .reportNav .frame{padding:10px;}.report .reportNav .frame a{text-decoration:none;padding:0 20px;font-weight:bold;}
+.report h1{font-size:18pt;margin:0px;padding:0px;}
 .report h2{margin:30px 0 0 0;font-size:11pt;}
 .report h3{margin:15px 0 5px 0;padding:0px;}
 .report .overview{width:100%;}.report .overview th{text-align:right;min-width:120px;padding:0 20px 0 0;background:#fff !important;}
 .report .legende{width:100%;}.report .legende td{text-align:center;width:25%;}
-.report table.short th{text-align:left;padding:10px;}
+.report table.short{width:100%;}.report table.short th{text-align:left;padding:10px 0;}
 .report p{margin:0 0 5px 0;padding:0px;}
 .report .plags{margin:0 0 0 50px;}.report .plags .link{text-align:right;font-style:italic;}
 .report .graficReport{line-height:1.6em;width:100%;position:relative;}.report .graficReport .source{width:49%;}

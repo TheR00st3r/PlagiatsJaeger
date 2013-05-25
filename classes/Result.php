@@ -43,14 +43,14 @@ class Result {
 			$db = new db();
 			$db -> read("
 				SELECT
-					COUNT(*) as count, rt.rtSourceLink, rt.rtSourcedID, AVG(rt.rtSimilarity) as rtSimilarity, rt.rtIsInSources,
+					COUNT(rt.rID) as count, rt.rtSourceLink, rt.rtSourcedID, AVG(rt.rtSimilarity) as rtSimilarity, rt.rtIsInSources,
 					d.dOriginalName, d.dAuthor,
 					f.fName,
 					u.uName, u.uLastname
 				FROM
 					result AS rt LEFT JOIN
 					document AS d ON rt.rtSourcedID = d.dID LEFT JOIN
-					folderpermission AS fp ON fp.fID = d.fID LEFT JOIN
+					folderpermission AS fp ON fp.fID = d.fID AND fp.fpPermissionLevel = 900 LEFT JOIN
 					folder AS f ON fp.fID = f.fID LEFT JOIN
 					user AS u ON fp.uID = u.uID
 				WHERE

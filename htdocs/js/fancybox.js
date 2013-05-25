@@ -16,6 +16,7 @@ $(document).ready(function() {
 	});
 
 	$('.iframeviewer').fancybox({
-		'autoDimensions' : true
+		'autoDimensions' : true,
+		'width' : 1000
 	});
 });

@@ -153,7 +153,7 @@ switch ($_GET['type']) {
 		$reportContent = 'report/grafic.tpl';
 		break;
 	case 'all' :
-		$title = 'Resultatbericht';
+		$title = 'Komplettbericht';
 		$results = Result::getAllReportResult($_GET['rID']);
 
 		$resultsNew = array();

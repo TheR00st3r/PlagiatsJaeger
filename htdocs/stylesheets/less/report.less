@@ -1,6 +1,26 @@
 .report {
 	background: #FFF;
-	padding: 20px;
+	padding: 60px 20px 20px 20px;
+	position: relative;
+	
+	.reportNav {
+		position: fixed;
+		left: 0px;
+		top: 0px;
+		background: #ccc;
+		width: 100%;
+		z-index: 99;
+		
+		.frame {
+			padding: 10px;
+			
+			a {
+				text-decoration: none;
+				padding: 0 20px;
+				font-weight: bold;
+			}
+		}
+	}
 	
 	h1 {
 		font-size: 18pt;
@@ -37,9 +57,10 @@
 	}
 	
 	table.short {
+		width: 100%;
 		th {
 			text-align: left;
-			padding: 10px;
+			padding: 10px 0;
 		}
 	}
 	
