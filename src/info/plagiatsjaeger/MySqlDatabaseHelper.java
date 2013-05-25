@@ -498,7 +498,30 @@ public class MySqlDatabaseHelper
 	public FileType loadFileType(int dId)
 	{
 		FileType result = null;
-
+		String strStatement = "SELECT dFileExtension FROM document AS d WHERE d.dID = " + dId;
+		ResultSet rstResultSet = null;
+		try
+		{
+			rstResultSet = startQuery(strStatement);
+			if (rstResultSet.next())
+			{
+				String filetype = rstResultSet.getString("d.dFileExtension");
+				filetype = filetype.replace(".", "").toUpperCase();
+				result = FileType.valueOf(filetype);	
+			}
+		}
+		catch (SQLException e)
+		{
+			_logger.fatal(e.getMessage(), e);
+		}
+		catch (Exception e)
+		{
+			_logger.fatal(e.getMessage(), e);
+		}
+		finally
+		{
+			disconnect();
+		}
 		return result;
 	}
 }
