@@ -192,7 +192,11 @@ public class Control
 						@Override
 						public Void call()
 						{
-							if (!SourceLoader.cleanUrl(new MySqlDatabaseHelper().loadDocumentURL(rId)).equals(SourceLoader.cleanUrl(link)))
+							String dbLink = SourceLoader.cleanUrl(new MySqlDatabaseHelper().loadDocumentURL(rId));
+							_logger.info(dbLink);
+							_logger.info(SourceLoader.cleanUrl(link));
+							
+							if (!dbLink.equals(SourceLoader.cleanUrl(link)))
 							{
 								_logger.info("Thread for Link started: " + link);
 								compare(rId, strSourceText, link, 0);
