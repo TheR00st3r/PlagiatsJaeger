@@ -2,7 +2,8 @@
 require_once '/usr/share/php/PHPUnit/Autoload.php';
 require_once '../configs/setup.php';
 
-class DocumentTest extends PHPUnit_Framework_TestCase {
+class LoginAccessTest extends PHPUnit_Framework_TestCase {
+  
   
   /*
    * called before every test-function call
@@ -12,6 +13,7 @@ class DocumentTest extends PHPUnit_Framework_TestCase {
     echo "setUp()";
   }
   
+  
   /*
    * called after every test-function call
    * clean up test environment
@@ -20,15 +22,12 @@ class DocumentTest extends PHPUnit_Framework_TestCase {
     echo "tearDown()";
   }
 
-  public function test_Test1() {
-    echo "test_Test1()";
-    $this -> assertFalse(true);
+
+  public function test_Login() {
+    $checkLogin = LoginAccess::login("nichtRegistriert@test.de", "falsch");
+    $this->assertEquals(false, $checkLogin['state']);
   }
   
-  public function test_Test2() {
-    echo "test_Test2()";
-    $this -> assertFalse(false);
-  }
 
 }
 

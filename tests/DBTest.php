@@ -1,6 +1,17 @@
 <?php
 require_once '/usr/share/php/PHPUnit/Autoload.php';
+
 require_once '../configs/setup.php';
+
+// include setup.php
+/*$filename = $testDir.'/configs/setup.php';
+if (file_exists($filename)) {
+  echo "The file $filename exists";
+  require_once $filename;
+}
+else {
+    echo "The file $filename does not exist";
+}*/
 
 class DBTest extends PHPUnit_Framework_TestCase {
   protected $database ="testDB";
