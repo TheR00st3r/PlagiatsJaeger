@@ -10,7 +10,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.io.Writer;
 import java.nio.charset.Charset;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -53,9 +52,12 @@ public class FileParser
 	 *            bereits ermittelter Dateityp
 	 * @return boolean result, gibt bei Erfolg true zurueck
 	 */
-	public boolean parseFile(int dId, FileType fileType)
+	public boolean parseFile(int dId)
 	{
 		_logger.info("Start parsing: " + dId);
+
+		FileType fileType = new MySqlDatabaseHelper().loadFileType(dId);
+
 		boolean result = false;
 		// Http liegen nicht als Datei vor
 

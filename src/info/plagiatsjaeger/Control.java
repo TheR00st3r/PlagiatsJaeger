@@ -1,7 +1,6 @@
 package info.plagiatsjaeger;
 
 import info.plagiatsjaeger.enums.ErrorCode;
-import info.plagiatsjaeger.enums.FileType;
 import info.plagiatsjaeger.interfaces.IComparer;
 import info.plagiatsjaeger.interfaces.IOnlineSearch;
 import info.plagiatsjaeger.interfaces.OnCompareFinishedListener;
@@ -51,7 +50,7 @@ public class Control
 
 	public Control(int rId)
 	{
-		if (rId != 0)
+		if (rId > 0)
 		{
 			// Settings zu beginn laden
 			_settings = new MySqlDatabaseHelper().getSettings(rId);
@@ -65,12 +64,12 @@ public class Control
 	 * @param dId
 	 * @return
 	 */
-	public boolean startParsing(final int dId, final FileType fileEnding)
+	public boolean startParsing(final int dId)
 	{
 		boolean result = false;
 		try
 		{
-			_logger.info("Servlet called: " + dId + fileEnding);
+			_logger.info("Servlet called: " + dId);
 			new Thread(new Runnable()
 			{
 				@Override
@@ -78,9 +77,9 @@ public class Control
 				{
 					try
 					{
-						_logger.info("Thread started: " + dId + fileEnding);
+						_logger.info("Thread started: " + dId);
 						FileParser fileParser = new FileParser();
-						if (fileParser.parseFile(dId, fileEnding))
+						if (fileParser.parseFile(dId))
 						{
 							new MySqlDatabaseHelper().setDocumentAsParsed(dId);
 						}

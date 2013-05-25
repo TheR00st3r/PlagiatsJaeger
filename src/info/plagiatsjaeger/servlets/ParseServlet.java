@@ -3,7 +3,6 @@ package info.plagiatsjaeger.servlets;
 import info.plagiatsjaeger.Control;
 import info.plagiatsjaeger.enums.FileType;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -12,8 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.log4j.Logger;
 
 
 /**
@@ -42,7 +39,7 @@ public class ParseServlet extends HttpServlet
 		final int dID = Integer.parseInt(request.getParameter("dID"));
 		final FileType dFileEndign = FileType.valueOf(request.getParameter("dFileEnding").substring(1).toUpperCase());
 		PrintWriter out = response.getWriter();
-		if (new Control(0).startParsing(dID, dFileEndign))
+		if (new Control(-1).startParsing(dID))
 		{
 			out.print("true");
 		}
