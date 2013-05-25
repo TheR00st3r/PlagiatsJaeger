@@ -10,10 +10,6 @@ import info.plagiatsjaeger.onlinesearch.OnlineSearch;
 import info.plagiatsjaeger.types.CompareResult;
 import info.plagiatsjaeger.types.Settings;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.concurrent.Callable;
@@ -303,23 +299,7 @@ public class Control
 			mySqlDatabaseHelper.finishReport(rId, _similarity, simpleDateFormat.format(Calendar.getInstance().getTime()));
 			if ((_similarity * 100) > _settings.getThreshold())
 			{
-				// SourceLoader.loadURL("http://192.168.4.28/sendmail.php?rID="
-				// + rId);
-
-				try
-				{
-					URL url = new URL("http://192.168.4.28/sendmail.php?rID=" + rId);
-					URLConnection urlConnection = url.openConnection();
-					urlConnection.connect();
-				}
-				catch (MalformedURLException e)
-				{
-					_logger.fatal(e.getMessage(), e);
-				}
-				catch (IOException e)
-				{
-					_logger.fatal(e.getMessage(), e);
-				}
+				SourceLoader.loadURL("http://192.168.4.28/sendmail.php?rID=" + rId, false);
 			}
 			_logger.info("Report " + rId + " fertiggestellt!");
 

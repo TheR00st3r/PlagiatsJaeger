@@ -36,13 +36,18 @@ public class SourceLoader
 
 	private static String		_detectedCharset;
 
+	public static String loadURL(String strUrl)
+	{
+		return loadURL(strUrl, true);
+	}
+
 	/**
 	 * Laed den Text einer Webseite.
 	 * 
 	 * @param strUrl
 	 * @return
 	 */
-	public static String loadURL(String strUrl)
+	public static String loadURL(String strUrl, boolean detectCharset)
 	{
 		String result = "";
 		try
@@ -71,16 +76,21 @@ public class SourceLoader
 				else
 				{
 					_logger.info("No match found " + strUrl);
-					// TODO: Gesamte seite nach contenttype durchsuchen
-					detectCharset(url.openStream());
-					result = loadSiteWithCharset(urlConnection, _detectedCharset);
+					if (detectCharset)
+					{
+						detectCharset(url.openStream());
+						result = loadSiteWithCharset(urlConnection, _detectedCharset);
+					}
 				}
 			}
 			else
 			{
 				_logger.info("CONTENT_TYPE IS null " + strUrl);
-				detectCharset(url.openStream());
-				result = loadSiteWithCharset(urlConnection, _detectedCharset);
+				if (detectCharset)
+				{
+					detectCharset(url.openStream());
+					result = loadSiteWithCharset(urlConnection, _detectedCharset);
+				}
 			}
 		}
 		catch (MalformedURLException e)
