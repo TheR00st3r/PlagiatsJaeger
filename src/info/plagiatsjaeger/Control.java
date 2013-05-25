@@ -196,8 +196,11 @@ public class Control
 						@Override
 						public Void call()
 						{
-							_logger.info("Thread for Link started: " + link);
-							compare(rId, strSourceText, link, 0);
+							if (!SourceLoader.cleanUrl(new MySqlDatabaseHelper().loadDocumentURL(rId)).equals(SourceLoader.cleanUrl(link)))
+							{
+								_logger.info("Thread for Link started: " + link);
+								compare(rId, strSourceText, link, 0);
+							}
 							return null;
 						}
 					}));
