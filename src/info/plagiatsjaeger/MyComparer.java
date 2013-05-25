@@ -186,7 +186,7 @@ public class MyComparer implements IComparer
 			_logger.info("Merge Results: " + resultCounter);
 			if (init)
 			{
-				if (checkText.contains(_currentLink))
+				if (checkText.contains(_currentLink.replace("http://", "").replace("www.", "")))
 				{
 					_isInSources = true;
 				}
