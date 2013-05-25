@@ -5,21 +5,16 @@
 	</div>
 	{/foreach}
 
-	<div class="floatright noprint">
-		<a target="_blank" href="report.php?rID={$smarty.get.rID}&amp;type={$smarty.get.type}&amp;print=1"><img src="{$root}images/print.png" alt="{$title} drucken" title="{$title} drucken" /></a>
-	</div>
-
-	<ul class="noprint">
-		<li>
+	<div class="reportNav noprint">
+		<div class="frame">
+			<div class="floatright">
+				<a target="_blank" href="report.php?rID={$smarty.get.rID}&amp;type={$smarty.get.type}&amp;print=1"><img src="{$root}images/print.png" alt="{$title} drucken" title="{$title} drucken" /></a>
+			</div>
 			<a href="report.php?rID={$smarty.get.rID}&amp;type=short">Schnellbericht</a>
-		</li>
-		{*<li>
-			<a href="report.php?rID={$smarty.get.rID}&amp;type=grafic">Grafikbericht</a>
-		</li>*}
-		<li>
-			<a href="report.php?rID={$smarty.get.rID}&amp;type=all">Resultatbericht</a>
-		</li>
-	</ul>
+			<a href="report.php?rID={$smarty.get.rID}&amp;type=all">Komplettbericht</a>
+			{*<a href="report.php?rID={$smarty.get.rID}&amp;type=grafic">Grafikbericht</a>*}
+		</div>
+	</div>
 
 	<h1>{$title}</h1>
 	<table class="overview">
@@ -28,10 +23,10 @@
 			<td>
 				{$report.dOriginalName}
 			</td>
-			<th>Author:</td>
+			<th>Author:</th>
 			<td>
 				{$report.dAuthor}
-			</th>
+			</td>
 		</tr>
 		<tr>
 			<th>Schwellenwert:</th>
