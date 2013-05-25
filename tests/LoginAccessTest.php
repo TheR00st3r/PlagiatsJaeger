@@ -28,6 +28,17 @@ class LoginAccessTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(false, $checkLogin['state']);
   }
   
+  
+  public function test_Logout() {
+    $checkLogin = LoginAccess::logout();
+    $this->assertEquals(true, true);
+  }
+  
+  
+  public function test_Check() {
+    $checkLogin = LoginAccess::check();
+    $this->assertEquals(false, $checkLogin);
+  }
 
 }
 
