@@ -187,6 +187,7 @@ public class Control
 				@Override
 				public void onLinkFound(final String link)
 				{
+					_logger.info("OnLinkFound: " + link);
 					_futures.add(_threadPool.submit(new Callable<Void>()
 					{
 						@Override
