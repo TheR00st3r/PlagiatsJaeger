@@ -43,7 +43,7 @@ class Result {
 			$db = new db();
 			$db -> read("
 				SELECT
-					COUNT(*) as count, rt.rtSourceLink, rt.rtSourcedID, AVG(rt.rtSimilarity) as rtSimilarity, rt.rtIsInSources,
+					COUNT(rt.rID) as count, rt.rtSourceLink, rt.rtSourcedID, AVG(rt.rtSimilarity) as rtSimilarity, rt.rtIsInSources,
 					d.dOriginalName, d.dAuthor,
 					f.fName,
 					u.uName, u.uLastname
