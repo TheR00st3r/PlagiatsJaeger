@@ -56,6 +56,7 @@ class LoginAccess {
 
 	/**
 	 * Delete the login session valiables.
+	 * @return void
 	 */
 	public static function logout() {
 
@@ -85,7 +86,6 @@ class LoginAccess {
 	 */
 	public static function getUserInfo() {
 		return $_SESSION[self::suffix . '_name'];
-		// (' . $_SESSION[self::suffix . '_id'] . ')';
 	}
 
 	/**
@@ -124,6 +124,7 @@ class LoginAccess {
 	 * Saves the Sessions
 	 * @param int $uThreshold
 	 * @param int $uCheckWWW
+	 * @param int $seID
 	 * @param int $slID
 	 * @return void
 	 */

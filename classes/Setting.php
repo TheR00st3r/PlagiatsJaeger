@@ -3,7 +3,7 @@ class Setting {
 
 	/**
 	 * Returns all standard settings.
-	 * @return array
+	 * @return array all settings
 	 */
 	public static function getAllSettings() {
 		$db = new db();
@@ -22,7 +22,7 @@ class Setting {
 
 	/**
 	 * Returns all search engines.
-	 * @return array
+	 * @return array all search engines
 	 */
 	public static function getAllSearchengines() {
 		$db = new db();

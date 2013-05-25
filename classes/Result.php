@@ -4,7 +4,7 @@ class Result {
 	/**
 	 * Returns all results from the given report id.
 	 * @param int $rID
-	 * @return array
+	 * @return array all results
 	 */
 	public static function getAllReportResult($rID) {
 		if (Validator::validate(VAL_INTEGER, $rID, true)) {
@@ -34,9 +34,9 @@ class Result {
 	}
 
 	/**
-	 * Returns s short results summary from the given report id.
+	 * Returns a short results summary array from the given report id.
 	 * @param int $rID
-	 * @return array
+	 * @return array short results
 	 */
 	public static function getShortReportResult($rID) {
 		if (Validator::validate(VAL_INTEGER, $rID, true)) {
@@ -67,9 +67,12 @@ class Result {
 	}
 
 	/**
-	 * Returns s short results summary from the given report id.
+	 * Returns a result array for the graphic report from the given report id.
 	 * @param int $rID
-	 * @return array
+	 * @param int $rThreshold
+	 * @param int $rtSourceLink
+	 * @param int $rtSourcedID
+	 * @return array graphic results
 	 */
 	public static function getGraficReportResult($rID, $rThreshold, $rtSourceLink = '', $rtSourcedID = '') {
 		if (Validator::validate(VAL_INTEGER, $rID, true)) {

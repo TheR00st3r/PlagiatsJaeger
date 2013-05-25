@@ -9,9 +9,11 @@ class Mail {
 
 	/**
 	 * Send mail to client administrator after user registration.
+	 * @param int $uID
+	 * @param string $uName
+	 * @param string $uLastname
 	 * @param string $uEMailAdress
-	 * @param int $cID
-	 * @return boolean
+	 * @return void
 	 */
 	public function registrate($uID, $uName, $uLastname, $uEMailAdress) {
 
@@ -57,6 +59,11 @@ class Mail {
 		return $return;
 	}
 
+	/**
+	 * Send mail to user after account activating.
+	 * @param int $uID
+	 * @return void
+	 */
 	public function activate($uID) {
 
 		global $root;
@@ -99,7 +106,12 @@ class Mail {
 
 		return $return;
 	}
-
+	
+	/**
+	 * Send mail to user after report with report informations.
+	 * @param array $report
+	 * @return void
+	 */
 	public function reportState($report) {
 
 		global $root;
@@ -137,6 +149,12 @@ class Mail {
 		return $return;
 	}
 
+	/**
+	 * Send mail with forgot reset key to user.
+	 * @param string $key
+	 * @param int $uID
+	 * @return void
+	 */
 	public function forgotPasswordMailSend($key, $uID) {
 
 		global $root;

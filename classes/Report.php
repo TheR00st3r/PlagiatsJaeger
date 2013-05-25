@@ -4,8 +4,12 @@ class Report {
 	/**
 	 * Saves a new report and starts the backend functionality.
 	 * @param int $dID
-	 * @param int $rLevel
-	 * @return boolean
+	 * @param int $slID
+	 * @param int $seID
+	 * @param double $rThreshold
+	 * @param boolean $rCheckWWW
+	 * @param array $rCheckIDs
+	 * @return void
 	 */
 	public static function createReport($dID, $slID, $seID, $rThreshold, $rCheckWWW, $rCheckIDs = array()) {
 		global $backendUrl;
@@ -58,7 +62,7 @@ class Report {
 	/**
 	 * Returns all reports from given document id.
 	 * @param int $dID
-	 * @return array
+	 * @return array reports from folder
 	 */
 	public static function getReportsFromDocumentID($dID) {
 		if (Validator::validate(VAL_INTEGER, $dID, true)) {
@@ -82,7 +86,7 @@ class Report {
 	/**
 	 * Returns report informations from given report id.
 	 * @param int $rID
-	 * @return array
+	 * @return array report informations
 	 */
 	public static function getReportInfos($rID) {
 		$state = false;
@@ -127,8 +131,9 @@ class Report {
 	}
 
 	/**
-	 * Returns the user informations from the given report id.
-	 * @return array with users details
+	 * Returns the report informations for information mail from the given report id.
+	 * @param int $rID
+	 * @return array report informations
 	 */
 	public static function getReportInformationForMail($rID) {
 		$state = false;

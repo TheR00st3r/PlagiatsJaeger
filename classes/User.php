@@ -4,7 +4,7 @@ class User {
 
 	/**
 	 * Returns all users from database.
-	 * @return array with usrs
+	 * @return array with users
 	 */
 	public static function getAllUser() {
 
@@ -31,6 +31,7 @@ class User {
 
 	/**
 	 * Returns the user infos from the given user id.
+	 * @param int $uID
 	 * @return array with users details
 	 */
 	public static function getUser($uID) {
@@ -79,7 +80,12 @@ class User {
 	 * @param string $uEMailAdress
 	 * @param string $uPassword
 	 * @param int $uPermissonLevel
-	 * @return boolean
+	 * @param int $cID
+	 * @param int $slID
+	 * @param int $seID
+	 * @param double $uThreshold
+	 * @param boolean $uCheckWWW
+	 * @return void
 	 */
 	public static function newUser($uName, $uLastname, $uEMailAdress, $uPassword, $uPermissonLevel, $cID, $slID = 1, $seID = 1, $uThreshold = 70, $uCheckWWW = 1) {
 		$state = false;
@@ -140,8 +146,8 @@ class User {
 	 * @param string $uEMailAdress
 	 * @param string $uPassword
 	 * @param string $uPassword2
-	 * @param int $cID
-	 * @return boolean
+	 * @param int $cNumber
+	 * @return int $uID
 	 */
 	public static function registrateUser($uName, $uLastname, $uEMailAdress, $uPassword, $uPassword2, $cNumber) {
 		$state = true;
@@ -177,12 +183,9 @@ class User {
 	}
 
 	/**
-	 * Add the uploaded file infos to the database and starts the file copy.
-	 * @param int $uEMailAdress
-	 * @param int $fID
-	 * @param string $dAuthor
-	 * @param file $file
-	 * @return boolean
+	 * Add uRestoreKey and uRestoreEndDate to user and send mail with hash.
+	 * @param string $uEMailAdress
+	 * @return int $uID
 	 */
 	public static function setRestoreKey($uEMailAdress) {
 
@@ -216,9 +219,9 @@ class User {
 	}
 
 	/**
-	 * Checks if the given restore key is valide and returns the usere id.
+	 * Checks if the given restore key is valide and returns the user id.
 	 * @param string $uRestoreKey
-	 * @return int $uID the user id
+	 * @return int $uID
 	 */
 	public static function checkRestoreKey($uRestoreKey) {
 		$state = false;
@@ -255,7 +258,7 @@ class User {
 	 * @param string $password1
 	 * @param string $password2
 	 * @param int $uID
-	 * @return int $uID the user id
+	 * @return int $uID
 	 */
 	public static function setUserPassword($password1, $password2, $uID) {
 		$state = false;
@@ -296,6 +299,12 @@ class User {
 		return $return;
 	}
 
+	/**
+	 * Checks the user password.
+	 * @param string $password2
+	 * @param int $uID
+	 * @return boolean
+	 */
 	public static function checkUserPassword($uID, $password) {
 		$state = false;
 		if (Validator::validate(VAL_INTEGER, $uID, true) and Validator::validate(VAL_PASSWORD, $password, true)) {
@@ -334,6 +343,15 @@ class User {
 		return $return;
 	}
 
+	/**
+	 * Saves the user setzings.
+	 * @param int $uID
+	 * @param int $slID
+	 * @param int $seID
+	 * @param double $uThreshold
+	 * @param boolean $uCheckWWW
+	 * @return void
+	 */
 	public static function saveUserSettings($uID, $slID = 1, $seID = 1, $uThreshold = 50, $uCheckWWW = 1) {
 		$state = false;
 		if (Validator::validate(VAL_INTEGER, $uID, true) and Validator::validate(VAL_INTEGER, $slID, true) and Validator::validate(VAL_INTEGER, $seID, true) and Validator::validate(VAL_INTEGER, $uThreshold, true) and Validator::validate(VAL_INTEGER, $uCheckWWW)) {
@@ -371,10 +389,10 @@ class User {
 	}
 
 	/**
-	 * Activate the user with the given user id and set the permission level
+	 * Activate the user with the given user id and set the permission level.
 	 * @param int $uID
 	 * @param int $uPermissonLevel
-	 * @return boolean
+	 * @return void
 	 */
 	public static function activateUser($uID, $uPermissonLevel) {
 		$state = false;
@@ -416,9 +434,9 @@ class User {
 	}
 
 	/**
-	 * Deletes the user from the given user id.
+	 * Deletes the user width the given user id.
 	 * @param int $uID
-	 * @return boolean
+	 * @return void
 	 */
 	public static function deleteUser($uID) {
 		$state = false;
@@ -458,10 +476,10 @@ class User {
 	}
 
 	/**
-	 * Validate check for the passwords
+	 * Validate check for the passwords.
 	 * @param string $password1
 	 * @param string $password2
-	 * @return boolean
+	 * @return void
 	 */
 	private static function checkNewPassword($password1, $password2) {
 		$state = false;
