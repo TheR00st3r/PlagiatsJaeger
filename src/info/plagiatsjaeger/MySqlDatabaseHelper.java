@@ -1,6 +1,7 @@
 package info.plagiatsjaeger;
 
 import info.plagiatsjaeger.enums.ErrorCode;
+import info.plagiatsjaeger.enums.FileType;
 import info.plagiatsjaeger.types.CompareResult;
 import info.plagiatsjaeger.types.Settings;
 
@@ -19,7 +20,6 @@ import java.util.Locale;
 
 import org.apache.log4j.Logger;
 import org.lorecraft.phparser.SerializedPhpParser;
-import org.lorecraft.phparser.SerializedPhpParser.PhpObject;
 
 
 /**
@@ -493,6 +493,12 @@ public class MySqlDatabaseHelper
 		{
 			disconnect();
 		}
+	}
 
+	public FileType loadFileType(int dId)
+	{
+		FileType result = null;
+
+		return result;
 	}
 }
