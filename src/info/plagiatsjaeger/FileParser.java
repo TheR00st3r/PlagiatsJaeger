@@ -58,14 +58,15 @@ public class FileParser
 		_logger.info("Start parsing: " + dId);
 		boolean result = false;
 		// Http liegen nicht als Datei vor
-		if (fileType != FileType.HTML)
-		{
-			// Zusammenbau Dateipfa
-			_file = new File(Control.ROOT_FILES + dId + "." + fileType.toString().toLowerCase());
-			_logger.info("File loadet");
-		}
+
 		try
 		{
+			if (fileType != FileType.HTML)
+			{
+				// Zusammenbau Dateipfad
+				_file = new File(Control.ROOT_FILES + dId + "." + fileType.toString().toLowerCase());
+				_logger.info("File loadet");
+			}
 			result = fileToTxt(dId, fileType);
 
 		}
@@ -99,6 +100,7 @@ public class FileParser
 			_logger.fatal(e.getMessage(), e);
 			result = false;
 		}
+
 		return result;
 	}
 
@@ -198,18 +200,12 @@ public class FileParser
 		return result;
 	}
 
-	private String parseTXT(int dId)
+	private String parseTXT(int dId) throws UnsupportedEncodingException
 	{
 		String result = "";
 		String text = SourceLoader.loadFile(Control.ROOT_FILES + dId + ".txt");
-		try
-		{
-			result = new String(Charset.forName("UTF-8").encode(text).array(), "CP1252");
-		}
-		catch (UnsupportedEncodingException e)
-		{
-			_logger.fatal(e.getMessage(), e);
-		}
+		result = new String(Charset.forName("UTF-8").encode(text).array(), "CP1252");
+
 		return result;
 	}
 
@@ -335,7 +331,7 @@ public class FileParser
 
 		try
 		{
-			// der PDF parse Vorgang
+			// Der PDF parse Vorgang
 			pdfParser = new PDFParser(new FileInputStream(_file));
 			pdfParser.parse();
 			cosDoc = pdfParser.getDocument();
@@ -346,7 +342,7 @@ public class FileParser
 		}
 		finally
 		{
-			// Alle Documente werden geschlossen
+			// Alle Dokumente werden geschlossen
 			try
 			{
 				if (cosDoc != null) cosDoc.close();
