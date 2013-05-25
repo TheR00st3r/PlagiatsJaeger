@@ -192,13 +192,13 @@ public class Control
 					{
 						@Override
 						public Void call()
-						{ 
+						{
 							MySqlDatabaseHelper mySqlDatabaseHelper = new MySqlDatabaseHelper();
-							
+
 							String dbLink = SourceLoader.cleanUrl(mySqlDatabaseHelper.loadDocumentURL(mySqlDatabaseHelper.getDocumentID(rId)));
 							String test = SourceLoader.cleanUrl(link);
 							_logger.info("CompareLinks:\n\n\n" + dbLink + "\n" + test);
-							
+
 							if (!dbLink.equals(SourceLoader.cleanUrl(link)))
 							{
 								_logger.info("Thread for Link started: " + link);
@@ -306,6 +306,7 @@ public class Control
 			mySqlDatabaseHelper.finishReport(rId, _similarity, simpleDateFormat.format(Calendar.getInstance().getTime()));
 			if ((_similarity * 100) > _settings.getThreshold())
 			{
+				_logger.info("Send Mail for Report: " + rId);
 				SourceLoader.loadURL("http://192.168.4.28/sendmail.php?rID=" + rId, false);
 			}
 			_logger.info("Report " + rId + " fertiggestellt!");
