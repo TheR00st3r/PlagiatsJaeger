@@ -1,6 +1,5 @@
 package test.info.plagiatsjaeger;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import info.plagiatsjaeger.SourceLoader;
 
