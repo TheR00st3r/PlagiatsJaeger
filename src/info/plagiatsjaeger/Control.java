@@ -193,8 +193,8 @@ public class Control
 						public Void call()
 						{
 							String dbLink = SourceLoader.cleanUrl(new MySqlDatabaseHelper().loadDocumentURL(rId));
-							_logger.info(dbLink);
-							_logger.info(SourceLoader.cleanUrl(link));
+							String test = SourceLoader.cleanUrl(link);
+							_logger.info("CompareLinks:\n\n\n" + dbLink + "\n" + test);
 							
 							if (!dbLink.equals(SourceLoader.cleanUrl(link)))
 							{
