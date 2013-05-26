@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import org.mozilla.intl.chardet.nsDetector;
 import org.mozilla.intl.chardet.nsICharsetDetectionObserver;
 
@@ -36,9 +37,19 @@ public class SourceLoader
 
 	private static String		_detectedCharset;
 
+	/**
+	 * Laed eine Website. (Prueft das verwendete Charset und bereinigt die URL)
+	 * @param strUrl
+	 * @return
+	 */
 	public static String loadURL(String strUrl)
 	{
 		return loadURL(strUrl, true);
+	}
+	
+	public static String loadURL(String strUrl, boolean detectCharset)
+	{
+		return loadURL(strUrl, true, true);
 	}
 
 	/**
@@ -47,67 +58,87 @@ public class SourceLoader
 	 * @param strUrl
 	 * @return
 	 */
-	public static String loadURL(String strUrl, boolean detectCharset)
+	public static String loadURL(String strUrl, boolean detectCharset, boolean cleanUrl)
 	{
 		String result = "";
+		
 		try
 		{
-			URL url = new URL(cleanUrl(strUrl));
-			URLConnection urlConnection = url.openConnection();
-			// Pattern zum auffinden des contenttypes
-			String charset = DEFAULT_CONTENTTYPE;
-			String contentType = urlConnection.getContentType();
-			if (contentType != null)
-			{
-				Pattern pattern = Pattern.compile(CONTENTTYPE_PATTERN);
-				_logger.info("ContentEncoding: " + urlConnection.getContentEncoding());
-				_logger.info("ContentType: " + urlConnection.getContentType());
-
-				Matcher matcher = pattern.matcher(urlConnection.getContentType());
-				// Wenn ein Contenttype gefunden wird, wird dieser verwendet,
-				// sonst
-				// der defaul wert
-				if (matcher.matches())
-				{
-					charset = matcher.group(1);
-					_logger.info("Charset detected: " + charset + "(URL: " + strUrl + ")");
-					result = loadSiteWithCharset(urlConnection, charset);
-				}
-				else
-				{
-					_logger.info("No match found " + strUrl);
-					if (detectCharset)
-					{
-						detectCharset(url.openStream());
-						result = loadSiteWithCharset(urlConnection, _detectedCharset);
-					}
-				}
-			}
-			else
-			{
-				_logger.info("CONTENT_TYPE IS null " + strUrl);
-				if (detectCharset)
-				{
-					detectCharset(url.openStream());
-					result = loadSiteWithCharset(urlConnection, _detectedCharset);
-				}
-			}
+			result = Jsoup.parse(new URL(strUrl), 10000).text();
 		}
 		catch (MalformedURLException e)
 		{
-			_logger.fatal(e.getMessage(), e);
-			return "FAIL MalformedURLException";
-		}
-		catch (UnsupportedEncodingException e)
-		{
-			_logger.fatal(e.getMessage(), e);
-			return "FAIL UnsupportedEncodingException";
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		catch (IOException e)
 		{
-			_logger.fatal(e.getMessage(), e);
-			return "FAIL IOException";
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+//		try
+//		{
+//			if(cleanUrl)
+//			{
+//				strUrl = cleanUrl(strUrl);
+//			}
+//			URL url = new URL(strUrl);
+//			URLConnection urlConnection = url.openConnection();
+//			// Pattern zum auffinden des contenttypes
+//			String charset = DEFAULT_CONTENTTYPE;
+//			String contentType = urlConnection.getContentType();
+//			if (contentType != null)
+//			{
+//				Pattern pattern = Pattern.compile(CONTENTTYPE_PATTERN);
+//				_logger.info("ContentEncoding: " + urlConnection.getContentEncoding());
+//				_logger.info("ContentType: " + urlConnection.getContentType());
+//
+//				Matcher matcher = pattern.matcher(urlConnection.getContentType());
+//				// Wenn ein Contenttype gefunden wird, wird dieser verwendet,
+//				// sonst
+//				// der defaul wert
+//				if (matcher.matches())
+//				{
+//					charset = matcher.group(1);
+//					_logger.info("Charset detected: " + charset + "(URL: " + strUrl + ")");
+//					result = loadSiteWithCharset(urlConnection, charset);
+//				}
+//				else
+//				{
+//					_logger.info("No match found " + strUrl);
+//					if (detectCharset)
+//					{
+//						detectCharset(url.openStream());
+//						result = loadSiteWithCharset(urlConnection, _detectedCharset);
+//					}
+//				}
+//			}
+//			else
+//			{
+//				_logger.info("CONTENT_TYPE IS null " + strUrl);
+//				if (detectCharset)
+//				{
+//					detectCharset(url.openStream());
+//					result = loadSiteWithCharset(urlConnection, _detectedCharset);
+//				}
+//			}
+//		}
+//		catch (MalformedURLException e)
+//		{
+//			_logger.fatal(e.getMessage(), e);
+//			return "FAIL MalformedURLException";
+//		}
+//		catch (UnsupportedEncodingException e)
+//		{
+//			_logger.fatal(e.getMessage(), e);
+//			return "FAIL UnsupportedEncodingException";
+//		}
+//		catch (IOException e)
+//		{
+//			_logger.fatal(e.getMessage(), e);
+//			return "FAIL IOException";
+//		}
 		return result;
 	}
 

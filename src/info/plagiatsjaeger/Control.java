@@ -306,7 +306,7 @@ public class Control
 			if ((_similarity * 100) > _settings.getThreshold())
 			{
 				_logger.info("Send Mail for Report: " + rId);
-				SourceLoader.loadURL("http://192.168.4.28/sendmail.php?rID=" + rId, false);
+				SourceLoader.loadURL("http://192.168.4.28/sendmail.php?rID=" + rId, false, false);
 			}
 			_logger.info("Report " + rId + " fertiggestellt!");
 
