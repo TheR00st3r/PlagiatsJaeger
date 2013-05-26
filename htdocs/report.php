@@ -61,7 +61,7 @@ switch ($_GET['type']) {
 
 					// TYP 0 - kein Plagiat
 					$string = '';
-					for ($i = $start; $i < $result['rtStartWord']-1; $i++) {
+					for ($i = $start; $i < $result['rtStartWord'] - 1; $i++) {
 						$string .= $split[$i] . ' ';
 					}
 
@@ -80,7 +80,7 @@ switch ($_GET['type']) {
 
 				// TYP 1 - Plagiat
 				$string = '';
-				for ($i = $result['rtStartWord']-1; $i < $result['rtEndWord']-1; $i++) {
+				for ($i = $result['rtStartWord'] - 1; $i < $result['rtEndWord'] - 1; $i++) {
 					$string .= $split[$i] . ' ';
 				}
 
@@ -94,7 +94,7 @@ switch ($_GET['type']) {
 
 				$array[] = $out;
 
-				$start = $result['rtEndWord']-1;
+				$start = $result['rtEndWord'] - 1;
 
 				// $output = $string;
 			}
@@ -123,7 +123,7 @@ switch ($_GET['type']) {
 			$output .= '|' . $a['start'] . '-' . $a['stop'] . '|';
 			if ($a['type'] != 0) {
 
-				if($a['rtIsInSources'] == 1)
+				if ($a['rtIsInSources'] == 1)
 					$background = $color[0]['color'];
 				else if ($a['rtSimilarity'] >= $color[2]['value'])
 					$background = $color[3]['color'];
@@ -134,14 +134,13 @@ switch ($_GET['type']) {
 
 				//TODO DEBUG [xx-xx] //[' . $a['rtStartWord'] . '-' . $a['rtEndWord'] . ']
 				$source = '';
-				if($a['rtSourcedID']) {
+				if ($a['rtSourcedID']) {
 					$source = '<b>(' . $a['dOriginalName'] . ' zu ' . $a['rtSimilarity'] . ' %)</b>';
-				}
-				else {
+				} else {
 					$source = '<b>([' . $a['rtStartWord'] . '-' . $a['rtEndWord'] . ']<a target="_blank" href="' . $a['rtSourceLink'] . '" title="' . $a['rtSourceLink'] . '" />' . $a['rtSimilarity'] . ' %</a>)</b>';
 				}
-				
-				$output .= '<div class="rtSourceText">' . nl2br($a['rtSourceText']) . ' '.$source.'</div>';
+
+				$output .= '<div class="rtSourceText">' . nl2br($a['rtSourceText']) . ' ' . $source . '</div>';
 				$output .= '<span style="background: ' . $background . ';">' . nl2br($a['rtQuellText']) . '</span>';
 
 			} else {

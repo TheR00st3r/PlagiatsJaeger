@@ -17,7 +17,7 @@
 			{if $result.rtSourcedID}
 			<b>Dokument:</b> {$result.dOriginalName} <b>Autor:</b> {$result.dAuthor} <b>Besitzer:</b> {$result.uName} {$result.uLastname} <b>Ordner:</b> {$result.fName}
 			{else}
-			<a target="_blank" href="{$result.rtSourceLink}">{$result.rtSourceLink}</a>
+			<a target="_blank" href="{$result.rtSourceLink}">{$result.rtSourceLink|truncate:100:"...":true}}</a>
 			{/if}
 		</td>
 		<td>{$result.rtSimilarity|money_format} %</td>
