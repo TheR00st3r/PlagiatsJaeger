@@ -47,7 +47,7 @@ public class Control
 	private ArrayList<Future<Void>>	_futuresSearch			= new ArrayList<Future<Void>>();
 
 	private double					_similarity				= 0.0;
-
+	
 	public Control(int rId)
 	{
 		if (rId > 0)
@@ -184,7 +184,7 @@ public class Control
 		final String strSourceText = SourceLoader.loadFile(filePath);
 		if (_settings.getCheckWWW())
 		{
-			final IOnlineSearch iOnlineSearch = new OnlineSearch(_settings.getSearchURL(), _settings.getSearchSearchArg(), _settings.getSearchURLArgs(), _settings.getSearchAuthArg());
+			final IOnlineSearch iOnlineSearch = new OnlineSearch(_settings);
 			iOnlineSearch.setOnLinkFoundListener(new OnLinkFoundListener()
 			{
 				@Override
@@ -342,7 +342,7 @@ public class Control
 	 */
 	private void compare(int rId, String checkText, String link, int docId)
 	{
-		IComparer comparer = new MyComparer(rId);
+		IComparer comparer = new MyComparer(rId, _settings);
 		comparer.setOnCompareFinishedListener(new OnCompareFinishedListener()
 		{
 			@Override

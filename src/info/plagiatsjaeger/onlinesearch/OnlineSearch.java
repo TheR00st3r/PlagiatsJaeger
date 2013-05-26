@@ -34,29 +34,28 @@ public class OnlineSearch implements IOnlineSearch
 	private static final String	URL_PATTERN_2		= ConfigReader.getPropertyString("URLPATTERN2");
 
 	private ArrayList<String>	_allSearchResults	= new ArrayList<String>();
-	private static int			SEARCH_SENTENCELENGTH;
-	private static int			SEARCH_JUMPLENGTH;
+	private int					SEARCH_SENTENCELENGTH;
+	private int					SEARCH_JUMPLENGTH;
 	private OnLinkFoundListener	_onLinkFoundListener;
-	private static int			MAX_URLS			= ConfigReader.getPropertyInt("NUMURLS");
+	private int					MAX_URLS			= ConfigReader.getPropertyInt("NUMURLS");
 	private static final String	CHARSET				= "UTF-8";
 
-	private static String		URL;
-	private static String		URL_ARGS;
-	private static String		URL_ARG_AUTH;
-	private static String		URL_ARG_SEARCH;
+	private String				URL;
+	private String				URL_ARGS;
+	private String				URL_ARG_AUTH;
+	private String				URL_ARG_SEARCH;
 
 	private static final Logger	_logger				= Logger.getLogger(OnlineSearch.class.getName());
 
-	public OnlineSearch(String url, String searchArg, String urlArgs, String authArg)
+	public OnlineSearch(Settings settings)
 	{
-		Settings settings = Settings.getInstance();
 		SEARCH_JUMPLENGTH = settings.getSearchJumpLength();
 		SEARCH_SENTENCELENGTH = settings.getCompareSentenceLength();
 		MAX_URLS = settings.getSearchNumLinks();
-		URL = url;
-		URL_ARGS = urlArgs;
-		URL_ARG_AUTH = authArg;
-		URL_ARG_SEARCH = searchArg;
+		URL = settings.getSearchURL();
+		URL_ARGS = settings.getSearchURLArgs();
+		URL_ARG_AUTH = settings.getSearchAuthArg();
+		URL_ARG_SEARCH = settings.getSearchSearchArg();
 
 		_logger.info("URL: " + URL);
 		_logger.info("URL_ARGS: " + URL_ARGS);
