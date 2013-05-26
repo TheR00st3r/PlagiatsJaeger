@@ -146,7 +146,7 @@ public class SourceLoader
 
 			while ((length = bufferedInputStream.read(buffer, 0, buffer.length)) != -1)
 			{
-				// Kontrollieren ob der Stream nur Ascii zeichen enthält
+				// Kontrollieren ob der Stream nur Ascii zeichen enthaelt
 				if (isAscii) isAscii = detector.isAscii(buffer, length);
 				// DoIt Wenn keine Ascii vorhanden sind und die detection noch
 				// nicht fertig ist
