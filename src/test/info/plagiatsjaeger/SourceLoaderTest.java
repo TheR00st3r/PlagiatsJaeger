@@ -62,7 +62,7 @@ public class SourceLoaderTest
 		 assertEquals(ergebnisstring3,
 				 SourceLoader.loadFile("/var/www/testfiles/testfile3.txt"));
 		
-		 assertTrue(SourceLoader.loadFile("/var/www/testfiles/fehlendesfile.txt").contains("FAIL NullPointerException"));
+		 assertTrue(SourceLoader.loadFile("/var/www/testfiles/fehlendesfile.txt").contains("FAIL FileNotFoundException"));
 		 
 		
 
