@@ -4,7 +4,7 @@
 	<tr>
 		<th>Anzahl Textstellen</th>
 		<th>Quelle</th>
-		<th>Average</th>
+		<th>Verdacht</th>
 		<th>Zitiert</th>
 		<th>Details</th>
 	</tr>
