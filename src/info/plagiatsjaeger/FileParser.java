@@ -106,7 +106,9 @@ public class FileParser
 			_logger.fatal(e.getMessage(), e);
 			result = false;
 		}
+
 		return result;
+
 	}
 
 	/**
