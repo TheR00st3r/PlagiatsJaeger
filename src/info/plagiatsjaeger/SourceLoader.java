@@ -3,7 +3,6 @@ package info.plagiatsjaeger;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -178,23 +177,12 @@ public class SourceLoader
 
 		StringBuilder stringBuilder = new StringBuilder();
 
-		File file = new File(filePath);
-		try
-		{
-			detectCharset(new FileInputStream(file));
-		}
-		catch (IOException e)
-		{
-			_logger.fatal(e.getMessage(), e);
-			e.printStackTrace();
-		}
-		
 		try
 		{
 			String line = "";
 			fileInputstream = new FileInputStream(filePath);
 			dataInputStream = new DataInputStream(fileInputstream);
-			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(dataInputStream, _detectedCharset));
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(dataInputStream));
 
 			while ((line = bufferedReader.readLine()) != null)
 			{
