@@ -150,10 +150,11 @@ public class MyComparer implements IComparer
 					iCheck++;
 					iSource++;
 				}
-				_logger.info("Threshold: " + THRESHOLD + " " + sumSimilarity + "/" + countSimilarity + "=" + ((sumSimilarity/countSimilarity)));
 				if (resultFound)
 				{
 					_logger.info("SubResult found");
+					_logger.info("Threshold: " + THRESHOLD + " " + sumSimilarity + "/" + countSimilarity + "=" + ((sumSimilarity/countSimilarity)));
+					
 					CompareResult compareResult = new CompareResult(_rId, checkResultStart, checkResultEnd, sourceResultStart, sourceResultEnd, sumSimilarity / countSimilarity);
 					unmergedCompareResults.add(compareResult);
 
