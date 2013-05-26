@@ -50,7 +50,7 @@ public class SourceLoaderTest
 	{
 
 		 String ergebnisstring1 = "";
-		 String ergebnisstring2 = "Hallo, ich bin ein/nZeilenumbruch";
+		 String ergebnisstring2 = "Hallo, ich bin ein\nZeilenumbruch ";
 		 String ergebnisstring3 = "Gesperrtes File";
 		// // String ergebnisstring4 =
 		// // "D�ner mit So�e & einer b�rigen t�rkischen Bananen & Co KG";
