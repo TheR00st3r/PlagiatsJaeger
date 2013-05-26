@@ -223,20 +223,24 @@ public class Control
 		ArrayList<Integer> localFolders = _settings.getLocalFolders();
 		if (localFolders != null)
 		{
+			int docId = new MySqlDatabaseHelper().getDocumentID(rId);
 			_logger.info("Check localFolders");
 			for (final int i : localFolders)
 			{
-				_logger.info("Naechstes File: " + i);
-				_futures.add(_threadPool.submit(new Callable<Void>()
+				if (i != docId)
 				{
-					@Override
-					public Void call()
+					_logger.info("Naechstes File: " + i);
+					_futures.add(_threadPool.submit(new Callable<Void>()
 					{
-						_logger.info("Thread for File started: " + i + ".txt");
-						compare(rId, strSourceText, "", i);
-						return null;
-					}
-				}));
+						@Override
+						public Void call()
+						{
+							_logger.info("Thread for File started: " + i + ".txt");
+							compare(rId, strSourceText, "", i);
+							return null;
+						}
+					}));
+				}
 			}
 		}
 		boolean succesful = true;
