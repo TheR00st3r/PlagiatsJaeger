@@ -3,6 +3,7 @@ package info.plagiatsjaeger;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -172,56 +173,67 @@ public class SourceLoader
 	public static String loadFile(String filePath)
 	{
 		String result = "";
-		FileInputStream fileInputstream = null;
-		DataInputStream dataInputStream = null;
+//		FileInputStream fileInputstream = null;
+//		DataInputStream dataInputStream = null;
+//
+//		StringBuilder stringBuilder = new StringBuilder();
 
-		StringBuilder stringBuilder = new StringBuilder();
-
+		File file = new File(filePath);
 		try
 		{
-			String line = "";
-			fileInputstream = new FileInputStream(filePath);
-			dataInputStream = new DataInputStream(fileInputstream);
-			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(dataInputStream));
-
-			while ((line = bufferedReader.readLine()) != null)
-			{
-				if (stringBuilder.length() > 0)
-				{
-					stringBuilder.append("\n");
-				}
-				stringBuilder.append(line);
-			}
-
+			detectCharset(new FileInputStream(file));
+			result = Jsoup.parse(new File(filePath), _detectedCharset).text();
 		}
-		catch (FileNotFoundException e)
+		catch (IOException e1)
 		{
-			_logger.fatal(e.getMessage(), e);
-			e.printStackTrace();
-			result = "FAIL FileNotFoundException";
+			e1.printStackTrace();
 		}
-		catch (IOException e)
-		{
-			_logger.fatal(e.getMessage(), e);
-			e.printStackTrace();
-			result = "FAIL IOException";
-		}
-		finally
-		{
-			if (dataInputStream != null)
-			{
-				try
-				{
-					dataInputStream.close();
-				}
-				catch (IOException e)
-				{
-					_logger.fatal(e.getMessage(), e);
-					e.printStackTrace();
-				}
-				result = stringBuilder.toString();
-			}
-		}
+		
+//		try
+//		{
+//			String line = "";
+//			fileInputstream = new FileInputStream(filePath);
+//			dataInputStream = new DataInputStream(fileInputstream);
+//			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(dataInputStream));
+//
+//			while ((line = bufferedReader.readLine()) != null)
+//			{
+//				if (stringBuilder.length() > 0)
+//				{
+//					stringBuilder.append("\n");
+//				}
+//				stringBuilder.append(line);
+//			}
+//
+//		}
+//		catch (FileNotFoundException e)
+//		{
+//			_logger.fatal(e.getMessage(), e);
+//			e.printStackTrace();
+//			result = "FAIL FileNotFoundException";
+//		}
+//		catch (IOException e)
+//		{
+//			_logger.fatal(e.getMessage(), e);
+//			e.printStackTrace();
+//			result = "FAIL IOException";
+//		}
+//		finally
+//		{
+//			if (dataInputStream != null)
+//			{
+//				try
+//				{
+//					dataInputStream.close();
+//				}
+//				catch (IOException e)
+//				{
+//					_logger.fatal(e.getMessage(), e);
+//					e.printStackTrace();
+//				}
+//				result = stringBuilder.toString();
+//			}
+//		}
 		return result;
 	}
 
