@@ -28,9 +28,20 @@ public class FileParserTest
 		String ergebnisstring1 = "Ich bin eine PDF";
 		String ergebnisstring2 = "Ich bin eine doc";
 		String ergebnisstring3 = "Ich bin eine docx";
+System.out.println(fparser.parseFile(0));
+System.out.println(fparser.parseFile(1));
+System.out.println(fparser.parseFile(2));
+System.out.println(fparser.parseFile(3));
+System.out.println(fparser.parseFile(4));
+System.out.println(fparser.parseFile(5));
+System.out.println(fparser.parseFile(6));
+System.out.println(fparser.parseFile(7));
+System.out.println(fparser.parseFile(8));
+System.out.println(fparser.parseFile(9));
 
-	//	 assertTrue(fparser.parseFile(1)); //TXT-Datei mit Leerstring
-		// assertTrue(fparser.parseFile(2)); //TXT-Datei mit Inhalt
+
+		 assertTrue(fparser.parseFile(1)); //TXT-Datei mit Leerstring
+		 assertTrue(fparser.parseFile(2)); //TXT-Datei mit Inhalt
 		 assertTrue(fparser.parseFile(3)); //PDF-Datei mit Leerstring
 		 assertTrue(fparser.parseFile(4)); //PDF-Datei mit Inhalt
 		 assertTrue(fparser.parseFile(5)); //DOCX-Datei mit Leerstring
