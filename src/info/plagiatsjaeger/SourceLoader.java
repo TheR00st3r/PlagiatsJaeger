@@ -61,22 +61,6 @@ public class SourceLoader
 	public static String loadURL(String strUrl, boolean detectCharset, boolean cleanUrl)
 	{
 		String result = "";
-
-		// try
-		// {
-		// result = Jsoup.parse(new URL(strUrl), 10000).text();
-		// }
-		// catch (MalformedURLException e)
-		// {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// catch (IOException e)
-		// {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-
 		try
 		{
 			if (cleanUrl)
@@ -91,9 +75,6 @@ public class SourceLoader
 			if (contentType != null)
 			{
 				Pattern pattern = Pattern.compile(CONTENTTYPE_PATTERN);
-				_logger.info("ContentEncoding: " + urlConnection.getContentEncoding());
-				_logger.info("ContentType: " + urlConnection.getContentType());
-
 				Matcher matcher = pattern.matcher(urlConnection.getContentType());
 				// Wenn ein Contenttype gefunden wird, wird dieser verwendet,
 				// sonst
@@ -102,10 +83,7 @@ public class SourceLoader
 				{
 					charset = matcher.group(1);
 					_logger.info("Charset detected: " + charset + "(URL: " + strUrl + ")");
-
 					result = Jsoup.parse(url.openStream(), charset, strUrl).text();
-
-					//result = loadSiteWithCharset(urlConnection, charset);
 				}
 				else
 				{
@@ -113,11 +91,7 @@ public class SourceLoader
 					if (detectCharset)
 					{
 						detectCharset(url.openStream());
-
 						result = Jsoup.parse(url.openStream(), _detectedCharset, strUrl).text();
-
-						// result = loadSiteWithCharset(urlConnection,
-						// _detectedCharset);
 					}
 				}
 			}
@@ -127,11 +101,7 @@ public class SourceLoader
 				if (detectCharset)
 				{
 					detectCharset(url.openStream());
-
 					result = Jsoup.parse(url.openStream(), _detectedCharset, strUrl).text();
-
-					// result = loadSiteWithCharset(urlConnection,
-					// _detectedCharset);
 				}
 			}
 		}
@@ -155,11 +125,9 @@ public class SourceLoader
 
 	private static void detectCharset(InputStream stream)
 	{
-		_logger.info("Detect Charset...");
 		nsDetector detector = new nsDetector();
 		detector.Init(new nsICharsetDetectionObserver()
 		{
-
 			@Override
 			public void Notify(String charset)
 			{
@@ -167,64 +135,29 @@ public class SourceLoader
 				_detectedCharset = charset;
 			}
 		});
-		BufferedInputStream imp;
+		BufferedInputStream bufferedInputStream;
 		try
 		{
-			imp = new BufferedInputStream(stream);
-			byte[] buf = new byte[1024];
-			int len;
+			bufferedInputStream = new BufferedInputStream(stream);
+			byte[] buffer = new byte[1024];
+			int length;
 			boolean done = false;
 			boolean isAscii = true;
 
-			while ((len = imp.read(buf, 0, buf.length)) != -1)
+			while ((length = bufferedInputStream.read(buffer, 0, buffer.length)) != -1)
 			{
-				// Check if the stream is only ascii.
-				if (isAscii) isAscii = detector.isAscii(buf, len);
-				// DoIt if non-ascii and not done yet.
-				if (!isAscii && !done) done = detector.DoIt(buf, len, false);
+				// Kontrollieren ob der Stream nur Ascii zeichen enthält
+				if (isAscii) isAscii = detector.isAscii(buffer, length);
+				// DoIt Wenn keine Ascii vorhanden sind und die detection noch
+				// nicht fertig ist
+				if (!isAscii && !done) done = detector.DoIt(buffer, length, false);
 			}
-			_logger.info("before Detector.DataEnd");
 			detector.DataEnd();
-			_logger.info("after Detector.DataEnd");
 		}
 		catch (IOException e)
 		{
 			_logger.fatal(e.getMessage(), e);
 		}
-	}
-
-	private static String loadSiteWithCharset(URLConnection urlConnection, String charset)
-	{
-		if (charset == null)
-		{
-			charset = DEFAULT_CONTENTTYPE;
-		}
-		_logger.info("Load Website " + urlConnection.getURL().toString() + "with charset " + charset);
-
-		Reader inputStreamReader;
-		StringBuilder stringBuilder = new StringBuilder();
-		try
-		{
-			inputStreamReader = new InputStreamReader(urlConnection.getInputStream(), charset);
-
-			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-			String line = "";
-			while ((line = bufferedReader.readLine()) != null)
-			{
-				stringBuilder.append(line).append("\n");
-			}
-		}
-		catch (UnsupportedEncodingException e)
-		{
-			_logger.fatal(e.getMessage(), e);
-		}
-		catch (IOException e)
-		{
-			_logger.fatal(e.getMessage(), e);
-		}
-
-		return stringBuilder.toString();
 	}
 
 	/**
@@ -252,8 +185,7 @@ public class SourceLoader
 			{
 				stringBuilder.append(line).append("\n");
 			}
-			// Close the input stream
-			dataInputStream.close();
+
 		}
 		catch (FileNotFoundException e)
 		{
@@ -267,6 +199,14 @@ public class SourceLoader
 		}
 		finally
 		{
+			try
+			{
+				dataInputStream.close();
+			}
+			catch (IOException e)
+			{
+				_logger.fatal(e.getMessage(), e);
+			}
 			result = stringBuilder.toString();
 		}
 		return result;
