@@ -182,7 +182,11 @@ public class SourceLoader
 
 			while ((line = bufferedReader.readLine()) != null)
 			{
-				stringBuilder.append(line).append("\n");
+				if(stringBuilder.length()>0)
+				{
+					stringBuilder.append("\n");
+				}
+				stringBuilder.append(line);
 			}
 
 		}
