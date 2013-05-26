@@ -193,12 +193,12 @@ public class SourceLoader
 		catch (FileNotFoundException e)
 		{
 			_logger.fatal(e.getMessage(), e);
-			return "FAIL FileNotFoundException";
+			result = "FAIL FileNotFoundException";
 		}
 		catch (IOException e)
 		{
 			_logger.fatal(e.getMessage(), e);
-			return "FAIL IOException";
+			result =  "FAIL IOException";
 		}
 		finally
 		{
