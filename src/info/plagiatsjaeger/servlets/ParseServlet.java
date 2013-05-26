@@ -1,7 +1,6 @@
 package info.plagiatsjaeger.servlets;
 
 import info.plagiatsjaeger.Control;
-import info.plagiatsjaeger.enums.FileType;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -37,7 +36,6 @@ public class ParseServlet extends HttpServlet
 	{
 		response.setContentType("text/html");
 		final int dID = Integer.parseInt(request.getParameter("dID"));
-		final FileType dFileEndign = FileType.valueOf(request.getParameter("dFileEnding").substring(1).toUpperCase());
 		PrintWriter out = response.getWriter();
 		if (new Control(-1).startParsing(dID))
 		{
