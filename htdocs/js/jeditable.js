@@ -6,7 +6,7 @@ $(document).ready(function() {
 		cancel : 'Abbrechen',
 		submit : 'OK',
 		// indicator : '<img src="img/indicator.gif">',
-		tooltip : '...',
+		tooltip : 'Klicken zum Bearbeiten....',
 		id : 'id',
 		name : 'content'
 	});
