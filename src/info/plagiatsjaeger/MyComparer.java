@@ -130,6 +130,7 @@ public class MyComparer implements IComparer
 					{
 						sourceResultStart = iSource;
 					}
+					_logger.info("Found Part with: " + similarity);
 					checkResultEnd = iCheck + jCheck + 1;
 					sourceResultEnd = iSource + jSource + 1;
 					sumSimilarity += similarity;
@@ -149,6 +150,7 @@ public class MyComparer implements IComparer
 					iCheck++;
 					iSource++;
 				}
+				_logger.info("Threshold: " + THRESHOLD + " " + sumSimilarity + "/" + countSimilarity + "=" + ((sumSimilarity/countSimilarity)));
 				if (resultFound)
 				{
 					_logger.info("SubResult found");
