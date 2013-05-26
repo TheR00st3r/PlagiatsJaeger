@@ -217,7 +217,7 @@ public class MyComparer implements IComparer
 			compareResultCheck.setSimilarity(sumSimilarity / countSimilarity);
 			// plagiatsText fuer plagStart/plagEnd setzen.
 			resultText.delete(0, resultText.length());
-			for (int wordCounter = compareResultCheck.getSourceStart(); wordCounter< _sourceWords.length && wordCounter < compareResultCheck.getSourceEnd(); wordCounter++)
+			for (int wordCounter = compareResultCheck.getSourceStart(); wordCounter < _sourceWords.length && wordCounter < compareResultCheck.getSourceEnd(); wordCounter++)
 			{
 				resultText.append(_sourceWords[wordCounter]).append(" ");
 			}

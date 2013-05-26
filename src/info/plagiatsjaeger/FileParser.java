@@ -74,36 +74,43 @@ public class FileParser
 		catch (InvalidFormatException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 			result = false;
 		}
 		catch (OpenXML4JException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 			result = false;
 		}
 		catch (XmlException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 			result = false;
 		}
 		catch (IOException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 			result = false;
 		}
 		catch (SAXException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 			result = false;
 		}
 		catch (ParserConfigurationException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 			result = false;
 		}
 		catch (Exception e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 			result = false;
 		}
 

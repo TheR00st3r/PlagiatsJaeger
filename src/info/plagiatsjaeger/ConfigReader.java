@@ -34,6 +34,8 @@ public class ConfigReader
 		catch (IOException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 
@@ -61,9 +63,11 @@ public class ConfigReader
 		catch (IOException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		return "";
 	}
+
 	/**
 	 * Liest einen Parameter aus dem ConfigFile aus.
 	 * 
@@ -87,6 +91,7 @@ public class ConfigReader
 		catch (IOException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		return 0;
 	}

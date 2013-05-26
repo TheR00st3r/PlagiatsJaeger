@@ -30,22 +30,22 @@ import org.jsoup.Jsoup;
  */
 public class OnlineSearch implements IOnlineSearch
 {
-	private static final String		URL_PATTERN_1		= ConfigReader.getPropertyString("URLPATTERN1");
-	private static final String		URL_PATTERN_2		= ConfigReader.getPropertyString("URLPATTERN2");
+	private static final String	URL_PATTERN_1		= ConfigReader.getPropertyString("URLPATTERN1");
+	private static final String	URL_PATTERN_2		= ConfigReader.getPropertyString("URLPATTERN2");
 
-	private ArrayList<String>		_allSearchResults	= new ArrayList<String>();
+	private ArrayList<String>	_allSearchResults	= new ArrayList<String>();
 	private static int			SEARCH_SENTENCELENGTH;
-	private static int				SEARCH_JUMPLENGTH;
-	private OnLinkFoundListener		_onLinkFoundListener;
-	private static int				MAX_URLS			= ConfigReader.getPropertyInt("NUMURLS");
+	private static int			SEARCH_JUMPLENGTH;
+	private OnLinkFoundListener	_onLinkFoundListener;
+	private static int			MAX_URLS			= ConfigReader.getPropertyInt("NUMURLS");
 	private static final String	CHARSET				= "UTF-8";
 
-	private static String			URL;
-	private static String			URL_ARGS;
-	private static String			URL_ARG_AUTH;
-	private static String			URL_ARG_SEARCH;
+	private static String		URL;
+	private static String		URL_ARGS;
+	private static String		URL_ARG_AUTH;
+	private static String		URL_ARG_SEARCH;
 
-	private static final Logger		_logger				= Logger.getLogger(OnlineSearch.class.getName());
+	private static final Logger	_logger				= Logger.getLogger(OnlineSearch.class.getName());
 
 	public OnlineSearch(String url, String searchArg, String urlArgs, String authArg)
 	{
@@ -57,7 +57,7 @@ public class OnlineSearch implements IOnlineSearch
 		URL_ARGS = urlArgs;
 		URL_ARG_AUTH = authArg;
 		URL_ARG_SEARCH = searchArg;
-		
+
 		_logger.info("URL: " + URL);
 		_logger.info("URL_ARGS: " + URL_ARGS);
 		_logger.info("URL_ARG_AUTH: " + URL_ARG_AUTH);
@@ -86,6 +86,7 @@ public class OnlineSearch implements IOnlineSearch
 		catch (IOException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 
 		return result;
@@ -115,6 +116,7 @@ public class OnlineSearch implements IOnlineSearch
 					catch (InterruptedException e)
 					{
 						_logger.fatal(e.getMessage(), e);
+						e.printStackTrace();
 					}
 				}
 			});
@@ -137,6 +139,7 @@ public class OnlineSearch implements IOnlineSearch
 			catch (InterruptedException e)
 			{
 				_logger.fatal(e.getMessage(), e);
+				e.printStackTrace();
 			}
 			search(searchString, buildSearchString(searchString));
 		}
@@ -219,10 +222,12 @@ public class OnlineSearch implements IOnlineSearch
 		catch (UnsupportedEncodingException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		catch (MalformedURLException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		return result;
 	}

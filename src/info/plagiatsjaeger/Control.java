@@ -91,6 +91,7 @@ public class Control
 					catch (Exception e)
 					{
 						_logger.fatal(e.getMessage(), e);
+						e.printStackTrace();
 					}
 				}
 			}).start();
@@ -99,6 +100,7 @@ public class Control
 		catch (Exception e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		return result;
 
@@ -143,6 +145,7 @@ public class Control
 							catch (InterruptedException e)
 							{
 								_logger.fatal(e.getMessage(), e);
+								e.printStackTrace();
 							}
 							numTries = 0;
 						}
@@ -164,6 +167,7 @@ public class Control
 		catch (Exception e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		return false;
 	}
@@ -252,16 +256,19 @@ public class Control
 			catch (CancellationException e)
 			{
 				_logger.fatal(e.getMessage(), e);
+				e.printStackTrace();
 				succesful = false;
 			}
 			catch (InterruptedException e)
 			{
 				_logger.fatal(e.getMessage(), e);
+				e.printStackTrace();
 				succesful = false;
 			}
 			catch (ExecutionException e)
 			{
 				_logger.fatal(e.getMessage(), e);
+				e.printStackTrace();
 				succesful = false;
 			}
 		}
@@ -282,16 +289,19 @@ public class Control
 			catch (CancellationException e)
 			{
 				_logger.fatal(e.getMessage(), e);
+				e.printStackTrace();
 				succesful = false;
 			}
 			catch (InterruptedException e)
 			{
 				_logger.fatal(e.getMessage(), e);
+				e.printStackTrace();
 				succesful = false;
 			}
 			catch (ExecutionException e)
 			{
 				_logger.fatal(e.getMessage(), e);
+				e.printStackTrace();
 				succesful = false;
 			}
 		}

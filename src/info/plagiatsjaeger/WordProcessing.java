@@ -1,7 +1,5 @@
 package info.plagiatsjaeger;
 
-
-
 /**
  * Stellt Funktionen zum bearbeiten/aufbereiten von Texten zur Verfuegung.
  * 

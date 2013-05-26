@@ -107,16 +107,19 @@ public class SourceLoader
 		catch (MalformedURLException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 			return "FAIL MalformedURLException";
 		}
 		catch (UnsupportedEncodingException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 			return "FAIL UnsupportedEncodingException";
 		}
 		catch (IOException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 			return "FAIL IOException";
 		}
 		return result;
@@ -156,6 +159,7 @@ public class SourceLoader
 		catch (IOException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 	}
 
@@ -193,12 +197,14 @@ public class SourceLoader
 		catch (FileNotFoundException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 			result = "FAIL FileNotFoundException";
 		}
 		catch (IOException e)
 		{
 			_logger.fatal(e.getMessage(), e);
-			result =  "FAIL IOException";
+			e.printStackTrace();
+			result = "FAIL IOException";
 		}
 		finally
 		{
@@ -211,6 +217,7 @@ public class SourceLoader
 				catch (IOException e)
 				{
 					_logger.fatal(e.getMessage(), e);
+					e.printStackTrace();
 				}
 				result = stringBuilder.toString();
 			}

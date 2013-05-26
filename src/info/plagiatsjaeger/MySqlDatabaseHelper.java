@@ -68,10 +68,12 @@ public class MySqlDatabaseHelper
 		catch (ClassNotFoundException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		catch (SQLException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 	}
 
@@ -90,6 +92,7 @@ public class MySqlDatabaseHelper
 		catch (SQLException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 	}
 
@@ -137,14 +140,17 @@ public class MySqlDatabaseHelper
 		catch (ClassNotFoundException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		catch (SQLException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		catch (UnsupportedEncodingException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 
 	}
@@ -183,14 +189,17 @@ public class MySqlDatabaseHelper
 		catch (ClassNotFoundException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		catch (SQLException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		catch (UnsupportedEncodingException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -320,10 +329,12 @@ public class MySqlDatabaseHelper
 		catch (SQLException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		catch (Exception e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -348,10 +359,12 @@ public class MySqlDatabaseHelper
 		catch (ClassNotFoundException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		catch (SQLException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -377,10 +390,12 @@ public class MySqlDatabaseHelper
 		catch (ClassNotFoundException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		catch (SQLException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -411,10 +426,12 @@ public class MySqlDatabaseHelper
 		catch (SQLException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		catch (Exception e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -446,10 +463,12 @@ public class MySqlDatabaseHelper
 		catch (SQLException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		catch (Exception e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -484,10 +503,12 @@ public class MySqlDatabaseHelper
 		catch (ClassNotFoundException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		catch (SQLException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -507,17 +528,18 @@ public class MySqlDatabaseHelper
 			{
 				String filetype = rstResultSet.getString("d.dFileExtension");
 				filetype = filetype.replace(".", "").toUpperCase();
-				result = FileType.valueOf(filetype);	
+				result = FileType.valueOf(filetype);
 			}
 		}
 		catch (SQLException e)
 		{
 			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
-//		catch (Exception e)
-//		{
-//			_logger.fatal(e.getMessage(), e);
-//		}
+		// catch (Exception e)
+		// {
+		// _logger.fatal(e.getMessage(), e); e.printStackTrace();
+		// }
 		finally
 		{
 			disconnect();
