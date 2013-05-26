@@ -54,5 +54,6 @@ tr:hover{background:#ffa !important;}
 .report p{margin:0 0 5px 0;padding:0px;}
 .report .plags{margin:0 0 0 50px;}.report .plags .link{text-align:right;font-style:italic;}
 .report .graficReport{line-height:1.6em;width:100%;position:relative;}.report .graficReport .source{width:49%;}
-.report .graficReport .rtSourceText{position:absolute;left:51%;width:49%;}
+.report .graficReport .rtSourceText{position:absolute;left:51%;width:49%;}.report .graficReport .rtSourceText a{text-decoration:none;}
+.report .graficReport .rtSourceText a:hover{text-decoration:underline;}
 .report .green{background:#00FF00;}

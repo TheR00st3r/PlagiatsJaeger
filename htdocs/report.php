@@ -142,17 +142,17 @@ switch ($_GET['type']) {
 				//TODO DEBUG [xx-xx] //[' . $a['rtStartWord'] . '-' . $a['rtEndWord'] . ']
 				$source = '';
 				if ($a['rtSourcedID']) {
-					$source = '<b>(' . $a['dOriginalName'] . ' zu ' . $a['rtSimilarity'] . ' %)</b>';
+					$source = '<div class="rtSourceText" title="zu ' . $a['rtSimilarity'] . ' % von ' . $a['dOriginalName'] . '">' . nl2br($a['rtSourceText']) . '</div>';
 				} else {
-					$source = '<b>(<a target="_blank" href="' . $a['rtSourceLink'] . '" title="' . $a['rtSourceLink'] . '" />' . $a['rtSimilarity'] . ' %</a>)</b>';
+					$source = '<div class="rtSourceText"><a target="_blank" href="' . $a['rtSourceLink'] . '" title="zu ' . $a['rtSimilarity'] . ' % von '.$a['rtSourceLink'] .'" />' . nl2br($a['rtSourceText']) . '</a></div>';
 				}
 				//[' . $a['rtStartWord'] . '-' . $a['rtEndWord'] . ']
 
-				$output .= '<div class="rtSourceText">' . nl2br($a['rtSourceText']) . ' ' . $source . '</div>';
+				$output .= $source;
 				$output .= '<span style="background: ' . $background . ';">' . nl2br($a['rtQuellText']) . '</span>';
 
 			} else {
-				$output .= nl2br($a['rtQuellText']);
+				$output .= '<span>'.nl2br($a['rtQuellText']).'</span>';
 			}
 		}
 
