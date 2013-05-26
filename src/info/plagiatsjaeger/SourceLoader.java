@@ -183,9 +183,10 @@ public class SourceLoader
 		{
 			detectCharset(new FileInputStream(file));
 		}
-		catch (IOException e1)
+		catch (IOException e)
 		{
-			e1.printStackTrace();
+			_logger.fatal(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		
 		try
