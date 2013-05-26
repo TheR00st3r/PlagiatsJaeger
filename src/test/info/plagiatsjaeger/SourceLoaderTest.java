@@ -38,7 +38,7 @@ public class SourceLoaderTest
 		assertTrue(SourceLoader.loadURL(teststring2).contains("FAIL IOException"));
 		// System.out.println(SourceLoader.loadURL(teststring3));
 		//assertTrue(SourceLoader.loadURL(teststring3).contains("FAIL MalformedURLException"));
-		System.out.println(SourceLoader.loadURL(teststring4));
+	
 		assertTrue(SourceLoader.loadURL(teststring4).contains("FAIL IOException"));
 		// assertTrue(SourceLoader.loadURL(teststring5).contains("FAIL MalformedURLException"));
 		// assertTrue(SourceLoader.loadURL(teststring6).contains("FAIL MalformedURLException"));
@@ -50,7 +50,7 @@ public class SourceLoaderTest
 	{
 
 		 String ergebnisstring1 = "";
-		 String ergebnisstring2 = "Hallo, ich bin ein/nZeilenumbruch";
+		 String ergebnisstring2 = "Hallo, ich bin ein\nZeilenumbruch ";
 		 String ergebnisstring3 = "Gesperrtes File";
 		// // String ergebnisstring4 =
 		// // "D�ner mit So�e & einer b�rigen t�rkischen Bananen & Co KG";
@@ -62,7 +62,7 @@ public class SourceLoaderTest
 		 assertEquals(ergebnisstring3,
 				 SourceLoader.loadFile("/var/www/testfiles/testfile3.txt"));
 		
-		 assertTrue(SourceLoader.loadFile("/var/www/testfiles/testfile3.txt").contains("FAIL FileNotFoundException"));
+		 assertTrue(SourceLoader.loadFile("/var/www/testfiles/fehlendesfile.txt").contains("FAIL NullPointerException"));
 		 
 		
 
