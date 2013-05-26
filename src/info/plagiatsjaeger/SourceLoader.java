@@ -105,7 +105,7 @@ public class SourceLoader
 
 					result = Jsoup.parse(url.openStream(), charset, strUrl).text();
 
-					result = loadSiteWithCharset(urlConnection, charset);
+					//result = loadSiteWithCharset(urlConnection, charset);
 				}
 				else
 				{
