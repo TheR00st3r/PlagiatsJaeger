@@ -18,10 +18,9 @@ import org.apache.log4j.Logger;
  */
 public class MyComparer implements IComparer
 {
-	// TODO: default Werte eintragen
-	private static int					NUM_WORDS_TO_COMPARE;
-	private static double				THRESHOLD;
-	private static int					MAX_WORDS_BETWEEN_RESULTS;
+	private int							NUM_WORDS_TO_COMPARE;
+	private double						THRESHOLD;
+	private int							MAX_WORDS_BETWEEN_RESULTS;
 
 	private String[]					_checkWords;
 	private String[]					_sourceWords;
@@ -153,8 +152,8 @@ public class MyComparer implements IComparer
 				if (resultFound)
 				{
 					_logger.info("SubResult found");
-					_logger.info("Threshold: " + THRESHOLD + " " + sumSimilarity + "/" + countSimilarity + "=" + ((sumSimilarity/countSimilarity)));
-					
+					_logger.info("Threshold: " + THRESHOLD + " " + sumSimilarity + "/" + countSimilarity + "=" + ((sumSimilarity / countSimilarity)));
+
 					CompareResult compareResult = new CompareResult(_rId, checkResultStart, checkResultEnd, sourceResultStart, sourceResultEnd, sumSimilarity / countSimilarity);
 					unmergedCompareResults.add(compareResult);
 
