@@ -72,7 +72,7 @@ class File {
 				} else
 					$messages[] = array(
 						'type' => 'error',
-						'text' => 'Ungültiges Dateiformat, erlaubt sind ' . implode($logData['extensions'], ',') . '.'
+						'text' => 'Ungültiges Dateiformat, erlaubt sind ' . implode($logData['extensions'], ', ') . '.'
 					);
 			}
 		} else

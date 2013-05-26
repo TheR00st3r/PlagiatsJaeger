@@ -46,6 +46,10 @@ class Document {
 	 */
 	public static function addDocument($fID, $dAuthor, $files, $slID, $seID, $uThreshold, $uCheckWWW) {
 		global $logData;
+
+		require_once '../classes/File.php';
+		require_once '../classes/Report.php';
+
 		$state = false;
 		$messages = array();
 
@@ -62,7 +66,6 @@ class Document {
 			if (in_array($extension, $logData['extensions'])) {
 
 				if (Validator::validate(VAL_INTEGER, $fID, true) and Validator::validate(VAL_STRING, $dAuthor)) {
-					require_once '../classes/File.php';
 					$db = new db();
 					if ($db -> insert('document', array(
 						'dOriginalName' => $file["name"],
@@ -73,7 +76,6 @@ class Document {
 						$lastID = $db -> lastInsertId();
 						$uploadCheck = File::copyTempFile($lastID, $file);
 						if ($uploadCheck['state']) {
-							require_once '../classes/Report.php';
 							$checkReport = Report::createReport($lastID, $slID, $seID, $uThreshold, $uCheckWWW);
 							if ($checkReport['state']) {
 								$state = true;
@@ -95,7 +97,7 @@ class Document {
 			} else
 				$messages[] = array(
 					'type' => 'error',
-					'text' => 'Ungültiges Dateiformat, erlaubt sind ' . implode($logData['extensions'], ',') . '.'
+					'text' => 'Ungültiges Dateiformat, erlaubt sind ' . implode($logData['extensions'], ', ') . '.'
 				);
 		}
 
