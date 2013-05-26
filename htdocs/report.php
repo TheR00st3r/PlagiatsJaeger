@@ -17,7 +17,11 @@ $messages[] = $reportCheck['messages'];
 // load original document
 $documentCheck = Document::getDocumentOriginalContent($reportCheck['report']['dID']);
 if ($documentCheck['state']) {
-	$split = explode(" ", $documentCheck['file']);
+	$file = $documentCheck['file'];
+	$file = preg_replace("/\n/", "\n ", $file);
+	$split = preg_split("/[ \t\f\r]+/", $file);
+	// $split = explode(" ", $documentCheck['file']);
+	// array_unshift($split, "");
 } else {
 	$split = '';
 	$messages = array_merge($messages, $documentCheck['messages']);
@@ -46,6 +50,8 @@ switch ($_GET['type']) {
 		// echo $color3.'<br />';
 
 		// echo count($split);
+		
+		// $start = 1;
 
 		$start = 0;
 		$array = array();
@@ -56,12 +62,13 @@ switch ($_GET['type']) {
 
 				if ($start > $result['rtStartWord']) {
 					//$start = $result['rtStartWord'];
-					$result['rtStartWord'] = $start;
+					//$result['rtStartWord'] = $start;
 				} else {
+					
 
 					// TYP 0 - kein Plagiat
 					$string = '';
-					for ($i = $start; $i < $result['rtStartWord'] - 1; $i++) {
+					for ($i = $start; $i < $result['rtStartWord']; $i++) {
 						$string .= $split[$i] . ' ';
 					}
 
@@ -80,7 +87,7 @@ switch ($_GET['type']) {
 
 				// TYP 1 - Plagiat
 				$string = '';
-				for ($i = $result['rtStartWord'] - 1; $i < $result['rtEndWord'] - 1; $i++) {
+				for ($i = $result['rtStartWord']; $i < $result['rtEndWord']; $i++) {
 					$string .= $split[$i] . ' ';
 				}
 
@@ -94,7 +101,7 @@ switch ($_GET['type']) {
 
 				$array[] = $out;
 
-				$start = $result['rtEndWord'] - 1;
+				$start = $result['rtEndWord'];
 
 				// $output = $string;
 			}
@@ -120,7 +127,7 @@ switch ($_GET['type']) {
 
 		foreach ($array as $a) {
 			//TODO DEBUG [xx-xx]
-			$output .= '|' . $a['start'] . '-' . $a['stop'] . '|';
+			// $output .= '|' . $a['start'] . '-' . $a['stop'] . '|';
 			if ($a['type'] != 0) {
 
 				if ($a['rtIsInSources'] == 1)
@@ -137,8 +144,9 @@ switch ($_GET['type']) {
 				if ($a['rtSourcedID']) {
 					$source = '<b>(' . $a['dOriginalName'] . ' zu ' . $a['rtSimilarity'] . ' %)</b>';
 				} else {
-					$source = '<b>([' . $a['rtStartWord'] . '-' . $a['rtEndWord'] . ']<a target="_blank" href="' . $a['rtSourceLink'] . '" title="' . $a['rtSourceLink'] . '" />' . $a['rtSimilarity'] . ' %</a>)</b>';
+					$source = '<b>(<a target="_blank" href="' . $a['rtSourceLink'] . '" title="' . $a['rtSourceLink'] . '" />' . $a['rtSimilarity'] . ' %</a>)</b>';
 				}
+				//[' . $a['rtStartWord'] . '-' . $a['rtEndWord'] . ']
 
 				$output .= '<div class="rtSourceText">' . nl2br($a['rtSourceText']) . ' ' . $source . '</div>';
 				$output .= '<span style="background: ' . $background . ';">' . nl2br($a['rtQuellText']) . '</span>';

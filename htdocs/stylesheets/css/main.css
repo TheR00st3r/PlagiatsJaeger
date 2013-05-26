@@ -44,7 +44,7 @@ tr:hover{background:#ffa !important;}
 .save{background-color:#7FFF99;border:solid 1px #00B233;}
 .info{background-color:#eee;border:solid 1px #555;}
 .error a,.save a,.info a{color:#000;}
-.report{background:#FFF;padding:60px 20px 20px 20px;position:relative;}.report .reportNav{position:fixed;left:0px;top:0px;background:#ccc;width:100%;z-index:99;}.report .reportNav .frame{padding:10px;}.report .reportNav .frame a{text-decoration:none;padding:0 20px;font-weight:bold;}
+.report{background:#FFF;padding:60px 20px 20px 20px;position:relative;}.report .reportNav{position:fixed;left:0px;top:0px;width:100%;z-index:99;}.report .reportNav .frame{padding:10px;}.report .reportNav .frame a{text-decoration:none;padding:0 20px;font-weight:bold;}
 .report h1{font-size:18pt;margin:0px;padding:0px;}
 .report h2{margin:30px 0 0 0;font-size:11pt;}
 .report h3{margin:15px 0 5px 0;padding:0px;}
@@ -54,5 +54,5 @@ tr:hover{background:#ffa !important;}
 .report p{margin:0 0 5px 0;padding:0px;}
 .report .plags{margin:0 0 0 50px;}.report .plags .link{text-align:right;font-style:italic;}
 .report .graficReport{line-height:1.6em;width:100%;position:relative;}.report .graficReport .source{width:49%;}
-.report .graficReport .rtSourceText{position:absolute;left:51%;width:49%;}
+.report .graficReport .rtSourceText{position:absolute;left:51%;margin:-20px 0 0 0;width:49%;}
 .report .green{background:#00FF00;}
