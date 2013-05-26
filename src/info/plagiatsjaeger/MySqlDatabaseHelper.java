@@ -495,7 +495,7 @@ public class MySqlDatabaseHelper
 		}
 	}
 
-	public FileType loadFileType(int dId)
+	public FileType loadFileType(int dId) throws Exception
 	{
 		FileType result = null;
 		String strStatement = "SELECT dFileExtension FROM document AS d WHERE d.dID = " + dId;
@@ -514,10 +514,10 @@ public class MySqlDatabaseHelper
 		{
 			_logger.fatal(e.getMessage(), e);
 		}
-		catch (Exception e)
-		{
-			_logger.fatal(e.getMessage(), e);
-		}
+//		catch (Exception e)
+//		{
+//			_logger.fatal(e.getMessage(), e);
+//		}
 		finally
 		{
 			disconnect();
