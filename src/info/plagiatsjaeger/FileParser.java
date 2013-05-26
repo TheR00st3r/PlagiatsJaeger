@@ -56,13 +56,12 @@ public class FileParser
 	{
 		_logger.info("Start parsing: " + dId);
 
-		FileType fileType = new MySqlDatabaseHelper().loadFileType(dId);
-
 		boolean result = false;
 		// Http liegen nicht als Datei vor
 
 		try
 		{
+			FileType fileType = new MySqlDatabaseHelper().loadFileType(dId);
 			if (fileType != FileType.HTML)
 			{
 				// Zusammenbau Dateipfad
@@ -102,7 +101,11 @@ public class FileParser
 			_logger.fatal(e.getMessage(), e);
 			result = false;
 		}
-
+		catch (Exception e)
+		{
+			_logger.fatal(e.getMessage(), e);
+			result = false;
+		}
 		return result;
 	}
 
