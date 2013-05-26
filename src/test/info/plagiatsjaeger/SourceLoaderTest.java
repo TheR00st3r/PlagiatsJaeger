@@ -55,7 +55,7 @@ public class SourceLoaderTest
 		// // String ergebnisstring4 =
 		// // "D�ner mit So�e & einer b�rigen t�rkischen Bananen & Co KG";
 		//
-		 System.out.println(SourceLoader.loadFile("/var/www/testfiles/testfile3.txt"));
+		// System.out.println(SourceLoader.loadFile("/var/www/testfiles/testfile3.txt"));
 		 assertTrue(SourceLoader.loadFile("/var/www/testfiles/fehlendesfile.txt").contains("FAIL IOException"));
 		 System.out.println(SourceLoader.loadFile("/var/www/testfiles/testfile1.txt"));
 		 assertEquals(ergebnisstring1,
@@ -64,7 +64,7 @@ public class SourceLoaderTest
 		 assertEquals(ergebnisstring2,
 		 SourceLoader.loadFile("/var/www/testfiles/testfile3.txt"));
 		 System.out.println(SourceLoader.loadFile("/var/www/testfiles/testfile2.txt"));
-		 assertTrue(SourceLoader.loadFile("/var/www/testfiles/testfile3.txt").contains("FAIL IOException"));
+		 //assertTrue(SourceLoader.loadFile("/var/www/testfiles/testfile3.txt").contains("FAIL IOException"));
 		// // assertEquals(ergebnisstring4,
 		// // SourceLoader.loadFile("/var/www/testfiles/testfile4.txt"));
 
