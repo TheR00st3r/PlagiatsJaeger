@@ -282,7 +282,7 @@ public class MySqlDatabaseHelper
 			rstResultSet = startQuery(strStatement);
 			if (rstResultSet.next())
 			{
-				result = Settings.getInstance();
+				result = new Settings();
 				String input = rstResultSet.getString("r.rCheckIDs");
 				ArrayList<Integer> localFiles = new ArrayList<Integer>();
 				if (input.length() > 0)

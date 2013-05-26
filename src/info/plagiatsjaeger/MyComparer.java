@@ -36,15 +36,15 @@ public class MyComparer implements IComparer
 
 	private static final Logger			_logger	= Logger.getLogger(MyComparer.class.getName());
 
+	
 	/**
 	 * Legt einen neuen Comparer fuer einen Report an.
 	 * 
 	 * @param rId
 	 */
-	public MyComparer(int rId)
+	public MyComparer(int rId, Settings settings)
 	{
 		_rId = rId;
-		Settings settings = Settings.getInstance();
 		MAX_WORDS_BETWEEN_RESULTS = settings.getCompareJumpLength();
 		NUM_WORDS_TO_COMPARE = settings.getCompareSentenceLength();
 		THRESHOLD = ((double) settings.getThreshold()) / 100;
