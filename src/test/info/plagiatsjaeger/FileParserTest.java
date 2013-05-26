@@ -41,6 +41,7 @@ System.out.println(fparser.parseFile(9));
 
 
 		 assertTrue(fparser.parseFile(1)); //TXT-Datei mit Leerstring
+		 
 		 assertTrue(fparser.parseFile(2)); //TXT-Datei mit Inhalt
 		 assertTrue(fparser.parseFile(3)); //PDF-Datei mit Leerstring
 		 assertTrue(fparser.parseFile(4)); //PDF-Datei mit Inhalt
