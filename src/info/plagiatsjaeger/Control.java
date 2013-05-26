@@ -227,6 +227,8 @@ public class Control
 			_logger.info("Check localFolders");
 			for (final int i : localFolders)
 			{
+				_logger.info("CheckDoc: " + docId);
+				_logger.info("NextDoc:  " + i);
 				if (i != docId)
 				{
 					_logger.info("Naechstes File: " + i);
