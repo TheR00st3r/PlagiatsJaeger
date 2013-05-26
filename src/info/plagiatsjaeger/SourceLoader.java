@@ -182,7 +182,7 @@ public class SourceLoader
 
 			while ((line = bufferedReader.readLine()) != null)
 			{
-				if(stringBuilder.length()>0)
+				if (stringBuilder.length() > 0)
 				{
 					stringBuilder.append("\n");
 				}
@@ -202,15 +202,18 @@ public class SourceLoader
 		}
 		finally
 		{
-			try
+			if (dataInputStream != null)
 			{
-				dataInputStream.close();
+				try
+				{
+					dataInputStream.close();
+				}
+				catch (IOException e)
+				{
+					_logger.fatal(e.getMessage(), e);
+				}
+				result = stringBuilder.toString();
 			}
-			catch (IOException e)
-			{
-				_logger.fatal(e.getMessage(), e);
-			}
-			result = stringBuilder.toString();
 		}
 		return result;
 	}
