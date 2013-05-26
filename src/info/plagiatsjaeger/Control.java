@@ -195,8 +195,6 @@ public class Control
 							MySqlDatabaseHelper mySqlDatabaseHelper = new MySqlDatabaseHelper();
 
 							String dbLink = SourceLoader.cleanUrl(mySqlDatabaseHelper.loadDocumentURL(mySqlDatabaseHelper.getDocumentID(rId)));
-							String test = SourceLoader.cleanUrl(link);
-							_logger.info("CompareLinks:\n\n\n" + dbLink + "\n" + test);
 
 							if (!dbLink.equals(SourceLoader.cleanUrl(link)))
 							{
