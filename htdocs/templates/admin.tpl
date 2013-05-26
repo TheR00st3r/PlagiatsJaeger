@@ -6,10 +6,7 @@
 			<th>Vorname</th>
 			<th>eMail</th>
 			<th>Rechte</th>
-			<th>slTitle</th>
-			<th>sCheckWWW</th>
-			<th>sThreshold</th>
-			<th>Client</th>
+			<th>Mandant</th>
 			<th></th>
 		</tr>
 		{$color = ''}
@@ -25,27 +22,18 @@
 				{$item.uEMailAdress}
 			</td>
 			<td>
-				{$item.uPermissonLevel}
-			</td>
-			<td>
-				{$item.slTitle}
-			</td>
-			<td>
-				{$item.sCheckWWW}
-			</td>
-			<td>
-				{$item.sThreshold}
+				{$item.plName}
 			</td>
 			<td>
 				{$item.cName}
 			</td>
 			<td>
-				{if $item.uPermissonLevel == 1}
-				{include 'popups/activateUserForm.tpl'}
-				<a class="create" href="#activateUserForm{$item.uID}">[activate]</a>
-				{/if}
 				{include 'popups/deleteUserForm.tpl'}
 				<a class="create" href="#deleteUserForm{$item.uID}">[löschen]</a>
+				{if $item.uPermissonLevel == 1}
+				{include 'popups/activateUserForm.tpl'}
+				<a class="create" href="#activateUserForm{$item.uID}">[freischalten]</a>
+				{/if}
 			</td>
 		</tr>
 		{if $color == ''}{$color = 'bgcolor'}{else}{$color = ''}{/if}
@@ -56,7 +44,7 @@
 	<br />
 	<br />
 
-	<h2>Neuen Benuter anlegen</h2>
+	<h2>Neuen Benutzer anlegen</h2>
 	<form method="post" action="" enctype="multipart/form-data">
 		<table>
 			<tr>
@@ -97,9 +85,8 @@
 				</td>
 				<td>
 					<select name="uPermissonLevel">
-						<option value="100">User</option>
-						<option value="500">Admin</option>
-						<!-- <option value="900">SuperAdmin</option> -->
+						<option value="100">Dozent</option>
+						<option value="500">Administrator</option>
 					</select>
 				</td>
 			</tr>

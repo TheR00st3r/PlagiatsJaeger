@@ -4,6 +4,7 @@ $(document).ready(function() {
 		element = $(this).attr("href");
 	}).fancybox({
 		'autoDimensions' : true,
+		'minWidth' : 400,
 		'titleShow' : false,
 		'onStart' : function() {
 			//aktuelles UploadForm enzeigen

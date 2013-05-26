@@ -4,7 +4,7 @@
 		<h1><a href="{$root}">PLAGIATSJÄGER</a></h1>
 		{if $userinfo}
 		<div id="userinfo">
-			Hallo {$userinfo} | <a href="{$root}logout">logout</a>
+			Hallo {$userinfo} | <a href="{$root}logout">Abmelden</a>
 		</div>
 		{/if}
 	</div>

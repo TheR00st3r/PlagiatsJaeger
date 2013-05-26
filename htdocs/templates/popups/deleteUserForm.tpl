@@ -4,6 +4,7 @@
 		<h2>Benutzer löschen?</h2>
 		Mit dem Benutzer werden auch alle seine Dokumente und Plagiatsprüfungen gelöscht.
 		<br />
+		<br />
 		<input type="submit" name="button[deleteUser]" value="löschen" />
 	</form>
 </div>

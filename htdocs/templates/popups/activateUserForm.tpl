@@ -4,10 +4,10 @@
 		<h2>Benutzer freischlaten</h2>
 		<label for="uPermissonLevel">Berechtigung:</label>
 		<select name="uPermissonLevel" id="uPermissonLevel">
-			<option value="100">User</option>
-			<option value="500">Admin</option>
-			<!-- <option value="900">SuperAdmin</option> -->
+			<option value="100">Dozent</option>
+			<option value="500">Administrator</option>
 		</select>
+		<br />
 		<br />
 		<input type="submit" name="button[activateUser]" value="freischalten" />
 	</form>

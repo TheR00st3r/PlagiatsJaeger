@@ -3,10 +3,10 @@ $(document).ready(function() {
 
 	$('.jeditable').editable('jeditable.php', {
 		type : 'text',
-		cancel : 'Cancel',
+		cancel : 'Abbrechen',
 		submit : 'OK',
 		// indicator : '<img src="img/indicator.gif">',
-		tooltip : 'Click to edit...',
+		tooltip : '...',
 		id : 'id',
 		name : 'content'
 	});

@@ -33,8 +33,6 @@
 			{/section}
 		</select>
 		Uhr
-		<!-- <br /> -->
-		<!-- <input type="text" name="fLinkExpireDatetime" id="fLinkExpireDatetime" value="2013-12-12 23:59:59" /> -->
 		<br />
 		<br />
 		<input type="submit" name="button[createLink]" value="freigeben" />
