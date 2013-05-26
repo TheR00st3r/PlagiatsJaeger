@@ -33,12 +33,12 @@ public class SourceLoaderTest
 		// String teststring7 = "http://de.wikipedia.org/wiki/Das_B�se";
 
 		assertEquals(ergebnisstring1, SourceLoader.loadURL(teststring1, true, false));
-		// assertTrue(SourceLoader.loadURL(teststring7).contains(ergebnisstring2));
-		// assertTrue(SourceLoader.loadURL(teststring2).contains("FAIL IOException"));
-		// assertTrue(SourceLoader.loadURL(teststring3).contains("FAIL MalformedURLException"));
-		// assertTrue(SourceLoader.loadURL(teststring4).contains("FAIL MalformedURLException"));
-		// assertTrue(SourceLoader.loadURL(teststring5).contains("FAIL MalformedURLException"));
-		// assertTrue(SourceLoader.loadURL(teststring6).contains("FAIL MalformedURLException"));
+//		 assertTrue(SourceLoader.loadURL(teststring7).contains(ergebnisstring2));
+		 assertTrue(SourceLoader.loadURL(teststring2).contains("FAIL IOException"));
+		 assertTrue(SourceLoader.loadURL(teststring3).contains("FAIL MalformedURLException"));
+		 assertTrue(SourceLoader.loadURL(teststring4).contains("FAIL MalformedURLException"));
+		 assertTrue(SourceLoader.loadURL(teststring5).contains("FAIL MalformedURLException"));
+		 assertTrue(SourceLoader.loadURL(teststring6).contains("FAIL MalformedURLException"));
 
 	}
 
@@ -52,14 +52,14 @@ public class SourceLoaderTest
 		// String ergebnisstring4 =
 		// "D�ner mit So�e & einer b�rigen t�rkischen Bananen & Co KG";
 
-		// assertTrue(SourceLoader.loadFile("/var/www/testfiles/testfile3.txt").contains("FAIL FileNotFoundException"));
-		// assertEquals(ergebnisstring1,
-		// SourceLoader.loadFile("/var/www/testfiles/testfile1.txt"));
-		// assertEquals(ergebnisstring2,
-		// SourceLoader.loadFile("/var/www/testfiles/fehlendesfile.txt"));
-		// assertTrue(SourceLoader.loadFile("/var/www/testfiles/testfile3.txt").contains("FAIL IOException"));
-		// assertEquals(ergebnisstring4,
-		// SourceLoader.loadFile("/var/www/testfiles/testfile4.txt"));
+		 assertTrue(SourceLoader.loadFile("/var/www/testfiles/testfile3.txt").contains("FAIL FileNotFoundException"));
+		 assertEquals(ergebnisstring1,
+		 SourceLoader.loadFile("/var/www/testfiles/testfile1.txt"));
+		 assertEquals(ergebnisstring2,
+		 SourceLoader.loadFile("/var/www/testfiles/fehlendesfile.txt"));
+		 assertTrue(SourceLoader.loadFile("/var/www/testfiles/testfile3.txt").contains("FAIL IOException"));
+//		 assertEquals(ergebnisstring4,
+//		 SourceLoader.loadFile("/var/www/testfiles/testfile4.txt"));
 
 	}
 
