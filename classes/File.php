@@ -50,18 +50,11 @@ class File {
 		$state = false;
 		if (Validator::validate(VAL_INTEGER, $dID, true)) {
 
-			$allowedExtensions = array(
-				'.pdf',
-				'.doc',
-				'.docx',
-				'.txt'
-			);
-
 			if ($file["tmp_name"] != '') {
 
 				$extension = self::getFileExtension($file['name']);
 
-				if (in_array($extension, $allowedExtensions)) {
+				if (in_array($extension, $logData['extensions'])) {
 
 					if (copy($file["tmp_name"], $logData['uploadpath'] . $dID . $extension)) {
 
@@ -79,7 +72,7 @@ class File {
 				} else
 					$messages[] = array(
 						'type' => 'error',
-						'text' => 'Ungültiges Dateiformat (' . implode($allowedExtensions, ',') . ')'
+						'text' => 'Ungültiges Dateiformat, erlaubt sind ' . implode($logData['extensions'], ',') . '.'
 					);
 			}
 		} else

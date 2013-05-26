@@ -45,6 +45,7 @@ class Document {
 	 * @return void
 	 */
 	public static function addDocument($fID, $dAuthor, $files, $slID, $seID, $uThreshold, $uCheckWWW) {
+		global $logData;
 		$state = false;
 		$messages = array();
 
@@ -56,36 +57,45 @@ class Document {
 			$file['error'] = $files['error'][$i];
 			$file['error'] = $files['error'][$i];
 
-			if (Validator::validate(VAL_INTEGER, $fID, true) and Validator::validate(VAL_STRING, $dAuthor)) {
-				require_once '../classes/File.php';
-				$db = new db();
-				if ($db -> insert('document', array(
-					'dOriginalName' => $file["name"],
-					'dFileExtension' => File::getFileExtension($file["name"]),
-					'dAuthor' => $dAuthor,
-					'fID' => $fID
-				))) {
-					$lastID = $db -> lastInsertId();
-					$uploadCheck = File::copyTempFile($lastID, $file);
-					if ($uploadCheck['state']) {
-						require_once '../classes/Report.php';
-						$checkReport = Report::createReport($lastID, $slID, $seID, $uThreshold, $uCheckWWW);
-						if ($checkReport['state']) {
-							$state = true;
+			$extension = File::getFileExtension($file["name"]);
+
+			if (in_array($extension, $logData['extensions'])) {
+
+				if (Validator::validate(VAL_INTEGER, $fID, true) and Validator::validate(VAL_STRING, $dAuthor)) {
+					require_once '../classes/File.php';
+					$db = new db();
+					if ($db -> insert('document', array(
+						'dOriginalName' => $file["name"],
+						'dFileExtension' => $extension,
+						'dAuthor' => $dAuthor,
+						'fID' => $fID
+					))) {
+						$lastID = $db -> lastInsertId();
+						$uploadCheck = File::copyTempFile($lastID, $file);
+						if ($uploadCheck['state']) {
+							require_once '../classes/Report.php';
+							$checkReport = Report::createReport($lastID, $slID, $seID, $uThreshold, $uCheckWWW);
+							if ($checkReport['state']) {
+								$state = true;
+							}
+							$messages = array_merge($messages, $checkReport['messages']);
 						}
-						$messages = array_merge($messages, $checkReport['messages']);
-					}
-					$messages = array_merge($messages, $uploadCheck['messages']);
+						$messages = array_merge($messages, $uploadCheck['messages']);
+					} else
+						$messages[] = array(
+							'type' => 'error',
+							'text' => 'Dokument wurde nicht angelegt!'
+						);
+					$db -> disconnect();
 				} else
 					$messages[] = array(
 						'type' => 'error',
-						'text' => 'Dokument wurde nicht angelegt!'
+						'text' => 'Parameter haben kein gültiges Format!'
 					);
-				$db -> disconnect();
 			} else
 				$messages[] = array(
 					'type' => 'error',
-					'text' => 'Parameter haben kein gültiges Format!'
+					'text' => 'Ungültiges Dateiformat, erlaubt sind ' . implode($logData['extensions'], ',') . '.'
 				);
 		}
 
