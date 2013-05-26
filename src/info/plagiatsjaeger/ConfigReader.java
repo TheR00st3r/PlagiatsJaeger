@@ -35,7 +35,6 @@ public class ConfigReader
 		{
 			_logger.fatal(e.getMessage(), e);
 			e.printStackTrace();
-			e.printStackTrace();
 		}
 	}
 
