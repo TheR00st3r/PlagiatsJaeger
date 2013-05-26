@@ -39,7 +39,7 @@ public class SourceLoaderTest
 		// System.out.println(SourceLoader.loadURL(teststring3));
 		//assertTrue(SourceLoader.loadURL(teststring3).contains("FAIL MalformedURLException"));
 		System.out.println(SourceLoader.loadURL(teststring4));
-		assertTrue(SourceLoader.loadURL(teststring4).contains("FAIL MalformedURLException"));
+		assertTrue(SourceLoader.loadURL(teststring4).contains("FAIL IOException"));
 		// assertTrue(SourceLoader.loadURL(teststring5).contains("FAIL MalformedURLException"));
 		// assertTrue(SourceLoader.loadURL(teststring6).contains("FAIL MalformedURLException"));
 
