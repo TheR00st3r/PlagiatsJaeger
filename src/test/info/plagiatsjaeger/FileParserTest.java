@@ -25,7 +25,7 @@ public class FileParserTest
 	{
 		FileParser fparser = new FileParser();
 
-		String ergebnisstring1 = "Ich bin eine PDF";
+		String ergebnisstring1 = "Ich bin eine PDF\n";
 		String ergebnisstring2 = "Ich bin eine doc";
 		String ergebnisstring3 = "Ich bin eine docx";
 System.out.println(fparser.parseFile(0));
