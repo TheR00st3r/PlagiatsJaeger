@@ -248,7 +248,9 @@ public class SourceLoader
 
 				try
 				{
+					_logger.info("Before encodeing: " + result);
 					result = new String(Charset.forName("UTF-8").encode(result).array(), charset);
+					_logger.info("After encodeing: " + result);
 				}
 				catch (UnsupportedEncodingException e)
 				{
