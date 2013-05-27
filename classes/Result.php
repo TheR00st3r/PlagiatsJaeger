@@ -79,6 +79,7 @@ class Result {
 
 			if ($rtSourceLink != '') {
 				$rtSourceLink = urldecode($rtSourceLink);
+				print_array($rtSourceLink);
 				$where = "AND rt.rtSourceLink =  '$rtSourceLink'";
 			} else if ($rtSourcedID != '')
 				$where = "AND rt.rtSourcedID =  '$rtSourcedID'";
