@@ -82,6 +82,10 @@ public class SourceLoader
 				if (matcher.matches())
 				{
 					_detectedCharset = matcher.group(1);
+					if(_detectedCharset.equals("windows-1252"))
+					{
+						_detectedCharset = "cp1252";
+					}
 					_logger.info("Charset detected: " + _detectedCharset + "(URL: " + strUrl + ")");
 					result = Jsoup.parse(url.openStream(), _detectedCharset, strUrl).text();
 				}
