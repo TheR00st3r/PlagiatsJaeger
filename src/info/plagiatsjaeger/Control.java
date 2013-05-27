@@ -140,7 +140,7 @@ public class Control
 							}
 							try
 							{
-								Thread.sleep(TIME_BETWEEN_CHECK * 60000);
+								Thread.sleep(TIME_BETWEEN_CHECK * 1000);
 							}
 							catch (InterruptedException e)
 							{
