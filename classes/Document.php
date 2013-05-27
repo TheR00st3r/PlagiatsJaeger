@@ -273,7 +273,7 @@ class Document {
 			if ($row['dIsParsed']) {
 				require_once '../classes/File.php';
 
-				$checkFile = File::readFile($dID . '.txt');
+				$checkFile = File::readFile($dID . '.pjt');
 				if ($checkFile['state']) {
 					$file = $checkFile['file'];
 					$state = true;
