@@ -10,5 +10,5 @@ geben Sie bitte eine neues Passwort ein:<br />
 	<label for="uPassword2">Ihr neues Passwort bestätigen:</label>
 	<input id="uPassword2" class="text" type="password" name="uPassword2" value="" /><br />
 	<br />
-	<input name="uPasswordReset" class="button" type="submit" value="Passwort speichern" />
+	<input name="uPasswordReset" type="submit" value="Passwort speichern" />
 </form>

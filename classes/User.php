@@ -276,11 +276,11 @@ class User {
 				), array('uID' => $uID))) {
 					$messages[] = array(
 						'type' => 'save',
-						'text' => 'Neues Passwort wurde gespeichert, bitte loggen Sie sich nun mit Ihrem neuen Passwort ein.'
+						'text' => 'Neues Passwort wurde gespeichert, bitte loggen Sie sich nun mit Ihrem neuen Passwort ein. Sie werden in 5 Sekunden weitergeleitet.'
 					);
 					$state = true;
 					LoginAccess::logout();
-					header("Refresh: 1; url=$root");
+					header("Refresh: 5; url=$root");
 				} else {
 					$messages[] = array(
 						'type' => 'error',
