@@ -82,11 +82,7 @@ public class SourceLoader
 				if (matcher.matches())
 				{
 					_detectedCharset = matcher.group(1);
-					if(_detectedCharset.equalsIgnoreCase("windows-1252"))
-					{
-						_detectedCharset = "CP1252";
-					}
-					else if(_detectedCharset.equalsIgnoreCase("BIG5"))
+					if(_detectedCharset.equalsIgnoreCase("BIG5"))
 					{
 						_detectedCharset = "UTF-8";
 					}
@@ -148,11 +144,7 @@ public class SourceLoader
 			{
 
 				_detectedCharset = charset;
-				if(_detectedCharset.equalsIgnoreCase("windows-1252"))
-				{
-					_detectedCharset = "CP1252";
-				}
-				else if(_detectedCharset.equalsIgnoreCase("BIG5"))
+				if(_detectedCharset.equalsIgnoreCase("BIG5"))
 				{
 					_detectedCharset = "UTF-8";
 				}
