@@ -7,6 +7,7 @@ textarea{border:solid 1px #cccccc;}
 .help{cursor:help;border-bottom:1px dotted #aaa;}
 #dAddShortText{width:800px;height:400px;}
 #frame{background:#FFF;}
+a img{border:none;}
 #container{width:1000px;margin:20px auto;background:#fff;-moz-box-shadow:6px 6px 6px #666;-webkit-box-shadow:6px 6px 6px #666;box-shadow:6px 6px 6px #666;border:solid 1px #666;}
 #header{position:relative;height:125px;}#header img{position:absolute;left:30px;top:20px;}
 #header h1{position:absolute;left:120px;top:70px;font-style:italic;}#header h1 a{font-size:30px;color:#000000;text-decoration:none;}
