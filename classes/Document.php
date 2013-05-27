@@ -133,7 +133,7 @@ class Document {
 				$lastID = $db -> lastInsertId();
 
 				require_once '../classes/File.php';
-				$checkWrite = File::writeFile($lastID, nl2br($text), '.txt');
+				$checkWrite = File::writeFile($lastID, nl2br($text), '.pjt');
 				if ($checkWrite['state']) {
 					$checkReport = Report::createReport($lastID, $slID, $seID, $uThreshold, $uCheckWWW);
 					if ($checkReport['state']) {
