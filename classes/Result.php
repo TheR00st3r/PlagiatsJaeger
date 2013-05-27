@@ -78,7 +78,7 @@ class Result {
 		if (Validator::validate(VAL_INTEGER, $rID, true)) {
 
 			if ($rtSourceLink != '') {
-				print_array($rtSourceLink);
+				// print_array($rtSourceLink);
 				$rtSourceLink = urlencode($rtSourceLink);
 				$where = "AND rt.rtSourceLink =  '$rtSourceLink'";
 			} else if ($rtSourcedID != '')
