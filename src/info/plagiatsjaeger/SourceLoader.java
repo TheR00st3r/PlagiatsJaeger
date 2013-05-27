@@ -177,33 +177,30 @@ public class SourceLoader
 		DataInputStream dataInputStream = null;
 
 		StringBuilder stringBuilder = new StringBuilder();
-		String charset = "";
+		String charset = "ISO-8859-1";
 		try
 		{
 			inputStream = new FileInputStream(filePath);
 			String line = "";
 			byte[] array = IOUtils.toByteArray(inputStream);
 			// Detect charset
-
-			if (array[0] == -1 && array[1] == -2)
+			if (array != null)
 			{
-				// UTF-16 big Endian
-				charset = "UTF-16BE";
-			}
-			else if (array[0] == -2 && array[1] == -1)
-			{
-				// UTF-16 little Endian
-				charset = "UTF-16LE";
-			}
-			else if (array[0] == -17 && array[1] == -69 && array[2] == -65)
-			{
-				// UTF-8
-				charset = "UTF-8";
-			}
-			else
-			{
-				// ANSI
-				charset = "ISO-8859-1";
+				if (array[0] == -1 && array[1] == -2)
+				{
+					// UTF-16 big Endian
+					charset = "UTF-16BE";
+				}
+				else if (array[0] == -2 && array[1] == -1)
+				{
+					// UTF-16 little Endian
+					charset = "UTF-16LE";
+				}
+				else if (array[0] == -17 && array[1] == -69 && array[2] == -65)
+				{
+					// UTF-8
+					charset = "UTF-8";
+				}
 			}
 
 			System.out.println(charset);
