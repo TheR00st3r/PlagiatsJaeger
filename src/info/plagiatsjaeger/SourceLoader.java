@@ -184,7 +184,7 @@ public class SourceLoader
 			String line = "";
 			byte[] array = IOUtils.toByteArray(inputStream);
 			// Detect charset
-			if (array != null)
+			if (array != null && array.length >= 2)
 			{
 				if (array[0] == -1 && array[1] == -2)
 				{
@@ -196,7 +196,7 @@ public class SourceLoader
 					// UTF-16 little Endian
 					charset = "UTF-16LE";
 				}
-				else if (array[0] == -17 && array[1] == -69 && array[2] == -65)
+				else if (array.length >= 3 && array[0] == -17 && array[1] == -69 && array[2] == -65)
 				{
 					// UTF-8
 					charset = "UTF-8";
