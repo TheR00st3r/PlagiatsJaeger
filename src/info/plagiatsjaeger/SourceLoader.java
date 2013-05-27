@@ -12,6 +12,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.Charset;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -244,6 +245,16 @@ public class SourceLoader
 				}
 				if (charset == "UTF-8") stringBuilder.deleteCharAt(0);
 				result = stringBuilder.toString();
+
+				try
+				{
+					result = new String(Charset.forName("UTF-8").encode(result).array(), charset);
+				}
+				catch (UnsupportedEncodingException e)
+				{
+					_logger.fatal(e.getMessage(), e);
+					e.printStackTrace();
+				}
 			}
 		}
 		return result;
