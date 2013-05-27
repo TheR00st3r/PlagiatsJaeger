@@ -152,7 +152,7 @@ class User {
 	 * @return int $uID
 	 */
 	public static function registrateUser($uName, $uLastname, $uEMailAdress, $uPassword, $uPassword2, $cNumber) {
-		$state = true;
+		$state = false;
 		$pwCheck = self::checkNewPassword($uPassword, $uPassword2);
 		if ($pwCheck['state'] == true) {
 			$cIDCheck = self::getClientIDfromClientNumber($cNumber);
