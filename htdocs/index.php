@@ -242,8 +242,9 @@ if ($page == 'public') {
 					$return = User::registrateUser($_POST['uName'], $_POST['uLastname'], $_POST['uEMailAdress'], $_POST['uPassword'], $_POST['uPassword2'], $_POST['cID']);
 					$smarty -> assign('messages', $return['messages']);
 					break;
+				default :
+					$contentTpl = $smarty -> fetch('registrate.tpl');
 			}
-			$contentTpl = $smarty -> fetch('registrate.tpl');
 			break;
 
 		case 'reset-password' :
