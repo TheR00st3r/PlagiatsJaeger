@@ -21,8 +21,8 @@
 			{/if}
 		</td>
 		<td>{$result.rtSimilarity|money_format} %</td>
-		<td>{if $result.rtIsInSources == 1}ja{/if}</td>
-		<td><a href="report.php?rID={$smarty.get.rID}&amp;type=grafic&amp;rtSourceLink={$result.rtSourceLink|urlencode}&amp;rtSourcedID={$result.rtSourcedID}">Details</a></td>
+		<td>{if $result.rtIsInSources == 1}ja{/if}</td>{*|urlencode*}
+		<td><a href="report.php?rID={$smarty.get.rID}&amp;type=grafic&amp;rtSourceLink={$result.rtSourceLink}&amp;rtSourcedID={$result.rtSourcedID}">Details</a></td>
 	</tr>
 	{/foreach}
 </table>
