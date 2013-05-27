@@ -279,6 +279,7 @@ class User {
 					);
 					$state = true;
 					LoginAccess::logout();
+					header("Refresh: 1; url=$root");
 				} else {
 					$messages[] = array(
 						'type' => 'error',
