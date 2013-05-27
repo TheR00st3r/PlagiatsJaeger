@@ -80,7 +80,7 @@ class Mail {
 			$mailContent = $this -> smarty -> fetch('mail/layout.tpl');
 
 			$mail = new MyMailer();
-			$mail -> Subject = 'Account activiert';
+			$mail -> Subject = 'Account aktiviert';
 
 			$mail -> AddAddress($uIDCheck['user']['uEMailAdress']);
 
