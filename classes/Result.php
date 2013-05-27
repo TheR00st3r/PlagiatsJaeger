@@ -23,7 +23,7 @@ class Result {
 					folder AS f ON fp.fID = f.fID LEFT JOIN
 					user AS u ON fp.uID = u.uID
 				WHERE
-					rt.rID = '$rID'
+					rt.rID = '$rID' AND rt.rtSourceText !=  ''
 				ORDER BY
 					rt.rtStartWord ASC, rt.rtEndWord ASC");
 
@@ -54,7 +54,7 @@ class Result {
 					folder AS f ON fp.fID = f.fID LEFT JOIN
 					user AS u ON fp.uID = u.uID
 				WHERE
-					rt.rID = '$rID'
+					rt.rID = '$rID' AND rt.rtSourceText !=  ''
 				GROUP BY
 					rt.rtSourceLink, rt.rtSourcedID
 				ORDER BY
@@ -86,9 +86,30 @@ class Result {
 				$where = "";
 
 			$db = new db();
+			
+			// $db -> read("
+				// SELECT
+					// rt.rtStartWord, rt.rtEndWord, rt.rtSourceText, max(rt.rtSimilarity) as rtSimilarity,
+					// rt.rtSourceLink, rt.rtSourcedID, rt.rtIsInSources,
+					// d.dOriginalName, d.dAuthor,
+					// f.fName,
+					// u.uName, u.uLastname
+				// FROM
+					// result AS rt LEFT JOIN
+					// document AS d ON rt.rtSourcedID = d.dID LEFT JOIN
+					// folderpermission AS fp ON fp.fID = d.fID LEFT JOIN
+					// folder AS f ON fp.fID = f.fID LEFT JOIN
+					// user AS u ON fp.uID = u.uID
+				// WHERE
+					// rt.rID = '$rID' AND rt.rtSourceText !=  '' AND rt.rtSimilarity > '$rThreshold' $where
+				// GROUP BY
+					// rt.rtStartWord
+				// ORDER BY
+					// rt.rtStartWord ASC , rt.rtEndWord ASC ");
+			
 			$db -> read("
 				SELECT
-					rt.rtStartWord, rt.rtEndWord, rt.rtSourceText, max(rt.rtSimilarity) as rtSimilarity,
+					rt.rtStartWord, rt.rtEndWord, rt.rtSourceText, rtSimilarity,
 					rt.rtSourceLink, rt.rtSourcedID, rt.rtIsInSources,
 					d.dOriginalName, d.dAuthor,
 					f.fName,
@@ -101,8 +122,6 @@ class Result {
 					user AS u ON fp.uID = u.uID
 				WHERE
 					rt.rID = '$rID' AND rt.rtSourceText !=  '' AND rt.rtSimilarity > '$rThreshold' $where
-				GROUP BY
-					rt.rtStartWord
 				ORDER BY
 					rt.rtStartWord ASC , rt.rtEndWord ASC ");
 
