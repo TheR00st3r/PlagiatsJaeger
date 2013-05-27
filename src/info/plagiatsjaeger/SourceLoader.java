@@ -104,10 +104,7 @@ public class SourceLoader
 					result = Jsoup.parse(url.openStream(), _detectedCharset, strUrl).text();
 				}
 			}
-			if (!_detectedCharset.equalsIgnoreCase("UTF-8"))
-			{
-				result = new String(Charset.forName("UTF-8").encode(result).array(), "CP1252");
-			}
+			result = new String(Charset.forName("UTF-8").encode(result).array(), "CP1252");
 		}
 		catch (MalformedURLException e)
 		{
