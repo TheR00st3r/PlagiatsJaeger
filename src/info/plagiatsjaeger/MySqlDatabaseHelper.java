@@ -86,8 +86,9 @@ public class MySqlDatabaseHelper
 	{
 		try
 		{
-			if (!_statement.isClosed()) _statement.close();
-			if (!_connection.isClosed()) _connection.close();
+			
+			if (_statement != null && !_statement.isClosed()) _statement.close();
+			if (_connection != null && !_connection.isClosed()) _connection.close();
 		}
 		catch (SQLException e)
 		{
