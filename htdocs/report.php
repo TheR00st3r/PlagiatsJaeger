@@ -144,7 +144,7 @@ switch ($_GET['type']) {
 				if ($a['rtSourcedID']) {
 					$source = '<div class="rtSourceText" title="zu ' . $a['rtSimilarity'] . ' % von ' . $a['dOriginalName'] . '">' . nl2br($a['rtSourceText']) . '</div>';
 				} else {
-					$source = '<div class="rtSourceText"><a target="_blank" href="' . $a['rtSourceLink'] . '" title="zu ' . $a['rtSimilarity'] . ' % von '.$a['rtSourceLink'] .'" />' . nl2br($a['rtSourceText']) . '</a></div>';
+					$source = '<div class="rtSourceText"><a target="_blank" href="' . urldecode($a['rtSourceLink']) . '" title="zu ' . $a['rtSimilarity'] . ' % von '.$a['rtSourceLink'] .'" />' . nl2br($a['rtSourceText']) . '</a></div>';
 				}
 				//[' . $a['rtStartWord'] . '-' . $a['rtEndWord'] . ']
 
