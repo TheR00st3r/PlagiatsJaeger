@@ -1,5 +1,6 @@
 package info.plagiatsjaeger;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,7 +12,7 @@ import org.apache.log4j.Logger;
 public class ConfigReader
 {
 	private static final Logger	_logger		= Logger.getLogger(Control.class.getName());
-	private static final String	PROP_FILE	= "webapps/PlagiatsJaeger/WEB-INF/classes/config.properties";
+	private static String	PROP_FILE	= "webapps/PlagiatsJaeger/WEB-INF/classes/config.properties";
 
 	/**
 	 * Schreibt einen Parameter in das ConfigFile.
@@ -21,6 +22,11 @@ public class ConfigReader
 	 */
 	public void setProperty(String name, String value)
 	{
+		if(!new File(PROP_FILE).exists())
+		{
+			PROP_FILE = "/usr/share/tomcat7/.jenkins/jobs/PlagiatsJaeger/workspace/WebContent/WEB-INF/classes/config.properties";
+		}
+		
 		Properties prop = new Properties();
 
 		try
@@ -46,6 +52,11 @@ public class ConfigReader
 	 */
 	public static String getPropertyString(String name)
 	{
+		if(!new File(PROP_FILE).exists())
+		{
+			PROP_FILE = "/usr/share/tomcat7/.jenkins/jobs/PlagiatsJaeger/workspace/WebContent/WEB-INF/classes/config.properties";
+		}
+		
 		Properties prop = new Properties();
 
 		try
@@ -75,6 +86,11 @@ public class ConfigReader
 	 */
 	public static int getPropertyInt(String name)
 	{
+		if(!new File(PROP_FILE).exists())
+		{
+			PROP_FILE = "/usr/share/tomcat7/.jenkins/jobs/PlagiatsJaeger/workspace/WebContent/WEB-INF/classes/config.properties";
+		}
+		
 		Properties prop = new Properties();
 
 		try
