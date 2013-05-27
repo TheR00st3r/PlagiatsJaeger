@@ -15,6 +15,7 @@ import java.net.URLConnection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.mozilla.intl.chardet.nsDetector;
@@ -172,18 +173,43 @@ public class SourceLoader
 	public static String loadFile(String filePath)
 	{
 		String result = "";
-		FileInputStream fileInputstream = null;
+		FileInputStream inputStream = null;
 		DataInputStream dataInputStream = null;
 
 		StringBuilder stringBuilder = new StringBuilder();
-
+		String charset = "";
 		try
 		{
+			inputStream = new FileInputStream(filePath);
 			String line = "";
-			fileInputstream = new FileInputStream(filePath);
-			dataInputStream = new DataInputStream(fileInputstream);
-			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(dataInputStream));
+			byte[] array = IOUtils.toByteArray(inputStream);
+			// Detect charset
 
+			if (array[0] == -1 && array[1] == -2)
+			{
+				// UTF-16 big Endian
+				charset = "UTF-16BE";
+			}
+			else if (array[0] == -2 && array[1] == -1)
+			{
+				// UTF-16 little Endian
+				charset = "UTF-16LE";
+			}
+			else if (array[0] == -17 && array[1] == -69 && array[2] == -65)
+			{
+				// UTF-8
+				charset = "UTF-8";
+			}
+			else
+			{
+				// ANSI
+				charset = "ISO-8859-1";
+			}
+
+			System.out.println(charset);
+			inputStream = new FileInputStream(filePath);
+			dataInputStream = new DataInputStream(inputStream);
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(dataInputStream, charset));
 			while ((line = bufferedReader.readLine()) != null)
 			{
 				if (stringBuilder.length() > 0)
@@ -219,6 +245,7 @@ public class SourceLoader
 					_logger.fatal(e.getMessage(), e);
 					e.printStackTrace();
 				}
+				if (charset == "UTF-8") stringBuilder.deleteCharAt(0);
 				result = stringBuilder.toString();
 			}
 		}
