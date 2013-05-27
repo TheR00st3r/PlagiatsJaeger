@@ -35,7 +35,7 @@ public class SourceLoader
 	private static final String	DEFAULT_CONTENTTYPE	= ConfigReader.getPropertyString("DEFAULTCONTENTTYPE");
 	private static final String	CONTENTTYPE_PATTERN	= ConfigReader.getPropertyString("CONTENTTYPEPATTERN");
 
-	private static String		_detectedCharset;
+	private static String		_detectedCharset = DEFAULT_CONTENTTYPE;
 
 	/**
 	 * Laed eine Website. (Prueft das verwendete Charset und bereinigt die URL)
@@ -71,7 +71,6 @@ public class SourceLoader
 			URL url = new URL(strUrl);
 			URLConnection urlConnection = url.openConnection();
 			// Pattern zum auffinden des contenttypes
-			String charset = DEFAULT_CONTENTTYPE;
 			String contentType = urlConnection.getContentType();
 			if (contentType != null)
 			{
@@ -82,9 +81,9 @@ public class SourceLoader
 				// der defaul wert
 				if (matcher.matches())
 				{
-					charset = matcher.group(1);
-					_logger.info("Charset detected: " + charset + "(URL: " + strUrl + ")");
-					result = Jsoup.parse(url.openStream(), charset, strUrl).text();
+					_detectedCharset = matcher.group(1);
+					_logger.info("Charset detected: " + _detectedCharset + "(URL: " + strUrl + ")");
+					result = Jsoup.parse(url.openStream(), _detectedCharset, strUrl).text();
 				}
 				else
 				{
@@ -105,6 +104,7 @@ public class SourceLoader
 					result = Jsoup.parse(url.openStream(), _detectedCharset, strUrl).text();
 				}
 			}
+			result = new String(Charset.forName("UTF-8").encode(result).array(), _detectedCharset);
 		}
 		catch (MalformedURLException e)
 		{
