@@ -218,8 +218,7 @@ public class FileParser
 	{
 		String result = "";
 		String text = SourceLoader.loadFile(Control.ROOT_FILES + dId + ".txt");
-		result = new String(Charset.forName("UTF-8").encode(text).array(), "CP1252");
-
+		// TODO check for SQL Injection
 		return result;
 	}
 
