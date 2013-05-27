@@ -55,14 +55,14 @@ public class SourceLoaderTest
 		// // String ergebnisstring4 =
 		// // "D�ner mit So�e & einer b�rigen t�rkischen Bananen & Co KG";
 		//
-		 assertEquals(ergebnisstring1,
-		 SourceLoader.loadFile("/var/www/testfiles/testfile1.txt"));
+//		 assertEquals(ergebnisstring1,
+//		 SourceLoader.loadFile("/var/www/testfiles/testfile1.txt"));
 //		 assertEquals(ergebnisstring2,
 //				 SourceLoader.loadFile("/var/www/testfiles/testfile2.txt"));
-		 assertEquals(ergebnisstring3,
-				 SourceLoader.loadFile("/var/www/testfiles/testfile3.txt"));
-		
-		 assertTrue(SourceLoader.loadFile("/var/www/testfiles/fehlendesfile.txt").contains("FAIL FileNotFoundException"));
+//		 assertEquals(ergebnisstring3,
+//				 SourceLoader.loadFile("/var/www/testfiles/testfile3.txt"));
+//		
+//		 assertTrue(SourceLoader.loadFile("/var/www/testfiles/fehlendesfile.txt").contains("FAIL FileNotFoundException"));
 		 
 		
 
