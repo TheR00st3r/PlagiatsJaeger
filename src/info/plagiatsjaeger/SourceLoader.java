@@ -91,6 +91,7 @@ public class SourceLoader
 					if (detectCharset)
 					{
 						detectCharset(url.openStream());
+						_logger.info("Charset detected: " + _detectedCharset + "(URL: " + strUrl + ")");
 						result = Jsoup.parse(url.openStream(), _detectedCharset, strUrl).text();
 					}
 				}
@@ -101,6 +102,7 @@ public class SourceLoader
 				if (detectCharset)
 				{
 					detectCharset(url.openStream());
+					_logger.info("Charset detected: " + _detectedCharset + "(URL: " + strUrl + ")");
 					result = Jsoup.parse(url.openStream(), _detectedCharset, strUrl).text();
 				}
 			}
