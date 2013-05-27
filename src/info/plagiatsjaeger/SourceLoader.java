@@ -86,6 +86,10 @@ public class SourceLoader
 					{
 						_detectedCharset = "CP1252";
 					}
+					else if(_detectedCharset.equalsIgnoreCase("BIG5"))
+					{
+						_detectedCharset = "UTF-8";
+					}
 					_logger.info("Charset detected: " + _detectedCharset + "(URL: " + strUrl + ")");
 					result = Jsoup.parse(url.openStream(), _detectedCharset, strUrl).text();
 				}
@@ -147,6 +151,10 @@ public class SourceLoader
 				if(_detectedCharset.equalsIgnoreCase("windows-1252"))
 				{
 					_detectedCharset = "CP1252";
+				}
+				else if(_detectedCharset.equalsIgnoreCase("BIG5"))
+				{
+					_detectedCharset = "UTF-8";
 				}
 				_logger.info("Charset detected: " + charset);
 			}
