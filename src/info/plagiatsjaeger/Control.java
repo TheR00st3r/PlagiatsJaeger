@@ -59,7 +59,7 @@ public class Control
 
 	/**
 	 * <b>Noch nicht implementiert!</b></br> Konvertiert eine Datei in das
-	 * normalisierte txt-Format.
+	 * normalisierte pjt-Format.
 	 * 
 	 * @param dId
 	 * @return
@@ -153,7 +153,7 @@ public class Control
 						{
 							_logger.info("Thread started!");
 							mySqlDatabaseHelper.setReportState(rId, ErrorCode.Checking);
-							startPlagiatsSearch(ROOT_FILES + intDocumentId + ".txt", rId);
+							startPlagiatsSearch(ROOT_FILES + intDocumentId + ".pjt", rId);
 						}
 						else
 						{
@@ -237,7 +237,7 @@ public class Control
 						@Override
 						public Void call()
 						{
-							_logger.info("Thread for File started: " + i + ".txt");
+							_logger.info("Thread for File started: " + i + ".pjt");
 							compare(rId, strSourceText, "", i);
 							return null;
 						}
@@ -369,7 +369,7 @@ public class Control
 		else
 		{
 			_logger.info("Compare To Document: " + docId);
-			comparer.compareText(checkText, SourceLoader.loadFile(ROOT_FILES + docId + ".txt"), docId);
+			comparer.compareText(checkText, SourceLoader.loadFile(ROOT_FILES + docId + ".pjt"), docId);
 		}
 	}
 

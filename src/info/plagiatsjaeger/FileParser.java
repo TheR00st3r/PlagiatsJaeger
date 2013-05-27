@@ -68,7 +68,7 @@ public class FileParser
 				_file = new File(Control.ROOT_FILES + dId + "." + fileType.toString().toLowerCase());
 				_logger.info("File loadet");
 			}
-			result = fileToTxt(dId, fileType);
+			result = fileToPjt(dId, fileType);
 
 		}
 		catch (InvalidFormatException e)
@@ -120,7 +120,7 @@ public class FileParser
 
 	/**
 	 * Liesst die gegebende Datei ein und speichert den beinhalteten Text in
-	 * einer txt File unter dem selben Namen und Speicherort ab.
+	 * einer pjt File unter dem selben Namen und Speicherort ab.
 	 * 
 	 * @return boolean result; true falls Konvertierung erfolgreich
 	 * @throws InvalidFormatException
@@ -136,7 +136,7 @@ public class FileParser
 	 * @throws SAXException
 	 *             ; Bei Schwierigkeiten mit der Docx
 	 */
-	private boolean fileToTxt(int dId, FileType fileTyp) throws InvalidFormatException, OpenXML4JException, XmlException, IOException, SAXException, ParserConfigurationException
+	private boolean fileToPjt(int dId, FileType fileTyp) throws InvalidFormatException, OpenXML4JException, XmlException, IOException, SAXException, ParserConfigurationException
 	{
 
 		boolean result = false;
@@ -185,7 +185,7 @@ public class FileParser
 		try
 		{
 
-			File file = new File(Control.ROOT_FILES + dId + ".txt");
+			File file = new File(Control.ROOT_FILES + dId + ".pjt");
 
 			// if file doesnt exists, then create it
 			if (!file.exists())
