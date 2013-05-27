@@ -82,10 +82,6 @@ public class SourceLoader
 				if (matcher.matches())
 				{
 					_detectedCharset = matcher.group(1);
-					if(_detectedCharset.equals("windows-1252"))
-					{
-						_detectedCharset = "cp1252";
-					}
 					_logger.info("Charset detected: " + _detectedCharset + "(URL: " + strUrl + ")");
 					result = Jsoup.parse(url.openStream(), _detectedCharset, strUrl).text();
 				}
@@ -108,7 +104,7 @@ public class SourceLoader
 					result = Jsoup.parse(url.openStream(), _detectedCharset, strUrl).text();
 				}
 			}
-			result = new String(Charset.forName("UTF-8").encode(result).array(), _detectedCharset);
+			result = new String(Charset.forName("UTF-8").encode(result).array(), "CP1252");
 		}
 		catch (MalformedURLException e)
 		{
