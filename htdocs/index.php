@@ -243,7 +243,7 @@ if ($page == 'public') {
 					$smarty -> assign('messages', $return['messages']);
 					break;
 			}
-			if(!$return['state']) {
+			if($return['state'] != true) {
 				$contentTpl = $smarty -> fetch('registrate.tpl');
 			}
 			break;
