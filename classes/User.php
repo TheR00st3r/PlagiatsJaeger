@@ -263,6 +263,7 @@ class User {
 	 * @return int $uID
 	 */
 	public static function setUserPassword($password1, $password2, $uID) {
+		global $root;
 		$state = false;
 		if (Validator::validate(VAL_INTEGER, $uID)) {
 			$pwCheck = self::checkNewPassword($password1, $password2);
