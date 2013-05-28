@@ -35,7 +35,7 @@ public class SourceLoader
 	private static final String	DEFAULT_CONTENTTYPE	= ConfigReader.getPropertyString("DEFAULTCONTENTTYPE");
 	private static final String	CONTENTTYPE_PATTERN	= ConfigReader.getPropertyString("CONTENTTYPEPATTERN");
 
-	private static String		_detectedCharset;
+	private String		_detectedCharset;
 
 	/**
 	 * Laed eine Website. (Prueft das verwendete Charset und bereinigt die URL)
@@ -127,7 +127,7 @@ public class SourceLoader
 		return result;
 	}
 
-	private static void detectCharset(InputStream stream)
+	private void detectCharset(InputStream stream)
 	{
 		nsDetector detector = new nsDetector();
 		detector.Init(new nsICharsetDetectionObserver()
