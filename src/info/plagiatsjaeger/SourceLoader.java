@@ -35,7 +35,7 @@ public class SourceLoader
 	private static final String	DEFAULT_CONTENTTYPE	= ConfigReader.getPropertyString("DEFAULTCONTENTTYPE");
 	private static final String	CONTENTTYPE_PATTERN	= ConfigReader.getPropertyString("CONTENTTYPEPATTERN");
 
-	private String		_detectedCharset	= DEFAULT_CONTENTTYPE;
+	private String				_detectedCharset	= DEFAULT_CONTENTTYPE;
 
 	/**
 	 * Laed eine Website. (Prueft das verwendete Charset und bereinigt die URL)
@@ -82,7 +82,7 @@ public class SourceLoader
 				if (matcher.matches())
 				{
 					_detectedCharset = matcher.group(1);
-					if(_detectedCharset.equalsIgnoreCase("BIG5"))
+					if (_detectedCharset.equalsIgnoreCase("BIG5"))
 					{
 						_detectedCharset = "UTF-8";
 					}
@@ -95,7 +95,7 @@ public class SourceLoader
 					if (detectCharset)
 					{
 						detectCharset(url.openStream());
-						
+
 						_logger.info("Charset detected: " + _detectedCharset + "(URL: " + strUrl + ")");
 						result = Jsoup.parse(url.openStream(), _detectedCharset, strUrl).text();
 					}
@@ -144,7 +144,7 @@ public class SourceLoader
 			{
 
 				_detectedCharset = charset;
-				if(_detectedCharset.equalsIgnoreCase("BIG5"))
+				if (_detectedCharset.equalsIgnoreCase("BIG5"))
 				{
 					_detectedCharset = "UTF-8";
 				}
@@ -181,7 +181,7 @@ public class SourceLoader
 	{
 		return loadFile(filePath, true);
 	}
-	
+
 	/**
 	 * Laed eine Datei.
 	 * 
@@ -262,17 +262,19 @@ public class SourceLoader
 				}
 				if (charset == "UTF-8") stringBuilder.deleteCharAt(0);
 				result = stringBuilder.toString();
-
-				try
+				if (convertToUTF8)
 				{
-					_logger.info("Before encodeing: " + result);
-					result = new String(Charset.forName("UTF-8").encode(result).array(), charset);
-					_logger.info("After encodeing: " + result);
-				}
-				catch (UnsupportedEncodingException e)
-				{
-					_logger.fatal(e.getMessage(), e);
-					e.printStackTrace();
+					try
+					{
+						_logger.info("Before encodeing: " + result);
+						result = new String(Charset.forName("UTF-8").encode(result).array(), charset);
+						_logger.info("After encodeing: " + result);
+					}
+					catch (UnsupportedEncodingException e)
+					{
+						_logger.fatal(e.getMessage(), e);
+						e.printStackTrace();
+					}
 				}
 			}
 		}
