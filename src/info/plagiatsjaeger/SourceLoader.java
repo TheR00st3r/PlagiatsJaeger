@@ -165,13 +165,18 @@ public class SourceLoader
 		}
 	}
 
+	public static String loadFile(String filePath)
+	{
+		return loadFile(filePath, true);
+	}
+
 	/**
 	 * Laed eine Datei.
 	 * 
 	 * @param filePath
 	 * @return
 	 */
-	public static String loadFile(String filePath)
+	public static String loadFile(String filePath, boolean convertToUTF8)
 	{
 		String result = "";
 		FileInputStream inputStream = null;
@@ -246,16 +251,19 @@ public class SourceLoader
 				if (charset == "UTF-8") stringBuilder.deleteCharAt(0);
 				result = stringBuilder.toString();
 
-				try
+				if (convertToUTF8)
 				{
-					_logger.info("Before encodeing: " + result);
-					result = new String(Charset.forName("UTF-8").encode(result).array(), charset);
-					_logger.info("After encodeing: " + result);
-				}
-				catch (UnsupportedEncodingException e)
-				{
-					_logger.fatal(e.getMessage(), e);
-					e.printStackTrace();
+					try
+					{
+						_logger.info("Before encodeing: " + result);
+						result = new String(Charset.forName("UTF-8").encode(result).array(), charset);
+						_logger.info("After encodeing: " + result);
+					}
+					catch (UnsupportedEncodingException e)
+					{
+						_logger.fatal(e.getMessage(), e);
+						e.printStackTrace();
+					}
 				}
 			}
 		}
