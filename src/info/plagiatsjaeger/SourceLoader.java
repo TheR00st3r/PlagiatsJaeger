@@ -14,6 +14,7 @@ import java.net.URL;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
+import org.mozilla.universalchardet.UniversalDetector;
 
 
 /**
@@ -24,26 +25,18 @@ import org.jsoup.Jsoup;
 public class SourceLoader
 {
 	public static final Logger	_logger				= Logger.getLogger(SourceLoader.class.getName());
-
 	private static final String	DEFAULT_CONTENTTYPE	= ConfigReader.getPropertyString("DEFAULTCONTENTTYPE");
-	private static final String	CONTENTTYPE_PATTERN	= ConfigReader.getPropertyString("CONTENTTYPEPATTERN");
-
 	private static String		_detectedCharset	= DEFAULT_CONTENTTYPE;
 
 	/**
-	 * Laed eine Website. (Prueft das verwendete Charset und bereinigt die URL)
+	 * Laedt den Text einer Webseite.
 	 * 
-	 * @param strUrl
+	 * @param strURL
 	 * @return
 	 */
-	public String loadURL(String strUrl)
+	public String loadURL(String strURL)
 	{
-		return loadURL(strUrl, true);
-	}
-
-	public String loadURL(String strUrl, boolean detectCharset)
-	{
-		return loadURL(strUrl, true, true);
+		return loadURL(strURL, true);
 	}
 
 	/**
@@ -52,7 +45,7 @@ public class SourceLoader
 	 * @param strUrl
 	 * @return
 	 */
-	public String loadURL(String strUrl, boolean detectCharset, boolean cleanUrl)
+	public String loadURL(String strUrl, boolean cleanUrl)
 	{
 		String result = "";
 		try
@@ -154,22 +147,6 @@ public class SourceLoader
 					e.printStackTrace();
 				}
 				result = stringBuilder.toString();
-				// if (convertToUTF8)
-				// {
-				// try
-				// {
-				// _logger.info("Before encodeing: " + result);
-				// result = new
-				// String(Charset.forName("UTF-8").encode(result).array(),
-				// charset);
-				// _logger.info("After encodeing: " + result);
-				// }
-				// catch (UnsupportedEncodingException e)
-				// {
-				// _logger.fatal(e.getMessage(), e);
-				// e.printStackTrace();
-				// }
-				// }
 			}
 		}
 
@@ -202,15 +179,14 @@ public class SourceLoader
 	 */
 	public static String guessEncoding(byte[] bytes)
 	{
-		String DEFAULT_ENCODING = "UTF-8";
-		org.mozilla.universalchardet.UniversalDetector detector = new org.mozilla.universalchardet.UniversalDetector(null);
+		UniversalDetector detector = new UniversalDetector(null);
 		detector.handleData(bytes, 0, bytes.length);
 		detector.dataEnd();
 		String encoding = detector.getDetectedCharset();
 		detector.reset();
 		if (encoding == null)
 		{
-			encoding = DEFAULT_ENCODING;
+			encoding = DEFAULT_CONTENTTYPE;
 		}
 		return encoding;
 	}
