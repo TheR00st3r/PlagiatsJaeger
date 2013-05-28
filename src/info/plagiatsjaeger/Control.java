@@ -277,8 +277,6 @@ public class Control
 				e.printStackTrace();
 				succesful = false;
 			}
-			long end = Calendar.getInstance().getTimeInMillis();
-			_logger.fatal("Finished. Time: " + ((end-start)/1000) + "s");
 		}
 
 		// Sicherstellen, dass alle Vergleiche fertiggestellt sind
@@ -331,6 +329,8 @@ public class Control
 		{
 			mySqlDatabaseHelper.setReportState(rId, ErrorCode.Error);
 		}
+		long end = Calendar.getInstance().getTimeInMillis();
+		_logger.fatal("Finished. Time: " + ((end-start)/1000) + "s");
 	}
 
 	/**
