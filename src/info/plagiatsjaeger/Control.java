@@ -369,7 +369,7 @@ public class Control
 		else
 		{
 			_logger.info("Compare To Document: " + docId);
-			comparer.compareText(checkText, SourceLoader.loadFile(ROOT_FILES + docId + ".pjt", false), docId);
+			comparer.compareText(checkText, SourceLoader.loadFile(ROOT_FILES + docId + ".pjt"), docId);
 		}
 	}
 
