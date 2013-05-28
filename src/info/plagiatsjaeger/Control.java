@@ -180,7 +180,7 @@ public class Control
 	 */
 	public void startPlagiatsSearch(String filePath, final int rId)
 	{
-
+		long start = Calendar.getInstance().getTimeInMillis();
 		final String strSourceText = SourceLoader.loadFile(filePath);
 		if (_settings.getCheckWWW())
 		{
@@ -277,6 +277,8 @@ public class Control
 				e.printStackTrace();
 				succesful = false;
 			}
+			long end = Calendar.getInstance().getTimeInMillis();
+			_logger.fatal("Finished. Time: " + ((start-end)/1000) + "s");
 		}
 
 		// Sicherstellen, dass alle Vergleiche fertiggestellt sind
