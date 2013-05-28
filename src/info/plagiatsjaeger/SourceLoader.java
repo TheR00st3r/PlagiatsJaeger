@@ -177,13 +177,18 @@ public class SourceLoader
 		}
 	}
 
+	public static String loadFile(String filePath)
+	{
+		return loadFile(filePath, true);
+	}
+	
 	/**
 	 * Laed eine Datei.
 	 * 
 	 * @param filePath
 	 * @return
 	 */
-	public static String loadFile(String filePath)
+	public static String loadFile(String filePath, boolean convertToUTF8)
 	{
 		String result = "";
 		FileInputStream inputStream = null;
