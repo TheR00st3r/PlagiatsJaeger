@@ -278,6 +278,8 @@ public class Control
 				succesful = false;
 			}
 		}
+		
+		long searchFinished = Calendar.getInstance().getTimeInMillis();
 
 		// Sicherstellen, dass alle Vergleiche fertiggestellt sind
 		numThreadsFinished = 0;
@@ -330,7 +332,7 @@ public class Control
 			mySqlDatabaseHelper.setReportState(rId, ErrorCode.Error);
 		}
 		long end = Calendar.getInstance().getTimeInMillis();
-		_logger.fatal("Finished. Time: " + ((end-start)/1000) + "s");
+		_logger.fatal("Finished. Time: " + ((end-start)/1000) + "s (Search: " + ((searchFinished-start)/1000) + "s)");
 	}
 
 	/**
