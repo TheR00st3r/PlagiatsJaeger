@@ -35,7 +35,7 @@ public class SourceLoader
 	private static final String	DEFAULT_CONTENTTYPE	= ConfigReader.getPropertyString("DEFAULTCONTENTTYPE");
 	private static final String	CONTENTTYPE_PATTERN	= ConfigReader.getPropertyString("CONTENTTYPEPATTERN");
 
-	private static String		_detectedCharset;
+	private static String		_detectedCharset	= DEFAULT_CONTENTTYPE;
 
 	/**
 	 * Laed eine Website. (Prueft das verwendete Charset und bereinigt die URL)
@@ -181,35 +181,19 @@ public class SourceLoader
 		String result = "";
 		FileInputStream inputStream = null;
 		DataInputStream dataInputStream = null;
-
 		StringBuilder stringBuilder = new StringBuilder();
-		String charset = "ISO-8859-1";
+		String charset = "";
 		try
 		{
 			inputStream = new FileInputStream(filePath);
 			String line = "";
-			byte[] array = IOUtils.toByteArray(inputStream);
-			// Detect charset
-			if (array != null && array.length >= 2)
-			{
-				if (array[0] == -1 && array[1] == -2)
-				{
-					// UTF-16 big Endian
-					charset = "UTF-16";
-				}
-				else if (array[0] == -2 && array[1] == -1)
-				{
-					// UTF-16 little Endian
-					charset = "UTF-16";
-				}
-				else if (array.length >= 3 && array[0] == -17 && array[1] == -69 && array[2] == -65)
-				{
-					// UTF-8
-					charset = "UTF-8";
-				}
-			}
+			byte[] array = org.apache.commons.io.IOUtils.toByteArray(inputStream);
+			charset = guessEncoding(array);
 
-			System.out.println(charset);
+			if (charset.equalsIgnoreCase("WINDOWS-1255"))
+			{
+				charset = "CP1252";
+			}
 			inputStream = new FileInputStream(filePath);
 			dataInputStream = new DataInputStream(inputStream);
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(dataInputStream, charset));
@@ -225,15 +209,15 @@ public class SourceLoader
 		}
 		catch (FileNotFoundException e)
 		{
+			// TODO Auto-generated catch block
 			_logger.fatal(e.getMessage(), e);
 			e.printStackTrace();
-			result = "FAIL FileNotFoundException";
 		}
 		catch (IOException e)
 		{
+			// TODO Auto-generated catch block
 			_logger.fatal(e.getMessage(), e);
 			e.printStackTrace();
-			result = "FAIL IOException";
 		}
 		finally
 		{
@@ -248,23 +232,7 @@ public class SourceLoader
 					_logger.fatal(e.getMessage(), e);
 					e.printStackTrace();
 				}
-				if (charset == "UTF-8") stringBuilder.deleteCharAt(0);
 				result = stringBuilder.toString();
-				if(charset == "ISO-8859-1" && (result.contains("ü") || result.contains("ä") || result.contains("ö")))
-				{
-					try
-					{
-						byte[] bytes = result.getBytes("ISO-8859-1");
-						result = new String(bytes, "UTF-8");
-					}
-					catch (UnsupportedEncodingException e)
-					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-				}
-
 				if (convertToUTF8)
 				{
 					try
@@ -281,6 +249,7 @@ public class SourceLoader
 				}
 			}
 		}
+
 		return result;
 	}
 
@@ -301,4 +270,26 @@ public class SourceLoader
 		_logger.info("Clean-URL: " + result);
 		return result;
 	}
+
+	/**
+	 * Versucht Charset herauszufinden
+	 * 
+	 * @param bytes
+	 * @return Charset als String
+	 */
+	public static String guessEncoding(byte[] bytes)
+	{
+		String DEFAULT_ENCODING = "UTF-8";
+		org.mozilla.universalchardet.UniversalDetector detector = new org.mozilla.universalchardet.UniversalDetector(null);
+		detector.handleData(bytes, 0, bytes.length);
+		detector.dataEnd();
+		String encoding = detector.getDetectedCharset();
+		detector.reset();
+		if (encoding == null)
+		{
+			encoding = DEFAULT_ENCODING;
+		}
+		return encoding;
+	}
+
 }

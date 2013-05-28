@@ -5,7 +5,7 @@
               directory with the processing instruction <?eclipse.ant.import?>
               as the first entry and export the buildfile again. --><project basedir="." default="build" name="PlagiatsSoftware">
     <property environment="env"/>
-    <property name="ECLIPSE_HOME" value="../../../../Program Files/Eclipse"/>
+    <property name="ECLIPSE_HOME" value="../../../Tools/eclipse"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.6"/>
     <property name="source" value="1.6"/>
@@ -17,14 +17,15 @@
         <pathelement location="WebContent/WEB-INF/lib/hamcrest-core.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/jsoup-1.7.2.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/junit.jar"/>
-        <pathelement location="WebContent/WEB-INF/lib/log4j-1.2.17.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/juniversalchardet-1.0.3.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/log4j.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/mysql-connector-java-5.1.25-bin.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/pdfbox-app-1.8.1.jar"/>
-        <pathelement location="WebContent/WEB-INF/lib/poi-3.9-20121203.jar"/>
-        <pathelement location="WebContent/WEB-INF/lib/poi-ooxml-3.9-20121203.jar"/>
-        <pathelement location="WebContent/WEB-INF/lib/poi-scratchpad-3.9-20121203.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/poi-ooxml.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/poi-scratchpad.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/poi.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/serialized-php-parser-0.3.jar"/>
-        <pathelement location="WebContent/WEB-INF/lib/xmlbeans-2.3.0.jar"/>
+        <pathelement location="WebContent/WEB-INF/lib/xmlbeans.jar"/>
         <pathelement location="WebContent/WEB-INF/classes"/>
     </path>
     <path id="EAR Libraries.libraryclasspath"/>
@@ -73,6 +74,7 @@
         <pathelement location="lib/chardet.jar"/>
         <pathelement location="lib/serialized-php-parser-0.3.jar"/>
         <pathelement location="WebContent/WEB-INF/lib/hamcrest-core.jar"/>
+        <pathelement location="lib/juniversalchardet-1.0.3.jar"/>
     </path>
     <target name="init">
         <mkdir dir="build/classes"/>
@@ -109,13 +111,23 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
-    <target name="TempTest">
-        <java classname="test.info.plagiatsjaeger.TempTest" failonerror="true" fork="yes">
+    <target name="TestComparer">
+        <java classname="test.info.plagiatsjaeger.TestComparer" failonerror="true" fork="yes">
             <classpath refid="PlagiatsSoftware.classpath"/>
         </java>
     </target>
-    <target name="TestControl">
-        <java classname="info.plagiatsjaeger.test.TestControl" failonerror="true" fork="yes">
+    <target name="TestDatabase (1)">
+        <java classname="test.info.plagiatsjaeger.TestDatabase" failonerror="true" fork="yes">
+            <classpath refid="PlagiatsSoftware.classpath"/>
+        </java>
+    </target>
+    <target name="TestDatabase">
+        <java classname="info.plagiatsjaeger.test.TestDatabase" failonerror="true" fork="yes">
+            <classpath refid="PlagiatsSoftware.classpath"/>
+        </java>
+    </target>
+    <target name="TestMichi">
+        <java classname="tests.TestMichi" failonerror="true" fork="yes">
             <classpath refid="PlagiatsSoftware.classpath"/>
         </java>
     </target>
