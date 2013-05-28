@@ -162,10 +162,11 @@ public class SourceLoader
 	public static String cleanUrl(String dirtyUrl)
 	{
 		String result = "";
-		dirtyUrl = dirtyUrl.replaceAll("www.", "");
+		//dirtyUrl = dirtyUrl.replaceAll("www.", "");
 		dirtyUrl = dirtyUrl.replaceAll("http://", "");
 		dirtyUrl = dirtyUrl.replaceAll("https://", "");
-		result = "http://www." + dirtyUrl;
+		result = "http://" + dirtyUrl;
+//		result = "http://www." + dirtyUrl;
 		_logger.info("Dirty-URL: " + dirtyUrl);
 		_logger.info("Clean-URL: " + result);
 		return result;
