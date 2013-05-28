@@ -250,11 +250,11 @@ public class SourceLoader
 				}
 				if (charset == "UTF-8") stringBuilder.deleteCharAt(0);
 				result = stringBuilder.toString();
-				if(result.contains("ü") || result.contains("ä") || result.contains("ö"))
+				if(charset == "ISO-8859-1" && (result.contains("ü") || result.contains("ä") || result.contains("ö")))
 				{
 					try
 					{
-						byte[] bytes = result.getBytes("ISO-8859");
+						byte[] bytes = result.getBytes("ISO-8859-1");
 						result = new String(bytes, "UTF-8");
 					}
 					catch (UnsupportedEncodingException e)
