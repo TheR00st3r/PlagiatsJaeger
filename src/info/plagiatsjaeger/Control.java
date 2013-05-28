@@ -33,7 +33,7 @@ public class Control
 	/**
 	 * Dateipfad fuer die Dateien auf dem Server.
 	 */
-	public static final String		ROOT_FILES				= ConfigReader.getPropertyString("ROOTFILES");
+	public  static final String		ROOT_FILES				= ConfigReader.getPropertyString("ROOTFILES");
 	private static final Logger		_logger					= Logger.getLogger(Control.class.getName());
 	private static final int		SIZE_THREADPOOL			= ConfigReader.getPropertyInt("THREADPOOLSIZE");
 	private static final int		NUM_CHECKS_IF_PARSED	= ConfigReader.getPropertyInt("PARSECHECKS");
@@ -320,7 +320,7 @@ public class Control
 			if ((_similarity * 100) > _settings.getThreshold())
 			{
 				_logger.info("Send Mail for Report: " + rId);
-				SourceLoader.loadURL("http://192.168.4.28/sendmail.php?rID=" + rId, false, false);
+				new SourceLoader().loadURL("http://192.168.4.28/sendmail.php?rID=" + rId, false, false);
 			}
 			_logger.info("Report " + rId + " fertiggestellt!");
 
@@ -364,7 +364,7 @@ public class Control
 		if (docId <= 0)
 		{
 			_logger.info("Compare To URL: " + link);
-			comparer.compareText(checkText, SourceLoader.loadURL(link), link);
+			comparer.compareText(checkText, new SourceLoader().loadURL(link), link);
 		}
 		else
 		{

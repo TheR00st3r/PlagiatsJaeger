@@ -233,7 +233,7 @@ public class FileParser
 		String result = "";
 		_logger.info("Filetype = HTML");
 		MySqlDatabaseHelper databaseHelper = new MySqlDatabaseHelper();
-		result = (SourceLoader.loadURL(databaseHelper.loadDocumentURL(dId)));
+		result = (new SourceLoader().loadURL(databaseHelper.loadDocumentURL(dId)));
 		return result;
 	}
 

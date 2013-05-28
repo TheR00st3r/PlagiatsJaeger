@@ -43,12 +43,12 @@ public class SourceLoader
 	 * @param strUrl
 	 * @return
 	 */
-	public static String loadURL(String strUrl)
+	public String loadURL(String strUrl)
 	{
 		return loadURL(strUrl, true);
 	}
 
-	public static String loadURL(String strUrl, boolean detectCharset)
+	public String loadURL(String strUrl, boolean detectCharset)
 	{
 		return loadURL(strUrl, true, true);
 	}
@@ -59,7 +59,7 @@ public class SourceLoader
 	 * @param strUrl
 	 * @return
 	 */
-	public static String loadURL(String strUrl, boolean detectCharset, boolean cleanUrl)
+	public String loadURL(String strUrl, boolean detectCharset, boolean cleanUrl)
 	{
 		String result = "";
 		try
