@@ -278,7 +278,7 @@ public class Control
 				succesful = false;
 			}
 			long end = Calendar.getInstance().getTimeInMillis();
-			_logger.fatal("Finished. Time: " + ((start-end)/1000) + "s");
+			_logger.fatal("Finished. Time: " + ((end-start)/1000) + "s");
 		}
 
 		// Sicherstellen, dass alle Vergleiche fertiggestellt sind
