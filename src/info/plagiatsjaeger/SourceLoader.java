@@ -165,10 +165,7 @@ public class SourceLoader
 		}
 	}
 
-	public static String loadFile(String filePath)
-	{
-		return loadFile(filePath, true);
-	}
+
 
 	/**
 	 * Laed eine Datei.
@@ -176,7 +173,7 @@ public class SourceLoader
 	 * @param filePath
 	 * @return
 	 */
-	public static String loadFile(String filePath, boolean convertToUTF8)
+	public static String loadFile(String filePath)
 	{
 		String result = "";
 		FileInputStream inputStream = null;
@@ -233,20 +230,20 @@ public class SourceLoader
 					e.printStackTrace();
 				}
 				result = stringBuilder.toString();
-				if (convertToUTF8)
-				{
-					try
-					{
-						_logger.info("Before encodeing: " + result);
-						result = new String(Charset.forName("UTF-8").encode(result).array(), charset);
-						_logger.info("After encodeing: " + result);
-					}
-					catch (UnsupportedEncodingException e)
-					{
-						_logger.fatal(e.getMessage(), e);
-						e.printStackTrace();
-					}
-				}
+//				if (convertToUTF8)
+//				{
+//					try
+//					{
+//						_logger.info("Before encodeing: " + result);
+//						result = new String(Charset.forName("UTF-8").encode(result).array(), charset);
+//						_logger.info("After encodeing: " + result);
+//					}
+//					catch (UnsupportedEncodingException e)
+//					{
+//						_logger.fatal(e.getMessage(), e);
+//						e.printStackTrace();
+//					}
+//				}
 			}
 		}
 
