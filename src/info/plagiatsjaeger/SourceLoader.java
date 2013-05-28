@@ -12,9 +12,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.charset.Charset;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -69,42 +66,13 @@ public class SourceLoader
 				strUrl = cleanUrl(strUrl);
 			}
 			URL url = new URL(strUrl);
-			URLConnection urlConnection = url.openConnection();
-			// Pattern zum auffinden des contenttypes
-			String charset = DEFAULT_CONTENTTYPE;
-			String contentType = urlConnection.getContentType();
-			if (contentType != null)
-			{
-				Pattern pattern = Pattern.compile(CONTENTTYPE_PATTERN);
-				Matcher matcher = pattern.matcher(urlConnection.getContentType());
-				// Wenn ein Contenttype gefunden wird, wird dieser verwendet,
-				// sonst
-				// der defaul wert
-				if (matcher.matches())
-				{
-					charset = matcher.group(1);
-					_logger.info("Charset detected: " + charset + "(URL: " + strUrl + ")");
-					result = Jsoup.parse(url.openStream(), charset, strUrl).text();
-				}
-				else
-				{
-					_logger.info("No match found " + strUrl);
-					if (detectCharset)
-					{
-						detectCharset(url.openStream());
-						result = Jsoup.parse(url.openStream(), _detectedCharset, strUrl).text();
-					}
-				}
-			}
-			else
-			{
-				_logger.info("CONTENT_TYPE IS null " + strUrl);
-				if (detectCharset)
-				{
-					detectCharset(url.openStream());
-					result = Jsoup.parse(url.openStream(), _detectedCharset, strUrl).text();
-				}
-			}
+			
+			BufferedInputStream inputStream = new BufferedInputStream(url.openStream());
+			byte[] array = IOUtils.toByteArray(inputStream);
+			
+			_detectedCharset = guessEncoding(array);
+			result = Jsoup.parse(url.openStream(), _detectedCharset, strUrl).text();
+
 		}
 		catch (MalformedURLException e)
 		{
@@ -165,8 +133,6 @@ public class SourceLoader
 		}
 	}
 
-
-
 	/**
 	 * Laed eine Datei.
 	 * 
@@ -184,7 +150,7 @@ public class SourceLoader
 		{
 			inputStream = new FileInputStream(filePath);
 			String line = "";
-			byte[] array = org.apache.commons.io.IOUtils.toByteArray(inputStream);
+			byte[] array = IOUtils.toByteArray(inputStream);
 			charset = guessEncoding(array);
 
 			if (charset.equalsIgnoreCase("WINDOWS-1255"))
@@ -230,20 +196,22 @@ public class SourceLoader
 					e.printStackTrace();
 				}
 				result = stringBuilder.toString();
-//				if (convertToUTF8)
-//				{
-//					try
-//					{
-//						_logger.info("Before encodeing: " + result);
-//						result = new String(Charset.forName("UTF-8").encode(result).array(), charset);
-//						_logger.info("After encodeing: " + result);
-//					}
-//					catch (UnsupportedEncodingException e)
-//					{
-//						_logger.fatal(e.getMessage(), e);
-//						e.printStackTrace();
-//					}
-//				}
+				// if (convertToUTF8)
+				// {
+				// try
+				// {
+				// _logger.info("Before encodeing: " + result);
+				// result = new
+				// String(Charset.forName("UTF-8").encode(result).array(),
+				// charset);
+				// _logger.info("After encodeing: " + result);
+				// }
+				// catch (UnsupportedEncodingException e)
+				// {
+				// _logger.fatal(e.getMessage(), e);
+				// e.printStackTrace();
+				// }
+				// }
 			}
 		}
 
