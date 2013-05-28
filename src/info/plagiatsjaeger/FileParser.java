@@ -10,7 +10,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -216,10 +215,9 @@ public class FileParser
 
 	private String parseTXT(int dId) throws UnsupportedEncodingException
 	{
-		String result = "";
-		String text = SourceLoader.loadFile(Control.ROOT_FILES + dId + ".txt");
+		return SourceLoader.loadFile(Control.ROOT_FILES + dId + ".txt");
 		// TODO check for SQL Injection
-		return result;
+		
 	}
 
 	/**
