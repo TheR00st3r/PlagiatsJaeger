@@ -69,7 +69,7 @@ public class Control
 		boolean result = false;
 		try
 		{
-			_logger.info("Servlet called: " + dId);
+			_logger.debug("Servlet called: " + dId);
 			new Thread(new Runnable()
 			{
 				@Override
@@ -77,7 +77,7 @@ public class Control
 				{
 					try
 					{
-						_logger.info("Thread started: " + dId);
+						_logger.debug("Thread started: " + dId);
 						FileParser fileParser = new FileParser();
 						if (fileParser.parseFile(dId))
 						{
@@ -117,11 +117,11 @@ public class Control
 		{
 			final MySqlDatabaseHelper mySqlDatabaseHelper = new MySqlDatabaseHelper();
 			final int intDocumentId = mySqlDatabaseHelper.getDocumentID(rId);
-			_logger.info("Document: " + intDocumentId);
+			_logger.debug("Document: " + intDocumentId);
 
 			if (intDocumentId != 0)
 			{
-				_logger.info("Check started");
+				_logger.debug("Check started");
 				new Thread(new Runnable()
 				{
 
@@ -151,7 +151,7 @@ public class Control
 						}
 						if (numTries < NUM_CHECKS_IF_PARSED)
 						{
-							_logger.info("Thread started!");
+							_logger.debug("Thread started!");
 							mySqlDatabaseHelper.setReportState(rId, ErrorCode.Checking);
 							startPlagiatsSearch(ROOT_FILES + intDocumentId + ".pjt", rId);
 						}
@@ -190,7 +190,7 @@ public class Control
 				@Override
 				public void onLinkFound(final String link)
 				{
-					_logger.info("OnLinkFound: " + link);
+					_logger.debug("OnLinkFound: " + link);
 					_futures.add(_threadPool.submit(new Callable<Void>()
 					{
 						@Override
@@ -202,7 +202,7 @@ public class Control
 
 							if (!dbLink.equals(SourceLoader.cleanUrl(link)))
 							{
-								_logger.info("Thread for Link started: " + link);
+								_logger.debug("Thread for Link started: " + link);
 								compare(rId, strSourceText, link, 0);
 							}
 							return null;
@@ -224,20 +224,20 @@ public class Control
 		if (localFolders != null)
 		{
 			int docId = new MySqlDatabaseHelper().getDocumentID(rId);
-			_logger.info("Check localFolders");
+			_logger.debug("Check localFolders");
 			for (final int i : localFolders)
 			{
-				_logger.info("CheckDoc: " + docId);
-				_logger.info("NextDoc:  " + i);
+				_logger.debug("CheckDoc: " + docId);
+				_logger.debug("NextDoc:  " + i);
 				if (i != docId)
 				{
-					_logger.info("Naechstes File: " + i);
+					_logger.debug("Naechstes File: " + i);
 					_futures.add(_threadPool.submit(new Callable<Void>()
 					{
 						@Override
 						public Void call()
 						{
-							_logger.info("Thread for File started: " + i + ".pjt");
+							_logger.debug("Thread for File started: " + i + ".pjt");
 							compare(rId, strSourceText, "", i);
 							return null;
 						}
@@ -256,7 +256,7 @@ public class Control
 				{
 					future.get();
 					numThreadsFinished++;
-					_logger.info(numThreadsFinished + " searches finished");
+					_logger.debug(numThreadsFinished + " searches finished");
 				}
 			}
 			catch (CancellationException e)
@@ -291,7 +291,7 @@ public class Control
 				{
 					future.get();
 					numThreadsFinished++;
-					_logger.info(numThreadsFinished + " compare finished");
+					_logger.debug(numThreadsFinished + " compare finished");
 				}
 			}
 			catch (CancellationException e)
@@ -321,10 +321,10 @@ public class Control
 			mySqlDatabaseHelper.finishReport(rId, _similarity, simpleDateFormat.format(Calendar.getInstance().getTime()));
 			if ((_similarity * 100) > _settings.getThreshold())
 			{
-				_logger.info("Send Mail for Report: " + rId);
+				_logger.debug("Send Mail for Report: " + rId);
 				new SourceLoader().loadURL("http://192.168.4.28/sendmail.php?rID=" + rId, false);
 			}
-			_logger.info("Report " + rId + " fertiggestellt!");
+			_logger.debug("Report " + rId + " fertiggestellt!");
 
 		}
 		if (!succesful || (localFolders == null && !_settings.getCheckWWW()))
@@ -332,7 +332,7 @@ public class Control
 			mySqlDatabaseHelper.setReportState(rId, ErrorCode.Error);
 		}
 		long end = Calendar.getInstance().getTimeInMillis();
-		_logger.fatal("Finished. Time: " + ((end-start)/1000) + "s (Search: " + ((searchFinished-start)/1000) + "s)");
+		_logger.info("Finished. Time: " + ((end-start)/1000) + "s (Search: " + ((searchFinished-start)/1000) + "s)");
 	}
 
 	/**
@@ -367,12 +367,12 @@ public class Control
 		});
 		if (docId <= 0)
 		{
-			_logger.info("Compare To URL: " + link);
+			_logger.debug("Compare To URL: " + link);
 			comparer.compareText(checkText, new SourceLoader().loadURL(link), link);
 		}
 		else
 		{
-			_logger.info("Compare To Document: " + docId);
+			_logger.debug("Compare To Document: " + docId);
 			comparer.compareText(checkText, SourceLoader.loadFile(ROOT_FILES + docId + ".pjt"), docId);
 		}
 	}

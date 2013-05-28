@@ -61,7 +61,7 @@ public class MyComparer implements IComparer
 	public void compareText(String checkText, String sourceText, int docId)
 	{
 		_currentDocId = docId;
-		_logger.info("CompareText for Document: " + docId);
+		_logger.debug("CompareText for Document: " + docId);
 		compareText(checkText, sourceText);
 	}
 
@@ -75,7 +75,7 @@ public class MyComparer implements IComparer
 	 */
 	private ArrayList<CompareResult> compareText(String checkText, String sourceText)
 	{
-		_logger.info("Compare started");
+		_logger.debug("Compare started");
 		ArrayList<CompareResult> result = new ArrayList<CompareResult>();
 		ArrayList<CompareResult> unmergedCompareResults = new ArrayList<CompareResult>();
 
@@ -129,7 +129,7 @@ public class MyComparer implements IComparer
 					{
 						sourceResultStart = iSource;
 					}
-					_logger.info("Found Part with: " + similarity);
+					_logger.debug("Found Part with: " + similarity);
 					checkResultEnd = iCheck + jCheck + 1;
 					sourceResultEnd = iSource + jSource + 1;
 					sumSimilarity += similarity;
@@ -151,8 +151,8 @@ public class MyComparer implements IComparer
 				}
 				if (resultFound)
 				{
-					_logger.info("SubResult found");
-					_logger.info("Threshold: " + THRESHOLD + " " + sumSimilarity + "/" + countSimilarity + "=" + ((sumSimilarity / countSimilarity)));
+					_logger.debug("SubResult found");
+					_logger.debug("Threshold: " + THRESHOLD + " " + sumSimilarity + "/" + countSimilarity + "=" + ((sumSimilarity / countSimilarity)));
 
 					CompareResult compareResult = new CompareResult(_rId, checkResultStart, checkResultEnd, sourceResultStart, sourceResultEnd, sumSimilarity / countSimilarity);
 					unmergedCompareResults.add(compareResult);
@@ -185,7 +185,7 @@ public class MyComparer implements IComparer
 		}
 		for (int resultCounter = 0; resultCounter < unmergedCompareResults.size() - 1; resultCounter++)
 		{
-			_logger.info("Merge Results: " + resultCounter);
+			_logger.debug("Merge Results: " + resultCounter);
 			if (init)
 			{
 				if (checkText.contains(_currentLink.replace("http://", "").replace("www.", "")))
@@ -226,31 +226,31 @@ public class MyComparer implements IComparer
 			compareResultCheck.setSourceText(resultText.toString());
 			compareResultCheck.setIsInSources(_isInSources);
 
-			_logger.info("### TREFFER #######################");
-			_logger.info("Source:       " + _currentLink);
-			_logger.info("Source:       " + _currentDocId);
-			_logger.info("Start-Ende:   " + compareResultCheck.getCheckStart() + "-" + compareResultCheck.getCheckEnd());
-			_logger.info("Text:         " + compareResultCheck.getSourceText());
-			_logger.info("Aehnlichkeit: " + compareResultCheck.getSimilarity());
-			_logger.info("###################################");
+			_logger.debug("### TREFFER #######################");
+			_logger.debug("Source:       " + _currentLink);
+			_logger.debug("Source:       " + _currentDocId);
+			_logger.debug("Start-Ende:   " + compareResultCheck.getCheckStart() + "-" + compareResultCheck.getCheckEnd());
+			_logger.debug("Text:         " + compareResultCheck.getSourceText());
+			_logger.debug("Aehnlichkeit: " + compareResultCheck.getSimilarity());
+			_logger.debug("###################################");
 			if (_currentDocId <= 0)
 			{
-				_logger.info("Found link: " + _currentLink + " with Similarity " + compareResultCheck.getSimilarity());
+				_logger.debug("Found link: " + _currentLink + " with Similarity " + compareResultCheck.getSimilarity());
 			}
 			else
 			{
-				_logger.info("Found document: " + _currentDocId + " with Similarity " + compareResultCheck.getSimilarity());
+				_logger.debug("Found document: " + _currentDocId + " with Similarity " + compareResultCheck.getSimilarity());
 			}
 			result.add(compareResultCheck);
 		}
 		if (_currentDocId <= 0)
 		{
-			_logger.info("OnCompareFinished");
+			_logger.debug("OnCompareFinished");
 			_onCompareFinishedListener.onCompareResultFound(result, _currentLink);
 		}
 		else
 		{
-			_logger.info("OnCompareFinished");
+			_logger.debug("OnCompareFinished");
 			_onCompareFinishedListener.onCompareResultFound(result, _currentDocId);
 		}
 		return result;

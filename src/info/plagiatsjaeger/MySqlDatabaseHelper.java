@@ -176,7 +176,7 @@ public class MySqlDatabaseHelper
 			{
 				String text = new String(Charset.forName("UTF-8").encode(result.getSourceText()).array(), "CP1252").replaceAll("'", "''");
 
-				_logger.info("Text: " + result.getSourceText());
+				_logger.debug("Text: " + result.getSourceText());
 
 				strStatement = "INSERT INTO result VALUES(DEFAULT, '" + text + "','" + URLEncoder.encode(sourceLink) + "' , " + null + " , '" + result.getCheckStart() + "' , '" + result.getCheckEnd() + "','" + df.format(result.getSimilarity() * 100) + "' , '" + (result.getIsInSources() ? 1 : 0) + "' , '" + result.getReportID() + "' )";
 				_statement.executeUpdate(strStatement);
@@ -350,7 +350,7 @@ public class MySqlDatabaseHelper
 			connect();
 			String strStatement = "UPDATE report SET rErrorCode=" + state.value() + " WHERE rId=" + rId;
 			_statement.executeUpdate(strStatement);
-			_logger.info("State changed for: " + rId + "to " + state.value());
+			_logger.debug("State changed for: " + rId + "to " + state.value());
 		}
 		catch (ClassNotFoundException e)
 		{
@@ -381,7 +381,7 @@ public class MySqlDatabaseHelper
 			connect();
 			String strStatement = "UPDATE document SET dIsParsed=1 WHERE dID=" + docId;
 			_statement.executeUpdate(strStatement);
-			_logger.info("Setting document parsed in DB: " + docId);
+			_logger.debug("Setting document parsed in DB: " + docId);
 		}
 		catch (ClassNotFoundException e)
 		{
@@ -470,7 +470,7 @@ public class MySqlDatabaseHelper
 		{
 			disconnect();
 		}
-		_logger.info("URL Loaded From DB: " + docurl);
+		_logger.debug("URL Loaded From DB: " + docurl);
 		return docurl;
 	}
 

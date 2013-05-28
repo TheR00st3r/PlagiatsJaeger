@@ -54,7 +54,7 @@ public class FileParser
 	 */
 	public boolean parseFile(int dId)
 	{
-		_logger.info("Start parsing: " + dId);
+		_logger.debug("Start parsing: " + dId);
 
 		boolean result = false;
 		// Http liegen nicht als Datei vor
@@ -66,7 +66,7 @@ public class FileParser
 			{
 				// Zusammenbau Dateipfad
 				_file = new File(Control.ROOT_FILES + dId + "." + fileType.toString().toLowerCase());
-				_logger.info("File loadet");
+				_logger.debug("File loadet");
 			}
 			result = fileToPjt(dId, fileType);
 
@@ -200,7 +200,7 @@ public class FileParser
 		}
 		catch (IOException e)
 		{
-			_logger.info(e.getMessage(), e);
+			_logger.debug(e.getMessage(), e);
 		}
 		finally
 		{
@@ -231,7 +231,7 @@ public class FileParser
 	private String parseHTML(int dId)
 	{
 		String result = "";
-		_logger.info("Filetype = HTML");
+		_logger.debug("Filetype = HTML");
 		MySqlDatabaseHelper databaseHelper = new MySqlDatabaseHelper();
 		result = (new SourceLoader().loadURL(databaseHelper.loadDocumentURL(dId)));
 		return result;
@@ -250,7 +250,7 @@ public class FileParser
 	{
 		String result = "";
 
-		_logger.info("Filetype = DOC");
+		_logger.debug("Filetype = DOC");
 		POIFSFileSystem poifsFileSystem = new POIFSFileSystem(new FileInputStream(_file));
 		HWPFDocument hwpfDoc = new HWPFDocument(poifsFileSystem);
 		WordExtractor we = new WordExtractor(hwpfDoc);
@@ -281,7 +281,7 @@ public class FileParser
 	{
 		String result = "";
 
-		_logger.info("Filetype = DOCX");
+		_logger.debug("Filetype = DOCX");
 		ZipFile zipFile = null;
 
 		try
@@ -332,7 +332,7 @@ public class FileParser
 	private String parsePDF() throws FileNotFoundException, IOException
 	{
 		String result = "";
-		_logger.info("Filetype = PDF");
+		_logger.debug("Filetype = PDF");
 		PDFParser pdfParser = null;
 
 		PDFTextStripper pdfStripper;

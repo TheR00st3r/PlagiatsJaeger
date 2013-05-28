@@ -65,7 +65,7 @@ public class ConfigReader
 			prop.load(new FileInputStream(PROP_FILE));
 
 			String result = prop.getProperty(name);
-			_logger.info("Property " + name + ", Value: " + result);
+			_logger.debug("Property " + name + ", Value: " + result);
 			// get the property value and print it out
 			return result;
 
@@ -98,7 +98,7 @@ public class ConfigReader
 			// load a properties file
 			prop.load(new FileInputStream(PROP_FILE));
 			int result = Integer.parseInt(prop.getProperty(name));
-			_logger.info("Property " + name + ", Value: " + result);
+			_logger.debug("Property " + name + ", Value: " + result);
 			// get the property value and print it out
 			return result;
 

@@ -167,8 +167,8 @@ public class SourceLoader
 		dirtyUrl = dirtyUrl.replaceAll("https://", "");
 		result = "http://" + dirtyUrl;
 //		result = "http://www." + dirtyUrl;
-		_logger.info("Dirty-URL: " + dirtyUrl);
-		_logger.info("Clean-URL: " + result);
+		_logger.debug("Dirty-URL: " + dirtyUrl);
+		_logger.debug("Clean-URL: " + result);
 		return result;
 	}
 

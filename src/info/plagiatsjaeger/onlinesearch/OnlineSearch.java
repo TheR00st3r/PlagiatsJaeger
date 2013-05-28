@@ -57,10 +57,10 @@ public class OnlineSearch implements IOnlineSearch
 		URL_ARG_AUTH = settings.getSearchAuthArg();
 		URL_ARG_SEARCH = settings.getSearchSearchArg();
 
-		_logger.info("URL: " + URL);
-		_logger.info("URL_ARGS: " + URL_ARGS);
-		_logger.info("URL_ARG_AUTH: " + URL_ARG_AUTH);
-		_logger.info("URL_ARG_SEARCH: " + URL_ARG_SEARCH);
+		_logger.debug("URL: " + URL);
+		_logger.debug("URL_ARGS: " + URL_ARGS);
+		_logger.debug("URL_ARG_AUTH: " + URL_ARG_AUTH);
+		_logger.debug("URL_ARG_SEARCH: " + URL_ARG_SEARCH);
 	}
 
 	public ArrayList<String> search(String searchString, URL _URL)
@@ -129,7 +129,7 @@ public class OnlineSearch implements IOnlineSearch
 				}
 				searchString += words[i + j];
 			}
-			_logger.info(i + "/" + (words.length - SEARCH_SENTENCELENGTH) + " Suche nach: " + searchString);
+			_logger.debug(i + "/" + (words.length - SEARCH_SENTENCELENGTH) + " Suche nach: " + searchString);
 			try
 			{
 				// Auf beendigung des Threads mit 1s warten
@@ -215,7 +215,7 @@ public class OnlineSearch implements IOnlineSearch
 		{
 			searchString = URLEncoder.encode(searchString, CHARSET).replaceAll("[ \t\n\f\r]", "+");
 			String url = URL + URL_ARG_SEARCH + searchString + URL_ARGS + URL_ARG_AUTH;
-			_logger.info(url);
+			_logger.debug(url);
 			result = new URL(url);
 		}
 		catch (UnsupportedEncodingException e)
