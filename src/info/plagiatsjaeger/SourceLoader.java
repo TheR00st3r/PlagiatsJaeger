@@ -6,18 +6,14 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
-import org.mozilla.intl.chardet.nsDetector;
-import org.mozilla.intl.chardet.nsICharsetDetectionObserver;
 
 
 /**
@@ -66,10 +62,10 @@ public class SourceLoader
 				strUrl = cleanUrl(strUrl);
 			}
 			URL url = new URL(strUrl);
-			
+
 			BufferedInputStream inputStream = new BufferedInputStream(url.openStream());
 			byte[] array = IOUtils.toByteArray(inputStream);
-			
+
 			_detectedCharset = guessEncoding(array);
 			result = Jsoup.parse(url.openStream(), _detectedCharset, strUrl).text();
 
@@ -93,44 +89,6 @@ public class SourceLoader
 			return "FAIL IOException";
 		}
 		return result;
-	}
-
-	private void detectCharset(InputStream stream)
-	{
-		nsDetector detector = new nsDetector();
-		detector.Init(new nsICharsetDetectionObserver()
-		{
-			@Override
-			public void Notify(String charset)
-			{
-				_logger.info("Charset detected: " + charset);
-				_detectedCharset = charset;
-			}
-		});
-		BufferedInputStream bufferedInputStream;
-		try
-		{
-			bufferedInputStream = new BufferedInputStream(stream);
-			byte[] buffer = new byte[1024];
-			int length;
-			boolean done = false;
-			boolean isAscii = true;
-
-			while ((length = bufferedInputStream.read(buffer, 0, buffer.length)) != -1)
-			{
-				// Kontrollieren ob der Stream nur Ascii zeichen enthaelt
-				if (isAscii) isAscii = detector.isAscii(buffer, length);
-				// DoIt Wenn keine Ascii vorhanden sind und die detection noch
-				// nicht fertig ist
-				if (!isAscii && !done) done = detector.DoIt(buffer, length, false);
-			}
-			detector.DataEnd();
-		}
-		catch (IOException e)
-		{
-			_logger.fatal(e.getMessage(), e);
-			e.printStackTrace();
-		}
 	}
 
 	/**
