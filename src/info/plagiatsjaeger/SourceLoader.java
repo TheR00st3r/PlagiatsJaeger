@@ -190,12 +190,12 @@ public class SourceLoader
 				if (array[0] == -1 && array[1] == -2)
 				{
 					// UTF-16 big Endian
-					charset = "UTF-16BE";
+					charset = "UTF-16";
 				}
 				else if (array[0] == -2 && array[1] == -1)
 				{
 					// UTF-16 little Endian
-					charset = "UTF-16LE";
+					charset = "UTF-16";
 				}
 				else if (array.length >= 3 && array[0] == -17 && array[1] == -69 && array[2] == -65)
 				{
@@ -245,6 +245,20 @@ public class SourceLoader
 				}
 				if (charset == "UTF-8") stringBuilder.deleteCharAt(0);
 				result = stringBuilder.toString();
+				if(result.contains("ü") || result.contains("ä") || result.contains("�?") || result.contains("ö"))
+				{
+					try
+					{
+						byte[] bytes = result.getBytes("ISO-8859");
+						result = new String(bytes, "UTF-8");
+					}
+					catch (UnsupportedEncodingException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
 
 				try
 				{
