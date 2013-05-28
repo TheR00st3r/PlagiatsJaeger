@@ -13,7 +13,7 @@
 		{if $source.rtSourcedID}
 		<b>Dokument:</b> {$source.dOriginalName} <b>Autor:</b> {$source.dAuthor} <b>Besitzer:</b> {$source.uName}  {$source.uLastname} <b>Ordner:</b> {$source.fName}
 		{else}
-		<a target="_blank" href="{$source.rtSourceLink}">{$source.rtSourceLink}</a>
+		<a target="_blank" href="{$source.rtSourceLink|urldecode}">{$source.rtSourceLink|urldecode}</a>
 		{/if}
 	</div>
 	{/foreach}
