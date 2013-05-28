@@ -104,7 +104,7 @@ public class SourceLoader
 			byte[] array = IOUtils.toByteArray(inputStream);
 			charset = guessEncoding(array);
 
-			if (charset.equalsIgnoreCase("WINDOWS-1255"))
+			if (charset.equalsIgnoreCase("WINDOWS-1252"))
 			{
 				charset = "CP1252";
 			}
