@@ -33,7 +33,7 @@ public class Control
 	/**
 	 * Dateipfad fuer die Dateien auf dem Server.
 	 */
-	public  static final String		ROOT_FILES				= ConfigReader.getPropertyString("ROOTFILES");
+	public static final String		ROOT_FILES				= ConfigReader.getPropertyString("ROOTFILES");
 	private static final Logger		_logger					= Logger.getLogger(Control.class.getName());
 	private static final int		SIZE_THREADPOOL			= ConfigReader.getPropertyInt("THREADPOOLSIZE");
 	private static final int		NUM_CHECKS_IF_PARSED	= ConfigReader.getPropertyInt("PARSECHECKS");
@@ -47,7 +47,7 @@ public class Control
 	private ArrayList<Future<Void>>	_futuresSearch			= new ArrayList<Future<Void>>();
 
 	private double					_similarity				= 0.0;
-	
+
 	public Control(int rId)
 	{
 		if (rId > 0)
@@ -278,7 +278,7 @@ public class Control
 				succesful = false;
 			}
 		}
-		
+
 		long searchFinished = Calendar.getInstance().getTimeInMillis();
 
 		// Sicherstellen, dass alle Vergleiche fertiggestellt sind
@@ -332,7 +332,7 @@ public class Control
 			mySqlDatabaseHelper.setReportState(rId, ErrorCode.Error);
 		}
 		long end = Calendar.getInstance().getTimeInMillis();
-		_logger.info("Finished. Time: " + ((end-start)/1000) + "s (Search: " + ((searchFinished-start)/1000) + "s)");
+		_logger.info("Finished Report: " + rId + " Time: " + ((end - start) / 1000) + "s (Search: " + ((searchFinished - start) / 1000) + "s)");
 	}
 
 	/**
